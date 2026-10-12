@@ -1,0 +1,234 @@
+.service-section {
+  width: 100%;
+  padding: 120px 0;
+  font-family: var(--font-main);
+  overflow: hidden;
+}
+
+.service-container {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition-delay: var(--delay, 0s);
+}
+
+.fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-item {
+  height: 100%;
+}
+
+.service-card {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: var(--box-shadow);
+  isolation: isolate;
+}
+
+.service-card-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--bg-1);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.service-card-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(22, 25, 33, 0.84);
+}
+
+.service-card:hover .service-card-bg,
+.service-card:focus-within .service-card-bg {
+  clip-path: inset(0 0 0 0);
+}
+
+.service-card .content {
+  position: relative;
+  padding: 40px 30px 42px;
+}
+
+.service-card .number {
+  margin-bottom: 22px;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text2);
+  transition: -webkit-text-stroke-color 0.5s ease, transform 0.5s ease;
+}
+
+.service-card:hover .number,
+.service-card:focus-within .number {
+  -webkit-text-stroke-color: var(--theme);
+  transform: translateY(-2px);
+}
+
+.service-card h3 {
+  margin: 0 0 20px;
+  padding-bottom: 18px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  border-bottom: 1px solid var(--border-4);
+  transition: border-color 0.5s ease;
+}
+
+.service-card h3 a {
+  color: var(--title);
+  text-decoration: none;
+  transition: color 0.5s ease;
+}
+
+.service-card h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.service-card h3 a:focus-visible {
+  outline: none;
+}
+
+.service-card:focus-within {
+  outline: 2px solid var(--theme);
+  outline-offset: -2px;
+}
+
+.service-card .text {
+  margin: 0 0 28px;
+  font-size: 15px;
+  line-height: 26px;
+  color: var(--text);
+  transition: color 0.5s ease;
+}
+
+.service-card .icon {
+  display: inline-flex;
+  color: var(--theme);
+  transition: color 0.5s ease, transform 0.5s ease;
+}
+
+.service-card .icon svg {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+.service-card:hover h3,
+.service-card:focus-within h3 {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.service-card:hover h3 a,
+.service-card:focus-within h3 a,
+.service-card:hover .text,
+.service-card:focus-within .text,
+.service-card:hover .icon,
+.service-card:focus-within .icon {
+  color: var(--white);
+}
+
+.service-card:hover .icon,
+.service-card:focus-within .icon {
+  transform: translateY(-3px);
+}
+
+@media (max-width: 1199px) {
+  .service-section {
+    padding: 100px 0;
+  }
+
+  .service-grid {
+    gap: 24px;
+  }
+
+  .service-card .content {
+    padding: 36px 24px 38px;
+  }
+
+  .service-card h3 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 991px) {
+  .service-section {
+    padding: 80px 0;
+  }
+
+  .service-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fade-up {
+    --delay: 0s;
+  }
+}
+
+@media (max-width: 767px) {
+  .service-section {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 575px) {
+  .service-container {
+    padding: 0 12px;
+  }
+
+  .service-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .service-card .number {
+    font-size: 38px;
+  }
+
+  .service-card h3 {
+    font-size: 19px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .service-card-bg,
+  .service-card .number,
+  .service-card h3,
+  .service-card h3 a,
+  .service-card .text,
+  .service-card .icon {
+    transition: none;
+  }
+}

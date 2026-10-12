@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Outfit:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --body: #ffffff;
+  --black: #0a1118;
+  --white: #ffffff;
+  --navy: #0E2A47;
+  --navy-dark: #0A1C30;
+  --navy-light: #163B63;
+  --green: #157A3C;
+  --green-dark: #0D5D2D;
+  --green-light: #22C55E;
+  --orange: #E67E22;
+  --orange-light: #F39C12;
+  --theme: #157A3C;
+  --theme2: #f2f7f4;
+  --theme3: #0E2A47;
+  --title: #0E2A47;
+  --text: #475569;
+  --text2: #94A3B8;
+  --border: rgba(14, 42, 71, 0.16);
+  --border-2: #E2E8F0;
+  --border-3: #64748B;
+  --border-4: #CBD5E1;
+  --border-5: #334155;
+  --bg-1: #0A1828;
+  --box-shadow: 0px 8px 30px 0px rgba(10, 24, 40, 0.08);
+  --font-main: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-heading: "Outfit", "Plus Jakarta Sans", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  color: var(--text);
+  background-color: var(--white);
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-heading);
+  color: var(--title);
+}
+
+p {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  text-transform: none;
+}
+
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}

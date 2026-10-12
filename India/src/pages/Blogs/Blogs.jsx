@@ -1,0 +1,73 @@
+import { useSearchParams } from "react-router-dom";
+import PageBanner from "../../components/Breadcrumb/Breadcrumb";
+import Banner from "../../components/Banner/Banner";
+import BlogList from "../../components/BlogList/BlogList";
+import { PageLoader, PageError, Empty } from "../../components/Status";
+import { useApi, asset, slugify, splitTags } from "../../api";
+
+const DUMMY_BLOGS = [
+  {
+    slug: "statuario-vs-calacatta-marble-guide",
+    title: "Statuario vs Calacatta Marble: The Connoisseur’s Selection Guide",
+    category: "Marble Guides",
+    tags: "Italian Marble, Statuario, Calacatta",
+    author: "IE Marbles Curators",
+    excerpt: "Understand the subtle differences in veining, quarry origins, and translucency between Italy's most celebrated white marbles.",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&h=800&q=85",
+  },
+  {
+    slug: "honed-vs-polished-natural-stone-finishes",
+    title: "Honed vs Polished: Selecting the Ideal Finish for Floors & Facades",
+    category: "Architecture",
+    tags: "Finishes, Honed, Polished, Architecture",
+    author: "IE Marbles Tech Team",
+    excerpt: "Explore slip resistance, light refraction, and tactile depth across honed, leathered, and high-gloss polished marble finishes.",
+    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&h=800&q=85",
+  },
+  {
+    slug: "art-of-bookmatching-marble-slabs",
+    title: "The Art of Bookmatching: Turning Natural Marble Into Living Art",
+    category: "Stone Craft",
+    tags: "Bookmatching, Slabs, Interior Design",
+    author: "IE Marbles Artisans",
+    excerpt: "How mirror-cut adjacent slabs create symmetrical kaleidoscopic patterns that define luxury entry halls and master baths.",
+    image: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&h=800&q=85",
+  },
+];
+
+export default function Blogs() {
+  const { data, loading, error, reload } = useApi("/blogs");
+  const [params] = useSearchParams(); // ?category=  ?tag=  ?search=  ?author=
+
+  const category = params.get("category");
+  const tag = params.get("tag");
+  const author = (params.get("author") || "").toLowerCase();
+  const q = (params.get("search") || "").toLowerCase();
+  const filtered = !category && !tag && !author && !q ? false : true;
+
+  const sourceData = (data && data.length) ? data : DUMMY_BLOGS;
+
+  const posts = sourceData
+    .filter((p) =>
+      (!category || slugify(p.category) === category) &&
+      (!tag || splitTags(p.tags).some((t) => slugify(t) === tag)) &&
+      (!author || (p.author || "").toLowerCase() === author) &&
+      (!q || `${p.title} ${p.excerpt || ""}`.toLowerCase().includes(q))
+    )
+    .map((p) => ({ slug: p.slug, title: p.title, category: p.category || "", image: asset(p.image) }));
+
+  const label = q ? `Search: “${params.get("search")}”` : category || tag ? (sourceData || []).flatMap((p) => [p.category, ...splitTags(p.tags)]).find((c) => slugify(c) === (category || tag)) : author ? `Posts by ${params.get("author")}` : "";
+
+  return (
+    <>
+      <PageBanner
+        title={label || "Stone & Marble Journal"}
+        breadcrumbs={[{ label: "Home", path: "/" }, ...(filtered ? [{ label: "Blog", path: "/blogs" }] : []), { label: label || "Blog" }]}
+      />
+      {loading ? <PageLoader /> : error && !sourceData.length ? <PageError error={error} onRetry={reload} /> :
+        posts.length ? <BlogList posts={posts} /> :
+          <Empty title="No posts found" text={filtered ? "Try a different search or category." : "Blog posts added in the admin panel will appear here."} link={filtered && { to: "/blogs", label: "View all posts" }} />}
+      <Banner />
+    </>
+  );
+}

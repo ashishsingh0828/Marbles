@@ -1,0 +1,16 @@
+{
+  "name": "marbles-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "IE Marbles monorepo",
+  "scripts": {
+    "start": "node run.js",
+    "dev": "node run.js",
+    "server": "npm --prefix server start",
+    "india": "npm --prefix India run dev",
+    "admin": "npm --prefix admin run dev",
+    "build:india": "npm --prefix India run build",
+    "build:admin": "npm --prefix admin run build",
+    "build": "npm run build:india && npm run build:admin"
+  }
+}

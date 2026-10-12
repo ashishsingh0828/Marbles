@@ -1,0 +1,242 @@
+.project-section {
+  width: 100%;
+  padding: 120px 0;
+  font-family: var(--font-main);
+  overflow: hidden;
+}
+
+.project-container {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition-delay: var(--delay, 0s);
+}
+
+.fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-card.style4 .project-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 353 / 396;
+  overflow: hidden;
+  background: var(--theme2);
+}
+
+.project-card.style4 .project-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.project-card.style4 .project-thumb:hover img {
+  transform: scale(1.06);
+}
+
+.project-card.style4 .project-thumb .content {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  bottom: -24px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px;
+  background: var(--white);
+  transition: 0.4s;
+}
+
+.project-card.style4 .project-thumb:hover .content,
+.project-card.style4 .project-thumb:focus-within .content {
+  opacity: 1;
+  visibility: visible;
+  bottom: 24px;
+}
+
+.project-title-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  flex: 1;
+  min-width: 0;
+  margin: -10px 0 -10px -10px;
+  padding: 10px 10px 10px 20px;
+  color: var(--title);
+  text-decoration: none;
+  transition: color 0.4s ease;
+}
+
+.project-line {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px;
+  height: 40%;
+  background: var(--theme3);
+  transform: translateY(-50%);
+  transition: height 0.4s ease, background 0.4s ease;
+}
+
+.project-title-wrap h3 {
+  margin: 0;
+  overflow: hidden;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-title-wrap:hover,
+.project-title-wrap:focus-visible {
+  color: var(--theme);
+}
+
+.project-title-wrap:hover .project-line,
+.project-title-wrap:focus-visible .project-line {
+  height: 100%;
+  background: var(--theme);
+}
+
+.project-title-wrap:focus-visible {
+  outline: none;
+}
+
+.project-card.style4 .btn-wrap {
+  flex-shrink: 0;
+}
+
+.project-card.style4 .link-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--white);
+  background: var(--theme);
+  transition: background 0.4s ease;
+}
+
+.project-card.style4 .link-btn svg {
+  transition: transform 0.4s ease;
+}
+
+.project-card.style4 .link-btn:hover,
+.project-card.style4 .link-btn:focus-visible {
+  background: var(--title);
+  outline: none;
+}
+
+.project-card.style4 .link-btn:hover svg,
+.project-card.style4 .link-btn:focus-visible svg {
+  transform: translateX(4px);
+}
+
+@media (max-width: 1199px) {
+  .project-section {
+    padding: 100px 0;
+  }
+
+  .project-grid {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 991px) {
+  .project-section {
+    padding: 80px 0;
+  }
+
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fade-up {
+    --delay: 0s;
+  }
+}
+
+@media (max-width: 767px) {
+  .project-section {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 575px) {
+  .project-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .project-container {
+    padding: 0 12px;
+  }
+
+  .project-card.style4 .project-thumb .content {
+    left: 16px;
+    right: 16px;
+  }
+
+  .project-card.style4 .project-thumb:hover .content,
+  .project-card.style4 .project-thumb:focus-within .content {
+    bottom: 16px;
+  }
+
+  .project-title-wrap h3 {
+    font-size: 16px;
+  }
+
+  .project-card.style4 .link-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (hover: none) {
+  .project-card.style4 .project-thumb .content {
+    opacity: 1;
+    visibility: visible;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .project-card.style4 .project-thumb img,
+  .project-card.style4 .project-thumb .content,
+  .project-line,
+  .project-title-wrap,
+  .project-card.style4 .link-btn,
+  .project-card.style4 .link-btn svg {
+    transition: none;
+  }
+}

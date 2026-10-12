@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch All Sites in Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/India",
+      "preLaunchTask": "Start all"
+    },
+    {
+      "name": "India website in Chrome (3000)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/India"
+    },
+    {
+      "name": "Australia website in Chrome (3001)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3001",
+      "webRoot": "${workspaceFolder}/Australia"
+    },
+    {
+      "name": "Admin panel in Chrome (3002)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3002",
+      "webRoot": "${workspaceFolder}/admin"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Run all in Chrome",
+      "preLaunchTask": "Start all",
+      "configurations": [
+        "India website in Chrome (3000)",
+        "Australia website in Chrome (3001)",
+        "Admin panel in Chrome (3002)"
+      ]
+    }
+  ]
+}

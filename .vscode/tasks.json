@@ -1,0 +1,61 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "API server (5050)",
+      "type": "shell",
+      "command": "npm start",
+      "options": { "cwd": "${workspaceFolder}/server" },
+      "isBackground": true,
+      "presentation": { "group": "dev", "panel": "dedicated" },
+      "problemMatcher": { "pattern": { "regexp": "^x^" }, "background": { "activeBegins": true, "beginsPattern": ".", "endsPattern": "API ready" } }
+    },
+    {
+      "label": "India website (3000)",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": { "cwd": "${workspaceFolder}/India" },
+      "isBackground": true,
+      "presentation": { "group": "dev", "panel": "dedicated" },
+      "problemMatcher": { "pattern": { "regexp": "^x^" }, "background": { "activeBegins": true, "beginsPattern": ".", "endsPattern": "Local:" } }
+    },
+    {
+      "label": "Australia website (3001)",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": { "cwd": "${workspaceFolder}/Australia" },
+      "isBackground": true,
+      "presentation": { "group": "dev", "panel": "dedicated" },
+      "problemMatcher": { "pattern": { "regexp": "^x^" }, "background": { "activeBegins": true, "beginsPattern": ".", "endsPattern": "Local:" } }
+    },
+    {
+      "label": "Admin panel (3002)",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": { "cwd": "${workspaceFolder}/admin" },
+      "isBackground": true,
+      "presentation": { "group": "dev", "panel": "dedicated" },
+      "problemMatcher": { "pattern": { "regexp": "^x^" }, "background": { "activeBegins": true, "beginsPattern": ".", "endsPattern": "Local:" } }
+    },
+    {
+      "label": "Start all",
+      "dependsOn": [
+        "API server (5050)",
+        "India website (3000)",
+        "Australia website (3001)",
+        "Admin panel (3002)"
+      ],
+      "dependsOrder": "parallel",
+      "group": { "kind": "build", "isDefault": true },
+      "runOptions": { "runOn": "folderOpen" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Launch Direct in Chrome",
+      "type": "shell",
+      "command": "cmd.exe /c run.bat",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    }
+  ]
+}
