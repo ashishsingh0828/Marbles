@@ -38,10 +38,8 @@ services:
   # ---------------------------------------------------------------------------
   # 2. India Website - IE Marbles (Static Site)
   # ---------------------------------------------------------------------------
-  - type: web
+  - type: static
     name: marbles-india-site
-    runtime: static
-    plan: free
     rootDir: India
     buildCommand: npm install && npm run build
     staticPublishPath: dist
@@ -59,10 +57,8 @@ services:
   # ---------------------------------------------------------------------------
   # 3. Australia Website - KSD Homes (Static Site)
   # ---------------------------------------------------------------------------
-  - type: web
+  - type: static
     name: ksd-australia-site
-    runtime: static
-    plan: free
     rootDir: Australia
     buildCommand: npm install && npm run build
     staticPublishPath: dist
@@ -80,10 +76,8 @@ services:
   # ---------------------------------------------------------------------------
   # 4. Multi-Site Admin Panel (Static Site)
   # ---------------------------------------------------------------------------
-  - type: web
+  - type: static
     name: marbles-admin-panel
-    runtime: static
-    plan: free
     rootDir: admin
     buildCommand: npm install && npm run build
     staticPublishPath: dist
