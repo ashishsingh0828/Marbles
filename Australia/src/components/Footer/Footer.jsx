@@ -6,7 +6,7 @@ import "./Footer.css";
 const CTA_IMAGE = "/images/ksd-stone-02.jpg";
 
 const EXPLORE_LINKS = [
-  { id: "home", label: "Home", to: "/home" },
+  { id: "home", label: "Home", to: "/" },
   { id: "about", label: "About KSD Homes", to: "/about" },
   { id: "services", label: "Architectural Services", to: "/services" },
   { id: "projects", label: "Project Portfolio", to: "/projects" },

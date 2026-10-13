@@ -1,6 +1,6 @@
 import React from 'react'
 import Breadcrumb from '../components/Breadcrumb/Breadcrumb'
-import Blog from '../components/Blogs/BLog'
+import Blog from '../components/Blogs/Blog'
 
 function Blogs() {
   return (

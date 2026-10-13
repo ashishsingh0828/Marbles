@@ -21,7 +21,7 @@ function Page() {
   return (
     <main className="page-fade" key={pathname}>
       <Routes>
-        <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<Abouts />} />
         <Route path="/services" element={<Services />} />

@@ -23,14 +23,18 @@
    ===================================================================== */
 
 // Empty = same origin (Vite proxies /api and /uploads to port 5050). Set VITE_API_URL in production.
-const rawBase = import.meta.env.VITE_API_URL ?? "";
-export const BASE = rawBase && !rawBase.startsWith("http") ? `https://${rawBase}` : rawBase;
+const normalizeUrl = (u) => {
+  if (!u) return "";
+  return u.startsWith("http://") || u.startsWith("https://") ? u : `https://${u}`;
+};
+
+export const BASE = normalizeUrl(import.meta.env.VITE_API_URL ?? "");
 export const MOCK = import.meta.env.VITE_USE_MOCK === "true";
 
 /* Which website's content is being edited. Every item is stored with its site key, so the two websites never share data. */
 export const SITES = [
-  { key: "india", label: "India", url: import.meta.env.VITE_INDIA_URL || "http://localhost:3000" },
-  { key: "australia", label: "Australia", url: import.meta.env.VITE_AUSTRALIA_URL || "http://localhost:3001" },
+  { key: "india", label: "India", url: normalizeUrl(import.meta.env.VITE_INDIA_URL) || "http://localhost:3000" },
+  { key: "australia", label: "Australia", url: normalizeUrl(import.meta.env.VITE_AUSTRALIA_URL) || "http://localhost:3001" },
 ];
 export const getSite = () => (SITES.some((s) => s.key === localStorage.getItem("admin_site")) ? localStorage.getItem("admin_site") : SITES[0].key);
 export const setSite = (s) => localStorage.setItem("admin_site", s);

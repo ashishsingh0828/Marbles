@@ -4,7 +4,7 @@ import { BRAND } from "../../config";
 import "./Header.css";
 
 const MENU = [
-  { label: "Home", href: "/home" },
+  { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Projects", href: "/projects" },
@@ -62,7 +62,7 @@ export default function Header() {
       {/* Main Navbar */}
       <div className="ksd-nav-wrap">
         <div className="ksd-nav-inner">
-          <Link to="/home" className="ksd-brand-logo" aria-label="KSD Homes Home">
+          <Link to="/" className="ksd-brand-logo" aria-label="KSD Homes Home">
             <img src={BRAND.logo || "/images/logo/logo.jpeg"} alt="KSD Homes Logo" className="ksd-logo-img" />
           </Link>
 
