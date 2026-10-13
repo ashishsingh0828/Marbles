@@ -75,22 +75,22 @@ const IconCare = () => (
 const REASONS = [
   {
     title: "Hand-selected natural slabs",
-    text: "Every slab is chosen in person for colour, veining and thickness, so only the best stone reaches your home.",
+    text: "Every slab is chosen in person from Italian and Greek quarries for colour, veining and density, ensuring only exceptional stone reaches your residence.",
     Icon: IconSlab,
   },
   {
-    title: "Vein-matched installation",
-    text: "Our fitters book-match and align the veining across joints, so large walls and floors read as one continuous surface.",
+    title: "Continuous vein flow",
+    text: "Our master masons 3D dry-lay and bookmatch every vein across waterfall islands, floor joints, and wall panels for harmonious visual continuity.",
     Icon: IconMatch,
   },
   {
-    title: "Clear pricing, no surprises",
-    text: "You approve the exact slab and a fixed, itemised quote before any cutting begins.",
+    title: "Transparent bespoke contracts",
+    text: "You inspect the exact slab and receive an itemised, fixed-price quote before CNC cutting begins.",
     Icon: IconPrice,
   },
   {
-    title: "Sealed and cared for",
-    text: "Each surface is sealed after installation, and we give you a simple care guide to keep the polish for years.",
+    title: "Fluoropolymer sealing & care",
+    text: "Surfaces are deeply treated with hospital-grade breathable fluoropolymer sealers to protect against moisture and etching.",
     Icon: IconCare,
   },
 ];

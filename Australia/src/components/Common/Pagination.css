@@ -1,0 +1,49 @@
+.ksd-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: clamp(40px, 6vw, 70px);
+  padding: 20px 0;
+  width: 100%;
+}
+
+.ksd-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 48px;
+  padding: 0 14px;
+  font-family: var(--font-heading, "Outfit", sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy, #0E2A47);
+  background: #ffffff;
+  border: 1.5px solid rgba(14, 42, 71, 0.18);
+  border-radius: 0 !important;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.ksd-page-btn:not(:disabled):hover {
+  background: var(--orange, #E67E22);
+  border-color: var(--orange, #E67E22);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(230, 126, 34, 0.25);
+}
+
+.ksd-page-btn.is-active {
+  background: var(--green, #157A3C);
+  border-color: var(--green, #157A3C);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(21, 122, 60, 0.25);
+}
+
+.ksd-page-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-color: rgba(14, 42, 71, 0.1);
+}

@@ -2,15 +2,18 @@
   "name": "marbles-root",
   "version": "1.0.0",
   "private": true,
-  "description": "IE Marbles monorepo",
+  "description": "IE Marbles (India) & KSD Homes (Australia) Full Stack",
   "scripts": {
     "start": "node run.js",
     "dev": "node run.js",
     "server": "npm --prefix server start",
     "india": "npm --prefix India run dev",
+    "australia": "npm --prefix Australia run dev",
     "admin": "npm --prefix admin run dev",
     "build:india": "npm --prefix India run build",
+    "build:australia": "npm --prefix Australia run build",
     "build:admin": "npm --prefix admin run build",
-    "build": "npm run build:india && npm run build:admin"
+    "build": "npm run build:india && npm run build:australia && npm run build:admin",
+    "pinggy": "node run-pinggy-both.js"
   }
 }

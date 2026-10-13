@@ -12,21 +12,21 @@ const TESTIMONIALS = [
     role: "Vaucluse Residence, Sydney",
     rating: 5,
     avatar: "",
-    text: "Building our dream home with KSD Homes was an exceptional journey. The bespoke architectural layout, grand double-height foyer, and bookmatched Calacatta kitchen island exceeded every expectation.",
+    text: "Working with KSD Homes transformed our entire living space. The bespoke interior layout, 4-metre mitered Calacatta kitchen island, and bookmatched living room wall exceeded every expectation.",
   },
   {
     name: "Harrison Wright",
-    role: "Luxury Property Developer, Melbourne",
+    role: "Luxury Penthouse Owner, Melbourne",
     rating: 5,
     avatar: "",
-    text: "KSD Homes delivers master construction and stone craftsmanship at the highest tier. Their precision, adherence to timeline, and material quality are unmatched in Australia.",
+    text: "KSD Homes delivers interior stone craftsmanship at the highest tier in Australia. Their spatial planning, adherence to timeline, and flawless stone finishing are simply extraordinary.",
   },
   {
     name: "Amelia Hart",
-    role: "Principal Interior Architect, Sydney",
+    role: "Senior Interior Architect, Sydney",
     rating: 5,
     avatar: "",
-    text: "I collaborate with KSD Homes on high-end luxury residences. The slabs arrive immaculate, the masonry joints are calibrated to perfection, and our clients are always thrilled with the finished estate.",
+    text: "I regularly collaborate with KSD Homes on high-end residential interiors. The slabs arrive immaculate, the joints are calibrated to sub-millimeter precision, and our clients are always thrilled.",
   },
 ];
 

@@ -31,21 +31,27 @@ const australia = run("npm", ["run", "dev"], "Australia", "AUSTRALIA");
 console.log("-> Starting Admin Panel (Port 3002)...");
 const admin = run("npm", ["run", "dev"], "admin", "ADMIN");
 
-// 5. Open in Chrome after a brief delay
+// 5. Start Pinggy Public Tunnels
+console.log("-> Starting Pinggy Public Tunnels (Both Sites)...");
+const pinggy = run("node", ["run-pinggy-both.js"], ".", "PINGGY");
+
+// 6. Open in Chrome after a brief delay
 setTimeout(() => {
-  console.log("\n-> Opening Chrome for India (http://localhost:3000) and Australia (http://localhost:3001) ...\n");
-  exec('start chrome "http://localhost:3000" "http://localhost:3001"', (err) => {
+  console.log("\n-> Opening Chrome for India (http://localhost:3000), Australia (http://localhost:3001) and Admin (http://localhost:3002) ...\n");
+  exec('start chrome "http://localhost:3000" "http://localhost:3001" "http://localhost:3002"', (err) => {
     if (err) {
       exec('start "" "http://localhost:3000"');
       exec('start "" "http://localhost:3001"');
+      exec('start "" "http://localhost:3002"');
     }
   });
 }, 3500);
 
 process.on("SIGINT", () => {
-  server.kill();
-  india.kill();
-  australia.kill();
-  admin.kill();
+  try { server.kill(); } catch (e) {}
+  try { india.kill(); } catch (e) {}
+  try { australia.kill(); } catch (e) {}
+  try { admin.kill(); } catch (e) {}
+  try { pinggy.kill(); } catch (e) {}
   process.exit();
 });

@@ -1,0 +1,376 @@
+/* =========================================================
+   KSD HOMES - DISTINCT ABOUT PAGE STYLING
+   ========================================================= */
+.ksd-about-page {
+  width: 100%;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+/* 1. Main Studio Intro Section */
+.ksd-about-intro {
+  padding: clamp(80px, 9vw, 130px) 0;
+  background: #ffffff;
+}
+
+.ksd-about-intro__container {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  align-items: center;
+  gap: clamp(40px, 6vw, 80px);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+
+.ksd-about-intro__visual {
+  position: relative;
+  width: 100%;
+}
+
+.ksd-about-intro__main-img {
+  width: 82%;
+  aspect-ratio: 4 / 4.8;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(14, 42, 71, 0.2);
+}
+
+.ksd-about-intro__main-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease;
+}
+
+.ksd-about-intro__main-img:hover img {
+  transform: scale(1.05);
+}
+
+.ksd-about-intro__sub-img {
+  position: absolute;
+  right: 0;
+  bottom: -40px;
+  width: 48%;
+  aspect-ratio: 1 / 1;
+  border: 8px solid #ffffff;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(14, 42, 71, 0.2);
+}
+
+.ksd-about-intro__sub-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ksd-about-intro__badge {
+  position: absolute;
+  top: 24px;
+  right: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #ffffff;
+  padding: 14px 20px;
+  box-shadow: 0 12px 30px rgba(14, 42, 71, 0.15);
+  border-left: 3px solid var(--green, #157A3C);
+}
+
+.ksd-about-intro__logo {
+  width: 60px;
+  height: auto;
+  object-fit: contain;
+}
+
+.ksd-about-intro__badge span {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--navy, #0E2A47);
+}
+
+.ksd-about-intro__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  margin-bottom: 18px;
+  background: rgba(21, 122, 60, 0.08);
+  border-left: 3px solid var(--green, #157A3C);
+  color: var(--green, #157A3C);
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ksd-about-intro__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green, #157A3C);
+}
+
+.ksd-about-intro__title {
+  margin: 0 0 20px;
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 800;
+  line-height: 1.18;
+  color: var(--navy, #0E2A47);
+}
+
+.ksd-about-intro__lead {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--green, #157A3C);
+  margin-bottom: 14px;
+}
+
+.ksd-about-intro__text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #475569;
+  margin-bottom: 30px;
+}
+
+.ksd-about-intro__stats {
+  display: flex;
+  gap: clamp(20px, 3vw, 40px);
+  padding: 24px 0;
+  margin-bottom: 32px;
+  border-top: 1px solid rgba(14, 42, 71, 0.12);
+  border-bottom: 1px solid rgba(14, 42, 71, 0.12);
+}
+
+.ksd-about-intro__stat h3 {
+  font-family: var(--font-heading);
+  font-size: clamp(26px, 2.4vw, 34px);
+  font-weight: 800;
+  color: var(--orange, #E67E22);
+  margin: 0 0 4px;
+  line-height: 1;
+}
+
+.ksd-about-intro__stat p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* 2. Core Pillars / Philosophies */
+.ksd-about-phil {
+  padding: clamp(70px, 8vw, 110px) 0;
+  background: #F8FAFC;
+}
+
+.ksd-about-phil__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+
+.ksd-about-phil__head {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto clamp(40px, 5vw, 60px);
+}
+
+.ksd-about-phil__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  margin-bottom: 16px;
+  background: rgba(230, 126, 34, 0.08);
+  border-left: 3px solid var(--orange, #E67E22);
+  color: var(--orange, #E67E22);
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ksd-about-phil__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--orange, #E67E22);
+}
+
+.ksd-about-phil__head h2 {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 800;
+  color: var(--navy, #0E2A47);
+  line-height: 1.2;
+}
+
+.ksd-about-phil__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.ksd-phil-card {
+  background: #ffffff;
+  padding: 40px 32px;
+  border: 1px solid rgba(14, 42, 71, 0.08);
+  box-shadow: 0 10px 30px rgba(14, 42, 71, 0.04);
+  transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.ksd-phil-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--green, #157A3C);
+}
+
+.ksd-phil-card__num {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--orange, #E67E22);
+  margin-bottom: 18px;
+}
+
+.ksd-phil-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  color: var(--navy, #0E2A47);
+}
+
+.ksd-phil-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #64748B;
+  margin: 0;
+}
+
+/* 3. Studio Timeline */
+.ksd-about-timeline {
+  padding: clamp(70px, 8vw, 110px) 0;
+  background: #ffffff;
+}
+
+.ksd-about-timeline__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+
+.ksd-about-timeline__head {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto clamp(40px, 5vw, 60px);
+}
+
+.ksd-about-timeline__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  margin-bottom: 16px;
+  background: rgba(21, 122, 60, 0.08);
+  border-left: 3px solid var(--green, #157A3C);
+  color: var(--green, #157A3C);
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ksd-about-timeline__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green, #157A3C);
+}
+
+.ksd-about-timeline__head h2 {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 800;
+  color: var(--navy, #0E2A47);
+  line-height: 1.2;
+}
+
+.ksd-about-timeline__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.ksd-timeline-card {
+  padding: 30px 24px;
+  background: #F8FAFC;
+  border-top: 3px solid var(--navy, #0E2A47);
+  transition: all 0.3s ease;
+}
+
+.ksd-timeline-card:hover {
+  background: #ffffff;
+  border-top-color: var(--green, #157A3C);
+  box-shadow: 0 15px 30px rgba(14, 42, 71, 0.08);
+  transform: translateY(-4px);
+}
+
+.ksd-timeline-card__year {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--green, #157A3C);
+  margin-bottom: 12px;
+}
+
+.ksd-timeline-card h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy, #0E2A47);
+  margin: 0 0 10px;
+}
+
+.ksd-timeline-card p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #64748B;
+  margin: 0;
+}
+
+@media (max-width: 991px) {
+  .ksd-about-intro__container {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  .ksd-about-phil__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ksd-about-timeline__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .ksd-about-phil__grid {
+    grid-template-columns: 1fr;
+  }
+  .ksd-about-timeline__grid {
+    grid-template-columns: 1fr;
+  }
+  .ksd-about-intro__stats {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

@@ -22,8 +22,9 @@
    Image fields arrive as a File (new upload), a URL string (unchanged) or "" (removed).
    ===================================================================== */
 
-// Empty = same origin (Vite proxies /api and /uploads to port 5000). Set VITE_API_URL in production.
-export const BASE = import.meta.env.VITE_API_URL ?? "";
+// Empty = same origin (Vite proxies /api and /uploads to port 5050). Set VITE_API_URL in production.
+const rawBase = import.meta.env.VITE_API_URL ?? "";
+export const BASE = rawBase && !rawBase.startsWith("http") ? `https://${rawBase}` : rawBase;
 export const MOCK = import.meta.env.VITE_USE_MOCK === "true";
 
 /* Which website's content is being edited. Every item is stored with its site key, so the two websites never share data. */

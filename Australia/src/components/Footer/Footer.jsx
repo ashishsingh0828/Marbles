@@ -234,14 +234,14 @@ export default function Footer() {
           <div className="ft-cta-copy">
             <span className="ft-eyebrow ft-item" style={{ "--i": 0 }}>
               <span className="ft-eyebrow-line" />
-              BUILD WITH AUSTRALIA&apos;S FINEST
+              BESPOKE AUSTRALIAN INTERIOR DESIGN
             </span>
             <h2 className="ft-cta-title ft-item" style={{ "--i": 1 }}>
-              Let&apos;s build your <em>dream home</em> in timeless architectural stone
+              Let&apos;s transform your <em>residence</em> in timeless architectural stone
             </h2>
           </div>
           <div className="ft-cta-action ft-item" style={{ "--i": 2 }}>
-            <CtaButton to="/contact">Book A Design Consultation</CtaButton>
+            <CtaButton to="/contact">Book An Interior Consultation</CtaButton>
           </div>
         </div>
       </div>

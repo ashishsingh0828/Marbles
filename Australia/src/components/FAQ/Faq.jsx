@@ -10,23 +10,23 @@ const DECO_IMAGE_B = "/images/ksd-stone-46.jpg";
 const ITEMS = [
   {
     id: 1,
-    title: "Full Turnkey Custom Home Construction",
-    text: "From architectural drafting, engineering, and council development approvals (DA/CDC) to the final handover, KSD Homes manages every step with transparent fixed-price contracts and Australian building warranty.",
+    title: "Complete Bespoke Interior Spatial Curation",
+    text: "From concept mood boards, 3D photorealistic renderings, and cabinetry detailing to final installation, KSD Homes handles your interior journey with dedicated Australian project managers.",
   },
   {
     id: 2,
-    title: "Direct Quarry Natural Stone Importation",
-    text: "We directly import premium marble, quartzite, and granite slabs from world-class quarries in Carrara, Greece, Spain, and Turkey, avoiding middleman markups and ensuring continuous veining consistency.",
+    title: "Direct European Quarry Stone Importation",
+    text: "We directly import premium marble, quartzite, and travertine slabs from world-class quarries in Carrara, Greece, Spain, and Turkey, guaranteeing continuous veining consistency without middleman markups.",
   },
   {
     id: 3,
-    title: "Certified Australian Standards & Master Masonry",
-    text: "Every foundation, frame, and stone surface is engineered and laid strictly to National Construction Code (NCC) and Australian Standards (AS 3958.1) by licensed builders and master stonemasons.",
+    title: "Sub-Millimeter 45° Mitered Waterfall Islands",
+    text: "Our Italian CNC bridge saws and master stonemasons fabricate seamless 45-degree mitered edges where the marble vein cascades uninterrupted from benchtop to floor.",
   },
   {
     id: 4,
-    title: "Deep Fluoropolymer Sealing & Surface Protection",
-    text: "All natural marble and quartzite surfaces installed by KSD Homes receive hospital-grade penetrating fluoropolymer sealers to shield against oil, wine, etching, and moisture for years of effortless beauty.",
+    title: "Deep Fluoropolymer Nano-Sealing & Protection",
+    text: "All interior stone installations receive commercial-grade penetrating fluoropolymer sealers to shield against moisture, wine, oils, and etching while preserving the natural tactile luxury of the stone.",
   },
 ];
 
@@ -210,7 +210,7 @@ function LearnMoreButton() {
       onMouseLeave={placeBackground}
     >
       <span className="fq-btn-bg" ref={bgRef} />
-      <span className="fq-btn-text">Consult Our Builders</span>
+      <span className="fq-btn-text">Consult Our Designers</span>
       <span className="fq-btn-icon">
         <ArrowIcon />
       </span>

@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import PageBanner from "../../components/Breadcrumb/Breadcrumb";
 import Banner from "../../components/Banner/Banner";
 import BlogList from "../../components/BlogList/BlogList";
+import Pagination from "../../components/Common/Pagination";
 import { PageLoader, PageError, Empty } from "../../components/Status";
 import { useApi, asset, slugify, splitTags } from "../../api";
 
@@ -38,6 +40,8 @@ const DUMMY_BLOGS = [
 export default function Blogs() {
   const { data, loading, error, reload } = useApi("/blogs");
   const [params] = useSearchParams(); // ?category=  ?tag=  ?search=  ?author=
+  const [page, setPage] = useState(1);
+  const pageSize = 9;
 
   const category = params.get("category");
   const tag = params.get("tag");
@@ -56,6 +60,9 @@ export default function Blogs() {
     )
     .map((p) => ({ slug: p.slug, title: p.title, category: p.category || "", image: asset(p.image) }));
 
+  const startIndex = (page - 1) * pageSize;
+  const paginatedPosts = posts.slice(startIndex, startIndex + pageSize);
+
   const label = q ? `Search: “${params.get("search")}”` : category || tag ? (sourceData || []).flatMap((p) => [p.category, ...splitTags(p.tags)]).find((c) => slugify(c) === (category || tag)) : author ? `Posts by ${params.get("author")}` : "";
 
   return (
@@ -65,8 +72,19 @@ export default function Blogs() {
         breadcrumbs={[{ label: "Home", path: "/" }, ...(filtered ? [{ label: "Blog", path: "/blogs" }] : []), { label: label || "Blog" }]}
       />
       {loading ? <PageLoader /> : error && !sourceData.length ? <PageError error={error} onRetry={reload} /> :
-        posts.length ? <BlogList posts={posts} /> :
-          <Empty title="No posts found" text={filtered ? "Try a different search or category." : "Blog posts added in the admin panel will appear here."} link={filtered && { to: "/blogs", label: "View all posts" }} />}
+        posts.length ? (
+          <>
+            <BlogList posts={paginatedPosts} />
+            <Pagination
+              currentPage={page}
+              totalItems={posts.length}
+              pageSize={pageSize}
+              onPageChange={setPage}
+            />
+          </>
+        ) : (
+          <Empty title="No posts found" text={filtered ? "Try a different search or category." : "Blog posts added in the admin panel will appear here."} link={filtered && { to: "/blogs", label: "View all posts" }} />
+        )}
       <Banner />
     </>
   );

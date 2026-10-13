@@ -225,16 +225,16 @@
   transition: transform 0.7s var(--ease), background 0.5s, color 0.5s;
 }
 .wc.is-visible .wc__cta:hover {
-  color: var(--night-deep);
+  color: #ffffff;
   translate: 0 -3px;
-  box-shadow: 0 0 0 1px var(--gold-light), 0 22px 34px -16px rgba(154, 106, 63, 0.8);
+  box-shadow: 0 12px 28px rgba(230, 126, 34, 0.4);
 }
 .wc__cta:hover::before {
   transform: translateX(0);
 }
 .wc__cta:hover .wc__cta-icon {
-  color: var(--gold-light);
-  background: var(--night-deep);
+  color: #ffffff;
+  background: var(--navy, #0E2A47);
   transform: rotate(45deg);
 }
 .wc__cta:active {

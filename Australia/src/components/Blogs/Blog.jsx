@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useApi, asset, fmtDate } from "../../api";
 import "./Blog.css";
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 9;
 
 const FALLBACK_POSTS = [
   { id: 1, slug: "architectural-marble-trends-australia", category: "Trends", date: "October 10, 2026", comments: 4, title: "Architectural Marble Trends Transforming Modern Australian Waterfront Homes", image: "/images/ksd-stone-27.jpg" },

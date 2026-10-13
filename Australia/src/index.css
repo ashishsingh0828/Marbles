@@ -103,3 +103,116 @@ button:not(:disabled) {
 ::-webkit-scrollbar-track {
   background: #f1f5f9;
 }
+
+/* =========================================================
+   KSD HOMES - SIGNATURE SQUARE BUTTONS & HOVER EFFECTS
+   ========================================================= */
+.ksd-btn,
+.btn-primary,
+.link-btn-sq {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 54px;
+  padding: 0 34px;
+  background-color: var(--green, #157A3C);
+  color: #ffffff !important;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 0;
+  border-radius: 0 !important;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.ksd-btn::before,
+.btn-primary::before,
+.link-btn-sq::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--orange, #E67E22);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: -1;
+}
+
+.ksd-btn:hover::before,
+.ksd-btn:focus-visible::before,
+.btn-primary:hover::before,
+.btn-primary:focus-visible::before,
+.link-btn-sq:hover::before,
+.link-btn-sq:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.ksd-btn--orange {
+  background-color: var(--orange, #E67E22);
+}
+
+.ksd-btn--orange::before {
+  background-color: var(--green, #157A3C);
+}
+
+.ksd-btn--outline {
+  background: transparent;
+  color: var(--navy, #0E2A47) !important;
+  border: 1.5px solid var(--navy, #0E2A47);
+}
+
+.ksd-btn--outline::before {
+  background-color: var(--navy, #0E2A47);
+}
+
+.ksd-btn--outline:hover {
+  color: #ffffff !important;
+}
+
+.ksd-btn--white {
+  background: #ffffff;
+  color: var(--navy, #0E2A47) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.ksd-btn--white::before {
+  background-color: var(--orange, #E67E22);
+}
+
+.ksd-btn--white:hover {
+  color: #ffffff !important;
+}
+
+/* =========================================================
+   PAGE FADE & REFRESH TRANSITION
+   ========================================================= */
+.page-fade {
+  animation: ksd-page-in 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes ksd-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-fade {
+    animation: none;
+  }
+}
+
+

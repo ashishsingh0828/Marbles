@@ -187,6 +187,8 @@ function ServiceCard({ service, index }) {
 
 function Service() {
   const { data } = useApi("/services");
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 9;
 
   const services = (data && data.length > 0)
     ? data.map((s, idx) => ({
@@ -200,14 +202,42 @@ function Service() {
       }))
     : FALLBACK_SERVICES;
 
+  const startIndex = (currentPage - 1) * pageSize;
+  const paginatedServices = services.slice(startIndex, startIndex + pageSize);
+
   return (
     <section className="service-section">
       <div className="service-container">
         <div className="service-grid">
-          {services.map((service, index) => (
+          {paginatedServices.map((service, index) => (
             <ServiceCard key={service.id} service={service} index={index} />
           ))}
         </div>
+
+        {services.length > pageSize && (
+          <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: "30px" }}>
+            <nav className="ksd-pagination" aria-label="Page navigation" style={{ display: "flex", gap: "10px" }}>
+              {Array.from({ length: Math.ceil(services.length / pageSize) }, (_, i) => i + 1).map((pg) => (
+                <button
+                  key={pg}
+                  type="button"
+                  style={{
+                    minWidth: "46px",
+                    height: "46px",
+                    border: "1.5px solid rgba(14, 42, 71, 0.2)",
+                    background: currentPage === pg ? "var(--green, #157A3C)" : "#fff",
+                    color: currentPage === pg ? "#fff" : "var(--navy, #0E2A47)",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setCurrentPage(pg)}
+                >
+                  {String(pg).padStart(2, "0")}
+                </button>
+              ))}
+            </nav>
+          </div>
+        )}
       </div>
     </section>
   );

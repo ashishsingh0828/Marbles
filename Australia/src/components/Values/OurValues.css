@@ -7,16 +7,16 @@
    dark green-black for contrast.
    ========================================================= */
 .ov {
-  --stone: #efe9e0;
-  --stone-light: #f7f3ec;
-  --stone-deep: #e4dccf;
-  --ink: #1f1a17;
-  --ink-soft: #5c534b;
-  --bronze: #9a6a3f;
-  --gold: #c9a063;
-  --gold-light: #e6cd9b;
-  --night: #14211d;
-  --line: rgba(154, 106, 63, 0.28);
+  --stone: #f8fafc;
+  --stone-light: #ffffff;
+  --stone-deep: #f1f5f9;
+  --ink: #0E2A47;
+  --ink-soft: #475569;
+  --bronze: #157A3C;
+  --gold: #E67E22;
+  --gold-light: #F39C12;
+  --night: #0A1C30;
+  --line: rgba(21, 122, 60, 0.2);
 
   --ease: cubic-bezier(0.22, 0.8, 0.24, 1);
 
@@ -24,10 +24,10 @@
   overflow: hidden;
   padding: clamp(64px, 9vw, 130px) clamp(20px, 5vw, 72px);
   color: var(--ink);
-  font-family: "Manrope", system-ui, sans-serif;
+  font-family: var(--font-main, "Plus Jakarta Sans", sans-serif);
   background:
-    radial-gradient(900px 500px at 8% 0%, rgba(255, 255, 255, 0.75), transparent 60%),
-    radial-gradient(700px 500px at 100% 100%, rgba(201, 160, 99, 0.16), transparent 60%),
+    radial-gradient(900px 500px at 8% 0%, rgba(21, 122, 60, 0.05), transparent 60%),
+    radial-gradient(700px 500px at 100% 100%, rgba(230, 126, 34, 0.06), transparent 60%),
     linear-gradient(160deg, var(--stone-light) 0%, var(--stone) 55%, var(--stone-deep) 100%);
 }
 

@@ -1,6 +1,6 @@
 .gallery-section {
   --gallery-gap: 18px;
-  --gallery-dark: #262f38;
+  --gallery-dark: #0A1C30;
   width: 100%;
   overflow: hidden;
   font-family: var(--font-main);
@@ -24,7 +24,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: rgba(38, 47, 56, 0.9);
+  background: rgba(10, 28, 48, 0.92);
 }
 
 .fade-up {
@@ -100,7 +100,7 @@
   top: 0;
   z-index: -1;
   height: calc((100% - 80px) * 0.64);
-  background: rgba(38, 47, 56, 0.9);
+  background: rgba(10, 28, 48, 0.92);
 }
 
 .gallery-slider {

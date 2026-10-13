@@ -4,10 +4,10 @@ export const SITE = "australia";
 
 export const BRAND = {
   name: "KSD Homes",
-  tagline: "Luxury Home Building & Architectural Stone",
+  tagline: "Luxury Interior Design & Architectural Stone",
   fullName: "KSD Homes Australia",
   about:
-    "Australia's premier bespoke home builders and luxury stone specialists — crafting extraordinary residential spaces with precision engineering, master craftsmanship, and timeless natural marble and granite.",
+    "Australia's premier luxury interior design and architectural stone specialists — curating breathtaking residential spaces with precision stonemasonry, custom waterfall islands, and timeless European marble.",
   phone: "+61 400 000 000",
   phoneHref: "tel:+61400000000",
   email: "info@ksdhomes.com.au",

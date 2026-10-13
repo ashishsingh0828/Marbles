@@ -161,10 +161,10 @@ function GallerySlider({ background = BG_IMAGE, items = GALLERY_ITEMS }) {
         >
           <div className="gallery-subtitle">
             <span className="line" />
-            <span className="text">Our Marblex Gallery</span>
+            <span className="text">KSD HOMES PORTFOLIO</span>
             <span className="line" />
           </div>
-          <h2 className="gallery-title">We Specialization In Marblex</h2>
+          <h2 className="gallery-title">Signature Residential Stone Curation</h2>
         </div>
       </div>
 

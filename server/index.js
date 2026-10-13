@@ -15,7 +15,10 @@ const { UPLOADS } = require("./utils/files");
 
 const app = express();
 app.set("trust proxy", 1);
-app.use(cors({ origin: (process.env.CORS_ORIGINS || "http://localhost:3000,http://localhost:3001,http://localhost:3002").split(",").map((s) => s.trim()) }));
+const corsOrigin = process.env.CORS_ORIGINS === "*" || !process.env.CORS_ORIGINS
+  ? true
+  : process.env.CORS_ORIGINS.split(",").map((s) => s.trim());
+app.use(cors({ origin: corsOrigin, credentials: true }));
 app.use(express.json({ limit: "1mb" }));
 app.use("/uploads", express.static(UPLOADS, { maxAge: "7d" }));
 

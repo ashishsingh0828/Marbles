@@ -93,6 +93,8 @@ function ProjectCard({ project, index }) {
 
 function Project() {
   const { data } = useApi("/projects");
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 9;
 
   const projects = (data && data.length > 0)
     ? data.map((p, idx) => ({
@@ -104,14 +106,42 @@ function Project() {
       }))
     : FALLBACK_PROJECTS;
 
+  const startIndex = (currentPage - 1) * pageSize;
+  const paginatedProjects = projects.slice(startIndex, startIndex + pageSize);
+
   return (
     <section className="project-section">
       <div className="project-container">
         <div className="project-grid">
-          {projects.map((project, index) => (
+          {paginatedProjects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
+
+        {projects.length > pageSize && (
+          <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: "30px" }}>
+            <nav className="ksd-pagination" aria-label="Page navigation" style={{ display: "flex", gap: "10px" }}>
+              {Array.from({ length: Math.ceil(projects.length / pageSize) }, (_, i) => i + 1).map((pg) => (
+                <button
+                  key={pg}
+                  type="button"
+                  style={{
+                    minWidth: "46px",
+                    height: "46px",
+                    border: "1.5px solid rgba(14, 42, 71, 0.2)",
+                    background: currentPage === pg ? "var(--green, #157A3C)" : "#fff",
+                    color: currentPage === pg ? "#fff" : "var(--navy, #0E2A47)",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setCurrentPage(pg)}
+                >
+                  {String(pg).padStart(2, "0")}
+                </button>
+              ))}
+            </nav>
+          </div>
+        )}
       </div>
     </section>
   );

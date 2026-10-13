@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./OurGallery.css";
 
 /* ------------------------------------------------------------------
@@ -231,15 +232,14 @@ export default function OurGallery({
             </span>
           </div>
 
-          <button
-            type="button"
+          <Link
+            to="/projects"
             className="og__link og__fade"
             style={{ "--d": "900ms" }}
-            onClick={onViewAll}
           >
             <span>View all projects</span>
             <Arrow />
-          </button>
+          </Link>
         </div>
 
         {/* -------- slider -------- */}

@@ -11,14 +11,14 @@
      never fight with, or re-trigger, the entrance fade
    ========================================================= */
 .og {
-  --stone: #efe9e0;
-  --stone-light: #f7f3ec;
-  --bronze: #9a6a3f;
-  --gold: #c9a063;
-  --gold-light: #e6cd9b;
-  --night: #14211d;
-  --night-deep: #0d1714;
-  --line: rgba(201, 160, 99, 0.3);
+  --stone: #ffffff;
+  --stone-light: #f8fafc;
+  --bronze: #157A3C;
+  --gold: #E67E22;
+  --gold-light: #F39C12;
+  --night: #0E2A47;
+  --night-deep: #0A1C30;
+  --line: rgba(230, 126, 34, 0.3);
 
   --ease: cubic-bezier(0.19, 0.8, 0.22, 1);
   --ease-soft: cubic-bezier(0.33, 0.9, 0.3, 1);
@@ -30,11 +30,11 @@
   padding-left: max(var(--gutter), calc((100vw - 1240px) / 2));
   padding-right: 0;
   color: var(--stone);
-  font-family: "Manrope", system-ui, sans-serif;
+  font-family: var(--font-main, "Plus Jakarta Sans", sans-serif);
   background:
-    radial-gradient(800px 480px at 12% 8%, rgba(201, 160, 99, 0.18), transparent 60%),
-    radial-gradient(700px 500px at 100% 100%, rgba(230, 205, 155, 0.09), transparent 60%),
-    linear-gradient(160deg, #1b2c26 0%, var(--night) 45%, var(--night-deep) 100%);
+    radial-gradient(800px 480px at 12% 8%, rgba(21, 122, 60, 0.15), transparent 60%),
+    radial-gradient(700px 500px at 100% 100%, rgba(230, 126, 34, 0.12), transparent 60%),
+    linear-gradient(160deg, #102d4a 0%, var(--night) 45%, var(--night-deep) 100%);
 }
 .og *,
 .og *::before,

@@ -1,6 +1,8 @@
+import { useState } from "react";
 import PageBanner from "../../components/Breadcrumb/Breadcrumb";
 import Banner from "../../components/Banner/Banner";
 import ServiceList from "../../components/ServiceList/ServiceList";
+import Pagination from "../../components/Common/Pagination";
 import { PageLoader, PageError, Empty } from "../../components/Status";
 import { useApi, asset } from "../../api";
 
@@ -33,8 +35,10 @@ const DUMMY_SERVICES = [
 
 export default function Services() {
   const { data, loading, error, reload } = useApi("/services");
+  const [page, setPage] = useState(1);
+  const pageSize = 9;
 
-  const services = (data && data.length)
+  const allServices = (data && data.length)
     ? data.map((s) => ({
         slug: s.slug,
         title: s.title,
@@ -43,6 +47,9 @@ export default function Services() {
       }))
     : DUMMY_SERVICES;
 
+  const startIndex = (page - 1) * pageSize;
+  const paginatedServices = allServices.slice(startIndex, startIndex + pageSize);
+
   return (
     <>
       <PageBanner title="Our Stone Services" breadcrumbs={[{ label: "Home", path: "/" }, { label: "Services" }]} />
@@ -50,8 +57,16 @@ export default function Services() {
         <PageLoader />
       ) : error && (!data || !data.length) ? (
         <ServiceList services={DUMMY_SERVICES} />
-      ) : services.length ? (
-        <ServiceList services={services} />
+      ) : allServices.length ? (
+        <>
+          <ServiceList services={paginatedServices} />
+          <Pagination
+            currentPage={page}
+            totalItems={allServices.length}
+            pageSize={pageSize}
+            onPageChange={setPage}
+          />
+        </>
       ) : (
         <Empty title="No services yet" text="Services added in the admin panel will appear here." />
       )}

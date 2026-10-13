@@ -2,7 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { SITE } from "./config";
 
 /* Empty in development (Vite proxy). Set VITE_API_URL in production. */
-export const API = import.meta.env.VITE_API_URL ?? "";
+const rawApi = import.meta.env.VITE_API_URL ?? "";
+export const API = rawApi && !rawApi.startsWith("http") ? `https://${rawApi}` : rawApi;
 
 /* "/uploads/x.jpg" -> full image address; absolute URLs are left alone */
 export const asset = (u) => (!u ? "" : /^(https?:|data:|blob:)/.test(u) ? u : API + u);

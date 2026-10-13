@@ -1,6 +1,8 @@
+import { useState } from "react";
 import PageBanner from "../../components/Breadcrumb/Breadcrumb";
 import Banner from "../../components/Banner/Banner";
 import ProjectGallery from "../../components/Gallery/ProjectGallery";
+import Pagination from "../../components/Common/Pagination";
 import { PageLoader, PageError, Empty } from "../../components/Status";
 import { useApi } from "../../api";
 
@@ -37,8 +39,12 @@ const DUMMY_PROJECTS = [
 
 export default function Projects() {
   const { data, loading, error, reload } = useApi("/projects");
+  const [page, setPage] = useState(1);
+  const pageSize = 9;
 
   const list = data?.length ? data : DUMMY_PROJECTS;
+  const startIndex = (page - 1) * pageSize;
+  const paginatedProjects = list.slice(startIndex, startIndex + pageSize);
 
   return (
     <>
@@ -48,7 +54,15 @@ export default function Projects() {
       ) : error && !list?.length ? (
         <PageError error={error} onRetry={reload} />
       ) : (
-        <ProjectGallery projects={list} />
+        <>
+          <ProjectGallery projects={paginatedProjects} />
+          <Pagination
+            currentPage={page}
+            totalItems={list.length}
+            pageSize={pageSize}
+            onPageChange={setPage}
+          />
+        </>
       )}
       <Banner />
     </>

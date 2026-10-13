@@ -1,0 +1,178 @@
+.ksd-interior-services {
+  position: relative;
+  width: 100%;
+  padding: clamp(80px, 9vw, 130px) 0;
+  background: #F8FAFC;
+}
+
+.ksd-interior-services__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+
+.ksd-interior-services__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  margin-bottom: clamp(40px, 5vw, 60px);
+}
+
+.ksd-interior-services__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  margin-bottom: 16px;
+  background: rgba(21, 122, 60, 0.08);
+  border-left: 3px solid var(--green, #157A3C);
+  color: var(--green, #157A3C);
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ksd-interior-services__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green, #157A3C);
+}
+
+.ksd-interior-services__title {
+  margin: 0;
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 800;
+  line-height: 1.18;
+  color: var(--navy, #0E2A47);
+}
+
+.ksd-interior-services__head-desc {
+  max-width: 440px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #64748B;
+  margin: 0;
+}
+
+.ksd-interior-services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.ksd-service-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid rgba(14, 42, 71, 0.08);
+  box-shadow: 0 10px 30px rgba(14, 42, 71, 0.04);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.ksd-service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(14, 42, 71, 0.12);
+}
+
+.ksd-service-card__thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+}
+
+.ksd-service-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease;
+}
+
+.ksd-service-card:hover .ksd-service-card__thumb img {
+  transform: scale(1.06);
+}
+
+.ksd-service-card__num {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--navy, #0E2A47);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 800;
+  border-left: 3px solid var(--orange, #E67E22);
+}
+
+.ksd-service-card__body {
+  padding: 30px 26px 26px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.ksd-service-card__body h3 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--navy, #0E2A47);
+}
+
+.ksd-service-card__body p {
+  margin: 0 0 22px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #64748B;
+  flex: 1;
+}
+
+.ksd-service-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green, #157A3C);
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.ksd-service-card:hover .ksd-service-card__link {
+  color: var(--orange, #E67E22);
+  transform: translateX(4px);
+}
+
+.ksd-interior-services__foot {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 991px) {
+  .ksd-interior-services__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ksd-interior-services__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .ksd-interior-services__grid {
+    grid-template-columns: 1fr;
+  }
+}
