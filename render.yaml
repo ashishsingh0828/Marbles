@@ -42,7 +42,6 @@ services:
     name: marbles-india-site
     runtime: static
     plan: free
-    region: oregon
     rootDir: India
     buildCommand: npm install && npm run build
     staticPublishPath: dist
@@ -64,7 +63,6 @@ services:
     name: ksd-australia-site
     runtime: static
     plan: free
-    region: oregon
     rootDir: Australia
     buildCommand: npm install && npm run build
     staticPublishPath: dist
@@ -86,7 +84,6 @@ services:
     name: marbles-admin-panel
     runtime: static
     plan: free
-    region: oregon
     rootDir: admin
     buildCommand: npm install && npm run build
     staticPublishPath: dist
