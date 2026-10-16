@@ -165,22 +165,20 @@ function ServiceCard({ service, index }) {
       className={`service-item fade-up${visible ? " is-visible" : ""}`}
       style={{ "--delay": `${(index % 3) * 0.15}s` }}
     >
-      <div className="service-card style2 background-image">
+      <Link to={link} className="service-card style2 background-image">
         <div
           className="service-card-bg"
           style={{ backgroundImage: `url("${service.image}")` }}
         />
         <div className="content">
           <div className="number">{service.number}</div>
-          <h3>
-            <Link to={link}>{service.title}</Link>
-          </h3>
+          <h3>{service.title}</h3>
           <p className="text">{service.description}</p>
           <div className="icon">
             <ServiceIcon type={service.icon || "layers"} />
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }

@@ -85,7 +85,7 @@ export default function OurGallery({
         title: p.title,
         type: p.category || "Luxury Build",
         tone: ["carrara", "calacatta", "marquina", "verde", "travertine", "statuario"][idx % 6],
-        image: p.image ? asset(p.image) : `/images/ksd-stone-${String((idx % 12) + 21).padStart(2, "0")}.jpg`,
+        image: p.imageA ? asset(p.imageA) : (p.image ? asset(p.image) : `/images/ksd-stone-${String((idx % 12) + 21).padStart(2, "0")}.jpg`),
       }));
     }
     return SLIDES;

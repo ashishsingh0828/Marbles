@@ -5,6 +5,7 @@ import Footer from "./components/Footer/Footer";
 import Home from "./pages/Home";
 import Abouts from "./pages/Abouts";
 import Services from "./pages/Services";
+import ServiceDetail from "./pages/ServiceDetail";
 import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import Blogs from "./pages/Blogs";
@@ -25,7 +26,9 @@ function Page() {
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<Abouts />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/services/:slug" element={<Services />} />
+        <Route path="/services/:slug" element={<ServiceDetail />} />
+        <Route path="/service-details" element={<ServiceDetail />} />
+        <Route path="/service-details/:slug" element={<ServiceDetail />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/project-details" element={<ProjectDetail />} />

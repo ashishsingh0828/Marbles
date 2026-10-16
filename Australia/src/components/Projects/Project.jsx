@@ -102,7 +102,7 @@ function Project() {
         slug: p.slug,
         title: p.title,
         category: p.category || "Luxury Build",
-        image: p.image ? asset(p.image) : `/images/ksd-stone-${String((idx % 12) + 21).padStart(2, "0")}.jpg`,
+        image: p.imageA ? asset(p.imageA) : (p.image ? asset(p.image) : `/images/ksd-stone-${String((idx % 12) + 21).padStart(2, "0")}.jpg`),
       }))
     : FALLBACK_PROJECTS;
 

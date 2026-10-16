@@ -36,11 +36,14 @@
 
 .service-card {
   position: relative;
+  display: block;
   height: 100%;
   overflow: hidden;
   background: var(--white);
   box-shadow: var(--box-shadow);
   isolation: isolate;
+  text-decoration: none;
+  color: inherit;
 }
 
 .service-card-bg {

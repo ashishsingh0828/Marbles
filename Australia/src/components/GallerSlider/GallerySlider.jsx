@@ -66,7 +66,7 @@ function GallerySlider({ background = BG_IMAGE, items: propItems }) {
       return backendProjects.map((p, idx) => ({
         id: p._id || idx + 1,
         slug: p.slug,
-        image: p.image ? asset(p.image) : `/images/ksd-stone-${String((idx % 12) + 21).padStart(2, "0")}.jpg`,
+        image: p.imageA ? asset(p.imageA) : (p.image ? asset(p.image) : `/images/ksd-stone-${String((idx % 12) + 21).padStart(2, "0")}.jpg`),
         alt: p.title || "KSD Homes Architectural Project",
       }));
     }

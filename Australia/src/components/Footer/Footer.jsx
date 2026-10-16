@@ -15,12 +15,12 @@ const EXPLORE_LINKS = [
 ];
 
 const EXPERTISE_LINKS = [
-  { id: "bespoke", label: "Luxury Custom Homes", to: "/services" },
-  { id: "flooring", label: "Premium Stone Flooring", to: "/services" },
-  { id: "kitchen", label: "Grand Kitchen Surfaces", to: "/services" },
-  { id: "facade", label: "Architectural Facades", to: "/services" },
-  { id: "bathrooms", label: "Bespoke Marble Ensuites", to: "/services" },
-  { id: "cladding", label: "Wall Cladding & Inlays", to: "/services" },
+  { id: "bespoke", label: "Luxury Custom Homes", to: "/services/architectural-home-building" },
+  { id: "flooring", label: "Premium Stone Flooring", to: "/services/luxury-stone-flooring" },
+  { id: "kitchen", label: "Grand Kitchen Surfaces", to: "/services/waterfall-islands-vanities" },
+  { id: "facade", label: "Architectural Facades", to: "/services/facades-alfresco-paving" },
+  { id: "bathrooms", label: "Bespoke Marble Ensuites", to: "/services/bookmatched-feature-walls" },
+  { id: "cladding", label: "Wall Cladding & Inlays", to: "/services/custom-stonemasonry" },
 ];
 
 const SOCIALS = [

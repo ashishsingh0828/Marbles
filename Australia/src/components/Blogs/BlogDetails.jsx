@@ -139,17 +139,27 @@ function BlogDetails() {
   const [form, setForm] = useState(INITIAL_FORM);
   const messageRef = useRef(null);
 
+  const parsedParagraphs = data
+    ? (data.introText || data.secondText
+        ? [data.introText, data.secondText].filter(Boolean)
+        : (data.paragraphs
+            ? paras(data.paragraphs)
+            : (data.content
+                ? paras(data.content)
+                : (data.description ? [data.description] : FALLBACK_BLOG.paragraphs))))
+    : FALLBACK_BLOG.paragraphs;
+
   const post = data ? {
     title: data.title,
     author: data.author || "KSD Homes Editorial",
-    date: fmtDate(data.publishedAt || data.createdAt || new Date()),
+    date: fmtDate(data.publishedAt || data.date || data.createdAt || new Date()),
     category: data.category || "Architecture",
-    heroImage: data.image ? asset(data.image) : FALLBACK_BLOG.heroImage,
-    image2: data.gallery && data.gallery[0] ? asset(data.gallery[0]) : FALLBACK_BLOG.image2,
-    image3: data.gallery && data.gallery[1] ? asset(data.gallery[1]) : FALLBACK_BLOG.image3,
-    paragraphs: data.content ? paras(data.content) : (data.description ? [data.description] : FALLBACK_BLOG.paragraphs),
-    quote: data.quote || FALLBACK_BLOG.quote,
-    conclusion: data.conclusion || FALLBACK_BLOG.conclusion,
+    heroImage: data.heroImage ? asset(data.heroImage) : (data.image ? asset(data.image) : FALLBACK_BLOG.heroImage),
+    image2: data.galleryA ? asset(data.galleryA) : (data.gallery && data.gallery[0] ? asset(data.gallery[0]) : FALLBACK_BLOG.image2),
+    image3: data.galleryB ? asset(data.galleryB) : (data.gallery && data.gallery[1] ? asset(data.gallery[1]) : FALLBACK_BLOG.image3),
+    paragraphs: parsedParagraphs,
+    quote: data.excerpt || data.quote || FALLBACK_BLOG.quote,
+    conclusion: data.conclusion || data.secondHeading || FALLBACK_BLOG.conclusion,
   } : FALLBACK_BLOG;
 
   const handleFormChange = (event) => {
