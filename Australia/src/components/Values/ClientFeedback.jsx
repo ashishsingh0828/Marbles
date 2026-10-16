@@ -1,11 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./ClientFeedback.css";
 
-/* ------------------------------------------------------------------
-   Edit the testimonials here.
-   - rating: 0–5 (decimals allowed, e.g. 4.6)
-   - avatar: optional photo URL. Without it, a gold initial is shown.
-------------------------------------------------------------------- */
 const TESTIMONIALS = [
   {
     name: "David & Sarah Miller",
@@ -30,36 +25,13 @@ const TESTIMONIALS = [
   },
 ];
 
-const HEADING = ["What", "our", "clients", "say", "about", "working", "with", "us"];
-const pad = (n) => String(n).padStart(2, "0");
+const HEADING = [
+  { text: "What our clients say", accent: false },
+  { text: "about working with us", accent: true },
+];
 
-/* ------------------------------------------------------------------
-   Reveal hook – replays EVERY time the section scrolls back into view.
-------------------------------------------------------------------- */
-function useInView() {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (!("IntersectionObserver" in window)) {
-      setInView(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.intersectionRatio >= 0.12) setInView(true);
-        else if (!e.isIntersecting) setInView(false);
-      },
-      { threshold: [0, 0.12] }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-  return [ref, inView];
-}
+const SPEED_MS = 1000;
 
-/* ---------- small pieces ---------- */
 const StarRow = () => (
   <>
     {[0, 1, 2, 3, 4].map((i) => (
@@ -75,208 +47,294 @@ const Stars = ({ rating }) => (
     <span className="tt__stars-row">
       <StarRow />
     </span>
-    <span className="tt__stars-row tt__stars-fill" style={{ width: `${(rating / 5) * 100}%` }}>
+    <span
+      className="tt__stars-row tt__stars-fill"
+      style={{ width: `${(Math.max(0, Math.min(5, rating)) / 5) * 100}%` }}
+    >
       <StarRow />
     </span>
   </span>
 );
 
-const QuoteIcon = () => <span className="tt__qmark">“</span>;
+function AnimatedHeading({ parts }) {
+  let count = 0;
 
-const Arrow = ({ dir = "right" }) => (
-  <svg
-    viewBox="0 0 24 24"
-    width="20"
-    height="20"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-    style={dir === "left" ? { transform: "scaleX(-1)" } : undefined}
-  >
-    <path d="M4 12h15M13 6l6 6-6 6" />
-  </svg>
-);
+  return (
+    <h2
+      id="tt-heading"
+      className="tt__title"
+      aria-label={parts.map((p) => p.text).join(" ")}
+    >
+      {parts.map((part) => (
+        <span
+          key={part.text}
+          className={`tt__part ${part.accent ? "is-accent" : ""}`}
+          aria-hidden="true"
+        >
+          {part.text.split(" ").map((word, wi) => (
+            <React.Fragment key={`${word}-${wi}`}>
+              {wi > 0 && " "}
+              <span className="tt__word">
+                {word.split("").map((ch, ci) => {
+                  const delay = 0.2 + count * 0.03;
+                  count += 1;
+                  return (
+                    <span
+                      key={ci}
+                      className="tt__letter"
+                      style={{ transitionDelay: `${delay}s` }}
+                    >
+                      {ch}
+                    </span>
+                  );
+                })}
+              </span>
+            </React.Fragment>
+          ))}
+        </span>
+      ))}
+    </h2>
+  );
+}
 
-/* ---------- component ---------- */
-export default function ClientFeedback({
-  items = TESTIMONIALS,
-  image = "", // main photo on the left; without it a marble slab is shown
-  imageAlt = "Our team installing a marble floor",
-  interval = 6000, // ms per testimonial
-}) {
-  const [ref, inView] = useInView();
-  const [index, setIndex] = useState(0);
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
-  const [reduced, setReduced] = useState(false);
-  const swipe = useRef({ x: 0, down: false });
-  const total = items.length;
+function useCountUp(target, start, duration = 1800) {
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return;
-    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    if (!start) return undefined;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setValue(target);
+      return undefined;
+    }
+
+    let raf;
+    const t0 = performance.now();
+
+    const tick = (now) => {
+      const p = Math.min((now - t0) / duration, 1);
+      setValue(target * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, start, duration]);
+
+  return value;
+}
+
+export default function ClientFeedback({
+  items = TESTIMONIALS,
+  image = "/images/ksd-stone-05.jpg",
+  imageAlt = "KSD Homes luxury interior",
+  interval = 5000,
+}) {
+  const sectionRef = useRef(null);
+  const stageRef = useRef(null);
+  const drag = useRef({ active: false, startX: 0 });
+  const draggingRef = useRef(false);
+
+  const total = items.length;
+  const loop = total > 1;
+  const slides = loop ? [items[total - 1], ...items, items[0]] : items;
+
+  const [visible, setVisible] = useState(false);
+  const [index, setIndex] = useState(loop ? 1 : 0);
+  const [animate, setAnimate] = useState(true);
+  const [dragging, setDragging] = useState(false);
+  const [dragX, setDragX] = useState(0);
+
+  const average = total
+    ? items.reduce((sum, t) => sum + (Number(t.rating) || 0), 0) / total
+    : 0;
+  const counted = useCountUp(average, visible);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return undefined;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setVisible(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
   }, []);
 
-  const go = useCallback((n) => setIndex(((n % total) + total) % total), [total]);
-  const next = useCallback(() => setIndex((i) => (i + 1) % total), [total]);
-  const prev = () => go(index - 1);
+  useEffect(() => {
+    setAnimate(false);
+    setIndex(total > 1 ? 1 : 0);
+  }, [total]);
 
-  /* autoplay pauses on hover, keyboard focus, and while off-screen */
-  const paused = hovered || focused || !inView;
+  useEffect(() => {
+    if (animate) return undefined;
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setAnimate(true));
+    });
+    return () => cancelAnimationFrame(id);
+  }, [animate]);
 
-  /* swipe on touch / pen / mouse */
+  useEffect(() => {
+    if (!loop) return undefined;
+    if (index !== 0 && index !== total + 1) return undefined;
+
+    const t = setTimeout(() => {
+      if (draggingRef.current) return;
+      setAnimate(false);
+      setIndex(index === 0 ? total : 1);
+    }, SPEED_MS + 60);
+
+    return () => clearTimeout(t);
+  }, [index, total, loop]);
+
+  const next = () => {
+    setAnimate(true);
+    setIndex((i) => Math.min(i + 1, total + 1));
+  };
+
+  const prev = () => {
+    setAnimate(true);
+    setIndex((i) => Math.max(i - 1, 0));
+  };
+
+  useEffect(() => {
+    if (!loop || !visible || dragging) return undefined;
+    const t = setTimeout(next, interval);
+    return () => clearTimeout(t);
+  }, [index, loop, visible, dragging, interval]);
+
   const onPointerDown = (e) => {
-    swipe.current = { x: e.clientX, down: true };
+    if (!loop) return;
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    drag.current = { active: true, startX: e.clientX };
+    draggingRef.current = true;
+    setDragging(true);
+    setDragX(0);
+    if (e.currentTarget.setPointerCapture) {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
   };
-  const onPointerUp = (e) => {
-    if (!swipe.current.down) return;
-    swipe.current.down = false;
-    const dx = e.clientX - swipe.current.x;
-    if (Math.abs(dx) > 50) (dx < 0 ? next : prev)();
+
+  const onPointerMove = (e) => {
+    if (!drag.current.active) return;
+    setDragX(e.clientX - drag.current.startX);
   };
+
+  const finishDrag = () => {
+    if (!drag.current.active) return;
+    drag.current.active = false;
+    draggingRef.current = false;
+
+    const width = stageRef.current ? stageRef.current.offsetWidth : 0;
+    const threshold = Math.min(90, width * 0.15);
+
+    if (dragX < -threshold) next();
+    else if (dragX > threshold) prev();
+
+    setDragX(0);
+    setDragging(false);
+  };
+
   const onKeyDown = (e) => {
+    if (!loop) return;
     if (e.key === "ArrowRight") next();
     if (e.key === "ArrowLeft") prev();
   };
 
   return (
     <section
-      ref={ref}
-      className={`tt ${inView ? "is-visible" : ""}`}
+      ref={sectionRef}
+      className={`tt ${visible ? "is-visible" : ""}`}
       aria-labelledby="tt-heading"
     >
-      <svg className="tt__bg-veins" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <path pathLength="1" d="M-20 160C230 100 360 280 590 230S920 30 1170 140s240 150 330 90" />
-        <path pathLength="1" d="M-20 790C170 730 310 850 530 800s430-170 650-90 260 120 300 70" />
-      </svg>
+      <div className="tt__media">
+        <div className="tt__img">
+          <img src={image} alt={imageAlt} loading="lazy" decoding="async" />
+        </div>
+      </div>
 
-      <div className="tt__inner">
-        {/* ---------------- photo ---------------- */}
-        <figure className="tt__photo">
-          <span className="tt__frame" aria-hidden="true" />
-          <div className="tt__img">
-            {image ? (
-              <img src={image} alt={imageAlt} loading="lazy" decoding="async" />
-            ) : (
-              <div className="tt__slab" role="img" aria-label={imageAlt}>
-                <svg viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">
-                  <path pathLength="1" d="M-10 110C90 50 150 200 240 160S350 40 420 100" />
-                  <path pathLength="1" d="M-10 380C80 330 170 430 260 370s130-60 170-20" />
-                  <path pathLength="1" className="thin" d="M170 -10C210 110 140 200 200 310S280 430 240 510" />
-                </svg>
-              </div>
-            )}
-            <span className="tt__shine" aria-hidden="true" />
-          </div>
+      <div className="tt__content">
+        <span className="tt__mark" aria-hidden="true">“</span>
 
-          {/* badge pops each time the testimonial changes */}
-          <span className="tt__badge" aria-hidden="true">
-            <span key={index} className="tt__badge-icon">
-              <QuoteIcon />
-            </span>
-          </span>
-        </figure>
+        <div className="tt__eyebrow tt__rise" style={{ "--d": "0.1s" }}>
+          <span className="tt__eyebrow-line" />
+          <span>Client Testimonials</span>
+        </div>
 
-        {/* ---------------- content ---------------- */}
-        <div className="tt__content">
-          <span className="tt__pill tt__fade" style={{ "--d": "0ms" }}>
-            <i aria-hidden="true" /> Client feedback
-          </span>
+        <AnimatedHeading parts={HEADING} />
 
-          <h2 id="tt-heading" className="tt__title" aria-label={HEADING.join(" ")}>
-            {HEADING.map((w, i) => (
-              <span className="tt__word" key={w + i} aria-hidden="true">
-                <span style={{ "--i": i }}>{w}</span>{" "}
-              </span>
-            ))}
-          </h2>
-
-          <span className="tt__rule" aria-hidden="true">
-            <b />
-            <i />
-          </span>
-
-          {/* slides are stacked in one grid cell and cross-fade */}
+        <div
+          ref={stageRef}
+          className={`tt__stage tt__rise ${loop ? "is-draggable" : ""} ${dragging ? "is-dragging" : ""}`}
+          style={{ "--d": "0.9s" }}
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Client testimonials"
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={finishDrag}
+          onPointerCancel={finishDrag}
+        >
           <div
-            className="tt__stage"
-            role="region"
-            aria-roledescription="carousel"
-            aria-label="Client testimonials"
-            tabIndex={0}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            onKeyDown={onKeyDown}
-            onPointerDown={onPointerDown}
-            onPointerUp={onPointerUp}
-            onPointerCancel={() => (swipe.current.down = false)}
+            className={`tt__track ${animate && !dragging ? "" : "is-instant"}`}
+            style={{ transform: `translate3d(calc(${-index * 100}% + ${dragX}px), 0, 0)` }}
           >
-            {items.map((t, i) => (
-              <article
-                key={t.name}
-                className={`tt__slide ${i === index ? "is-active" : ""}`}
-                aria-hidden={i !== index}
-                aria-roledescription="slide"
-                aria-label={`${i + 1} of ${total}`}
-              >
-                <div className="tt__it" style={{ "--k": 0 }}>
+            {slides.map((t, pos) => {
+              const real = loop ? (pos - 1 + total) % total : pos;
+
+              return (
+                <article
+                  key={`${t.name}-${pos}`}
+                  className="tt__slide"
+                  aria-hidden={pos !== index}
+                  aria-roledescription="slide"
+                  aria-label={`${real + 1} of ${total}`}
+                >
                   <Stars rating={t.rating} />
-                </div>
 
-                <blockquote className="tt__quote tt__it" style={{ "--k": 1 }}>
-                  <p>{t.text}</p>
-                </blockquote>
+                  <blockquote className="tt__text">
+                    <p>{t.text}</p>
+                  </blockquote>
 
-                <span className="tt__divider tt__it" style={{ "--k": 2 }} aria-hidden="true" />
-
-                <footer className="tt__author tt__it" style={{ "--k": 3 }}>
-                  <span className="tt__avatar">
-                    {t.avatar ? (
-                      <img src={t.avatar} alt="" loading="lazy" decoding="async" />
-                    ) : (
-                      <b>{t.name.charAt(0)}</b>
-                    )}
-                  </span>
-                  <span className="tt__who">
-                    <cite>{t.name}</cite>
-                    <small>{t.role}</small>
-                  </span>
-                </footer>
-              </article>
-            ))}
+                  <footer className="tt__author">
+                    <span className="tt__avatar">
+                      {t.avatar ? (
+                        <img src={t.avatar} alt="" loading="lazy" decoding="async" draggable={false} />
+                      ) : (
+                        <b>{t.name.charAt(0)}</b>
+                      )}
+                    </span>
+                    <span className="tt__who">
+                      <cite>{t.name}</cite>
+                      <small>{t.role}</small>
+                    </span>
+                  </footer>
+                </article>
+              );
+            })}
           </div>
+        </div>
 
-          {/* controls */}
-          <div className="tt__controls tt__fade" style={{ "--d": "900ms" }}>
-            <button type="button" className="tt__btn" onClick={prev} aria-label="Previous testimonial">
-              <Arrow dir="left" />
-            </button>
-            <button type="button" className="tt__btn" onClick={next} aria-label="Next testimonial">
-              <Arrow />
-            </button>
-
-            <span className="tt__count" aria-live="off">
-              <b>{pad(index + 1)}</b>
-              <span className="tt__progress" aria-hidden="true">
-                {/* this bar drives autoplay: when it finishes, the next slide shows */}
-                <i
-                  key={index}
-                  className={paused ? "is-paused" : ""}
-                  style={
-                    reduced
-                      ? { animation: "none", transform: "scaleX(1)" }
-                      : { "--dur": `${interval}ms` }
-                  }
-                  onAnimationEnd={next}
-                />
-              </span>
-              <em>{pad(total)}</em>
-            </span>
-          </div>
+        <div className="tt__rating tt__rise" style={{ "--d": "1.2s" }}>
+          <span className="tt__rating-num">{counted.toFixed(1)}</span>
+          <Stars rating={average} />
+          <span className="tt__rating-txt">
+            Based on {total} client {total === 1 ? "review" : "reviews"}
+          </span>
         </div>
       </div>
     </section>

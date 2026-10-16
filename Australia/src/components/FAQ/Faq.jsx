@@ -192,24 +192,12 @@ function ArrowIcon() {
 }
 
 function LearnMoreButton() {
-  const bgRef = useRef(null);
-
-  const placeBackground = (event) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    if (bgRef.current) {
-      bgRef.current.style.left = `${event.clientX - rect.left}px`;
-      bgRef.current.style.top = `${event.clientY - rect.top}px`;
-    }
-  };
-
   return (
     <Link
       to="/contact"
       className="fq-btn"
-      onMouseEnter={placeBackground}
-      onMouseLeave={placeBackground}
     >
-      <span className="fq-btn-bg" ref={bgRef} />
+      <span className="fq-btn-bg" />
       <span className="fq-btn-text">Consult Our Designers</span>
       <span className="fq-btn-icon">
         <ArrowIcon />

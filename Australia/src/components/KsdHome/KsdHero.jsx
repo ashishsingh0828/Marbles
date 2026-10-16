@@ -1,112 +1,118 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./KsdHero.css";
 
 const SLIDES = [
-  {
-    image: "/images/ksd-stone-01.jpg",
-    title: "Mosman Waterfront Residence",
-    location: "Sydney Harbour, NSW",
-    feature: "Bookmatched Calacatta Marble & Cantilevered Terraces",
-  },
-  {
-    image: "/images/ksd-stone-05.jpg",
-    title: "Toorak Architectural Penthouse",
-    location: "Melbourne, VIC",
-    feature: "4-Metre Mitered Waterfall Island & Honed Limestone",
-  },
-  {
-    image: "/images/ksd-stone-06.jpg",
-    title: "Byron Bay Modernist Sanctuary",
-    location: "Byron Bay, NSW",
-    feature: "Roman Travertine Alfresco & Seamless Indoor-Outdoor Flow",
-  },
+  "/images/ksd-stone-01.jpg",
+  "/images/ksd-stone-05.jpg",
+  "/images/ksd-stone-06.jpg",
 ];
 
+const AUTOPLAY_MS = 4000;
+const SPEED_MS = 700;
+
+const Arrow = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <line x1="4" y1="12" x2="20" y2="12" />
+    <polyline points="14 6 20 12 14 18" />
+  </svg>
+);
+
 export default function KsdHero() {
-  const [activeSlide, setActiveSlide] = useState(0);
+  const total = SLIDES.length;
+  const [index, setIndex] = useState(0);
+  const [animate, setAnimate] = useState(true);
+  const [curtain, setCurtain] = useState(true);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setAnimate(true);
+      setIndex((i) => Math.min(i + 1, total));
+    }, AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [total]);
+
+  useEffect(() => {
+    if (index !== total) return undefined;
+    const t = setTimeout(() => {
+      setAnimate(false);
+      setIndex(0);
+    }, SPEED_MS + 60);
+    return () => clearTimeout(t);
+  }, [index, total]);
+
+  useEffect(() => {
+    if (animate) return undefined;
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setAnimate(true));
+    });
+    return () => cancelAnimationFrame(id);
+  }, [animate]);
+
+  const slides = [...SLIDES, SLIDES[0]];
 
   return (
     <section className="ksd-hero">
-      <div className="ksd-hero__container">
-        <div className="ksd-hero__content">
-          <div className="ksd-hero__tag">
-            <span className="ksd-hero__dot" />
-            <span>LUXURY AUSTRALIAN INTERIOR DESIGN &amp; ARCHITECTURAL STONE</span>
-          </div>
+      {curtain && (
+        <div
+          className="ksd-hero__curtain"
+          aria-hidden="true"
+          onAnimationEnd={() => setCurtain(false)}
+        />
+      )}
 
-          <h1 className="ksd-hero__title">
-            Bespoke Luxury Interiors. Signature Marble. Master Stonemasonry.
-          </h1>
+      <div
+        className={`ksd-hero__track ${animate ? "" : "is-instant"}`}
+        style={{ transform: `translate3d(-${index * 100}%, 0, 0)` }}
+      >
+        {slides.map((src, pos) => {
+          const Title = pos === 0 ? "h1" : "div";
+          const tab = pos === index ? 0 : -1;
 
-          <p className="ksd-hero__desc">
-            <strong>KSD Homes</strong> is an elite Australian interior design and architectural stonemasonry studio. We craft breathtaking luxury residences, waterfall marble islands, bookmatched statement suites, and refined living environments across Sydney and Melbourne.
-          </p>
+          return (
+            <div
+              key={pos}
+              className="ksd-hero__slide"
+              aria-hidden={pos === 0 ? undefined : true}
+            >
+              <img
+                src={src}
+                alt=""
+                className="ksd-hero__img"
+                loading="eager"
+                decoding="async"
+              />
+              <div className="ksd-hero__shade" />
 
-          <div className="ksd-hero__actions">
-            <Link to="/projects" className="ksd-btn">
-              <span>View Signature Projects</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-            <Link to="/contact" className="ksd-btn ksd-btn--outline">
-              <span>Book Consultation</span>
-            </Link>
-          </div>
+              <div className="ksd-hero__container">
+                <Title className="ksd-hero__title">
+                  <span>Bespoke Luxury Interiors.</span>
+                  <span>Signature Marble.</span>
+                  <span>Master Stonemasonry.</span>
+                </Title>
 
-          <div className="ksd-hero__stats">
-            <div className="ksd-hero__stat-item">
-              <span className="ksd-hero__stat-num">250+</span>
-              <span className="ksd-hero__stat-lbl">Master Residences Built</span>
+                <div className="ksd-hero__actions">
+                  <Link
+                    to="/projects"
+                    className="ksd-hero__btn ksd-hero__btn--solid"
+                    tabIndex={tab}
+                  >
+                    <span>View Signature Projects</span>
+                    <Arrow />
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="ksd-hero__btn ksd-hero__btn--light"
+                    tabIndex={tab}
+                  >
+                    <span>Book Consultation</span>
+                    <Arrow />
+                  </Link>
+                </div>
+              </div>
             </div>
-            <div className="ksd-hero__stat-sep" />
-            <div className="ksd-hero__stat-item">
-              <span className="ksd-hero__stat-num">18+</span>
-              <span className="ksd-hero__stat-lbl">Years Australian Construction</span>
-            </div>
-            <div className="ksd-hero__stat-sep" />
-            <div className="ksd-hero__stat-item">
-              <span className="ksd-hero__stat-num">100%</span>
-              <span className="ksd-hero__stat-lbl">Hand-Selected Natural Stone</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="ksd-hero__visual">
-          <div className="ksd-hero__frame">
-            <img
-              src={SLIDES[activeSlide].image}
-              alt={SLIDES[activeSlide].title}
-              className="ksd-hero__img"
-            />
-            <div className="ksd-hero__overlay-info">
-              <span className="ksd-hero__badge-loc">{SLIDES[activeSlide].location}</span>
-              <h3>{SLIDES[activeSlide].title}</h3>
-              <p>{SLIDES[activeSlide].feature}</p>
-            </div>
-
-            <div className="ksd-hero__slide-dots">
-              {SLIDES.map((_, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  className={`ksd-hero__slide-dot ${activeSlide === idx ? "is-active" : ""}`}
-                  onClick={() => setActiveSlide(idx)}
-                  aria-label={`Slide ${idx + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="ksd-hero__card-float">
-            <img src="/images/logo/logo.jpeg" alt="KSD Homes" className="ksd-hero__card-logo" />
-            <div>
-              <strong>KSD Homes Interior Design</strong>
-              <span>Sydney · Melbourne · Gold Coast</span>
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
     </section>
   );

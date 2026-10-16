@@ -1,84 +1,182 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./KsdStory.css";
 
-const POINTS = [
-  {
-    num: "01",
-    title: "Curated Luxury Interior Architecture",
-    desc: "Complete interior spatial planning, custom cabinetry joinery, mood lighting, and bespoke residential layout curation.",
-  },
-  {
-    num: "02",
-    title: "Direct European Stone Provenance",
-    desc: "Hand-selected Calacatta, Statuario, Carrara, and travertine with strict block inspection and seamless vein flow.",
-  },
-  {
-    num: "03",
-    title: "Sub-Millimeter Mitered Masonry",
-    desc: "Precision 45-degree waterfall island joints, bookmatched vertical walls, and invisible hairline floor transitions.",
-  },
-  {
-    num: "04",
-    title: "Turnkey Interior Fitouts",
-    desc: "From initial concept renderings to final styling, our senior interior directors manage every detail with complete transparency.",
-  },
+const HEADING = [
+  { text: "Elevating Australian interiors", accent: false },
+  { text: "with master stone artistry", accent: true },
 ];
 
-export default function KsdStory() {
+const CHECKS = ["Curated luxury interior design", "Hand-selected European stone"];
+
+const Arrow = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <line x1="4" y1="12" x2="20" y2="12" />
+    <polyline points="14 6 20 12 14 18" />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="11" fill="currentColor" />
+    <polyline points="7 12.5 10.5 16 17 8.5" fill="none" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const PhoneIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+
+function AnimatedHeading({ parts }) {
+  let count = 0;
+
   return (
-    <section className="ksd-story">
+    <h2
+      className="ksd-story__heading"
+      aria-label={parts.map((p) => p.text).join(" ")}
+    >
+      {parts.map((part) => (
+        <span
+          key={part.text}
+          className={`ksd-story__part ${part.accent ? "is-accent" : ""}`}
+          aria-hidden="true"
+        >
+          {part.text.split(" ").map((word, wi) => (
+            <React.Fragment key={`${word}-${wi}`}>
+              {wi > 0 && " "}
+              <span className="ksd-story__word">
+                {word.split("").map((ch, ci) => {
+                  const delay = 0.15 + count * 0.03;
+                  count += 1;
+                  return (
+                    <span
+                      key={ci}
+                      className="ksd-story__letter"
+                      style={{ transitionDelay: `${delay}s` }}
+                    >
+                      {ch}
+                    </span>
+                  );
+                })}
+              </span>
+            </React.Fragment>
+          ))}
+        </span>
+      ))}
+    </h2>
+  );
+}
+
+export default function KsdStory() {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return undefined;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setVisible(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section ref={ref} className={`ksd-story ${visible ? "is-visible" : ""}`}>
       <div className="ksd-story__container">
         <div className="ksd-story__images">
-          <div className="ksd-story__img-main">
+          <span className="ksd-story__dots ksd-story__fade" style={{ "--d": "0.6s" }} aria-hidden="true" />
+
+          <div className="ksd-story__img ksd-story__img--main" style={{ "--d": "0s" }}>
             <img src="/images/ksd-stone-03.jpg" alt="KSD Homes luxury architectural residence interior" loading="lazy" />
           </div>
-          <div className="ksd-story__img-sub">
+
+          <div className="ksd-story__img ksd-story__img--sub" style={{ "--d": "0.3s" }}>
             <img src="/images/ksd-stone-04.jpg" alt="Natural marble craftsmanship" loading="lazy" />
           </div>
-          <div className="ksd-story__badge">
-            <span className="ksd-story__badge-years">18+</span>
-            <span className="ksd-story__badge-txt">Years of Design Distinction</span>
+
+          <div className="ksd-story__counter ksd-story__fade" style={{ "--d": "1.1s" }}>
+            <span className="ksd-story__counter-label">Residences Built</span>
+            <span className="ksd-story__counter-circle">
+              <span>250+</span>
+            </span>
+          </div>
+
+          <div className="ksd-story__badge ksd-story__pop" style={{ "--d": "1.3s" }}>
+            <span className="ksd-story__badge-num">18+</span>
+            <span className="ksd-story__badge-txt">Years Of Experience</span>
           </div>
         </div>
 
         <div className="ksd-story__content">
-          <div className="ksd-story__tag">
-            <span className="ksd-story__dot" />
-            <span>THE KSD HOMES INTERIOR PHILOSOPHY</span>
+          <div className="ksd-story__eyebrow ksd-story__rise" style={{ "--d": "0.1s" }}>
+            <span className="ksd-story__eyebrow-line" />
+            <span>About KSD Homes</span>
           </div>
 
-          <h2 className="ksd-story__heading">
-            Elevating Australian Residential Interiors With Master Stone Artistry
-          </h2>
+          <AnimatedHeading parts={HEADING} />
 
-          <p className="ksd-story__lead">
-            We believe a home should inspire emotion, harmony, and timeless prestige through organic textures and balanced natural light.
+          <p className="ksd-story__text ksd-story__rise" style={{ "--d": "0.8s" }}>
+            KSD Homes combines visionary Australian interior design with generational stonemasonry. Whether it is a harbourfront penthouse, a four-metre marble kitchen island or a hotel-grade ensuite, we craft living spaces that reflect understated luxury.
           </p>
 
-          <p className="ksd-story__text">
-            KSD Homes combines visionary Australian interior design with generational stonemasonry. Whether curating a grand harbourfront penthouse, sculpting a four-metre monolithic marble kitchen island, or creating hotel-grade master ensuites, we craft bespoke living environments that reflect understated luxury.
-          </p>
+          <div className="ksd-story__row">
+            <div className="ksd-story__row-main">
+              <ul className="ksd-story__checks ksd-story__rise" style={{ "--d": "1s" }}>
+                {CHECKS.map((item) => (
+                  <li key={item}>
+                    <CheckIcon />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
 
-          <div className="ksd-story__grid">
-            {POINTS.map((pt) => (
-              <div key={pt.num} className="ksd-story__item">
-                <span className="ksd-story__num">{pt.num}</span>
-                <div className="ksd-story__item-body">
-                  <h4>{pt.title}</h4>
-                  <p>{pt.desc}</p>
-                </div>
+              <div className="ksd-story__cta ksd-story__rise" style={{ "--d": "1.15s" }}>
+                <Link to="/about" className="ksd-story__btn">
+                  <span>Explore Our Design Story</span>
+                  <Arrow />
+                </Link>
               </div>
-            ))}
-          </div>
+            </div>
 
-          <div className="ksd-story__cta">
-            <Link to="/about" className="ksd-btn">
-              <span>Explore Our Design Story</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
+            <div className="ksd-story__row-side ksd-story__rise" style={{ "--d": "1.3s" }}>
+              <Link to="/contact" className="ksd-story__info">
+                <span className="ksd-story__info-icon">
+                  <PhoneIcon />
+                </span>
+                <span className="ksd-story__info-body">
+                  <span className="ksd-story__info-sub">Need any help?</span>
+                  <span className="ksd-story__info-title">Talk to our design team</span>
+                </span>
+              </Link>
+
+              <div className="ksd-story__info">
+                <img
+                  src="/images/logo/logo.jpeg"
+                  alt="KSD Homes"
+                  className="ksd-story__avatar"
+                />
+                <span className="ksd-story__info-body">
+                  <span className="ksd-story__info-title">KSD Homes</span>
+                  <span className="ksd-story__info-sub">Sydney · Melbourne · Gold Coast</span>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

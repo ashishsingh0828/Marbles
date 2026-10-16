@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
-import OurValues from "../components/Values/OurValues";
-import OurGallery from "../components/Values/OurGallery";
 import Faq from "../components/FAQ/Faq";
 import "./Abouts.css";
+import ClientFeedback from "../components/Values/ClientFeedback";
+import GallerySlider from "../components/GallerSlider/GallerySlider";
+import OurValues from "../components/Values/OurValues";
+import WhyChooseUs from "../components/Values/WhyChooseUs";
+import VideoIntro from "../components/Home/VideoIntro";
 
 const TIMELINE = [
   {
@@ -117,55 +120,12 @@ export default function Abouts() {
         </div>
       </section>
 
-      {/* Design Philosophies */}
-      <section className="ksd-about-phil">
-        <div className="ksd-about-phil__container">
-          <div className="ksd-about-phil__head">
-            <div className="ksd-about-phil__tag">
-              <span className="ksd-about-phil__dot" />
-              <span>CORE ARCHITECTURAL PILLARS</span>
-            </div>
-            <h2>The Principles Behind Every KSD Interior</h2>
-          </div>
-
-          <div className="ksd-about-phil__grid">
-            {PHILOSOPHIES.map((p) => (
-              <div key={p.num} className="ksd-phil-card">
-                <span className="ksd-phil-card__num">{p.num}</span>
-                <h3>{p.title}</h3>
-                <p>{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Studio Timeline */}
-      <section className="ksd-about-timeline">
-        <div className="ksd-about-timeline__container">
-          <div className="ksd-about-timeline__head">
-            <div className="ksd-about-timeline__tag">
-              <span className="ksd-about-timeline__dot" />
-              <span>OUR EVOLUTION</span>
-            </div>
-            <h2>Eighteen Years of Architectural Milestone</h2>
-          </div>
-
-          <div className="ksd-about-timeline__grid">
-            {TIMELINE.map((t) => (
-              <div key={t.year} className="ksd-timeline-card">
-                <span className="ksd-timeline-card__year">{t.year}</span>
-                <h4>{t.title}</h4>
-                <p>{t.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Values & Curated Gallery */}
-      <OurValues />
-      <OurGallery />
+      <VideoIntro/>
+   <WhyChooseUs/>
+      <OurValues/>
+      <GallerySlider/>
+      <ClientFeedback />
       <Faq />
     </div>
   );

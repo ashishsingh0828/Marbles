@@ -196,6 +196,7 @@ function ArrowIcon() {
 function CtaButton({ to, children }) {
   return (
     <Link to={to} className="ft-btn">
+      <span className="ft-btn-bg" />
       <span className="ft-btn-text">{children}</span>
       <span className="ft-btn-arrow">
         <ArrowIcon />

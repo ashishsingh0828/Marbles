@@ -236,23 +236,32 @@
   font-family: inherit;
   text-align: left;
   color: var(--fq-title);
+  background: transparent;
+  border: 0;
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .fq-acc-title {
   font-size: 18px;
   font-weight: 600;
   line-height: 1.4;
-  transition: color 0.3s ease, transform 0.4s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .fq-acc-toggle:hover .fq-acc-title,
 .fq-acc-toggle:focus-visible .fq-acc-title {
   color: var(--fq-maroon);
+  transform: translateX(4px);
 }
 
 .fq-acc-item.is-open .fq-acc-title {
   color: var(--fq-title);
+}
+
+.fq-acc-toggle:hover .fq-acc-icon,
+.fq-acc-toggle:focus-visible .fq-acc-icon {
+  color: var(--fq-gold);
 }
 
 .fq-acc-toggle:focus-visible {
@@ -338,9 +347,10 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--white);
+  color: #ffffff !important;
   text-decoration: none;
   background: var(--fq-maroon);
+  border: 1px solid var(--fq-maroon);
   border-radius: 0 !important;
   transition: all 0.4s ease;
 }
@@ -363,7 +373,8 @@
 
 .fq-btn:hover,
 .fq-btn:focus-visible {
-  color: var(--white);
+  color: #ffffff !important;
+  border-color: var(--fq-gold);
   outline: none;
 }
 
@@ -373,10 +384,10 @@
   justify-content: center;
   width: 28px;
   height: 28px;
-  color: var(--white);
+  color: #ffffff;
   background: transparent;
   border-radius: 0;
-  transition: background 0.4s ease, transform 0.4s ease;
+  transition: transform 0.4s ease;
 }
 
 .fq-btn-icon svg {
@@ -385,7 +396,7 @@
 
 .fq-btn:hover .fq-btn-icon,
 .fq-btn:focus-visible .fq-btn-icon {
-  background: var(--fq-maroon);
+  background: transparent;
 }
 
 .fq-btn:hover .fq-btn-icon svg,

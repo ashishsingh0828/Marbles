@@ -64,6 +64,7 @@
 
 .gallery-title {
   margin: 0;
+  font-family: var(--font-heading);
   font-size: 44px;
   font-weight: 700;
   line-height: 1.2;

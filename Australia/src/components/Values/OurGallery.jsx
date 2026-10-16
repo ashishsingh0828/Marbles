@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { useApi, asset } from "../../api";
 import "./OurGallery.css";
 
 /* ------------------------------------------------------------------
@@ -72,10 +73,24 @@ const spot = (e) => {
 
 /* ---------- component ---------- */
 export default function OurGallery({
-  slides = SLIDES,
+  slides: propSlides,
   bgImage = "", // optional dark background photo
   onViewAll,
 }) {
+  const { data: backendProjects } = useApi("/projects");
+  const slides = useMemo(() => {
+    if (propSlides && propSlides.length > 0) return propSlides;
+    if (backendProjects && backendProjects.length > 0) {
+      return backendProjects.map((p, idx) => ({
+        title: p.title,
+        type: p.category || "Luxury Build",
+        tone: ["carrara", "calacatta", "marquina", "verde", "travertine", "statuario"][idx % 6],
+        image: p.image ? asset(p.image) : `/images/ksd-stone-${String((idx % 12) + 21).padStart(2, "0")}.jpg`,
+      }));
+    }
+    return SLIDES;
+  }, [propSlides, backendProjects]);
+
   const [sectionRef, inView] = useInView();
   const trackRef = useRef(null);
   const cursorRef = useRef(null);

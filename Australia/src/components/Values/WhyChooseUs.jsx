@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./WhyChooseUs.css";
 
-/* ------------------------------------------------------------------
-   Reveal hook – replays EVERY time the section scrolls back into view.
-   Shows at 12% visible, resets only once fully off-screen.
-------------------------------------------------------------------- */
 function useInView() {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
@@ -29,82 +25,39 @@ function useInView() {
 }
 
 /* ---------- icons ---------- */
-const Icon = ({ children }) => (
+const IconChat = () => (
   <svg
-    viewBox="0 0 24 24"
-    width="24"
-    height="24"
+    viewBox="0 0 48 48"
+    width="44"
+    height="44"
     fill="none"
     stroke="currentColor"
-    strokeWidth="1.5"
+    strokeWidth="2.2"
     strokeLinecap="round"
     strokeLinejoin="round"
     aria-hidden="true"
   >
-    {children}
+    <path d="M6 6h26a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H17l-8 7v-7H6a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3Z" />
+    <path d="M38 17h4a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3h-3v6l-7-6H21a3 3 0 0 1-3-3v-1" />
+    <path d="M10 13h18M10 19h13" />
   </svg>
 );
 
-const IconSlab = () => (
-  <Icon>
-    <path d="M12 2.5 21 9l-9 12.5L3 9l9-6.5Z" />
-    <path d="M3 9h18M8.5 9 12 2.5 15.5 9 12 21.5 8.5 9Z" />
-  </Icon>
+const IconCheck = () => (
+  <svg
+    viewBox="0 0 24 24"
+    width="14"
+    height="14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.6"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="m5 12.5 4.5 4.5L19 7.5" />
+  </svg>
 );
-const IconMatch = () => (
-  <Icon>
-    <rect x="3" y="4" width="8" height="16" rx="1.5" />
-    <rect x="13" y="4" width="8" height="16" rx="1.5" />
-    <path d="M7 9c2 1 2 4 0 6M17 9c-2 1-2 4 0 6" />
-  </Icon>
-);
-const IconPrice = () => (
-  <Icon>
-    <path d="M12 2.8 4.5 5.7v5.6c0 4.5 3.1 8.2 7.5 9.9 4.4-1.7 7.5-5.4 7.5-9.9V5.7L12 2.8Z" />
-    <path d="m8.8 12 2.2 2.2 4.2-4.4" />
-  </Icon>
-);
-const IconCare = () => (
-  <Icon>
-    <path d="M12 21c-4.4-3.2-8-6.3-8-10.2A4.6 4.6 0 0 1 12 8a4.6 4.6 0 0 1 8 2.8C20 14.7 16.4 17.8 12 21Z" />
-    <path d="M12 8V3" />
-  </Icon>
-);
-
-/* ---------- content (edit freely) ---------- */
-const REASONS = [
-  {
-    title: "Hand-selected natural slabs",
-    text: "Every slab is chosen in person from Italian and Greek quarries for colour, veining and density, ensuring only exceptional stone reaches your residence.",
-    Icon: IconSlab,
-  },
-  {
-    title: "Continuous vein flow",
-    text: "Our master masons 3D dry-lay and bookmatch every vein across waterfall islands, floor joints, and wall panels for harmonious visual continuity.",
-    Icon: IconMatch,
-  },
-  {
-    title: "Transparent bespoke contracts",
-    text: "You inspect the exact slab and receive an itemised, fixed-price quote before CNC cutting begins.",
-    Icon: IconPrice,
-  },
-  {
-    title: "Fluoropolymer sealing & care",
-    text: "Surfaces are deeply treated with hospital-grade breathable fluoropolymer sealers to protect against moisture and etching.",
-    Icon: IconCare,
-  },
-];
-
-/* marble slabs that fan out. Add `image: "url"` to any to use a photo. */
-const SLABS = [
-  { tone: "verde", image: "/images/ksd-stone-38.jpg" },
-  { tone: "marquina", image: "/images/ksd-stone-39.jpg" },
-  { tone: "calacatta", image: "/images/ksd-stone-40.jpg" },
-  { tone: "statuario", image: "/images/ksd-stone-41.jpg" },
-  { tone: "carrara", image: "/images/ksd-stone-42.jpg" },
-];
-
-const HEADING = ["Why", "Australian", "homeowners", "choose", "KSD", "Homes"];
 
 const ArrowUpRight = () => (
   <svg
@@ -122,32 +75,52 @@ const ArrowUpRight = () => (
   </svg>
 );
 
-/* soft light that follows the pointer across a card */
-const spot = (e) => {
-  const r = e.currentTarget.getBoundingClientRect();
-  e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
-  e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
-};
+/* ---------- content (edit freely) ---------- */
+const HEADING = ["Why" , " choose", ""," KSD", "Homes"];
+
+const LEAD =
+  "Choose from premium marble and natural stone, with honest guidance from people who handle every slab themselves.";
+
+const GROUPS = [
+  {
+    title: "Hand-Selected Slabs",
+    items: [
+      "Italian & Greek quarries",
+      "Chosen in person",
+      "Continuous vein flow",
+    ],
+  },
+  {
+    title: "Bespoke Contracts",
+    items: [
+      "Fixed-price itemised quote",
+      "Inspect your exact slab",
+      "Fluoropolymer sealing & care",
+    ],
+  },
+];
+
+const GALLERY = [
+  { src: "/images/ksd-stone-39.jpg", alt: "Dark marquina marble slab" },
+  { src: "/images/ksd-stone-40.jpg", alt: "Calacatta marble slab with gold veining" },
+];
+
+const QUOTE =
+  "From selection to installation, they were with us every step of the way. Every vein matched, every joint seamless.";
 
 /* ---------- component ---------- */
 export default function WhyChooseUs({
-  reasons = REASONS,
-  slabs = SLABS,
-  image = "", // optional: one photo instead of the slab fan
-  imageAlt = "Selection of polished marble slabs",
+  groups = GROUPS,
+  image = "/images/ksd-stone-38.jpg", // large left photo
+  imageAlt = "Polished marble kitchen with waterfall island",
+  gallery = GALLERY,
+  quote = QUOTE,
+  lead = LEAD,
   buttonLabel = "Discover more",
   href = "/about",
   onButtonClick,
 }) {
   const [ref, inView] = useInView();
-
-  /* gentle 3D tilt of the slab fan following the pointer */
-  const tilt = (e) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    e.currentTarget.style.setProperty("--tilt", (x * 2).toFixed(3));
-  };
-  const untilt = (e) => e.currentTarget.style.setProperty("--tilt", "0");
 
   return (
     <section
@@ -155,18 +128,28 @@ export default function WhyChooseUs({
       className={`wc ${inView ? "is-visible" : ""}`}
       aria-labelledby="wc-heading"
     >
-      <svg className="wc__bg-veins" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <path pathLength="1" d="M-20 150C230 90 360 270 590 220S920 20 1170 130s240 150 330 90" />
-        <path pathLength="1" d="M-20 780C170 720 310 840 530 790s430-170 650-90 260 120 300 70" />
-      </svg>
-
       <div className="wc__inner">
-        {/* ---------------- left ---------------- */}
+        {/* ---------------- left: big image + caption ---------------- */}
         <div className="wc__left">
+          <figure className="wc__media wc__shine-box" style={{ "--d": "0ms" }}>
+            <img src={image} alt={imageAlt} loading="lazy" decoding="async" />
+          </figure>
+
+          <div className="wc__quote" style={{ "--d": "700ms" }}>
+            <span className="wc__quote-icon">
+              <IconChat />
+            </span>
+            <p>{quote}</p>
+          </div>
+        </div>
+
+        {/* ---------------- right: content ---------------- */}
+        <div className="wc__right">
           <span className="wc__pill wc__fade" style={{ "--d": "0ms" }}>
             <i aria-hidden="true" /> Why choose us
           </span>
 
+          {/* words rise in one by one */}
           <h2 id="wc-heading" className="wc__title" aria-label={HEADING.join(" ")}>
             {HEADING.map((w, i) => (
               <span className="wc__word" key={w} aria-hidden="true">
@@ -180,14 +163,52 @@ export default function WhyChooseUs({
             <i />
           </span>
 
-          <p className="wc__lead wc__fade" style={{ "--d": "620ms" }}>
-            Choose from premium marble and natural stone, with honest guidance
-            from people who handle every slab themselves.
+          <p className="wc__lead wc__fade" style={{ "--d": "700ms" }}>
+            {lead}
           </p>
+
+          <div className="wc__groups">
+            {groups.map((g, gi) => (
+              <div className="wc__group" key={g.title}>
+                <h3
+                  className="wc__group-title wc__fade"
+                  style={{ "--d": `${850 + gi * 200}ms` }}
+                >
+                  {g.title}
+                </h3>
+                <ul className="wc__checks">
+                  {g.items.map((item, ii) => (
+                    <li
+                      className="wc__fade"
+                      key={item}
+                      style={{ "--d": `${980 + gi * 200 + ii * 110}ms` }}
+                    >
+                      <span className="wc__tick" aria-hidden="true">
+                        <IconCheck />
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="wc__gallery">
+            {gallery.map((g, i) => (
+              <figure
+                className="wc__thumb wc__shine-box"
+                key={g.src}
+                style={{ "--d": `${1400 + i * 180}ms` }}
+              >
+                <img src={g.src} alt={g.alt} loading="lazy" decoding="async" />
+              </figure>
+            ))}
+          </div>
 
           <a
             className="wc__cta wc__fade"
-            style={{ "--d": "780ms" }}
+            style={{ "--d": "1800ms" }}
             href={href}
             onClick={onButtonClick}
           >
@@ -196,77 +217,7 @@ export default function WhyChooseUs({
               <ArrowUpRight />
             </span>
           </a>
-
-          {/* fan of marble slabs */}
-          <div
-            className="wc__showcase"
-            role="img"
-            aria-label={imageAlt}
-            onMouseMove={tilt}
-            onMouseLeave={untilt}
-          >
-            <span className="wc__ring" aria-hidden="true" />
-            <div className="wc__stage">
-              {image ? (
-                <img className="wc__photo" src={image} alt="" loading="lazy" decoding="async" />
-              ) : (
-                slabs.map((s, i) => {
-                  const mid = (slabs.length - 1) / 2;
-                  const off = i - mid;
-                  return (
-                    <div
-                      className={`wc__slab tone-${s.tone}`}
-                      key={i}
-                      style={{
-                        "--r": `${off * 9}deg`,
-                        "--x": `${off * 44}%`,
-                        "--z": i,
-                        "--t": `${350 + i * 140}ms`,
-                      }}
-                    >
-                      <svg className="wc__veins" viewBox="0 0 200 280" preserveAspectRatio="none" aria-hidden="true">
-                        {i % 2 === 0 ? (
-                          <>
-                            <path pathLength="1" d="M-10 60C50 20 80 120 130 90S190 30 215 70" />
-                            <path pathLength="1" d="M-10 220C40 180 100 250 150 210s50-30 70-10" />
-                          </>
-                        ) : (
-                          <>
-                            <path pathLength="1" d="M60 -10C90 70 40 120 90 190S150 250 130 290" />
-                            <path pathLength="1" className="thin" d="M-10 150C50 130 110 170 215 120" />
-                          </>
-                        )}
-                      </svg>
-                      {s.image && <img src={s.image} alt="" loading="lazy" decoding="async" />}
-                      <span className="wc__shine" aria-hidden="true" />
-                    </div>
-                  );
-                })
-              )}
-            </div>
-          </div>
         </div>
-
-        {/* ---------------- right ---------------- */}
-        <ul className="wc__list">
-          {reasons.map(({ title, text, Icon: Ico }, i) => (
-            <li
-              className="wc__card"
-              key={title}
-              style={{ "--d": `${450 + i * 170}ms` }}
-              onMouseMove={spot}
-            >
-              <span className="wc__spot" aria-hidden="true" />
-              <span className="wc__badge" aria-hidden="true">
-                <Ico />
-              </span>
-              <div className="wc__body">
-                <h3 className="wc__card-title">{title}</h3>
-                <p className="wc__card-text">{text}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

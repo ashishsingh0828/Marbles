@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { useApi, asset } from "../../api";
 import "./OurServices.css";
 
 const SERVICES = [
@@ -72,11 +73,26 @@ function ArrowIcon() {
 const TITLE = "Transforming Australian spaces with bespoke home construction & stone";
 
 export default function OurServices({
-  services = SERVICES,
+  services: propServices,
   viewAllHref = "/services",
 }) {
+  const { data: backendServices } = useApi("/services");
   const [ref, visible] = useReveal();
   const words = TITLE.split(" ");
+
+  const services = useMemo(() => {
+    if (propServices && propServices.length > 0) return propServices;
+    if (backendServices && backendServices.length > 0) {
+      return backendServices.slice(0, 4).map((s, idx) => ({
+        title: s.title,
+        text: s.shortDescription || s.description || "Architectural custom stone and luxury residential building tailored to Australian lifestyle.",
+        image: s.image ? asset(s.image) : `/images/ksd-stone-${String((idx % 10) + 15).padStart(2, "0")}.jpg`,
+        hoverImage: `/images/ksd-stone-${String(((idx + 1) % 10) + 15).padStart(2, "0")}.jpg`,
+        href: `/services/${s.slug || s._id}`,
+      }));
+    }
+    return SERVICES;
+  }, [propServices, backendServices]);
 
   return (
     <section

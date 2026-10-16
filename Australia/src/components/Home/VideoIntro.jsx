@@ -1,252 +1,224 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./VideoIntro.css";
 
-/* ------------------------------------------------------------------ */
-/*  IE Marbles – Video intro                                           */
-/*  Big "IE MARBLES" title that fades to gold on hover, a glowing      */
-/*  play button and a popup video player.                              */
-/*                                                                     */
-/*  <VideoIntro videoUrl="https://www.youtube.com/embed/XXXX" />        */
-/*  Optional: image="/your-photo.jpg" to use a real background photo.  */
-/* ------------------------------------------------------------------ */
+const VIDEO_URL = "";
 
-/* black marble with gold veins – same family as the Hero slide */
-const STONE = {
-  seed: 64,
-  bg: ["#27231f", "#0c0a08"],
-  cloud: "#3a332b",
-  vein: "#dcb85e",
-  vein2: "#f3e3b0",
-  gold: "#b98a2e",
-};
+const HEADING = "Ready To Transform Your Home With Bespoke Interiors & Master Stonemasonry";
 
-function veinTable(width) {
-  return Array.from({ length: 40 }, (_, i) =>
-    Math.max(0, 1 - Math.abs(i - 19) / width).toFixed(3)
-  ).join(" ");
+function toEmbed(url) {
+  try {
+    const u = new URL(url, window.location.origin);
+    const host = u.hostname.replace("www.", "");
+
+    if (host === "youtu.be") {
+      return { type: "iframe", src: `https://www.youtube.com/embed/${u.pathname.slice(1)}?autoplay=1&rel=0` };
+    }
+
+    if (host.endsWith("youtube.com")) {
+      if (u.pathname.startsWith("/embed/")) {
+        return { type: "iframe", src: `${u.origin}${u.pathname}?autoplay=1&rel=0` };
+      }
+      const id = u.searchParams.get("v");
+      if (id) {
+        return { type: "iframe", src: `https://www.youtube.com/embed/${id}?autoplay=1&rel=0` };
+      }
+    }
+
+    if (host === "vimeo.com") {
+      const id = u.pathname.split("/").filter(Boolean).pop();
+      return { type: "iframe", src: `https://player.vimeo.com/video/${id}?autoplay=1` };
+    }
+
+    if (host === "player.vimeo.com") {
+      return { type: "iframe", src: `${u.origin}${u.pathname}?autoplay=1` };
+    }
+  } catch (e) {
+    return { type: "video", src: url };
+  }
+
+  return { type: "video", src: url };
 }
 
-/* built once as a cached image so the page stays smooth */
-function marbleUri(m, W = 1600, H = 900) {
-  const flt = (id, inner) =>
-    `<filter id="${id}" filterUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}" color-interpolation-filters="sRGB">${inner}</filter>`;
-  const opaque =
-    '<feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0 1"';
-
-  const vein = (id, seed, fx, fy, width, warp, color) =>
-    flt(
-      id,
-      `<feTurbulence type="fractalNoise" baseFrequency="${fx} ${fy}" numOctaves="5" seed="${seed}" result="n"/>` +
-        `${opaque} in="n" result="no"/>` +
-        `<feTurbulence type="fractalNoise" baseFrequency="0.0022 0.0035" numOctaves="3" seed="${seed + 5}" result="w"/>` +
-        `${opaque} in="w" result="wo"/>` +
-        `<feDisplacementMap in="no" in2="wo" scale="${warp}" xChannelSelector="R" yChannelSelector="G" result="d"/>` +
-        `<feColorMatrix in="d" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0" result="a"/>` +
-        `<feComponentTransfer in="a" result="line"><feFuncA type="table" tableValues="${veinTable(width)}"/></feComponentTransfer>` +
-        `<feFlood flood-color="${color}" result="c"/>` +
-        `<feComposite in="c" in2="line" operator="in"/>`
-    );
-
-  const cloud = flt(
-    "cloud",
-    `<feTurbulence type="fractalNoise" baseFrequency="0.0016 0.0028" numOctaves="4" seed="${m.seed + 2}" result="n"/>` +
-      `<feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1.1 0 0 0 -0.38" result="a"/>` +
-      `<feFlood flood-color="${m.cloud}" result="c"/>` +
-      `<feComposite in="c" in2="a" operator="in"/>`
-  );
-
-  const layer = (id, op) =>
-    `<rect width="${W}" height="${H}" fill="#000" fill-opacity="0" filter="url(#${id})" opacity="${op}"/>`;
-
-  const svg =
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">` +
-    `<defs>` +
-    `<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${m.bg[0]}"/><stop offset="1" stop-color="${m.bg[1]}"/></linearGradient>` +
-    cloud +
-    vein("v1", m.seed, 0.0032, 0.0075, 1.5, 190, m.vein) +
-    vein("v2", m.seed + 11, 0.0055, 0.011, 1.1, 130, m.vein2) +
-    vein("v3", m.seed + 29, 0.0028, 0.006, 0.8, 220, m.gold) +
-    `</defs>` +
-    `<rect width="${W}" height="${H}" fill="url(#bg)"/>` +
-    layer("cloud", 1) +
-    layer("v2", 0.55) +
-    layer("v1", 0.85) +
-    layer("v3", 0.9) +
-    `</svg>`;
-
-  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-}
-
-/* adds .is-visible once the section scrolls into view */
-function useReveal(threshold = 0.25) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
+function VideoModal({ url, onClose }) {
+  const closeRef = useRef(null);
+  const media = toEmbed(url);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+
+    if (closeRef.current) closeRef.current.focus();
+
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="vi-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Introduction video"
+      onClick={onClose}
+    >
+      <div className="vi-modal__box" onClick={(e) => e.stopPropagation()}>
+        <button
+          ref={closeRef}
+          type="button"
+          className="vi-modal__close"
+          onClick={onClose}
+          aria-label="Close video"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg>
+        </button>
+
+        {media.type === "iframe" ? (
+          <iframe
+            src={media.src}
+            title="Introduction video"
+            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+            allowFullScreen
+          />
+        ) : (
+          <video src={media.src} controls autoPlay playsInline />
+        )}
+      </div>
+    </div>
+  );
+}
+
+function AnimatedHeading({ text }) {
+  let count = 0;
+
+  return (
+    <h2 id="vi-heading" className="vi__title" aria-label={text}>
+      <span aria-hidden="true">
+        {text.split(" ").map((word, wi) => (
+          <React.Fragment key={`${word}-${wi}`}>
+            {wi > 0 && " "}
+            <span className="vi__word">
+              {word.split("").map((ch, ci) => {
+                const delay = 0.45 + count * 0.025;
+                count += 1;
+                return (
+                  <span
+                    key={ci}
+                    className="vi__letter"
+                    style={{ transitionDelay: `${delay}s` }}
+                  >
+                    {ch}
+                  </span>
+                );
+              })}
+            </span>
+          </React.Fragment>
+        ))}
+      </span>
+    </h2>
+  );
+}
+
+export default function VideoIntro({
+  videoUrl = VIDEO_URL,
+  image = "/images/ksd-stone-17.jpg",
+}) {
+  const sectionRef = useRef(null);
+  const playRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return undefined;
+
     if (typeof IntersectionObserver === "undefined") {
       setVisible(true);
       return undefined;
     }
-    const io = new IntersectionObserver(
+
+    const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          io.disconnect();
+          observer.disconnect();
         }
       },
-      { threshold }
+      { threshold: 0.25 }
     );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [threshold]);
 
-  return [ref, visible];
-}
-
-/* turns any YouTube / Vimeo / direct embed link into an autoplay embed URL */
-function embedSrc(url) {
-  try {
-    const u = new URL(url);
-    u.searchParams.set("autoplay", "1");
-    u.searchParams.set("rel", "0");
-    return u.toString();
-  } catch {
-    return url;
-  }
-}
-
-export default function VideoIntro({
-  title = "KSD HOMES",
-  image = "/images/ksd-stone-23.jpg",
-  videoUrl = "https://www.youtube.com/embed/Y-x0efG1seA",
-}) {
-  const [ref, visible] = useReveal();
-  const [open, setOpen] = useState(false);
-  const [closing, setClosing] = useState(false);
-  const playRef = useRef(null);
-  const closeRef = useRef(null);
-
-  const bg = useMemo(() => image || marbleUri(STONE), [image]);
-
-  /* soft gold spotlight that follows the mouse */
-  const onMove = useCallback((e) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    el.style.setProperty("--my", `${e.clientY - r.top}px`);
-  }, [ref]);
-
-  const close = useCallback(() => {
-    setClosing(true);
-    window.setTimeout(() => {
-      setOpen(false);
-      setClosing(false);
-      playRef.current?.focus();
-    }, 320);
+    observer.observe(node);
+    return () => observer.disconnect();
   }, []);
 
-  /* popup: Esc to close, lock page scroll, focus the close button */
-  useEffect(() => {
-    if (!open) return undefined;
-    const onKey = (e) => {
-      if (e.key === "Escape") close();
-    };
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKey);
-    closeRef.current?.focus();
-    return () => {
-      document.body.style.overflow = prev;
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [open, close]);
-
-  const letters = Array.from(title);
+  const closeVideo = useCallback(() => {
+    setOpen(false);
+    if (playRef.current) playRef.current.focus();
+  }, []);
 
   return (
     <section
-      ref={ref}
-      className={`video${visible ? " is-visible" : ""}`}
-      onPointerMove={onMove}
-      aria-label="KSD Homes introduction video"
+      ref={sectionRef}
+      className={`vi ${visible ? "is-visible" : ""}`}
+      aria-labelledby="vi-heading"
     >
-      <img className="video__bg" src={bg} alt="" decoding="async" draggable="false" />
-      <div className="video__shade" aria-hidden="true" />
-      <div className="video__spot" aria-hidden="true" />
-      <div className="video__frame" aria-hidden="true" />
-
-      {/* play button */}
-      <div className="video__stage">
-        <button
-          ref={playRef}
-          type="button"
-          className="video__play"
-          onClick={() => setOpen(true)}
-          aria-label="Play the IE Marbles video"
-          aria-haspopup="dialog"
-        >
-          <span className="video__ripple" aria-hidden="true" />
-          <span className="video__ripple video__ripple--2" aria-hidden="true" />
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M8 5.5v13l11-6.5z" />
-          </svg>
-          <span className="video__play-text">Play</span>
-        </button>
+      <div className="vi__bg" aria-hidden="true">
+        <img src={image} alt="" loading="lazy" decoding="async" />
       </div>
+      <div className="vi__shade" aria-hidden="true" />
 
-      {/* info row */}
-      <div className="video__meta">
-        <span className="video__tag">
-          <i aria-hidden="true" />
-          Premium marble &amp; natural stone
-        </span>
-        <p>Watch how raw stone becomes finished marble interiors.</p>
-      </div>
-
-      {/* title – letters fade to gold on hover */}
-      <h2 className="video__title" aria-label={title}>
-        {letters.map((ch, i) =>
-          ch === " " ? (
-            <span key={i} className="video__space" aria-hidden="true" />
-          ) : (
-            <span key={i} className="video__wrap" style={{ "--i": i }} aria-hidden="true">
-              <span className="video__char" data-char={ch}>
-                {ch}
+      <div className="vi__inner">
+        {videoUrl && (
+          <div className="vi__play-wrap vi__pop" style={{ "--d": "0.2s" }}>
+            <span className="vi__pulse" aria-hidden="true" />
+            <span className="vi__pulse vi__pulse--2" aria-hidden="true" />
+            <button
+              ref={playRef}
+              type="button"
+              className="vi__play"
+              onClick={() => setOpen(true)}
+              aria-label="Play KSD Homes introduction video"
+              aria-haspopup="dialog"
+            >
+              <span className="vi__sq vi__sq--1" />
+              <span className="vi__sq vi__sq--2" />
+              <span className="vi__sq vi__sq--core">
+                <svg width="14" height="16" viewBox="0 0 14 16" aria-hidden="true">
+                  <path d="M1.5 1.2v13.6a.6.6 0 0 0 .9.5l11-6.8a.6.6 0 0 0 0-1L2.4.7a.6.6 0 0 0-.9.5Z" fill="currentColor" />
+                </svg>
               </span>
-            </span>
-          )
-        )}
-      </h2>
-
-      {/* popup player */}
-      {open && (
-        <div
-          className={`video__modal${closing ? " is-closing" : ""}`}
-          role="dialog"
-          aria-modal="true"
-          aria-label="IE Marbles video"
-          onClick={close}
-        >
-          <div className="video__dialog" onClick={(e) => e.stopPropagation()}>
-            <button ref={closeRef} type="button" className="video__close" onClick={close} aria-label="Close video">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6 6l12 12M18 6L6 18" />
-              </svg>
             </button>
-            <div className="video__player">
-              <iframe
-                src={embedSrc(videoUrl)}
-                title="IE Marbles video"
-                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-                allowFullScreen
-              />
-            </div>
           </div>
+        )}
+
+        <AnimatedHeading text={HEADING} />
+
+        <p className="vi__sub vi__rise" style={{ "--d": "1.5s" }}>
+          Start Your Project Today
+        </p>
+
+        <div className="vi__cta vi__rise" style={{ "--d": "1.7s" }}>
+          <Link to="/contact" className="vi__btn">
+            <span>Book Consultation</span>
+            <span className="vi__btn-divider" aria-hidden="true" />
+            <svg width="30" height="16" viewBox="0 0 41 26" fill="none" aria-hidden="true">
+              <path d="M40.7071 13.7071C41.0976 13.3166 41.0976 12.6834 40.7071 12.2929L34.3431 5.92893C33.9526 5.53841 33.3195 5.53841 32.9289 5.92893C32.5384 6.31946 32.5384 6.95262 32.9289 7.34315L38.5858 13L32.9289 18.6569C32.5384 19.0474 32.5384 19.6805 32.9289 20.0711C33.3195 20.4616 33.9526 20.4616 34.3431 20.0711L40.7071 13.7071ZM0 14H40V12H0V14Z" fill="currentColor" />
+            </svg>
+          </Link>
         </div>
-      )}
+      </div>
+
+      {open && videoUrl && <VideoModal url={videoUrl} onClose={closeVideo} />}
     </section>
   );
 }

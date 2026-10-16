@@ -1,211 +1,128 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./OurValues.css";
 
-/* ---------- reveal-on-scroll hook (no extra libraries) ---------- */
-function useInView(threshold = 0.2) {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (!("IntersectionObserver" in window)) {
-      setInView(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          io.disconnect();
-        }
-      },
-      { threshold }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [threshold]);
-
-  return [ref, inView];
-}
-
-/* ---------- icons (stroke style, inherit colour) ---------- */
-const Icon = ({ children }) => (
-  <svg
-    viewBox="0 0 24 24"
-    width="26"
-    height="26"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    {children}
-  </svg>
-);
-
-const IconQuality = () => (
-  <Icon>
-    <path d="M12 2.5 21 9l-9 12.5L3 9l9-6.5Z" />
-    <path d="M3 9h18M8.5 9 12 2.5 15.5 9 12 21.5 8.5 9Z" />
-  </Icon>
-);
-
-const IconIntegrity = () => (
-  <Icon>
-    <path d="M12 2.8 4.5 5.7v5.6c0 4.5 3.1 8.2 7.5 9.9 4.4-1.7 7.5-5.4 7.5-9.9V5.7L12 2.8Z" />
-    <path d="m8.8 12 2.2 2.2 4.2-4.4" />
-  </Icon>
-);
-
-const IconInnovation = () => (
-  <Icon>
-    <path d="M12 2.5 3.5 7.2v9.6L12 21.5l8.5-4.7V7.2L12 2.5Z" />
-    <path d="M3.5 7.2 12 12l8.5-4.8M12 12v9.5" />
-  </Icon>
-);
-
-/* ---------- content ---------- */
 const VALUES = [
   {
+    num: "01",
     title: "Quality excellence",
-    text: "Every slab is selected, cut and polished under strict quality control, so the stone in your home looks as good in ten years as it does on day one.",
-    points: ["Hand-selected natural stone", "Checked at every stage"],
-    Icon: IconQuality,
+    text: "Every slab is selected, cut and polished under strict quality control, so your stone looks as good in ten years as on day one.",
+    img: "/images/ksd-stone-38.jpg",
+    alt: "Hand-selected natural marble slab",
   },
   {
+    num: "02",
     title: "Integrity & transparency",
-    text: "You see the exact slab before it is cut. Clear pricing, honest timelines and no surprises between quote and installation.",
-    points: ["Slab approval before cutting", "Fixed, itemised quotes"],
-    Icon: IconIntegrity,
+    text: "You approve the exact slab before it is cut, with clear pricing, honest timelines and no surprises.",
+    img: "/images/ksd-stone-03.jpg",
+    alt: "Luxury residence interior finished in natural stone",
   },
   {
+    num: "03",
     title: "Innovation & technology",
-    text: "Digital templating and precision cutting keep seams tight and veining matched, so large surfaces read as one continuous piece of marble.",
-    points: ["Vein-matched book-matching", "Precision CNC finishing"],
-    Icon: IconInnovation,
+    text: "Digital templating and precision cutting keep seams tight and veining matched across large surfaces.",
+    img: "/images/ksd-stone-04.jpg",
+    alt: "Precision stone craftsmanship detail",
   },
 ];
 
-const HEADING = ["Foundational", "values", "behind", "KSD", "Homes", "craft"];
+const HEADING = "Foundational values behind KSD Homes craft";
 
-const Check = () => (
-  <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
-    <path
-      d="M3.2 8.4 6.5 11.5 12.8 4.8"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.7"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+function AnimatedHeading({ text }) {
+  let count = 0;
 
-/* ---------- component ---------- */
-export default function OurValues({
-  image = "/images/ksd-stone-38.jpg",
-  imageAlt = "KSD Homes luxury architectural residence interior",
-}) {
-  const [ref, inView] = useInView(0.18);
+  return (
+    <h2 id="ov-heading" className="ov__title" aria-label={text}>
+      <span aria-hidden="true">
+        {text.split(" ").map((word, wi) => (
+          <React.Fragment key={`${word}-${wi}`}>
+            {wi > 0 && " "}
+            <span className="ov__word">
+              {word.split("").map((ch, ci) => {
+                const delay = 0.15 + count * 0.03;
+                count += 1;
+                return (
+                  <span
+                    key={ci}
+                    className="ov__letter"
+                    style={{ transitionDelay: `${delay}s` }}
+                  >
+                    {ch}
+                  </span>
+                );
+              })}
+            </span>
+          </React.Fragment>
+        ))}
+      </span>
+    </h2>
+  );
+}
+
+export default function OurValues() {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return undefined;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setVisible(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
       ref={ref}
-      className={`ov ${inView ? "is-visible" : ""}`}
+      className={`ov ${visible ? "is-visible" : ""}`}
       aria-labelledby="ov-heading"
     >
-      {/* soft marble veining in the background */}
-      <svg
-        className="ov__bg-veins"
-        viewBox="0 0 1440 900"
-        preserveAspectRatio="xMidYMid slice"
-        aria-hidden="true"
-      >
-        <path
-          pathLength="1"
-          d="M-20 140C220 90 330 260 560 220S900 20 1150 130s240 150 330 90"
-        />
-        <path
-          pathLength="1"
-          d="M-20 760C160 700 300 820 520 770s420-170 640-90 260 120 300 70"
-        />
-        <path
-          pathLength="1"
-          className="thin"
-          d="M300 -10C340 120 280 230 360 360S520 520 480 700"
-        />
-      </svg>
-
-      <div className="ov__inner">
-        {/* ---------------- left column ---------------- */}
-        <div className="ov__left">
-          <span className="ov__pill ov__fade" style={{ "--d": "0ms" }}>
-            <i aria-hidden="true" /> Our values
-          </span>
-
-          <h2 id="ov-heading" className="ov__title" aria-label={HEADING.join(" ")}>
-            {HEADING.map((w, i) => (
-              <span className="ov__word" key={w + i} aria-hidden="true">
-                <span style={{ "--i": i }}>{w}</span>{" "}
-              </span>
-            ))}
-          </h2>
-
-          <p className="ov__lead ov__fade" style={{ "--d": "520ms" }}>
-            Our advanced production processes, skilled craftsmanship and strict
-            quality control ensure consistent performance, refined finishes and
-            long-lasting durability.
-          </p>
-
-          {/* polished marble slab frame */}
-          <figure className="ov__slab ov__fade" style={{ "--d": "700ms" }}>
-            <div className="ov__slab-img">
-              <img src={image} alt={imageAlt} loading="lazy" decoding="async" />
-              <span className="ov__shine" aria-hidden="true" />
-              <svg
-                className="ov__slab-veins"
-                viewBox="0 0 600 340"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              >
-                <path pathLength="1" d="M-10 60C120 20 190 140 300 110S470 20 610 70" />
-                <path pathLength="1" d="M-10 290C100 250 230 330 340 290s190-70 270-20" />
-              </svg>
-            </div>
-            <span className="ov__slab-frame" aria-hidden="true" />
-          </figure>
+      <div className="ov__container">
+        <div className="ov__head">
+          <div className="ov__eyebrow ov__rise" style={{ "--d": "0.05s" }}>
+            <span className="ov__eyebrow-icon" aria-hidden="true" />
+            <span>Our Values</span>
+            <span className="ov__eyebrow-icon" aria-hidden="true" />
+          </div>
+          <AnimatedHeading text={HEADING} />
         </div>
 
-        {/* ---------------- right column ---------------- */}
-        <ul className="ov__list">
-          {VALUES.map(({ title, text, points, Icon: Ico }, i) => (
-            <li
-              className="ov__item"
-              key={title}
-              style={{ "--d": `${450 + i * 200}ms` }}
+        <div className="ov__grid">
+          {VALUES.map((v, i) => (
+            <article
+              key={v.num}
+              className="ov__card ov__rise"
+              style={{ "--d": `${0.6 + i * 0.2}s` }}
             >
-              <div className="ov__badge" aria-hidden="true">
-                <Ico />
+              <div className="ov__thumb">
+                <span className="ov__ring" aria-hidden="true" />
+                <div className="ov__photo">
+                  <img src={v.img} alt={v.alt} loading="lazy" decoding="async" />
+                </div>
+                <span className="ov__num ov__pop" style={{ "--d": `${1 + i * 0.2}s` }}>
+                  {v.num}
+                </span>
               </div>
 
-              <div className="ov__body">
-                <h3 className="ov__item-title">{title}</h3>
-                <p className="ov__item-text">{text}</p>
-                <ul className="ov__points">
-                  {points.map((p) => (
-                    <li key={p}>
-                      <Check />
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </li>
+              <h3 className="ov__name">{v.title}</h3>
+              <p className="ov__text">{v.text}</p>
+            </article>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );
