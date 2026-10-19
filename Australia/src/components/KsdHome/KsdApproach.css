@@ -1,0 +1,82 @@
+.ksd-approach {
+  background: var(--theme2, #f2f7f4);
+  color: var(--navy, #0E2A47);
+  padding: 88px 24px;
+}
+
+.ksd-approach__inner {
+  max-width: 1340px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ksd-approach__eyebrow {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--orange, #E67E22);
+}
+
+.ksd-approach__inner > h2 {
+  margin: 0 0 40px;
+  font-size: clamp(28px, 3.6vw, 44px);
+  letter-spacing: -0.02em;
+}
+
+.ksd-approach__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  text-align: left;
+}
+
+.ksd-approach__card {
+  padding: 28px 26px 32px;
+  background: #fff;
+  border-top: 3px solid var(--green, #157A3C);
+  box-shadow: var(--box-shadow);
+}
+
+.ksd-approach__card span {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--orange, #E67E22);
+}
+
+.ksd-approach__card h3 {
+  margin: 0 0 12px;
+  font-size: 24px;
+}
+
+.ksd-approach__card p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text, #475569);
+}
+
+.ksd-approach__link {
+  display: inline-flex;
+  margin-top: 36px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--green, #157A3C);
+}
+
+.ksd-approach__link:hover {
+  color: var(--orange, #E67E22);
+}
+
+@media (max-width: 899px) {
+  .ksd-approach__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

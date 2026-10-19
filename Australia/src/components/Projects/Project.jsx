@@ -60,7 +60,7 @@ function ProjectCard({ home, index }) {
           <h3>{home.title}</h3>
           <p>{home.specLine || home.conceptHeadline}</p>
           <span className="home-card__cta">
-            View this home <ArrowIcon />
+            View project <ArrowIcon />
           </span>
         </div>
       </Link>
@@ -80,7 +80,7 @@ function Project() {
   return (
     <section className="homes-section">
       <div className="homes-intro">
-        <p>Our homes</p>
+        <p>Our projects</p>
         <h2>Boutique residences, resolved as complete compositions</h2>
       </div>
       <div className="homes-grid">
@@ -90,7 +90,7 @@ function Project() {
       </div>
 
       {pages > 1 && (
-        <nav className="homes-pages" aria-label="Homes pages">
+        <nav className="homes-pages" aria-label="Projects pages">
           {Array.from({ length: pages }, (_, i) => i + 1).map((pg) => (
             <button
               key={pg}

@@ -2,6 +2,7 @@ import React from "react";
 import KsdHero from "../components/KsdHome/KsdHero";
 import KsdFeaturedHomes from "../components/KsdHome/KsdFeaturedHomes";
 import KsdStory from "../components/KsdHome/KsdStory";
+import KsdApproach from "../components/KsdHome/KsdApproach";
 import KsdInteriorServices from "../components/KsdHome/KsdInteriorServices";
 import GallerySlider from "../components/GallerSlider/GallerySlider";
 import WhyChooseUs from "../components/Values/WhyChooseUs";
@@ -11,8 +12,9 @@ export default function Home() {
   return (
     <div className="ksd-home-page">
       <KsdHero />
-      <KsdFeaturedHomes />
       <KsdStory />
+      <KsdApproach />
+      <KsdFeaturedHomes />
       <KsdInteriorServices />
       <GallerySlider />
       <WhyChooseUs />

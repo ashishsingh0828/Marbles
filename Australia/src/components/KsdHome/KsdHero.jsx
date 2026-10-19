@@ -20,20 +20,20 @@ function slidesFrom(homes) {
     eyebrow: `${home.status} / ${home.location}`,
     lines: [home.title],
     concept: home.conceptHeadline,
-    primary: { to: `/projects/${home.slug}`, label: "View this home" },
+    primary: { to: `/projects/${home.slug}`, label: "View project" },
     secondary: { to: "/contact", label: "Book consultation" },
   }));
 
   return [
-    ...featured,
     {
       image: "/images/ksd-stone-06.jpg",
       eyebrow: "KSD Homes · Perth",
       lines: ["Architecture.", "Interior Design.", "Complete Home Solutions."],
       concept: "Licensed boutique builder. Design and build under one roof.",
-      primary: { to: "/projects", label: "View our homes" },
+      primary: { to: "/projects", label: "View our projects" },
       secondary: { to: "/contact", label: "Book consultation" },
     },
+    ...featured,
   ];
 }
 

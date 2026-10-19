@@ -17,10 +17,10 @@ export default function KsdFeaturedHomes() {
   return (
     <section className="ksd-featured">
       <div className="ksd-featured__intro">
-        <p className="ksd-featured__eyebrow">Our homes</p>
-        <h2>Designed and built as one composition</h2>
+        <p className="ksd-featured__eyebrow">Our projects</p>
+        <h2>Architecture and interiors, composed as one</h2>
         <p>
-          Each KSD home is named for the life it holds — architecture and interior design under one roof, resolved for Western Australian light, privacy and how the family actually lives.
+          Each project is a complete living environment — designed and built under one roof for Western Australian light, privacy, and how the family actually lives.
         </p>
       </div>
 
@@ -40,7 +40,7 @@ export default function KsdFeaturedHomes() {
               <h3>{home.title}</h3>
               <p>{home.conceptHeadline}</p>
               <span className="ksd-featured__cta">
-                View this home <Arrow />
+                View project <Arrow />
               </span>
             </div>
           </Link>

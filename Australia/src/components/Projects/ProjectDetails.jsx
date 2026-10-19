@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useApi } from "../../api";
+import { useApi, youtubeId } from "../../api";
 import { FALLBACK_HOMES, homeBySlug, mergeHomes, specsOf } from "../../data/homes";
 import "./ProjectDetails.css";
 
@@ -31,7 +31,7 @@ function Reveal({ as: Tag = "div", delay = 0, className = "", children }) {
   return (
     <Tag
       ref={ref}
-      className={`fade-up ${className}${visible ? " is-visible" : ""}`}
+      className={`ps-fade ${className}${visible ? " is-visible" : ""}`}
       style={{ "--delay": `${delay}s` }}
     >
       {children}
@@ -55,47 +55,101 @@ function ProjectDetails() {
   const specs = specsOf(home);
   const others = mergeHomes(all).filter((h) => h.slug && h.slug !== home.slug);
   const next = others[0] || FALLBACK_HOMES.find((h) => h.slug !== home.slug) || FALLBACK_HOMES[0];
+  const yt = youtubeId(home.videoUrl || "");
   const plans = [
     { src: home.image2, label: "Ground" },
     { src: home.image3, label: "Upper" },
     { src: home.image4, label: "Undercroft" },
   ].filter((p) => p.src);
+  const scenes = home.scenes || [];
+  const extraGallery = (home.gallery || []).filter((src) => !scenes.some((s) => s.image === src));
 
   return (
-    <article className="home-detail">
-      <header className="home-detail__hero">
+    <article className="ps">
+      <header className="ps-hero">
         <img src={home.heroImage} alt={home.title} />
-        <div className="home-detail__shade" />
-        <div className="home-detail__hero-copy">
-          <p className="home-detail__eyebrow">
-            {home.status} / {home.location}
-          </p>
+        <div className="ps-hero__shade" />
+        <div className="ps-hero__copy">
+          <p className="ps-kicker">{home.status} / {home.location}</p>
           <h1>{home.title}</h1>
-          <p className="home-detail__concept">{home.conceptHeadline}</p>
-          {specs.length > 0 && (
-            <ul className="home-detail__specs">
-              {specs.slice(0, 6).map((item) => (
-                <li key={item.label}>
-                  <span>{item.label}</span>
-                  <strong>{item.value}</strong>
-                </li>
-              ))}
-            </ul>
-          )}
+          <p className="ps-hero__concept">{home.conceptHeadline}</p>
         </div>
       </header>
 
-      <div className="home-detail__body">
-        <Reveal className="home-detail__story" delay={0.1}>
-          <p className="home-detail__kicker">{home.category}</p>
+      {specs.length > 0 && (
+        <ul className="ps-specs">
+          {specs.slice(0, 6).map((item) => (
+            <li key={item.label}>
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div className="ps-body">
+        <Reveal className="ps-story" delay={0.08}>
+          <p className="ps-kicker">{home.category}</p>
           <h2>{home.heading}</h2>
           {home.paragraphs.map((paragraph) => (
-            <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+            <p key={paragraph.slice(0, 32)}>{paragraph}</p>
           ))}
         </Reveal>
+      </div>
 
-        <Reveal className="home-detail__approach" delay={0.15}>
-          <h3>{home.challengeTitle}</h3>
+      {(yt || home.videoHeading || home.videoText) && (
+        <section className="ps-film">
+          <Reveal className="ps-film__intro" delay={0.08}>
+            <p className="ps-kicker">Film</p>
+            {home.videoHeading && <h2>{home.videoHeading}</h2>}
+            {home.videoText && <p>{home.videoText}</p>}
+          </Reveal>
+          {yt ? (
+            <Reveal className="ps-film__frame" delay={0.12}>
+              <iframe
+                src={`https://www.youtube.com/embed/${yt}`}
+                title={home.videoHeading || `${home.title} film`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </Reveal>
+          ) : (
+            <Reveal className="ps-film__still" delay={0.12}>
+              <img src={home.heroImage} alt="" />
+            </Reveal>
+          )}
+        </section>
+      )}
+
+      {scenes.map((scene, idx) => (
+        <figure key={`${scene.caption}-${idx}`} className="ps-scene">
+          <Reveal className="ps-scene__media" delay={0.06}>
+            <img src={scene.image} alt={scene.caption || home.title} />
+          </Reveal>
+          <Reveal className="ps-scene__copy" delay={0.1}>
+            {scene.caption && <h3>{scene.caption}</h3>}
+            {scene.text && <p>{scene.text}</p>}
+          </Reveal>
+        </figure>
+      ))}
+
+      {extraGallery.length > 0 && (
+        <section className="ps-grid-wrap">
+          <Reveal as="h2" className="ps-grid-title" delay={0.08}>Project photography</Reveal>
+          <div className="ps-grid">
+            {extraGallery.map((src) => (
+              <Reveal key={src} className="ps-grid__item" delay={0.08}>
+                <img src={src} alt={`${home.title} photography`} />
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <div className="ps-body">
+        <Reveal className="ps-approach" delay={0.08}>
+          <p className="ps-kicker">How we composed it</p>
+          <h2>{home.challengeTitle}</h2>
           <p>{home.challengeText}</p>
           <ul>
             {home.checks.map((item) => (
@@ -108,11 +162,11 @@ function ProjectDetails() {
         </Reveal>
 
         {plans.length > 0 && (
-          <div className="home-detail__plans">
-            <Reveal as="h3" delay={0.1}>Plans</Reveal>
-            <div className="home-detail__plan-grid">
+          <div className="ps-plans">
+            <Reveal as="h2" delay={0.08}>Plans</Reveal>
+            <div className="ps-plans__grid">
               {plans.map((plan, idx) => (
-                <Reveal key={plan.src} className="home-detail__plan" delay={0.1 + idx * 0.08}>
+                <Reveal key={plan.src} className="ps-plans__item" delay={0.08 + idx * 0.06}>
                   <img src={plan.src} alt={`${home.title} ${plan.label} plan`} />
                   <span>{plan.label}</span>
                 </Reveal>
@@ -121,22 +175,23 @@ function ProjectDetails() {
           </div>
         )}
 
-        <Reveal className="home-detail__result" delay={0.1}>
-          <h3>{home.resultTitle}</h3>
+        <Reveal className="ps-result" delay={0.08}>
+          <p className="ps-kicker">Why this project</p>
+          <h2>{home.resultTitle}</h2>
           <p>{home.resultText}</p>
         </Reveal>
+      </div>
 
-        <div className="home-detail__next">
-          <Link to={`/projects/${next.slug}`} className="home-detail__next-home">
-            <span>Next home</span>
-            <strong>{next.title}</strong>
-            <em>{next.status} / {next.location}</em>
-          </Link>
-          <Link to="/contact" className="home-detail__enquire">
-            Plan your boutique home
-            <small>Speak with our Perth builder and interior design team</small>
-          </Link>
-        </div>
+      <div className="ps-next">
+        <Link to={`/projects/${next.slug}`} className="ps-next__project">
+          <span>Next project</span>
+          <strong>{next.title}</strong>
+          <em>{next.status} / {next.location}</em>
+        </Link>
+        <Link to="/contact" className="ps-next__enquire">
+          Plan your project
+          <small>Speak with our Perth builder and interior design team</small>
+        </Link>
       </div>
     </article>
   );

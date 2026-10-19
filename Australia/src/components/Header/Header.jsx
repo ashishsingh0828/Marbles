@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { BRAND } from "../../config";
+import BrandLogo from "../BrandLogo";
 import "./Header.css";
 
 const MENU = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Homes", href: "/projects" },
+  { label: "Projects", href: "/projects" },
   { label: "Journal", href: "/blogs" },
   { label: "Contact", href: "/contact" },
 ];
@@ -58,7 +59,7 @@ export default function Header() {
       <div className="ksd-nav-wrap">
         <div className="ksd-nav-inner">
           <Link to="/" className="ksd-brand-logo" aria-label="KSD Homes Home">
-            <img src={BRAND.logo || "/images/logo/logo.jpeg"} alt="KSD Homes Logo" className="ksd-logo-img" />
+            <BrandLogo className="ksd-logo-img" />
           </Link>
 
           <nav className="ksd-desktop-nav" aria-label="Main navigation">
@@ -101,7 +102,7 @@ export default function Header() {
       <div className={`ksd-mobile-drawer ${mobileOpen ? "is-open" : ""}`} onClick={closeMenu}>
         <div className="ksd-mobile-panel" onClick={(e) => e.stopPropagation()}>
           <div className="ksd-mobile-header">
-            <img src={BRAND.logo || "/images/logo/logo.jpeg"} alt="KSD Homes" className="ksd-mobile-logo" />
+            <BrandLogo className="ksd-mobile-logo" />
             <button
               type="button"
               className="ksd-mobile-close"

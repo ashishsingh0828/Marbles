@@ -222,7 +222,7 @@
 
 .ksd-header.is-home:not(.is-stuck) .ksd-nav-link:hover,
 .ksd-header.is-home:not(.is-stuck) .ksd-nav-link.active {
-  color: #ffffff;
+  color: var(--ksd-orange);
 }
 
 .ksd-nav-link:focus-visible,

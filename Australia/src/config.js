@@ -22,7 +22,7 @@ export const BRAND = {
   address: "171 Star Street, Carlisle, Perth WA 6101",
   hours: "Mon – Fri: 8:00 AM – 5:30 PM, Sat: By Appointment",
   mapQuery: "171 Star Street, Carlisle, Perth WA 6101",
-  logo: "/images/logo/logo.PNG",
+  logo: "/images/logo/logo.png",
   group: "Eagle Group of Companies",
   licence: "Licensed Builder for High-End Boutique Homes",
   teamExperience: "28+",

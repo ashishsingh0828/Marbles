@@ -36,26 +36,27 @@ const indiaProjects = {
 };
 
 const australiaProjects = {
-  key: "projects", label: "Home", plural: "Homes", icon: "folder", color: "#B38A45",
+  key: "projects", label: "Project", plural: "Projects", icon: "folder", color: "#B38A45",
   titleField: "title", imageField: "imageA", categoryField: "category",
   defaults: {
     heading: "A boutique home composed as one complete living environment",
     factsTitle: "Architecture & interior, designed as one",
+    videoHeading: "Walk through the composition",
     client: "Private residence",
     location: "Western Australia",
     status: "In Delivery",
     published: true,
   },
   sections: [
-    { title: "Basics", desc: "Name the home. Use a suburb or region only — never a street address.", fields: [
-      { name: "title", label: "Home name", required: true, placeholder: "Sharma Residence" },
+    { title: "Basics", desc: "Name the project. Use a suburb or region only — never a street address.", fields: [
+      { name: "title", label: "Project name", required: true, placeholder: "Sharma Residence" },
       { name: "category", label: "Type", type: "select", options: opts(["Boutique Home", "Upcoming", "In Delivery", "Completed", "Architecture", "Interior Design"]) },
       { name: "status", label: "Status", type: "select", options: opts(["Upcoming", "In Delivery", "Completed"]) },
       { name: "location", label: "Location", placeholder: "Western Australia", help: "Suburb or region only. Do not enter a street address." },
       { name: "client", label: "Client", placeholder: "Private residence" },
       { name: "date", label: "Date or phase", placeholder: "In delivery" },
     ] },
-    { title: "Home specifications", desc: "Shown on the cinematic home page like a luxury builder spec strip. Leave blank if not public.", cols: 3, fields: [
+    { title: "Specifications", desc: "Shown as a spec strip on the project page. Leave blank if not public.", cols: 3, fields: [
       { name: "storeys", label: "Storeys", placeholder: "3" },
       { name: "beds", label: "Beds" },
       { name: "baths", label: "Baths" },
@@ -64,19 +65,33 @@ const australiaProjects = {
       { name: "specLine", label: "Short spec line", placeholder: "Three storeys · Pool & alfresco", wide: true },
       { name: "conceptHeadline", label: "Concept line", placeholder: "The beauty of indoor-outdoor living", wide: true, help: "The large line on the hero, e.g. indoor–outdoor living." },
     ] },
-    { title: "Photography & plans", desc: "Hero photography on listing pages. Floor plans appear on the home detail page.", cols: 3, fields: [
-      { name: "imageA", label: "Listing / hero image", type: "image", required: true },
+    { title: "Hero & plans", desc: "Listing image plus floor plans.", cols: 3, fields: [
+      { name: "imageA", label: "Listing image", type: "image", required: true },
       { name: "imageB", label: "Secondary image", type: "image" },
       { name: "heroImage", label: "Detail page hero", type: "image" },
       { name: "floorPlanA", label: "Floor plan — ground", type: "image" },
       { name: "floorPlanB", label: "Floor plan — upper", type: "image" },
       { name: "floorPlanC", label: "Floor plan — undercroft", type: "image" },
     ] },
+    { title: "Film", desc: "A YouTube walkthrough sits in the project story, the way a luxury builder showcases the finished house.", fields: [
+      { name: "videoUrl", label: "YouTube video link", type: "url", placeholder: "https://www.youtube.com/watch?v=..." },
+      { name: "videoHeading", label: "Video heading", wide: true },
+      { name: "videoText", label: "Video text", type: "textarea", rows: 3 },
+    ] },
+    { title: "Project photography", desc: "Upload several images of this project. Captions appear under each photo, in order.", cols: 3, fields: [
+      { name: "galleryA", label: "Gallery 1", type: "image" },
+      { name: "galleryB", label: "Gallery 2", type: "image" },
+      { name: "galleryC", label: "Gallery 3", type: "image" },
+      { name: "galleryD", label: "Gallery 4", type: "image" },
+      { name: "galleryE", label: "Gallery 5", type: "image" },
+      { name: "galleryF", label: "Gallery 6", type: "image" },
+      { name: "scenes", label: "Photo captions", type: "textarea", rows: 8, wide: true, help: "One per line, in gallery order:  Caption | Short description  (e.g.  Poolside living | The ground floor opens to the alfresco and pool.)" },
+    ] },
     { title: "Story", fields: [
       { name: "heading", label: "Story heading", wide: true },
       { name: "paragraphs", label: "Paragraphs", type: "textarea", rows: 8, help: "Leave a blank line between paragraphs. Do not include the client street address." },
-      { name: "factsTitle", label: "Approach heading", wide: true },
-      { name: "factsText", label: "Approach text", type: "textarea", rows: 4 },
+      { name: "factsTitle", label: "How we composed it — heading", wide: true },
+      { name: "factsText", label: "How we composed it — text", type: "textarea", rows: 4 },
       { name: "checks", label: "Highlights", type: "textarea", rows: 5, help: "One item per line." },
     ] },
     publishing,

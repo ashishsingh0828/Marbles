@@ -69,7 +69,7 @@ export default function Abouts() {
               <img src="/images/ksd-stone-09.jpg" alt="Natural stone curation" />
             </div>
             <div className="ksd-about-intro__badge">
-              <img src="/images/logo/logo.PNG" alt="KSD Homes logo" className="ksd-about-intro__logo" />
+              <img src="/images/logo/logo.png" alt="KSD Homes logo" className="ksd-about-intro__logo" />
               <span>Architecture &amp; Interior Design</span>
             </div>
           </div>

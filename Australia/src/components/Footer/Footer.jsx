@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { BRAND } from "../../config";
+import BrandLogo from "../BrandLogo";
 import "./Footer.css";
 
 const CTA_IMAGE = "/images/ksd-stone-02.jpg";
@@ -9,7 +10,7 @@ const EXPLORE_LINKS = [
   { id: "home", label: "Home", to: "/" },
   { id: "about", label: "About KSD Homes", to: "/about" },
   { id: "services", label: "Architectural Services", to: "/services" },
-  { id: "projects", label: "Our Homes", to: "/projects" },
+  { id: "projects", label: "Projects", to: "/projects" },
   { id: "journal", label: "Design Journal", to: "/blogs" },
   { id: "contact", label: "Contact Us", to: "/contact" },
 ];
@@ -63,12 +64,8 @@ function useInView(threshold = 0.1) {
 
 function Logo() {
   return (
-    <Link to="/home" className="ft-logo" aria-label="KSD Homes Home">
-      <img
-        src={BRAND.logo || "/images/logo/logo.jpeg"}
-        alt="KSD Homes"
-        className="ft-logo-img"
-      />
+    <Link to="/" className="ft-logo" aria-label="KSD Homes Home">
+      <BrandLogo className="ft-logo-img" />
     </Link>
   );
 }

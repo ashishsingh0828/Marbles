@@ -1,4 +1,4 @@
-import { asset, paras, lines } from "../api";
+import { asset, paras, lines, pairs } from "../api";
 
 const STONE = (n) => `/images/ksd-stone-${String(n).padStart(2, "0")}.jpg`;
 
@@ -22,6 +22,17 @@ export const FALLBACK_HOMES = [
     image2: "/images/projects/sharma-plan-02.jpg",
     image3: "/images/projects/sharma-plan-03.jpg",
     image4: "/images/projects/sharma-plan-01.jpg",
+    videoUrl: "",
+    videoHeading: "Walk through the composition",
+    videoText: "A film of Sharma Residence will sit here once photography is complete. Until then, the stills and plans below tell the story of how the house is composed.",
+    scenes: [
+      { image: STONE(1), caption: "The beauty of indoor-outdoor living", text: "Daily life gathers around a 210 sqm marble main floor, then opens to a 90 sqm colour-concrete alfresco and a 32 sqm pool — indoor and outdoor as one room." },
+      { image: STONE(6), caption: "A welcoming entrance to the home", text: "A 45 sqm marble entrance sets the pace of arrival: calm, ordered, and personal, without publishing the client’s street address." },
+      { image: STONE(16), caption: "Marble main floors, onyx stair and lift", text: "A 30 sqm onyx staircase and lift connect undercroft, ground and upper living so movement through the house feels continuous." },
+      { image: STONE(17), caption: "Poolside living with a personal touch", text: "The pool, hardstand and alfresco are planned with the architecture — not added later — so Western Australian light and privacy work together." },
+      { image: STONE(18), caption: "Upper living, mandir and rest", text: "An 180 sqm marble main floor includes a 15 sqm marble mandir, ensuites and balconies. Every level has a clear purpose: arrival, living, and rest." },
+      { image: STONE(20), caption: "Materials chosen for climate and light", text: "Marble, onyx, pool tiles and concrete, each in its right place — selected for how they feel underfoot and how they catch Western Australian light." },
+    ],
     heading: "A three-storey boutique home composed as one complete living environment",
     paragraphs: [
       "Sharma Residence is a three-storey boutique home designed as a complete composition — architecture, interiors, materials and how the family lives, considered together. In the spirit of a carefully resolved Western Australian residence, every level has a clear purpose: arrival, living, and rest.",
@@ -61,6 +72,14 @@ export const FALLBACK_HOMES = [
     image2: "/images/projects/sharma-plan-02.jpg",
     image3: "/images/projects/sharma-plan-03.jpg",
     image4: "/images/projects/sharma-plan-01.jpg",
+    videoUrl: "",
+    videoHeading: "A film as the home takes form",
+    videoText: "We will share walkthrough photography when Port Coogee Residence is ready. The studies below show the design language it will share with our current work.",
+    scenes: [
+      { image: STONE(5), caption: "Coastal Western Australian living", text: "Light, proportion and indoor–outdoor connection, conceived for a coastal site — private, calm, and connected to outdoor living." },
+      { image: STONE(19), caption: "Architecture and interior as one", text: "The same KSD process as every commission: a personal brief, a complete composition, and a licensed builder with interior design under one roof." },
+      { image: STONE(21), caption: "A home still taking form", text: "Drawings, interiors and specification are in development. We do not publish the client’s address." },
+    ],
     heading: "An upcoming three-storey boutique home on the Western Australian coast",
     paragraphs: [
       "Port Coogee Residence is an upcoming KSD Homes commission in Western Australia — a three-storey boutique home conceived with the same design language as our current work: architecture and interior design as one complete home solution.",
@@ -93,6 +112,19 @@ export function mapHome(p = {}, idx = 0) {
   const planA = p.floorPlanA ? asset(p.floorPlanA) : "";
   const planB = p.floorPlanB ? asset(p.floorPlanB) : "";
   const planC = p.floorPlanC ? asset(p.floorPlanC) : "";
+  const gallery = ["galleryA", "galleryB", "galleryC", "galleryD", "galleryE", "galleryF"]
+    .map((key) => (p[key] ? asset(p[key]) : ""))
+    .filter(Boolean);
+  const scenePairs = p.scenes ? pairs(p.scenes) : [];
+  const scenes = scenePairs.length
+    ? scenePairs.map(([caption, text], i) => ({
+      caption,
+      text,
+      image: gallery[i] || fallback.scenes?.[i]?.image || fallback.image,
+    }))
+    : (gallery.length
+      ? gallery.map((image, i) => ({ image, caption: fallback.scenes?.[i]?.caption || "", text: fallback.scenes?.[i]?.text || "" }))
+      : fallback.scenes || []);
 
   const storeys = p.storeys || fallback.storeys || "";
   const category = p.category || p.projectType || fallback.category;
@@ -123,6 +155,11 @@ export function mapHome(p = {}, idx = 0) {
     image2: pickImage(planA, imageB, fallback.image2),
     image3: pickImage(planB, fallback.image3),
     image4: pickImage(planC, fallback.image4),
+    gallery: gallery.length ? gallery : (fallback.scenes || []).map((s) => s.image),
+    scenes,
+    videoUrl: p.videoUrl || fallback.videoUrl || "",
+    videoHeading: p.videoHeading || fallback.videoHeading || "",
+    videoText: p.videoText || fallback.videoText || "",
     heading: p.heading || p.subtitle || fallback.heading,
     paragraphs: p.paragraphs ? paras(p.paragraphs) : fallback.paragraphs,
     challengeTitle: p.factsTitle || fallback.challengeTitle,

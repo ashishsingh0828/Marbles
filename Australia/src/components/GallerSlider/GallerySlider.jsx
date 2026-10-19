@@ -7,12 +7,12 @@ import "./GallerySlider.css";
 const BG_IMAGE = "/images/ksd-stone-01.jpg";
 
 const GALLERY_ITEMS = [
-  { id: 1, slug: "sharma-residence", image: "/images/projects/sharma-plan-02.jpg", alt: "Sharma Residence ground floor plan" },
-  { id: 2, slug: "sharma-residence", image: "/images/projects/sharma-plan-03.jpg", alt: "Sharma Residence upper floor plan" },
-  { id: 3, slug: "sharma-residence", image: "/images/projects/sharma-plan-01.jpg", alt: "Sharma Residence undercroft plan" },
-  { id: 4, slug: "port-coogee-residence", image: "/images/projects/sharma-plan-02.jpg", alt: "Upcoming Port Coogee residence" },
-  { id: 5, slug: "sharma-residence", image: "/images/projects/sharma-plan-03.jpg", alt: "Three-storey boutique home upper level" },
-  { id: 6, slug: "port-coogee-residence", image: "/images/projects/sharma-plan-01.jpg", alt: "Western Australia boutique home undercroft" },
+  { id: 1, slug: "sharma-residence", image: "/images/ksd-stone-01.jpg", alt: "Sharma Residence", title: "Sharma Residence", status: "In Delivery" },
+  { id: 2, slug: "sharma-residence", image: "/images/ksd-stone-06.jpg", alt: "Sharma Residence interiors", title: "Sharma Residence", status: "In Delivery" },
+  { id: 3, slug: "sharma-residence", image: "/images/ksd-stone-16.jpg", alt: "Sharma Residence living", title: "Sharma Residence", status: "In Delivery" },
+  { id: 4, slug: "port-coogee-residence", image: "/images/ksd-stone-05.jpg", alt: "Port Coogee Residence", title: "Port Coogee Residence", status: "Upcoming" },
+  { id: 5, slug: "port-coogee-residence", image: "/images/ksd-stone-19.jpg", alt: "Port Coogee Residence study", title: "Port Coogee Residence", status: "Upcoming" },
+  { id: 6, slug: "sharma-residence", image: "/images/ksd-stone-20.jpg", alt: "Sharma Residence materials", title: "Sharma Residence", status: "In Delivery" },
 ];
 
 const CLONES = 4;
@@ -60,10 +60,18 @@ function GallerySlider({ background = BG_IMAGE, items: propItems }) {
   const { data } = useApi(propItems ? null : "/projects");
   const items = useMemo(() => {
     if (propItems && propItems.length > 0) return propItems;
-    const fromHomes = mergeHomes(data).flatMap((home) => [
-      { id: `${home.slug}-hero`, slug: home.slug, image: home.image, alt: home.title },
-      { id: `${home.slug}-plan`, slug: home.slug, image: home.image2 || home.image, alt: `${home.title} plan` },
-    ]);
+    const fromHomes = mergeHomes(data).flatMap((home) => {
+      const photos = [home.image, home.heroImage, ...(home.gallery || [])].filter(Boolean);
+      const unique = [...new Set(photos)].slice(0, 3);
+      return unique.map((image, i) => ({
+        id: `${home.slug}-${i}`,
+        slug: home.slug,
+        image,
+        alt: home.title,
+        title: home.title,
+        status: home.status,
+      }));
+    });
     return fromHomes.length ? fromHomes : GALLERY_ITEMS;
   }, [propItems, data]);
 
@@ -175,7 +183,7 @@ function GallerySlider({ background = BG_IMAGE, items: propItems }) {
             <span className="text">KSD HOMES PORTFOLIO</span>
             <span className="line" />
           </div>
-          <h2 className="gallery-title">Homes designed as complete compositions</h2>
+          <h2 className="gallery-title">Projects designed as complete compositions</h2>
         </div>
       </div>
 
@@ -227,13 +235,18 @@ function GallerySlider({ background = BG_IMAGE, items: propItems }) {
                 >
                   <div className="gallery-thumb">
                     {entry.item.slug ? (
-                      <Link to={`/projects/${entry.item.slug}`} style={{ display: "block", width: "100%", height: "100%" }}>
+                      <Link to={`/projects/${entry.item.slug}`} className="gallery-thumb__link">
                         <img
                           src={entry.item.image}
                           alt={entry.clone ? "" : entry.item.alt}
                           loading="lazy"
                           draggable="false"
                         />
+                        <span className="gallery-thumb__cap">
+                          <em>{entry.item.status || "Project"}</em>
+                          <strong>{entry.item.title || entry.item.alt}</strong>
+                          View project
+                        </span>
                       </Link>
                     ) : (
                       <img

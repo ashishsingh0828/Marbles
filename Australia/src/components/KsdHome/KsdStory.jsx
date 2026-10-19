@@ -167,7 +167,7 @@ export default function KsdStory() {
 
               <div className="ksd-story__info">
                 <img
-                  src="/images/logo/logo.PNG"
+                  src="/images/logo/logo.png"
                   alt="KSD Homes"
                   className="ksd-story__avatar"
                 />
