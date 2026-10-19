@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./WhyChooseUs.css";
 
 function useInView() {
@@ -116,7 +117,7 @@ export default function WhyChooseUs({
   gallery = GALLERY,
   quote = QUOTE,
   lead = LEAD,
-  buttonLabel = "Discover more",
+  buttonLabel = "About us",
   href = "/about",
   onButtonClick,
 }) {
@@ -206,17 +207,17 @@ export default function WhyChooseUs({
             ))}
           </div>
 
-          <a
+          <Link
             className="wc__cta wc__fade"
             style={{ "--d": "1800ms" }}
-            href={href}
+            to={href}
             onClick={onButtonClick}
           >
             <span className="wc__cta-label">{buttonLabel}</span>
             <span className="wc__cta-icon">
               <ArrowUpRight />
             </span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

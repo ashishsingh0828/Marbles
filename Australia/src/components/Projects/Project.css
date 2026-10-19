@@ -31,6 +31,73 @@
   letter-spacing: -0.02em;
 }
 
+.homes-section.is-home {
+  padding-top: 88px;
+}
+
+.homes-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto 36px;
+  padding: 0 24px;
+}
+
+.homes-filters button {
+  min-width: 120px;
+  height: 44px;
+  padding: 0 18px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  color: var(--navy, #0E2A47);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.homes-filters button.is-on,
+.homes-filters button:hover {
+  background: var(--navy-dark, #0A1C30);
+  border-color: var(--navy-dark, #0A1C30);
+  color: #fff;
+}
+
+.homes-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+}
+
+.homes-more a {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 28px;
+  border: 1.5px solid var(--navy, #0E2A47);
+  color: var(--navy, #0E2A47);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.homes-more a:hover {
+  background: var(--orange, #E67E22);
+  border-color: var(--orange, #E67E22);
+  color: #fff;
+}
+
+.home-card__copy h3 em {
+  display: block;
+  margin-top: 4px;
+  font-style: normal;
+  font-size: 0.62em;
+  letter-spacing: 0.12em;
+}
+
 .homes-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

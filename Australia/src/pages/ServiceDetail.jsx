@@ -2,8 +2,6 @@ import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
 import ServiceDetails from "../components/Services/ServiceDetails";
-import GallerySlider from "../components/GallerSlider/GallerySlider";
-import Faq from "../components/FAQ/Faq";
 import { useApi, asset, paras, pairs, youtubeId } from "../api";
 import { FALLBACK_SERVICES_MAP, DEFAULT_FALLBACK, SERVICE_SIDEBAR } from "../data/services";
 
@@ -84,8 +82,6 @@ export default function ServiceDetail() {
     <div>
       <Breadcrumb title={service.title} />
       <ServiceDetails service={service} links={sidebarLinks} />
-      <GallerySlider />
-      <Faq />
     </div>
   );
 }

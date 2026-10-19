@@ -8,20 +8,21 @@ const CTA_IMAGE = "/images/ksd-stone-02.jpg";
 
 const EXPLORE_LINKS = [
   { id: "home", label: "Home", to: "/" },
-  { id: "about", label: "About KSD Homes", to: "/about" },
-  { id: "services", label: "Architectural Services", to: "/services" },
+  { id: "about", label: "About", to: "/about" },
   { id: "projects", label: "Projects", to: "/projects" },
-  { id: "journal", label: "Design Journal", to: "/blogs" },
-  { id: "contact", label: "Contact Us", to: "/contact" },
+  { id: "journey", label: "Design Journey", to: "/design-journey" },
+  { id: "services", label: "Services", to: "/services" },
+  { id: "journal", label: "Journal", to: "/blogs" },
+  { id: "contact", label: "Enquire", to: "/contact" },
 ];
 
 const EXPERTISE_LINKS = [
-  { id: "architecture", label: "Residential Architecture", to: "/services" },
-  { id: "interiors", label: "Interior Architecture & Design", to: "/services" },
-  { id: "planning", label: "Space Planning & Design", to: "/services" },
-  { id: "bespoke", label: "Bespoke Home Design", to: "/services" },
-  { id: "reno", label: "Renovation & Transformation", to: "/services" },
-  { id: "complete", label: "Complete Home Solutions", to: "/services" },
+  { id: "architecture", label: "Architecture & Design", to: "/services/architecture-design" },
+  { id: "interiors", label: "Builder Interior Design", to: "/services/builder-interior-design" },
+  { id: "complete", label: "Complete Home Solutions", to: "/services/complete-home-solutions" },
+  { id: "build", label: "Licensed Boutique Building", to: "/services/licensed-boutique-building" },
+  { id: "outdoor", label: "Indoor–Outdoor Living", to: "/services/indoor-outdoor-living" },
+  { id: "materials", label: "Materials & Finishes", to: "/services/materials-finishes" },
 ];
 
 const SOCIALS = [
@@ -230,14 +231,14 @@ export default function Footer() {
           <div className="ft-cta-copy">
             <span className="ft-eyebrow ft-item" style={{ "--i": 0 }}>
               <span className="ft-eyebrow-line" />
-              ARCHITECTURE · BUILDER INTERIOR DESIGN · COMPLETE HOMES
+              FROM SKETCH TO FURNISHING
             </span>
             <h2 className="ft-cta-title ft-item" style={{ "--i": 1 }}>
-              Let&apos;s design the way you <em>experience</em> your home
+              Align yourself with the right team
             </h2>
           </div>
           <div className="ft-cta-action ft-item" style={{ "--i": 2 }}>
-            <CtaButton to="/contact">Book Consultation</CtaButton>
+            <CtaButton to="/contact">Enquire</CtaButton>
           </div>
         </div>
       </div>

@@ -6,21 +6,26 @@ import "./Header.css";
 
 const MENU = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
+  { label: "Design Journey", href: "/design-journey" },
+  { label: "Services", href: "/services" },
   { label: "Journal", href: "/blogs" },
-  { label: "Contact", href: "/contact" },
 ];
 
-const OVERLAY_ROUTES = ["/"];
+const isOverlayPath = (pathname) =>
+  pathname === "/" ||
+  pathname === "/home" ||
+  pathname === "/about" ||
+  pathname === "/design-journey" ||
+  /^\/projects\/[^/]+$/.test(pathname);
 
 export default function Header() {
   const [stuck, setStuck] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { pathname } = useLocation();
 
-  const isHome = OVERLAY_ROUTES.includes(pathname);
+  const isHome = isOverlayPath(pathname);
 
   const closeMenu = useCallback(() => setMobileOpen(false), []);
 
@@ -68,6 +73,7 @@ export default function Header() {
                 <li key={item.href} className="ksd-nav-item">
                   <NavLink
                     to={item.href}
+                    end={item.href === "/"}
                     className={({ isActive }) => `ksd-nav-link ${isActive ? "active" : ""}`}
                   >
                     {item.label}
@@ -79,7 +85,7 @@ export default function Header() {
 
           <div className="ksd-nav-actions">
             <Link to="/contact" className="ksd-cta-btn">
-              <span>Get a Quote</span>
+              <span>Enquire</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
             </Link>
 
@@ -118,6 +124,7 @@ export default function Header() {
               <li key={item.href}>
                 <NavLink
                   to={item.href}
+                  end={item.href === "/"}
                   className={({ isActive }) => `ksd-mobile-link ${isActive ? "active" : ""}`}
                   onClick={closeMenu}
                 >
@@ -129,7 +136,7 @@ export default function Header() {
 
           <div className="ksd-mobile-footer">
             <Link to="/contact" className="ksd-cta-btn ksd-mobile-cta" onClick={closeMenu}>
-              <span>Get a Quote</span>
+              <span>Enquire</span>
             </Link>
             <div className="ksd-mobile-contact">
               <p><strong>Perth Studio:</strong></p>

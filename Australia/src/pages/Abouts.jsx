@@ -1,35 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
-import Faq from "../components/FAQ/Faq";
-import "./Abouts.css";
-import GallerySlider from "../components/GallerSlider/GallerySlider";
-import OurValues from "../components/Values/OurValues";
 import WhyChooseUs from "../components/Values/WhyChooseUs";
-import VideoIntro from "../components/Home/VideoIntro";
-
-const TIMELINE = [
-  {
-    year: "Now",
-    title: "Incorporated in Western Australia",
-    desc: "KSD Homes Pty Ltd is established in Perth as a licensed builder for high-end boutique homes, with architecture and builder interior design at the core of every commission.",
-  },
-  {
-    year: "WA",
-    title: "Port Coogee & Western Australia",
-    desc: "Current work includes three-storey boutique residences across Western Australia, with Port Coogee among upcoming sites now in design and delivery.",
-  },
-  {
-    year: "Team",
-    title: "28+ Years Combined Craft",
-    desc: "Our builder interior design team brings more than twenty-eight years of combined professional experience to every home — without claiming decades as a company.",
-  },
-  {
-    year: "Next",
-    title: "Australia, Asia & India",
-    desc: "Our vision is to grow KSD Homes as a trusted architecture and design brand across Australia, Asia and India, known for thoughtful, client-centred living environments.",
-  },
-];
+import "./Abouts.css";
+import "./DesignJourney.css";
 
 const PHILOSOPHIES = [
   {
@@ -44,21 +17,26 @@ const PHILOSOPHIES = [
   },
   {
     num: "03",
-    title: "Complete Composition",
-    desc: "Architecture, interiors, lighting, furniture and finishes are designed as one — a complete home solution, not disconnected parts.",
+    title: "Under one roof",
+    desc: "Architecture, licensed boutique building and builder interior design sit with the same team from first conversation to handover.",
   },
 ];
 
 export default function Abouts() {
   return (
     <div className="ksd-about-page">
-      <Breadcrumb
-        title="About KSD Homes"
-        image="/images/ksd-stone-02.jpg"
-        labels={{ about: "About Our Studio" }}
-      />
+      <header className="dj-hero ksd-about-hero">
+        <img src="/images/ksd-stone-02.jpg" alt="" />
+        <div className="dj-hero__shade" />
+        <div className="dj-hero__copy">
+          <p>About us</p>
+          <h1>KSD is a name that stands for thoughtfully designed homes in Perth</h1>
+          <p className="dj-hero__lead">
+            We do not simply build houses. The best outcome is when the same team handles the entire process — architecture, builder interior design, and licensed boutique construction — from the earliest stages to completion.
+          </p>
+        </div>
+      </header>
 
-      {/* Main Studio Introduction */}
       <section className="ksd-about-intro">
         <div className="ksd-about-intro__container">
           <div className="ksd-about-intro__visual">
@@ -66,7 +44,7 @@ export default function Abouts() {
               <img src="/images/ksd-stone-08.jpg" alt="KSD Homes interior studio" />
             </div>
             <div className="ksd-about-intro__sub-img">
-              <img src="/images/ksd-stone-09.jpg" alt="Natural stone curation" />
+              <img src="/images/ksd-stone-09.jpg" alt="KSD Homes material and light" />
             </div>
             <div className="ksd-about-intro__badge">
               <img src="/images/logo/logo.png" alt="KSD Homes logo" className="ksd-about-intro__logo" />
@@ -77,11 +55,11 @@ export default function Abouts() {
           <div className="ksd-about-intro__content">
             <div className="ksd-about-intro__tag">
               <span className="ksd-about-intro__dot" />
-              <span>OUR DESIGN PHILOSOPHY</span>
+              <span>THE KSD WAY</span>
             </div>
 
             <h2 className="ksd-about-intro__title">
-              We don&apos;t simply design spaces. We design the way you experience them.
+              Combined visionary: architecture, builder interior design and complete homes.
             </h2>
 
             <p className="ksd-about-intro__lead">
@@ -89,7 +67,7 @@ export default function Abouts() {
             </p>
 
             <p className="ksd-about-intro__text">
-              Incorporated in Australia and based in Perth, we bring together architecture, builder interior design, innovation, functionality and craftsmanship. Every home should be a reflection of its people, their lifestyle and their aspirations. A KSD home is a carefully composed environment — an oasis of peace, relaxation and personal space — with a customer-centred, personal touch. Combined visionary from a team with 28+ years of experience.
+              Incorporated in Western Australia and based in Carlisle, Perth, we bring together architecture, builder interior design, innovation and craftsmanship — a brand of the Eagle Group of Companies. The company starts its journey in 2026. The team already carries 28+ years of combined professional experience. Designing and building a home is one of the most important investments of a lifetime, so it matters that you have the right team on your side.
             </p>
 
             <div className="ksd-about-intro__stats">
@@ -108,8 +86,8 @@ export default function Abouts() {
             </div>
 
             <div className="ksd-about-intro__action">
-              <Link to="/contact" className="ksd-btn">
-                <span>Book A Private Consultation</span>
+              <Link to="/design-journey" className="ksd-btn">
+                <span>Design Journey</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
@@ -119,12 +97,32 @@ export default function Abouts() {
         </div>
       </section>
 
-      {/* Values & Curated Gallery */}
-      <VideoIntro/>
-   <WhyChooseUs/>
-      <OurValues/>
-      <GallerySlider/>
-      <Faq />
+      <section className="ksd-about-philo">
+        <div className="ksd-about-philo__inner">
+          {PHILOSOPHIES.map((item) => (
+            <article key={item.num}>
+              <span>{item.num}</span>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <WhyChooseUs />
+
+      <div className="dj-next">
+        <Link to="/projects">
+          <span>Collection</span>
+          <strong>View our projects</strong>
+          <em>In delivery and upcoming homes</em>
+        </Link>
+        <Link to="/contact">
+          <span>Enquire</span>
+          <strong>We&apos;d love to hear from you</strong>
+          <em>Book a consultation with our Perth team</em>
+        </Link>
+      </div>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import Project from "../components/Projects/Project";
 function Projects() {
   return (
     <div>
-      <Breadcrumb title="Projects" />
+      <Breadcrumb title="Our Collection" image="/images/ksd-stone-06.jpg" labels={{ projects: "Projects" }} />
       <Project />
     </div>
   );

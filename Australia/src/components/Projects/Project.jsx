@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useApi } from "../../api";
 import { mergeHomes } from "../../data/homes";
 import "./Project.css";
+
+const FILTERS = ["All", "In Delivery", "Upcoming"];
 
 function useReveal() {
   const ref = useRef(null);
@@ -43,6 +45,7 @@ function ArrowIcon() {
 function ProjectCard({ home, index }) {
   const [ref, visible] = useReveal();
   const link = `/projects/${home.slug || home.id}`;
+  const name = home.suburb || home.title;
 
   return (
     <article
@@ -55,10 +58,13 @@ function ProjectCard({ home, index }) {
         <div className="home-card__shade" />
         <div className="home-card__copy">
           <span className="home-card__meta">
-            {home.status} / {home.location}
+            {home.status} / {name}
           </span>
-          <h3>{home.title}</h3>
-          <p>{home.specLine || home.conceptHeadline}</p>
+          <h3>
+            {name}
+            {home.shortCode ? <em>{home.shortCode}</em> : null}
+          </h3>
+          <p>{home.conceptHeadline || home.specLine}</p>
           <span className="home-card__cta">
             View project <ArrowIcon />
           </span>
@@ -68,21 +74,52 @@ function ProjectCard({ home, index }) {
   );
 }
 
-function Project() {
+function Project({ variant = "page" }) {
   const { data } = useApi("/projects");
+  const [filter, setFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 6;
+  const pageSize = variant === "home" ? 4 : 6;
   const homes = mergeHomes(data);
+
+  const filtered = useMemo(() => {
+    if (filter === "All") return homes;
+    return homes.filter((home) => {
+      const bucket = home.collection || home.status || "";
+      if (filter === "Upcoming") return /upcoming/i.test(bucket);
+      return /delivery|built|completed/i.test(bucket);
+    });
+  }, [homes, filter]);
+
   const startIndex = (currentPage - 1) * pageSize;
-  const page = homes.slice(startIndex, startIndex + pageSize);
-  const pages = Math.ceil(homes.length / pageSize);
+  const page = filtered.slice(startIndex, startIndex + pageSize);
+  const pages = Math.ceil(filtered.length / pageSize);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filter]);
 
   return (
-    <section className="homes-section">
+    <section className={`homes-section ${variant === "home" ? "is-home" : ""}`}>
       <div className="homes-intro">
-        <p>Our projects</p>
-        <h2>Boutique residences, resolved as complete compositions</h2>
+        <p>View our collection</p>
+        <h2>Recently composed residences, and a glimpse of homes taking shape</h2>
       </div>
+
+      <div className="homes-filters" role="tablist" aria-label="Project collection">
+        {FILTERS.map((item) => (
+          <button
+            key={item}
+            type="button"
+            role="tab"
+            aria-selected={filter === item}
+            className={filter === item ? "is-on" : ""}
+            onClick={() => setFilter(item)}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+
       <div className="homes-grid">
         {page.map((home, index) => (
           <ProjectCard key={home.id || home.slug} home={home} index={index} />
@@ -102,6 +139,12 @@ function Project() {
             </button>
           ))}
         </nav>
+      )}
+
+      {variant === "home" && (
+        <div className="homes-more">
+          <Link to="/projects">View all projects</Link>
+        </div>
       )}
     </section>
   );

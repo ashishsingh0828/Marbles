@@ -74,7 +74,7 @@
   width: 100%;
   max-width: 1340px;
   margin: 0 auto;
-  padding: 190px 24px 110px;
+  padding: 190px 24px 150px;
 }
 
 .ksd-hero__eyebrow,
@@ -121,9 +121,9 @@
 
 .ksd-hero__title {
   margin: 0 0 40px;
-  max-width: 820px;
+  max-width: 920px;
   font-family: var(--hero-heading);
-  font-size: clamp(36px, 5.4vw, 78px);
+  font-size: clamp(32px, 4.8vw, 68px);
   font-weight: 700;
   line-height: 1.06;
   letter-spacing: -0.025em;
@@ -133,6 +133,47 @@
 
 .ksd-hero__title span {
   display: block;
+}
+
+.ksd-hero__title.is-split span:last-child {
+  font-size: 0.62em;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.ksd-hero__pager {
+  position: absolute;
+  right: 28px;
+  bottom: 36px;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+}
+
+.ksd-hero__pager button {
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+}
+
+.ksd-hero__pager button.is-on {
+  background: var(--hero-orange);
+}
+
+.ksd-hero__status {
+  position: absolute;
+  left: 24px;
+  bottom: 28px;
+  z-index: 2;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .ksd-hero__actions {
@@ -265,6 +306,15 @@
 
   .ksd-hero__btn {
     width: 100%;
+  }
+
+  .ksd-hero__status {
+    display: none;
+  }
+
+  .ksd-hero__pager {
+    right: 16px;
+    bottom: 20px;
   }
 }
 

@@ -4,7 +4,7 @@ import { useApi } from "../../api";
 import { mergeHomes } from "../../data/homes";
 import "./KsdHero.css";
 
-const AUTOPLAY_MS = 5200;
+const AUTOPLAY_MS = 5600;
 const SPEED_MS = 700;
 
 const Arrow = () => (
@@ -15,23 +15,23 @@ const Arrow = () => (
 );
 
 function slidesFrom(homes) {
-  const featured = homes.slice(0, 2).map((home) => ({
+  const featured = homes.filter((home) => home.featured !== false).slice(0, 4).map((home) => ({
     image: home.heroImage || home.image,
-    eyebrow: `${home.status} / ${home.location}`,
-    lines: [home.title],
+    eyebrow: `${home.status} / ${home.suburb || home.title}`,
+    lines: [home.suburb || home.title, home.shortCode].filter(Boolean),
     concept: home.conceptHeadline,
     primary: { to: `/projects/${home.slug}`, label: "View project" },
-    secondary: { to: "/contact", label: "Book consultation" },
+    secondary: { to: "/contact", label: "Enquire" },
   }));
 
   return [
     {
       image: "/images/ksd-stone-06.jpg",
-      eyebrow: "Combined visionary · Perth",
-      lines: ["Architecture.", "Builder Interior Design.", "Complete Home Solutions."],
-      concept: "Licensed boutique builder. Design and build under one roof.",
-      primary: { to: "/projects", label: "View our projects" },
-      secondary: { to: "/contact", label: "Book consultation" },
+      eyebrow: "Perth’s boutique home builder",
+      lines: ["The name KSD is synonymous with thoughtfully designed homes in Perth"],
+      concept: "Architecture. Builder Interior Design. Complete Home Solutions — combined visionary, under one roof.",
+      primary: { to: "/about", label: "About us" },
+      secondary: { to: "/contact", label: "Enquire" },
     },
     ...featured,
   ];
@@ -109,7 +109,7 @@ export default function KsdHero() {
                 {slide.eyebrow && (
                   <p className="ksd-hero__eyebrow">{slide.eyebrow}</p>
                 )}
-                <Title className="ksd-hero__title">
+                <Title className={`ksd-hero__title ${slide.lines.length > 1 ? "is-split" : ""}`}>
                   {slide.lines.map((line) => (
                     <span key={line}>{line}</span>
                   ))}
@@ -140,6 +140,21 @@ export default function KsdHero() {
             </div>
           );
         })}
+      </div>
+
+      <div className="ksd-hero__pager" aria-hidden="true">
+        {slides.map((slide, i) => (
+          <button
+            key={slide.lines[0]}
+            type="button"
+            className={i === (index === total ? 0 : index) ? "is-on" : ""}
+            onClick={() => {
+              setAnimate(true);
+              setIndex(i);
+            }}
+            aria-label={slide.lines[0]}
+          />
+        ))}
       </div>
     </section>
   );

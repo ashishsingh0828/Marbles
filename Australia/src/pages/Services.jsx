@@ -1,18 +1,14 @@
-import React from 'react'
-import Breadcrumb from '../components/Breadcrumb/Breadcrumb'
-import Service from '../components/Services/Service'
-import GallerySlider from '../components/GallerSlider/GallerySlider'
-import Faq from '../components/FAQ/Faq'
+import React from "react";
+import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
+import Service from "../components/Services/Service";
 
 function Services() {
   return (
     <div>
-        <Breadcrumb/>
-      <Service/>
-      <GallerySlider/>
-      <Faq/>
+      <Breadcrumb title="Services" image="/images/ksd-stone-16.jpg" />
+      <Service />
     </div>
-  )
+  );
 }
 
-export default Services
+export default Services;

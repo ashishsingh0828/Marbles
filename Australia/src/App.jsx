@@ -11,6 +11,7 @@ import ProjectDetail from "./pages/ProjectDetail";
 import Blogs from "./pages/Blogs";
 import BlogDetail from "./pages/BlogDetail";
 import Contact from "./pages/Contact";
+import DesignJourney from "./pages/DesignJourney";
 
 function Page() {
   const { pathname } = useLocation();
@@ -31,6 +32,7 @@ function Page() {
         <Route path="/service-details/:slug" element={<ServiceDetail />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
+        <Route path="/design-journey" element={<DesignJourney />} />
         <Route path="/project-details" element={<ProjectDetail />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/blogs/:slug" element={<BlogDetail />} />

@@ -7,6 +7,66 @@
   background: #ffffff;
 }
 
+.ksd-about-hero h1 {
+  text-transform: none;
+  font-size: clamp(34px, 5vw, 64px);
+}
+
+.ksd-about-philo {
+  background: #0A1C30;
+  color: #fff;
+}
+
+.ksd-about-philo__inner {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  max-width: 1340px;
+  margin: 0 auto;
+}
+
+.ksd-about-philo article {
+  padding: 64px 36px;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ksd-about-philo article:last-child {
+  border-right: 0;
+}
+
+.ksd-about-philo span {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--orange, #E67E22);
+}
+
+.ksd-about-philo h3 {
+  margin: 0 0 14px;
+  color: #fff;
+  font-size: 28px;
+}
+
+.ksd-about-philo p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+@media (max-width: 899px) {
+  .ksd-about-philo__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ksd-about-philo article {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+}
+
 /* 1. Main Studio Intro Section */
 .ksd-about-intro {
   padding: clamp(80px, 9vw, 130px) 0;

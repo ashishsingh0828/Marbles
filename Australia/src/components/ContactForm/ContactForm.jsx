@@ -10,7 +10,7 @@ const INFO_ITEMS = [
   {
     id: "office",
     icon: "office",
-    title: "Visit Our Showroom",
+    title: "Perth Studio",
     lines: [{ text: BRAND.address }],
   },
   {
@@ -217,10 +217,10 @@ function ContactForm() {
           className={`mx-cell mx-form-cell ${formVisible ? "is-visible" : ""}`}
         >
           <h2 className="mx-heading mx-form-title mx-item" style={{ "--i": 0 }}>
-            Request A Consultation
+            We&apos;d love to hear from you
           </h2>
           <p className="mx-form-text mx-item" style={{ "--i": 1 }}>
-            Fill in your project details below and our master building specialists will get in touch.
+            For personalised assistance and to begin a complete KSD home, write to our Perth team.
           </p>
           <form onSubmit={handleSubmit}>
             <div className="mx-fields-grid">
@@ -269,7 +269,7 @@ function ContactForm() {
                 <textarea
                   name="message"
                   rows={5}
-                  placeholder="Tell us about your architectural plans or stone requirements... *"
+                  placeholder="Tell us about the home you want to design and build... *"
                   value={form.message}
                   onChange={handleChange}
                   required

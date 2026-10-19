@@ -44,17 +44,24 @@ const australiaProjects = {
     videoHeading: "Walk through the composition",
     client: "Private residence",
     location: "Western Australia",
+    suburb: "Residence",
     status: "In Delivery",
+    collection: "In Delivery",
+    featured: true,
     published: true,
   },
   sections: [
-    { title: "Basics", desc: "Name the project. Use a suburb or region only — never a street address.", fields: [
+    { title: "Basics", desc: "Name the project the way it appears on the collection — suburb first, never a street address.", fields: [
       { name: "title", label: "Project name", required: true, placeholder: "Residence" },
+      { name: "suburb", label: "Collection name", placeholder: "Residence", help: "Large title on the project page, e.g. Residence or Port Coogee." },
+      { name: "shortCode", label: "Short code (optional)", placeholder: "R01", help: "Optional second line under the name, in the luxury-builder style." },
       { name: "category", label: "Type", type: "select", options: opts(["Boutique Home", "Upcoming", "In Delivery", "Completed", "Architecture", "Interior Design"]) },
       { name: "status", label: "Status", type: "select", options: opts(["Upcoming", "In Delivery", "Completed"]) },
+      { name: "collection", label: "Collection filter", type: "select", options: opts(["In Delivery", "Upcoming", "Completed"]) },
       { name: "location", label: "Location", placeholder: "Western Australia", help: "Suburb or region only. Do not enter a street address." },
       { name: "client", label: "Client", placeholder: "Private residence" },
       { name: "date", label: "Date or phase", placeholder: "In delivery" },
+      { name: "featured", label: "Featured on homepage collection", type: "switch" },
     ] },
     { title: "Specifications", desc: "Shown as a spec strip on the project page. Leave blank if not public.", cols: 3, fields: [
       { name: "storeys", label: "Storeys", placeholder: "3" },
@@ -72,6 +79,7 @@ const australiaProjects = {
       { name: "floorPlanA", label: "Floor plan — ground", type: "image" },
       { name: "floorPlanB", label: "Floor plan — upper", type: "image" },
       { name: "floorPlanC", label: "Floor plan — undercroft", type: "image" },
+      { name: "planLabels", label: "Plan labels", type: "textarea", rows: 3, wide: true, help: "One per line, matching the three plans: Ground / Upper / Undercroft." },
     ] },
     { title: "Film", desc: "A YouTube walkthrough sits in the project story, the way a luxury builder showcases the finished house.", fields: [
       { name: "videoUrl", label: "YouTube video link", type: "url", placeholder: "https://www.youtube.com/watch?v=..." },
@@ -85,7 +93,10 @@ const australiaProjects = {
       { name: "galleryD", label: "Gallery 4", type: "image" },
       { name: "galleryE", label: "Gallery 5", type: "image" },
       { name: "galleryF", label: "Gallery 6", type: "image" },
+      { name: "galleryG", label: "Gallery 7", type: "image" },
+      { name: "galleryH", label: "Gallery 8", type: "image" },
       { name: "scenes", label: "Photo captions", type: "textarea", rows: 8, wide: true, help: "One per line, in gallery order:  Caption | Short description  (e.g.  Poolside living | The ground floor opens to the alfresco and pool.)" },
+      { name: "overlayCaption", label: "Hero overlay line", placeholder: "IN DELIVERY / RESIDENCE", wide: true },
     ] },
     { title: "Story", fields: [
       { name: "heading", label: "Story heading", wide: true },
@@ -93,6 +104,8 @@ const australiaProjects = {
       { name: "factsTitle", label: "How we composed it — heading", wide: true },
       { name: "factsText", label: "How we composed it — text", type: "textarea", rows: 4 },
       { name: "checks", label: "Highlights", type: "textarea", rows: 5, help: "One item per line." },
+      { name: "resultTitle", label: "Closing heading", wide: true },
+      { name: "resultText", label: "Closing text", type: "textarea", rows: 3 },
     ] },
     publishing,
   ],
@@ -135,7 +148,7 @@ const australiaServices = {
       { name: "title", label: "Service title", required: true },
       { name: "category", label: "Category", type: "select", options: opts(["Architecture", "Interior Design", "Complete Home", "Builder", "Outdoor Living"]) },
       { name: "shortDescription", label: "Short description", type: "textarea", rows: 3, required: true, help: "Shown on the services list and homepage cards." },
-      { name: "conceptHeadline", label: "Concept line", placeholder: "Design and build under one roof", wide: true },
+      { name: "conceptHeadline", label: "Concept line", placeholder: "From sketch to furnishing, under one roof", wide: true },
     ] },
     { title: "Images", cols: 2, fields: [
       { name: "image", label: "List page image", type: "image", required: true },

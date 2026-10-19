@@ -12,11 +12,16 @@ export const FALLBACK_HOMES = [
   {
     slug: "residence",
     title: "Residence",
+    suburb: "Residence",
+    shortCode: "",
+    featured: true,
     category: "Three-Storey Boutique Home",
     status: "In Delivery",
+    collection: "In Delivery",
     location: "Western Australia",
     client: "Private residence",
     conceptHeadline: "The beauty of indoor-outdoor living",
+    planLabels: ["Ground", "Upper", "Undercroft"],
     storeys: "3",
     beds: "",
     baths: "",
@@ -59,11 +64,16 @@ export const FALLBACK_HOMES = [
   {
     slug: "port-coogee-residence",
     title: "Port Coogee Residence",
+    suburb: "Port Coogee",
+    shortCode: "",
+    featured: true,
     category: "Upcoming · Conceptual design",
     status: "Upcoming",
+    collection: "Upcoming",
     location: "Western Australia",
     client: "Private residence",
     conceptHeadline: "Conceptual design of an upcoming home",
+    planLabels: [],
     storeys: "3",
     beds: "",
     baths: "",
@@ -123,7 +133,7 @@ export function mapHome(p = {}, idx = 0) {
   const planA = p.floorPlanA ? asset(p.floorPlanA) : "";
   const planB = p.floorPlanB ? asset(p.floorPlanB) : "";
   const planC = p.floorPlanC ? asset(p.floorPlanC) : "";
-  const gallery = ["galleryA", "galleryB", "galleryC", "galleryD", "galleryE", "galleryF"]
+  const gallery = ["galleryA", "galleryB", "galleryC", "galleryD", "galleryE", "galleryF", "galleryG", "galleryH"]
     .map((key) => (p[key] ? asset(p[key]) : ""))
     .filter(Boolean);
   const scenePairs = p.scenes ? pairs(p.scenes) : [];
@@ -146,6 +156,13 @@ export function mapHome(p = {}, idx = 0) {
     id: p._id || p.slug || fallback.slug,
     slug: rawSlug || fallback.slug,
     title: displayTitle(p.title || fallback.title),
+    suburb: p.suburb || fallback.suburb || displayTitle(p.title || fallback.title),
+    shortCode: p.shortCode || fallback.shortCode || "",
+    featured: p.featured !== undefined ? !!p.featured : (fallback.featured !== false),
+    collection: p.collection || p.status || fallback.collection || status,
+    planLabels: p.planLabels
+      ? lines(p.planLabels)
+      : (fallback.planLabels || ["Ground", "Upper", "Undercroft"]),
     category,
     status,
     location,
@@ -176,8 +193,9 @@ export function mapHome(p = {}, idx = 0) {
     challengeTitle: p.factsTitle || fallback.challengeTitle,
     challengeText: p.factsText || fallback.challengeText,
     checks: p.checks ? lines(p.checks) : fallback.checks,
-    resultTitle: fallback.resultTitle,
-    resultText: p.result || fallback.resultText,
+    overlayCaption: p.overlayCaption || fallback.overlayCaption || "",
+    resultTitle: p.resultTitle || fallback.resultTitle,
+    resultText: p.result || p.resultText || fallback.resultText,
   };
 }
 

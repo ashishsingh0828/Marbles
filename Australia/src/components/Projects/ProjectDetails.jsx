@@ -58,10 +58,11 @@ function ProjectDetails() {
   const others = mergeHomes(all).filter((h) => h.slug && h.slug !== home.slug);
   const next = others[0] || FALLBACK_HOMES.find((h) => h.slug !== home.slug) || FALLBACK_HOMES[0];
   const yt = youtubeId(home.videoUrl || "");
+  const planLabels = home.planLabels || ["Ground", "Upper", "Undercroft"];
   const plans = [
-    { src: home.image2, label: "Ground" },
-    { src: home.image3, label: "Upper" },
-    { src: home.image4, label: "Undercroft" },
+    { src: home.image2, label: planLabels[0] || "Ground" },
+    { src: home.image3, label: planLabels[1] || "Upper" },
+    { src: home.image4, label: planLabels[2] || "Undercroft" },
   ].filter((p) => p.src);
   const scenes = home.scenes || [];
   const extraGallery = (home.gallery || []).filter((src) => !scenes.some((s) => s.image === src));
@@ -72,9 +73,13 @@ function ProjectDetails() {
         <img src={home.heroImage} alt={home.title} />
         <div className="ps-hero__shade" />
         <div className="ps-hero__copy">
-          <p className="ps-kicker">{home.status} / {home.location}</p>
-          <h1>{home.title}</h1>
+          <p className="ps-kicker">{home.status} / {home.suburb || home.title}</p>
+          <h1>
+            <span>{home.suburb || home.title}</span>
+            {home.shortCode ? <em>{home.shortCode}</em> : null}
+          </h1>
           <p className="ps-hero__concept">{home.conceptHeadline}</p>
+          <Link to="/contact" className="ps-hero__enquire">Enquire</Link>
         </div>
       </header>
 
@@ -187,12 +192,12 @@ function ProjectDetails() {
       <div className="ps-next">
         <Link to={`/projects/${next.slug}`} className="ps-next__project">
           <span>Next project</span>
-          <strong>{next.title}</strong>
-          <em>{next.status} / {next.location}</em>
+          <strong>{next.suburb || next.title}</strong>
+          <em>{next.status} / {next.suburb || next.location}</em>
         </Link>
         <Link to="/contact" className="ps-next__enquire">
-          Plan your project
-          <small>Speak with our Perth builder interior design team</small>
+          Enquire
+          <small>We&apos;d love to hear from you</small>
         </Link>
       </div>
     </article>
