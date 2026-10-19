@@ -3,16 +3,16 @@ import "./OurBenefits.css";
 
 /* ---------- content (edit freely) ---------- */
 const STATS = [
-  { label: "Master residences built", value: 250, suffix: "+", decimals: 0 },
-  { label: "Years Australian building", value: 18, suffix: "+", decimals: 0 },
-  { label: "Customer satisfaction", value: 4.9, suffix: "/5", decimals: 1 },
+  { label: "Years team experience", value: 28, suffix: "+", decimals: 0 },
+  { label: "Complete home solution", value: 1, suffix: "", decimals: 0 },
+  { label: "Client-centred process", value: 100, suffix: "%", decimals: 0 },
 ];
 
 const BENEFITS = [
-  "Custom architectural home drafting",
-  "Hand-selected natural stone & marble",
-  "Licensed Australian master builders",
-  "Turnkey handover & structural warranty",
+  "Residential architecture & space planning",
+  "Interior design, furniture, fixtures & finishes",
+  "Licensed builder for high-end boutique homes",
+  "Customer-centred process with a personal touch",
 ];
 
 const HEADING = ["The", "hallmarks", "of", "KSD", "Homes", "craftsmanship"];

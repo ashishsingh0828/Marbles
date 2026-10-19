@@ -4,7 +4,7 @@ import "./VideoIntro.css";
 
 const VIDEO_URL = "";
 
-const HEADING = "Ready To Transform Your Home With Bespoke Interiors & Master Stonemasonry";
+const HEADING = "Ready To Design The Way You Experience Your Home";
 
 function toEmbed(url) {
   try {

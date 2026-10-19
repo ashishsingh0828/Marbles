@@ -101,7 +101,7 @@ const INTERIOR_SERVICES = [
   },
 ];
 
-const HEADING = "Crafting Exceptional Interior Environments";
+const HEADING = "Architecture, interiors and complete home solutions";
 
 const Arrow = () => (
   <svg width="22" height="14" viewBox="0 0 26 16" fill="none" aria-hidden="true">

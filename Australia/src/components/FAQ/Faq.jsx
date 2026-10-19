@@ -10,23 +10,28 @@ const DECO_IMAGE_B = "/images/ksd-stone-46.jpg";
 const ITEMS = [
   {
     id: 1,
-    title: "Complete Bespoke Interior Spatial Curation",
-    text: "From concept mood boards, 3D photorealistic renderings, and cabinetry detailing to final installation, KSD Homes handles your interior journey with dedicated Australian project managers.",
+    title: "What does KSD Homes design and build?",
+    text: "KSD Homes Pty Ltd is a licensed builder for high-end boutique homes in Western Australia. We bring together residential architecture, interior design, space planning, furniture and finishes, and complete home solutions — from a new three-storey residence to a thoughtful renovation.",
   },
   {
     id: 2,
-    title: "Direct European Quarry Stone Importation",
-    text: "We directly import premium marble, quartzite, and travertine slabs from world-class quarries in Carrara, Greece, Spain, and Turkey, guaranteeing continuous veining consistency without middleman markups.",
+    title: "Do you work on new homes and renovations?",
+    text: "Yes. We design and deliver new boutique homes as well as renovation and transformation projects. Current work includes three-storey residences in Western Australia, with Port Coogee among upcoming sites.",
   },
   {
     id: 3,
-    title: "Sub-Millimeter 45° Mitered Waterfall Islands",
-    text: "Our Italian CNC bridge saws and master stonemasons fabricate seamless 45-degree mitered edges where the marble vein cascades uninterrupted from benchtop to floor.",
+    title: "How does the design process start?",
+    text: "Every project begins with listening. We work closely with you to understand lifestyle, preferences and vision, then translate that into architecture and interiors that feel personal, practical and lasting. Our team brings 28+ years of combined builder and interior design experience.",
   },
   {
     id: 4,
-    title: "Deep Fluoropolymer Nano-Sealing & Protection",
-    text: "All interior stone installations receive commercial-grade penetrating fluoropolymer sealers to shield against moisture, wine, oils, and etching while preserving the natural tactile luxury of the stone.",
+    title: "Where is KSD Homes based?",
+    text: "Our studio is at 171 Star Street, Carlisle, Perth WA 6101. Call AJ on +61 414 029 695 (also WhatsApp) or Karl on +61 468 429 212, or email admin@ksdhomes.com.au.",
+  },
+  {
+    id: 5,
+    title: "Is KSD Homes a new company?",
+    text: "KSD Homes is an emerging brand, incorporated in Australia, under the Eagle Group of Companies. The company is starting its journey in Western Australia, with future plans across Australia, Asia and India — while our builder and interior design team already carry 28+ years of combined professional experience.",
   },
 ];
 
@@ -154,7 +159,7 @@ function RatingCard() {
       ref={ref}
       className={`fq-rating${inView ? " is-visible" : ""}`}
       role="img"
-      aria-label="Rated 4.9 out of 5 based on 2500 reviews"
+      aria-label="Licensed boutique home builder, Perth Western Australia"
     >
       <span className="fq-rating-logo">
         <img
@@ -177,7 +182,7 @@ function RatingCard() {
             ))}
           </span>
         </div>
-        <p>Based on 2500 reviews</p>
+        <p>Licensed boutique home builder · Perth WA</p>
       </div>
     </div>
   );
@@ -236,16 +241,16 @@ function Faq() {
             <Reveal variant="up" delay={0}>
               <span className="fq-pill">
                 <span className="fq-pill-dot" />
-                Our Core Features
+                Frequently Asked Questions
               </span>
             </Reveal>
 
-            <SplitHeading text="Reliable features built for lasting performance" />
+            <SplitHeading text="Thoughtful answers for your home" />
 
             <Reveal variant="up" delay={0.1}>
               <p className="fq-text">
-                Our tiles and marble surfaces are engineered advance manufacturing technique to
-                deliver consistent strength, durability, & long-term performance.
+                Architecture, interior design and complete home solutions — with a customer-centred
+                approach and a personal touch from our Perth studio.
               </p>
             </Reveal>
 

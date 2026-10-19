@@ -86,9 +86,9 @@ export default function KsdHero() {
 
               <div className="ksd-hero__container">
                 <Title className="ksd-hero__title">
-                  <span>Bespoke Luxury Interiors.</span>
-                  <span>Signature Marble.</span>
-                  <span>Master Stonemasonry.</span>
+                  <span>Architecture.</span>
+                  <span>Interior Design.</span>
+                  <span>Complete Home Solutions.</span>
                 </Title>
 
                 <div className="ksd-hero__actions">

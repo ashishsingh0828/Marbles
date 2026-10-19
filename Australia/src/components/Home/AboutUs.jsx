@@ -32,9 +32,9 @@ function useReveal(threshold = 0.18) {
 }
 
 const FEATURES = [
-  "Bespoke luxury custom home design & construction",
-  "Hand-selected natural marble, granite & quartzite",
-  "Precision dry-lay alignment, cutting & master masonry",
+  "Licensed builder for high-end boutique homes",
+  "Architecture and interior design as one",
+  "Complete home solutions with a personal touch",
 ];
 
 export default function AboutUs({

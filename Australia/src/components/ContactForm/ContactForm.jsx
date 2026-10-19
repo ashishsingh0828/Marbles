@@ -3,7 +3,7 @@ import { sendContact } from "../../api";
 import { BRAND } from "../../config";
 import "./ContactForm.css";
 
-const MAP_SRC = "https://www.google.com/maps?q=Sydney+NSW+Australia&output=embed";
+const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(BRAND.mapQuery)}&output=embed`;
 const IMAGE_SRC = "/images/ksd-stone-47.jpg";
 
 const INFO_ITEMS = [
@@ -16,9 +16,11 @@ const INFO_ITEMS = [
   {
     id: "phone",
     icon: "phone",
-    title: "Phone Enquiries",
+    title: "Phone & WhatsApp",
     lines: [
-      { text: BRAND.phone, href: `tel:${BRAND.phoneHref || BRAND.phone}` },
+      { text: `${BRAND.phoneLabel}: ${BRAND.phone}`, href: BRAND.phoneHref },
+      { text: `${BRAND.phoneKarlLabel}: ${BRAND.phoneKarl}`, href: BRAND.phoneKarlHref },
+      { text: "WhatsApp", href: BRAND.whatsappHref },
     ],
   },
   {
@@ -145,10 +147,10 @@ function ContactForm() {
             CONNECT WITH KSD HOMES
           </span>
           <h2 className="mx-heading mx-item" style={{ "--i": 1 }}>
-            Start Your Custom Home &amp; Stone Journey
+            Start Your Custom Home Journey
           </h2>
           <p className="mx-text mx-item" style={{ "--i": 2 }}>
-            Whether planning an architectural home build, a grand marble foyer, or a bespoke stone kitchen, our senior consultants in Sydney are here to assist.
+            Planning a boutique home, a renovation, or a complete interior fit-out? Speak with our Perth builder and interior design team. Every project begins with listening.
           </p>
           <ul className="mx-info-list">
             {INFO_ITEMS.map((item, index) => (
@@ -192,7 +194,7 @@ function ContactForm() {
         >
           <div className="mx-map-frame mx-item mx-item--right" style={{ "--i": 0 }}>
             <iframe
-              title="KSD Homes Sydney Location"
+              title="KSD Homes Perth Studio"
               src={MAP_SRC}
               loading="lazy"
               allowFullScreen
@@ -248,7 +250,7 @@ function ContactForm() {
                 <input
                   type="tel"
                   name="phone"
-                  placeholder="Phone Number (e.g. +61 400 000 000)"
+                  placeholder="Phone or WhatsApp (e.g. +61 414 029 695)"
                   value={form.phone}
                   onChange={handleChange}
                   autoComplete="tel"
@@ -258,7 +260,7 @@ function ContactForm() {
                 <input
                   type="text"
                   name="scope"
-                  placeholder="Project Scope (e.g. Custom Build, Marble Island)"
+                  placeholder="Project Scope (e.g. New Home, Interior Design, Renovation)"
                   value={form.scope}
                   onChange={handleChange}
                 />

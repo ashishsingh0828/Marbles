@@ -6,10 +6,10 @@ const MAIN_IMAGE = "/images/ksd-stone-03.jpg";
 const TILES_IMAGE = "/images/ksd-stone-04.jpg";
 
 const LIST_ITEMS = [
-  "Bespoke luxury architectural home building",
-  "Directly-sourced Italian & global natural stone",
-  "Master masonry, bookmatched slabs & precision fitting",
-  "Complete turnkey project delivery across Australia",
+  "Licensed builder for high-end boutique homes",
+  "Residential architecture and interior design",
+  "Space planning, finishes and complete home solutions",
+  "Customer-centred process with a personal touch",
 ];
 
 const prefersReducedMotion = () =>
@@ -118,7 +118,7 @@ function RotatingBadge({ logo = BRAND.logo || "/images/logo/logo.jpeg" }) {
           </defs>
           <text>
             <textPath href="#ab-circle-path" startOffset="0" textLength="496" lengthAdjust="spacing">
-              KSD HOMES AUSTRALIA ✦ BESPOKE ARCHITECTURE ✦
+              KSD HOMES PTY LTD ✦ ARCHITECTURE & INTERIORS ✦
             </textPath>
           </text>
         </svg>
@@ -132,7 +132,7 @@ function RotatingBadge({ logo = BRAND.logo || "/images/logo/logo.jpeg" }) {
 
 function StatBadge() {
   const [ref, inView] = useInView(0.4);
-  const value = useCountUp(18, inView, 2200);
+  const value = useCountUp(28, inView, 2200);
 
   return (
     <div ref={ref} className={`ab-stat ${inView ? "is-visible" : ""}`}>
@@ -141,9 +141,9 @@ function StatBadge() {
         <span>+</span>
       </span>
       <span className="ab-stat-label">
-        Years of Luxury
+        Years Combined
         <br />
-        Master Craftsmanship
+        Team Experience
       </span>
     </div>
   );
@@ -196,7 +196,7 @@ export default function About() {
                 ABOUT KSD HOMES
               </span>
             </Reveal>
-            <SplitHeading text="Crafting extraordinary luxury homes & architectural stone across Australia" />
+            <SplitHeading text="Architecture, interior design and complete home solutions in Western Australia" />
           </div>
           <Reveal variant="zoom" delay={0.3} className="ab-circle-wrap">
             <RotatingBadge />
@@ -214,7 +214,7 @@ export default function About() {
           <div className="ab-content">
             <Reveal variant="up" delay={0.2}>
               <h3 className="ab-lead">
-                At KSD Homes, we believe a home is a permanent legacy. We combine master architectural construction with hand-selected natural marble, granite, and stone to craft living environments of distinction.
+                At KSD Homes we see a home as more than a structure. It is a carefully composed environment that influences how we live, work, relax and connect — designed with form, function, light and a personal touch.
               </h3>
             </Reveal>
 
@@ -240,8 +240,8 @@ export default function About() {
 
                 <Reveal variant="up" delay={0.7} className="ab-author">
                   <Signature />
-                  <h5>KSD Homes Master Builders</h5>
-                  <p>Director of Construction &amp; Stone Architecture</p>
+                  <h5>KSD Homes Pty Ltd</h5>
+                  <p>Builder &amp; Interior Design · Perth WA</p>
                 </Reveal>
               </div>
 

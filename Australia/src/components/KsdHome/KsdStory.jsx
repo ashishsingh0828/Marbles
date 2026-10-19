@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import "./KsdStory.css";
 
 const HEADING = [
-  { text: "Elevating Australian interiors", accent: false },
-  { text: "with master stone artistry", accent: true },
+  { text: "Homes that reflect", accent: false },
+  { text: "the way you live", accent: true },
 ];
 
-const CHECKS = ["Curated luxury interior design", "Hand-selected European stone"];
+const CHECKS = ["Licensed boutique home builder", "Architecture & interior design"];
 
 const Arrow = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -111,15 +111,15 @@ export default function KsdStory() {
           </div>
 
           <div className="ksd-story__counter ksd-story__fade" style={{ "--d": "1.1s" }}>
-            <span className="ksd-story__counter-label">Residences Built</span>
+            <span className="ksd-story__counter-label">Builder &amp; Design</span>
             <span className="ksd-story__counter-circle">
-              <span>250+</span>
+              <span>One</span>
             </span>
           </div>
 
           <div className="ksd-story__badge ksd-story__pop" style={{ "--d": "1.3s" }}>
-            <span className="ksd-story__badge-num">18+</span>
-            <span className="ksd-story__badge-txt">Years Of Experience</span>
+            <span className="ksd-story__badge-num">28+</span>
+            <span className="ksd-story__badge-txt">Years Team Experience</span>
           </div>
         </div>
 
@@ -132,7 +132,7 @@ export default function KsdStory() {
           <AnimatedHeading parts={HEADING} />
 
           <p className="ksd-story__text ksd-story__rise" style={{ "--d": "0.8s" }}>
-            KSD Homes combines visionary Australian interior design with generational stonemasonry. Whether it is a harbourfront penthouse, a four-metre marble kitchen island or a hotel-grade ensuite, we craft living spaces that reflect understated luxury.
+            KSD Homes Pty Ltd is an emerging architecture and design-led brand in Western Australia. We collaborate with clients to turn a simple house into a high-performing, comfortable home — with Western, European and Asian design expressions, and a cost-effective, customer-centred approach.
           </p>
 
           <div className="ksd-story__row">
@@ -167,13 +167,13 @@ export default function KsdStory() {
 
               <div className="ksd-story__info">
                 <img
-                  src="/images/logo/logo.jpeg"
+                  src="/images/logo/logo.PNG"
                   alt="KSD Homes"
                   className="ksd-story__avatar"
                 />
                 <span className="ksd-story__info-body">
-                  <span className="ksd-story__info-title">KSD Homes</span>
-                  <span className="ksd-story__info-sub">Sydney · Melbourne · Gold Coast</span>
+                  <span className="ksd-story__info-title">KSD Homes Pty Ltd</span>
+                  <span className="ksd-story__info-sub">Carlisle, Perth WA</span>
                 </span>
               </div>
             </div>

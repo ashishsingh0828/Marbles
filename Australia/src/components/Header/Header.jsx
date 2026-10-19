@@ -131,7 +131,7 @@ export default function Header() {
               <span>Get a Quote</span>
             </Link>
             <div className="ksd-mobile-contact">
-              <p><strong>Sydney Showroom &amp; Office:</strong></p>
+              <p><strong>Perth Studio:</strong></p>
               <p>{BRAND.address}</p>
               <p>Phone: <a href={`tel:${BRAND.phone}`}>{BRAND.phone}</a></p>
               <p>Email: <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a></p>

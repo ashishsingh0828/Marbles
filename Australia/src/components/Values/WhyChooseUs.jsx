@@ -79,23 +79,23 @@ const ArrowUpRight = () => (
 const HEADING = ["Why" , " choose", ""," KSD", "Homes"];
 
 const LEAD =
-  "Choose from premium marble and natural stone, with honest guidance from people who handle every slab themselves.";
+  "We collaborate closely so architecture, interiors and how you live become one complete home — with a customer-centred approach and a personal touch.";
 
 const GROUPS = [
   {
-    title: "Hand-Selected Slabs",
+    title: "Builder & Interior Design",
     items: [
-      "Italian & Greek quarries",
-      "Chosen in person",
-      "Continuous vein flow",
+      "Licensed boutique home builder",
+      "28+ years team experience",
+      "Architecture and interiors as one",
     ],
   },
   {
-    title: "Bespoke Contracts",
+    title: "A Personal Process",
     items: [
-      "Fixed-price itemised quote",
-      "Inspect your exact slab",
-      "Fluoropolymer sealing & care",
+      "Every project begins with listening",
+      "Customised to how you live",
+      "Western, European & Asian influences",
     ],
   },
 ];
@@ -106,7 +106,7 @@ const GALLERY = [
 ];
 
 const QUOTE =
-  "From selection to installation, they were with us every step of the way. Every vein matched, every joint seamless.";
+  "We don't simply design spaces. We design the way you experience them — with a personal touch from first conversation to handover.";
 
 /* ---------- component ---------- */
 export default function WhyChooseUs({

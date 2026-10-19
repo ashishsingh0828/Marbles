@@ -304,11 +304,11 @@ export default function ServiceDetails({ service, links = [] }) {
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
               </div>
-              <span className="ksd-sd-cta-badge">KSD Homes Sydney Studio</span>
-              <h5>Consult Our Architectural Stonemasons</h5>
-              <p>Discuss slab selection, dry-lay planning, and custom joinery.</p>
-              <a href="tel:+61400000000" className="ksd-sd-cta-phone">
-                +61 400 000 000
+              <span className="ksd-sd-cta-badge">KSD Homes Perth Studio</span>
+              <h5>Consult Our Builder &amp; Design Team</h5>
+              <p>Discuss architecture, interiors and a complete home solution.</p>
+              <a href="tel:+61414029695" className="ksd-sd-cta-phone">
+                +61 414 029 695
               </a>
               <Link to="/contact" className="ksd-btn ksd-btn--white">
                 <span>Enquire Online</span>
@@ -319,34 +319,34 @@ export default function ServiceDetails({ service, links = [] }) {
 
           {/* Quality Guarantees */}
           <Reveal className="ksd-sd-widget ksd-sd-guarantees-widget" delay={180}>
-            <h4 className="ksd-sd-widget-title">Master Standards</h4>
+            <h4 className="ksd-sd-widget-title">How we work</h4>
             <ul className="ksd-sd-guarantee-list">
               <li>
                 <span className="ksd-sd-check-dot" />
                 <div>
-                  <strong>Direct Quarry Import</strong>
-                  <p>Hand-inspected slabs from Carrara & Greek quarries.</p>
+                  <strong>Licensed Boutique Builder</strong>
+                  <p>High-end boutique homes, delivered from our Perth studio.</p>
                 </div>
               </li>
               <li>
                 <span className="ksd-sd-check-dot" />
                 <div>
-                  <strong>Sub-Millimeter Miters</strong>
-                  <p>45° waterjet waterfall edges with hairline joins.</p>
+                  <strong>28+ Years Team Experience</strong>
+                  <p>Builder and interior design craft, combined in one team.</p>
                 </div>
               </li>
               <li>
                 <span className="ksd-sd-check-dot" />
                 <div>
-                  <strong>Permanent Nano-Sealing</strong>
-                  <p>High-grade fluoropolymer stain and acid defense.</p>
+                  <strong>A Personal Touch</strong>
+                  <p>Every project begins with listening to how you live.</p>
                 </div>
               </li>
               <li>
                 <span className="ksd-sd-check-dot" />
                 <div>
-                  <strong>Licensed NSW Builders</strong>
-                  <p>Full Australian building code compliance.</p>
+                  <strong>Complete Home Solution</strong>
+                  <p>Architecture, interiors, finishes and integration as one.</p>
                 </div>
               </li>
             </ul>

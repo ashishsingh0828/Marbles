@@ -1,19 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useApi, asset } from "../../api";
 import "./GallerySlider.css";
 
 const BG_IMAGE = "/images/ksd-stone-01.jpg";
 
 const GALLERY_ITEMS = [
-  { id: 1, slug: "mosman-coastal-estate", image: "/images/ksd-stone-24.jpg", alt: "Bespoke Residence Marble Living" },
-  { id: 2, slug: "toorak-penthouse", image: "/images/ksd-stone-25.jpg", alt: "Luxury Stone Waterfall Island" },
-  { id: 3, slug: "vaucluse-contemporary-pavilion", image: "/images/ksd-stone-26.jpg", alt: "Bookmatched Marble Ensuite" },
-  { id: 4, slug: "byron-bay-sanctuary", image: "/images/ksd-stone-27.jpg", alt: "Architectural Stone Kitchen Counter" },
-  { id: 5, slug: "point-piper-waterfront", image: "/images/ksd-stone-28.jpg", alt: "Polished Travertine Flooring" },
-  { id: 6, slug: "brighton-grand-residence", image: "/images/ksd-stone-29.jpg", alt: "Custom Architectural Staircase" },
-  { id: 7, slug: "mosman-coastal-estate", image: "/images/ksd-stone-30.jpg", alt: "Calacatta Quartzite Feature Wall" },
-  { id: 8, slug: "toorak-penthouse", image: "/images/ksd-stone-31.jpg", alt: "Outdoor Natural Stone Living" },
+  { id: 1, slug: "sharma-residence", image: "/images/projects/sharma-plan-02.jpg", alt: "Sharma Residence ground floor plan" },
+  { id: 2, slug: "sharma-residence", image: "/images/projects/sharma-plan-03.jpg", alt: "Sharma Residence upper floor plan" },
+  { id: 3, slug: "sharma-residence", image: "/images/projects/sharma-plan-01.jpg", alt: "Sharma Residence undercroft plan" },
+  { id: 4, slug: "port-coogee-residence", image: "/images/projects/sharma-plan-02.jpg", alt: "Upcoming Port Coogee residence" },
+  { id: 5, slug: "sharma-residence", image: "/images/projects/sharma-plan-03.jpg", alt: "Three-storey boutique home upper level" },
+  { id: 6, slug: "port-coogee-residence", image: "/images/projects/sharma-plan-01.jpg", alt: "Western Australia boutique home undercroft" },
 ];
 
 const CLONES = 4;
@@ -58,20 +55,10 @@ function useReveal(threshold = 0.15) {
 }
 
 function GallerySlider({ background = BG_IMAGE, items: propItems }) {
-  const { data: backendProjects } = useApi("/projects");
-
   const items = useMemo(() => {
     if (propItems && propItems.length > 0) return propItems;
-    if (backendProjects && backendProjects.length > 0) {
-      return backendProjects.map((p, idx) => ({
-        id: p._id || idx + 1,
-        slug: p.slug,
-        image: p.imageA ? asset(p.imageA) : (p.image ? asset(p.image) : `/images/ksd-stone-${String((idx % 12) + 21).padStart(2, "0")}.jpg`),
-        alt: p.title || "KSD Homes Architectural Project",
-      }));
-    }
     return GALLERY_ITEMS;
-  }, [propItems, backendProjects]);
+  }, [propItems]);
 
   const total = items.length;
   const [slidesPerView, setSlidesPerView] = useState(getSlidesPerView);

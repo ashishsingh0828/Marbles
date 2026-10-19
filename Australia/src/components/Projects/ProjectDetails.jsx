@@ -3,32 +3,68 @@ import { Link, useParams } from "react-router-dom";
 import { useApi, asset, paras, lines } from "../../api";
 import "./ProjectDetails.css";
 
-const FALLBACK_PROJECT = {
-  title: "The Mosman Coastal Estate",
-  category: "Sydney Luxury Home Build",
-  client: "Private Coastal Residence",
-  date: "October 2026",
-  location: "Mosman, Sydney NSW",
-  heroImage: "/images/ksd-stone-21.jpg",
-  image2: "/images/ksd-stone-22.jpg",
-  image3: "/images/ksd-stone-23.jpg",
-  heading: "Architectural Waterfront Villa with Bookmatched Calacatta Marble & Custom Stonemasonry",
-  paragraphs: [
-    "A bespoke multi-level architectural luxury estate overlooking Sydney Harbour, showcasing structural excellence, seamless indoor-outdoor transitions, and master stonemasonry.",
-    "Every natural stone slab was hand-selected and dry-laid with millimetre-tight hairline joints, featuring precision 45-degree mitered waterfall kitchen counters and floor-to-ceiling bookmatched bathroom suites.",
-    "Engineered with premium thermal insulation, custom acoustic framing, and commercial-grade anodized glazing suited to Australian coastal conditions.",
-  ],
-  challengeTitle: "The Architectural Challenge",
-  challengeText: "Navigating complex steep-slope coastal terrain while delivering floating cantilevered stone balconies, integrated infinity pool copings, and sub-millimeter stone vein alignment.",
-  checks: [
-    "Precision 45° mitered waterfall island joints",
-    "Continuous vein alignment across living hall & terrace",
-    "High-grade Australian coastal stone sealing",
-    "Turnkey custom building & structural compliance",
-  ],
-  resultTitle: "The Result of Project",
-  resultText: "A breathtaking architectural home built to the highest Australian residential standards, blending natural stone grandeur with modern coastal lifestyle.",
+const PROJECTS = {
+  "sharma-residence": {
+    title: "Sharma Residence",
+    category: "Three-Storey Boutique Home",
+    client: "Sharma Residence",
+    date: "In delivery",
+    location: "Western Australia",
+    heroImage: "/images/projects/sharma-plan-02.jpg",
+    image2: "/images/projects/sharma-plan-01.jpg",
+    image3: "/images/projects/sharma-plan-03.jpg",
+    heading: "A three-storey boutique home composed as one complete living environment",
+    paragraphs: [
+      "Sharma Residence is a three-storey boutique home designed as a complete composition — architecture, interiors, materials and how the family lives, considered together. In the spirit of a carefully resolved Western Australian residence, every level has a clear purpose: arrival, living, and rest.",
+      "The ground floor gathers daily life around a 210 sqm marble main floor, a 45 sqm marble entrance, and a 90 sqm colour-concrete alfresco opening to a 32 sqm pool. A 30 sqm onyx staircase and lift connect the home vertically, so movement through the house feels calm and continuous.",
+      "Below, the undercroft holds store and cellar, marble and carpeted support spaces, and pool plant. Above, an 180 sqm marble main floor includes a 15 sqm marble mandir, ensuites and balconies. Materials are selected for how they feel underfoot and how they catch Western Australian light — marble, onyx, pool tiles and concrete, each in its right place.",
+    ],
+    challengeTitle: "Architecture & interior, designed as one",
+    challengeText:
+      "The brief was a high-performing, comfortable family home with a personal touch: prayer space, guest rooms, master suite, pool and alfresco living, without treating any of these as add-ons. Our builder and interior design team planned the house as a single environment.",
+    checks: [
+      "Three storeys: undercroft, ground and upper living",
+      "Marble main floors with onyx stair and lift core",
+      "Alfresco, pool and hardstand for indoor–outdoor living",
+      "Dedicated mandir and guest accommodation",
+      "Complete home solution — architecture, interiors and finishes",
+    ],
+    resultTitle: "The composition of the home",
+    resultText:
+      "A boutique Western Australian residence where form, function, proportion and material work together. We do not publish the client’s street address. Sharma Residence is presented as a private family home, designed for how they live today and tomorrow.",
+  },
+  "port-coogee-residence": {
+    title: "Port Coogee Residence",
+    category: "Upcoming Western Australia",
+    client: "Private residence",
+    date: "Upcoming",
+    location: "Western Australia",
+    heroImage: "/images/projects/sharma-plan-03.jpg",
+    image2: "/images/projects/sharma-plan-02.jpg",
+    image3: "/images/projects/sharma-plan-01.jpg",
+    heading: "An upcoming three-storey boutique home on the Western Australian coast",
+    paragraphs: [
+      "Port Coogee Residence is an upcoming KSD Homes commission in Western Australia — a three-storey boutique home conceived with the same design language as our current work: architecture and interior design as one complete home solution.",
+      "The project continues our focus on coastal Western Australian living — light, proportion, indoor–outdoor connection, and materials chosen for climate and comfort. Like all KSD homes, it begins with listening to how the household wants to live.",
+      "Drawings, interiors and specification are in development with our licensed builder and interior design team. We will share the home as a finished composition when it is ready — without publishing the client’s address.",
+    ],
+    challengeTitle: "Designed for the way they will live",
+    challengeText:
+      "An upcoming coastal site asks for a home that feels private, calm and connected to outdoor living. Our approach is the same as every KSD commission: a personal brief, a complete composition, and a customer-centred process.",
+    checks: [
+      "Upcoming three-storey boutique home",
+      "Western Australia — Port Coogee",
+      "Architecture and interior design together",
+      "Licensed builder for high-end boutique homes",
+      "Client address remains private",
+    ],
+    resultTitle: "A home still taking form",
+    resultText:
+      "Port Coogee Residence is in the studio now. It will be delivered as a complete KSD home: architecture, interiors and the way the family experience the space — designed for tomorrow as much as today.",
+  },
 };
+
+const FALLBACK_PROJECT = PROJECTS["sharma-residence"];
 
 function Reveal({ as: Tag = "div", delay = 0, className = "", children }) {
   const ref = useRef(null);
@@ -86,31 +122,33 @@ function CheckIcon() {
 
 function ProjectDetails() {
   const { slug } = useParams();
-  const { data } = useApi(slug ? `/projects/${slug}` : null);
+  const { data } = useApi(slug && !PROJECTS[slug] ? `/projects/${slug}` : null);
+  const local = PROJECTS[slug] || (!data ? FALLBACK_PROJECT : null);
 
-  const p = data ? {
+  const p = local || {
     title: data.title,
-    category: data.category || "Luxury Build",
-    client: data.client || "KSD Homes Client",
-    date: data.date || "2026",
-    location: data.location || "Sydney, NSW, Australia",
-    heroImage: data.heroImage ? asset(data.heroImage) : (data.imageA ? asset(data.imageA) : (data.image ? asset(data.image) : FALLBACK_PROJECT.heroImage)),
-    image2: data.imageA ? asset(data.imageA) : (data.gallery && data.gallery[0] ? asset(data.gallery[0]) : FALLBACK_PROJECT.image2),
-    image3: data.imageB ? asset(data.imageB) : (data.gallery && data.gallery[1] ? asset(data.gallery[1]) : FALLBACK_PROJECT.image3),
+    category: data.category || "Boutique Home",
+    client: data.client || "Private residence",
+    date: data.date || "Western Australia",
+    location: "Western Australia",
+    heroImage: data.heroImage ? asset(data.heroImage) : (data.imageA ? asset(data.imageA) : FALLBACK_PROJECT.heroImage),
+    image2: data.imageA ? asset(data.imageA) : FALLBACK_PROJECT.image2,
+    image3: data.imageB ? asset(data.imageB) : FALLBACK_PROJECT.image3,
     heading: data.heading || data.subtitle || data.title,
-    paragraphs: data.paragraphs ? paras(data.paragraphs) : (data.content ? paras(data.content) : (data.description ? [data.description] : FALLBACK_PROJECT.paragraphs)),
-    challengeTitle: data.factsTitle || "Our Challenge & Execution",
-    challengeText: data.factsText || data.challenge || FALLBACK_PROJECT.challengeText,
-    checks: data.checks ? lines(data.checks) : (data.highlights ? lines(data.highlights) : FALLBACK_PROJECT.checks),
-    resultTitle: "The Result of Project",
+    paragraphs: data.paragraphs ? paras(data.paragraphs) : (data.content ? paras(data.content) : FALLBACK_PROJECT.paragraphs),
+    challengeTitle: data.factsTitle || "Architecture & interior, designed as one",
+    challengeText: data.factsText || FALLBACK_PROJECT.challengeText,
+    checks: data.checks ? lines(data.checks) : FALLBACK_PROJECT.checks,
+    resultTitle: "The composition of the home",
     resultText: data.result || FALLBACK_PROJECT.resultText,
-  } : FALLBACK_PROJECT;
+  };
 
   const infoItems = [
-    { label: "Project Category:", value: p.category },
+    { label: "Project:", value: p.title },
+    { label: "Type:", value: p.category },
     { label: "Client:", value: p.client },
-    { label: "Project Date:", value: p.date },
-    { label: "Location:", value: p.location },
+    { label: "Status:", value: p.date },
+    { label: "Region:", value: "Western Australia" },
   ];
 
   return (
@@ -172,10 +210,10 @@ function ProjectDetails() {
 
           <div className="project-group-thumb">
             <Reveal className="thumb" delay={0.1}>
-              <img src={p.image2} alt="Project detail feature one" />
+              <img src={p.image2} alt={`${p.title} floor plan`} />
             </Reveal>
             <Reveal className="thumb" delay={0.25}>
-              <img src={p.image3} alt="Project detail feature two" />
+              <img src={p.image3} alt={`${p.title} upper level`} />
             </Reveal>
           </div>
         </div>
@@ -184,8 +222,8 @@ function ProjectDetails() {
           <Reveal className="preview-item-wrap" delay={0.1}>
             <Link to="/contact" className="preview-item">
               <div className="content">
-                <h3>Plan Your Custom Project</h3>
-                <p>Speak with our senior Australian building team</p>
+                <h3>Plan Your Boutique Home</h3>
+                <p>Speak with our Perth builder and interior design team</p>
               </div>
             </Link>
           </Reveal>

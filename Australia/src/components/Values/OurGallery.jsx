@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useApi, asset } from "../../api";
 import "./OurGallery.css";
 
 /* ------------------------------------------------------------------
@@ -8,15 +7,13 @@ import "./OurGallery.css";
    card shows a built-in marble texture (tone = stone type).
 ------------------------------------------------------------------- */
 const SLIDES = [
-  { title: "Carrara Living Room", type: "Wall Cladding", tone: "carrara", image: "/images/ksd-stone-32.jpg" },
-  { title: "Calacatta Gold Bathroom", type: "Floor & Vanity", tone: "calacatta", image: "/images/ksd-stone-33.jpg" },
-  { title: "Nero Marquina Kitchen", type: "Countertop", tone: "marquina", image: "/images/ksd-stone-34.jpg" },
-  { title: "Verde Alpi Entrance", type: "Feature Wall", tone: "verde", image: "/images/ksd-stone-35.jpg" },
-  { title: "Travertine Staircase", type: "Steps & Risers", tone: "travertine", image: "/images/ksd-stone-36.jpg" },
-  { title: "Statuario Master Suite", type: "Bookmatched Slabs", tone: "statuario", image: "/images/ksd-stone-37.jpg" },
+  { title: "Sharma Residence", type: "Ground Floor", tone: "carrara", image: "/images/projects/sharma-plan-02.jpg" },
+  { title: "Sharma Residence", type: "Upper Floor", tone: "calacatta", image: "/images/projects/sharma-plan-03.jpg" },
+  { title: "Sharma Residence", type: "Undercroft", tone: "marquina", image: "/images/projects/sharma-plan-01.jpg" },
+  { title: "Port Coogee Residence", type: "Upcoming WA", tone: "verde", image: "/images/projects/sharma-plan-02.jpg" },
 ];
 
-const HEADING = ["Architectural", "homes", "&", "stone", "we've", "built"];
+const HEADING = ["Boutique", "homes", "we're", "designing", "in", "WA"];
 const pad = (n) => String(n).padStart(2, "0");
 
 /* ------------------------------------------------------------------
@@ -77,19 +74,10 @@ export default function OurGallery({
   bgImage = "", // optional dark background photo
   onViewAll,
 }) {
-  const { data: backendProjects } = useApi("/projects");
   const slides = useMemo(() => {
     if (propSlides && propSlides.length > 0) return propSlides;
-    if (backendProjects && backendProjects.length > 0) {
-      return backendProjects.map((p, idx) => ({
-        title: p.title,
-        type: p.category || "Luxury Build",
-        tone: ["carrara", "calacatta", "marquina", "verde", "travertine", "statuario"][idx % 6],
-        image: p.imageA ? asset(p.imageA) : (p.image ? asset(p.image) : `/images/ksd-stone-${String((idx % 12) + 21).padStart(2, "0")}.jpg`),
-      }));
-    }
     return SLIDES;
-  }, [propSlides, backendProjects]);
+  }, [propSlides]);
 
   const [sectionRef, inView] = useInView();
   const trackRef = useRef(null);

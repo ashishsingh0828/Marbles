@@ -4,12 +4,8 @@ import { useApi, asset } from "../../api";
 import "./Project.css";
 
 const FALLBACK_PROJECTS = [
-  { id: 1, slug: "mosman-coastal-estate", title: "The Mosman Coastal Estate", category: "Sydney Luxury Build", image: "/images/ksd-stone-21.jpg" },
-  { id: 2, slug: "toorak-penthouse", title: "Toorak Architectural Penthouse", category: "Melbourne Residence", image: "/images/ksd-stone-22.jpg" },
-  { id: 3, slug: "vaucluse-contemporary-pavilion", title: "Vaucluse Contemporary Pavilion", category: "Waterfront Residence", image: "/images/ksd-stone-23.jpg" },
-  { id: 4, slug: "byron-bay-sanctuary", title: "Byron Bay Modernist Sanctuary", category: "Architectural Stone", image: "/images/ksd-stone-24.jpg" },
-  { id: 5, slug: "point-piper-waterfront", title: "Point Piper Waterfront Villa", category: "Calacatta Marble Build", image: "/images/ksd-stone-25.jpg" },
-  { id: 6, slug: "brighton-grand-residence", title: "Brighton Grand Residence", category: "Custom Stonemasonry", image: "/images/ksd-stone-26.jpg" },
+  { id: 1, slug: "sharma-residence", title: "Sharma Residence", category: "Three-Storey Boutique Home", image: "/images/projects/sharma-elev-01.jpg" },
+  { id: 2, slug: "port-coogee-residence", title: "Port Coogee Residence", category: "Upcoming Western Australia", image: "/images/projects/sharma-elev-02.jpg" },
 ];
 
 function useReveal() {
@@ -96,15 +92,20 @@ function Project() {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 9;
 
-  const projects = (data && data.length > 0)
+  const fromApi = (data && data.length > 0)
     ? data.map((p, idx) => ({
-        id: p._id || idx + 1,
+        id: p._id || `api-${idx + 1}`,
         slug: p.slug,
         title: p.title,
-        category: p.category || "Luxury Build",
+        category: p.category || "Boutique Home",
         image: p.imageA ? asset(p.imageA) : (p.image ? asset(p.image) : `/images/ksd-stone-${String((idx % 12) + 21).padStart(2, "0")}.jpg`),
       }))
-    : FALLBACK_PROJECTS;
+    : [];
+  const seen = new Set(FALLBACK_PROJECTS.map((p) => p.slug));
+  const projects = [
+    ...FALLBACK_PROJECTS,
+    ...fromApi.filter((p) => p.slug && !seen.has(p.slug)),
+  ];
 
   const startIndex = (currentPage - 1) * pageSize;
   const paginatedProjects = projects.slice(startIndex, startIndex + pageSize);

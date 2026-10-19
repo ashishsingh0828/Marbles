@@ -4,24 +4,24 @@ import "./OurValues.css";
 const VALUES = [
   {
     num: "01",
-    title: "Quality excellence",
-    text: "Every slab is selected, cut and polished under strict quality control, so your stone looks as good in ten years as on day one.",
+    title: "Customer-centred innovation",
+    text: "We enrol products and interiors into the environment around how you live — an oasis of peace, relaxation and personal space.",
     img: "/images/ksd-stone-38.jpg",
-    alt: "Hand-selected natural marble slab",
+    alt: "Thoughtfully designed KSD Homes interior",
   },
   {
     num: "02",
-    title: "Integrity & transparency",
-    text: "You approve the exact slab before it is cut, with clear pricing, honest timelines and no surprises.",
+    title: "A personal touch",
+    text: "Successful architecture is created through a strong relationship between the designer, the client and the space. We listen first.",
     img: "/images/ksd-stone-03.jpg",
-    alt: "Luxury residence interior finished in natural stone",
+    alt: "Boutique home living environment",
   },
   {
     num: "03",
-    title: "Innovation & technology",
-    text: "Digital templating and precision cutting keep seams tight and veining matched across large surfaces.",
+    title: "Complete composition",
+    text: "Architecture, interiors, lighting, materials, furniture and technology are designed together as one integrated home solution.",
     img: "/images/ksd-stone-04.jpg",
-    alt: "Precision stone craftsmanship detail",
+    alt: "Integrated architecture and interior detailing",
   },
 ];
 

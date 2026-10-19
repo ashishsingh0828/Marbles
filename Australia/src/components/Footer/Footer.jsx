@@ -15,25 +15,23 @@ const EXPLORE_LINKS = [
 ];
 
 const EXPERTISE_LINKS = [
-  { id: "bespoke", label: "Luxury Custom Homes", to: "/services/architectural-home-building" },
-  { id: "flooring", label: "Premium Stone Flooring", to: "/services/luxury-stone-flooring" },
-  { id: "kitchen", label: "Grand Kitchen Surfaces", to: "/services/waterfall-islands-vanities" },
-  { id: "facade", label: "Architectural Facades", to: "/services/facades-alfresco-paving" },
-  { id: "bathrooms", label: "Bespoke Marble Ensuites", to: "/services/bookmatched-feature-walls" },
-  { id: "cladding", label: "Wall Cladding & Inlays", to: "/services/custom-stonemasonry" },
+  { id: "architecture", label: "Residential Architecture", to: "/services" },
+  { id: "interiors", label: "Interior Architecture & Design", to: "/services" },
+  { id: "planning", label: "Space Planning & Design", to: "/services" },
+  { id: "bespoke", label: "Bespoke Home Design", to: "/services" },
+  { id: "reno", label: "Renovation & Transformation", to: "/services" },
+  { id: "complete", label: "Complete Home Solutions", to: "/services" },
 ];
 
 const SOCIALS = [
-  { id: "instagram", label: "Instagram", href: "https://instagram.com" },
-  { id: "pinterest", label: "Pinterest", href: "https://pinterest.com" },
-  { id: "facebook", label: "Facebook", href: "https://facebook.com" },
-  { id: "linkedin", label: "LinkedIn", href: "https://linkedin.com" },
+  { id: "instagram", label: "Instagram", href: "https://www.instagram.com/ksdhomes" },
+  { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/company/ksdhomes" },
 ];
 
 const LEGAL_LINKS = [
   { id: "privacy", label: "Privacy Policy", to: "#" },
   { id: "terms", label: "Terms & Conditions", to: "#" },
-  { id: "licence", label: "NSW Builder Licence", to: "#" },
+  { id: "licence", label: "WA Licensed Builder", to: "/contact" },
 ];
 
 function useInView(threshold = 0.1) {
@@ -235,10 +233,10 @@ export default function Footer() {
           <div className="ft-cta-copy">
             <span className="ft-eyebrow ft-item" style={{ "--i": 0 }}>
               <span className="ft-eyebrow-line" />
-              BESPOKE AUSTRALIAN INTERIOR DESIGN
+              ARCHITECTURE · INTERIOR DESIGN · COMPLETE HOMES
             </span>
             <h2 className="ft-cta-title ft-item" style={{ "--i": 1 }}>
-              Let&apos;s transform your <em>residence</em> in timeless architectural stone
+              Let&apos;s design the way you <em>experience</em> your home
             </h2>
           </div>
           <div className="ft-cta-action ft-item" style={{ "--i": 2 }}>
@@ -251,9 +249,9 @@ export default function Footer() {
         <div className="ft-container ft-main-inner">
           <div className="ft-newsletter">
             <div className="ft-newsletter-copy ft-item" style={{ "--i": 0 }}>
-              <h3>KSD Homes Design Journal</h3>
+              <h3>KSD Homes Design Notes</h3>
               <p>
-                Receive architectural home insights, stone selection advice, and project showcases once a month.
+                Occasional notes on boutique home design, interiors and Western Australian living — when we have something worth sharing.
               </p>
             </div>
             <form className="ft-newsletter-form ft-item" style={{ "--i": 1 }} onSubmit={handleSubscribe}>
@@ -316,7 +314,7 @@ export default function Footer() {
             </div>
 
             <div className="ft-col ft-col--contact ft-item" style={{ "--i": 3 }}>
-              <h4 className="ft-col-title">Sydney Headquarters</h4>
+              <h4 className="ft-col-title">Perth Studio</h4>
               <ul className="ft-contact">
                 <li>
                   <span className="ft-contact-icon">
@@ -330,8 +328,16 @@ export default function Footer() {
                   <span className="ft-contact-icon">
                     <ContactIcon type="phone" />
                   </span>
-                  <a className="ft-contact-text" href={`tel:${BRAND.phoneHref || BRAND.phone}`}>
-                    {BRAND.phone}
+                  <a className="ft-contact-text" href={BRAND.phoneHref}>
+                    {BRAND.phoneLabel} {BRAND.phone}
+                  </a>
+                </li>
+                <li>
+                  <span className="ft-contact-icon">
+                    <ContactIcon type="phone" />
+                  </span>
+                  <a className="ft-contact-text" href={BRAND.phoneKarlHref}>
+                    {BRAND.phoneKarlLabel} {BRAND.phoneKarl}
                   </a>
                 </li>
                 <li>
@@ -362,7 +368,7 @@ export default function Footer() {
 
           <div className="ft-bottom">
             <p className="ft-copy">
-              &copy; {new Date().getFullYear()} {BRAND.fullName}. All rights reserved. Master Builder &amp; Luxury Stone Artisans.
+              &copy; {new Date().getFullYear()} {BRAND.legalName} (ABN {BRAND.abn}). {BRAND.licence}. A brand of the {BRAND.group}.
             </p>
             <ul className="ft-legal">
               {LEGAL_LINKS.map((link) => (
