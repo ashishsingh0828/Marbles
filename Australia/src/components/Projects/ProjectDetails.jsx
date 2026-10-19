@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { useApi, youtubeId } from "../../api";
 import { FALLBACK_HOMES, homeBySlug, mergeHomes, specsOf } from "../../data/homes";
 import "./ProjectDetails.css";
@@ -49,9 +49,11 @@ function CheckIcon() {
 
 function ProjectDetails() {
   const { slug } = useParams();
-  const { data } = useApi(slug ? `/projects/${slug}` : null);
+  const lookup = slug === "sharma-residence" ? "residence" : slug;
+  const { data } = useApi(lookup ? `/projects/${lookup}` : null);
   const { data: all } = useApi("/projects");
-  const home = homeBySlug(slug, data);
+  const home = homeBySlug(lookup, data);
+  if (slug === "sharma-residence") return <Navigate to="/projects/residence" replace />;
   const specs = specsOf(home);
   const others = mergeHomes(all).filter((h) => h.slug && h.slug !== home.slug);
   const next = others[0] || FALLBACK_HOMES.find((h) => h.slug !== home.slug) || FALLBACK_HOMES[0];
@@ -190,7 +192,7 @@ function ProjectDetails() {
         </Link>
         <Link to="/contact" className="ps-next__enquire">
           Plan your project
-          <small>Speak with our Perth builder and interior design team</small>
+          <small>Speak with our Perth builder interior design team</small>
         </Link>
       </div>
     </article>

@@ -7,7 +7,7 @@ const HEADING = [
   { text: "under one roof", accent: true },
 ];
 
-const CHECKS = ["Licensed boutique home builder", "Architecture & interior design"];
+const CHECKS = ["Licensed boutique home builder", "Builder interior design"];
 
 const Arrow = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -132,7 +132,7 @@ export default function KsdStory() {
           <AnimatedHeading parts={HEADING} />
 
           <p className="ksd-story__text ksd-story__rise" style={{ "--d": "0.8s" }}>
-            KSD Homes Pty Ltd is an emerging architecture and design-led brand in Western Australia. Builder and interior design sit under one roof, so architecture, materials and how you live are resolved as a single composition — Western, European and Asian expressions, with a cost-effective, customer-centred process.
+            KSD Homes Pty Ltd is an emerging architecture and design-led brand in Western Australia. Combined visionary: licensed builder and interior design under one roof, so architecture, materials and how you live are resolved as a single composition — Western, European and Asian expressions, with a cost-effective, customer-centred process.
           </p>
 
           <div className="ksd-story__row">

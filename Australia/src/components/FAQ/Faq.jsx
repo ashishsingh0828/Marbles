@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 import { BRAND } from "../../config";
 import "./Faq.css";
 
-const MAIN_IMAGE = "/images/ksd-stone-44.jpg";
-const DECO_IMAGE_A = "/images/ksd-stone-45.jpg";
-const DECO_IMAGE_B = "/images/ksd-stone-46.jpg";
+const MAIN_IMAGE = "/images/ksd-stone-03.jpg";
+const DECO_IMAGE_A = "/images/projects/sharma-plan-02.jpg";
+const DECO_IMAGE_B = "/images/ksd-stone-06.jpg";
 
 const ITEMS = [
   {
     id: 1,
     title: "What does KSD Homes design and build?",
-    text: "KSD Homes Pty Ltd is a licensed builder for high-end boutique homes in Western Australia. We bring together residential architecture, interior design, space planning, furniture and finishes, and complete home solutions — from a new three-storey residence to a thoughtful renovation.",
+    text: "KSD Homes Pty Ltd is a licensed builder for high-end boutique homes in Western Australia. Combined visionary: residential architecture, builder interior design, space planning, furniture and finishes, and complete home solutions — from a new three-storey residence to a thoughtful renovation.",
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const ITEMS = [
   {
     id: 3,
     title: "How does the design process start?",
-    text: "Every project begins with listening. We work closely with you to understand lifestyle, preferences and vision, then translate that into architecture and interiors that feel personal, practical and lasting. Our team brings 28+ years of combined builder and interior design experience.",
+    text: "Every project begins with listening. We work closely with you to understand lifestyle, preferences and vision, then translate that into architecture and builder interior design that feel personal, practical and lasting. Our team brings 28+ years of combined professional experience.",
   },
   {
     id: 4,
@@ -31,7 +31,7 @@ const ITEMS = [
   {
     id: 5,
     title: "Is KSD Homes a new company?",
-    text: "KSD Homes is an emerging brand, incorporated in Australia, under the Eagle Group of Companies. The company is starting its journey in Western Australia, with future plans across Australia, Asia and India — while our builder and interior design team already carry 28+ years of combined professional experience.",
+    text: "KSD Homes is an emerging brand, incorporated in Australia, under the Eagle Group of Companies. The company is starting its journey in 2026 in Western Australia, with future plans across Australia, Asia and India — while our builder interior design team already carry 28+ years of combined professional experience.",
   },
 ];
 
@@ -152,37 +152,29 @@ function StarIcon() {
 
 function RatingCard() {
   const [ref, inView] = useInView(0.4);
-  const value = useCountUp(4.9, inView, 2000);
 
   return (
     <div
       ref={ref}
       className={`fq-rating${inView ? " is-visible" : ""}`}
       role="img"
-      aria-label="Licensed boutique home builder, Perth Western Australia"
+      aria-label="28 plus years team experience, licensed boutique builder, Perth"
     >
       <span className="fq-rating-logo">
         <img
-          src={BRAND.logo || "/images/logo/logo.jpeg"}
+          src={BRAND.logo || "/images/logo/logo.png"}
           alt="KSD Homes"
-          style={{ width: "42px", height: "auto", objectFit: "contain", borderRadius: "2px" }}
+          style={{ width: "42px", height: "auto", objectFit: "contain", background: "#fff" }}
         />
       </span>
       <div className="fq-rating-body">
         <div className="fq-rating-top">
           <span className="fq-rating-number">
-            {value.toFixed(1)}
-            <span>/5</span>
-          </span>
-          <span className="fq-stars">
-            {[0, 1, 2, 3, 4].map((star) => (
-              <span key={star} className="fq-star" style={{ "--s": star }}>
-                <StarIcon />
-              </span>
-            ))}
+            28+
+            <span> yrs</span>
           </span>
         </div>
-        <p>Licensed boutique home builder · Perth WA</p>
+        <p>Team experience · Licensed boutique builder · Perth WA</p>
       </div>
     </div>
   );
@@ -203,7 +195,7 @@ function LearnMoreButton() {
       className="fq-btn"
     >
       <span className="fq-btn-bg" />
-      <span className="fq-btn-text">Consult Our Designers</span>
+      <span className="fq-btn-text">Book Consultation</span>
       <span className="fq-btn-icon">
         <ArrowIcon />
       </span>
@@ -249,7 +241,7 @@ function Faq() {
 
             <Reveal variant="up" delay={0.1}>
               <p className="fq-text">
-                Architecture, interior design and complete home solutions — with a customer-centred
+                Architecture, builder interior design and complete home solutions — with a customer-centred
                 approach and a personal touch from our Perth studio.
               </p>
             </Reveal>

@@ -79,11 +79,11 @@ const ArrowUpRight = () => (
 const HEADING = ["Why" , " choose", ""," KSD", "Homes"];
 
 const LEAD =
-  "We collaborate closely so architecture, interiors and how you live become one complete home — with a customer-centred approach and a personal touch.";
+  "Combined visionary: licensed builder and interior design under one roof, so architecture and how you live become one complete home — with a customer-centred approach and a personal touch.";
 
 const GROUPS = [
   {
-    title: "Builder & Interior Design",
+    title: "Builder Interior Design",
     items: [
       "Licensed boutique home builder",
       "28+ years team experience",
@@ -101,8 +101,8 @@ const GROUPS = [
 ];
 
 const GALLERY = [
-  { src: "/images/ksd-stone-39.jpg", alt: "Dark marquina marble slab" },
-  { src: "/images/ksd-stone-40.jpg", alt: "Calacatta marble slab with gold veining" },
+  { src: "/images/ksd-stone-03.jpg", alt: "Boutique home interior" },
+  { src: "/images/ksd-stone-05.jpg", alt: "Western Australian living interior" },
 ];
 
 const QUOTE =
@@ -111,8 +111,8 @@ const QUOTE =
 /* ---------- component ---------- */
 export default function WhyChooseUs({
   groups = GROUPS,
-  image = "/images/ksd-stone-38.jpg", // large left photo
-  imageAlt = "Polished marble kitchen with waterfall island",
+  image = "/images/ksd-stone-06.jpg",
+  imageAlt = "Complete home interior composed as one environment",
   gallery = GALLERY,
   quote = QUOTE,
   lead = LEAD,

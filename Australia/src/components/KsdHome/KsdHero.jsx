@@ -27,8 +27,8 @@ function slidesFrom(homes) {
   return [
     {
       image: "/images/ksd-stone-06.jpg",
-      eyebrow: "KSD Homes · Perth",
-      lines: ["Architecture.", "Interior Design.", "Complete Home Solutions."],
+      eyebrow: "Combined visionary · Perth",
+      lines: ["Architecture.", "Builder Interior Design.", "Complete Home Solutions."],
       concept: "Licensed boutique builder. Design and build under one roof.",
       primary: { to: "/projects", label: "View our projects" },
       secondary: { to: "/contact", label: "Book consultation" },

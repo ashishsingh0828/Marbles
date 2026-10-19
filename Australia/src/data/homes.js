@@ -1,11 +1,17 @@
 import { asset, paras, lines, pairs } from "../api";
 
 const STONE = (n) => `/images/ksd-stone-${String(n).padStart(2, "0")}.jpg`;
+const PLAN = {
+  ground: "/images/projects/sharma-plan-02.jpg",
+  upper: "/images/projects/sharma-plan-03.jpg",
+  under: "/images/projects/sharma-plan-01.jpg",
+};
+const SLUG_ALIASES = { "sharma-residence": "residence" };
 
 export const FALLBACK_HOMES = [
   {
-    slug: "sharma-residence",
-    title: "Sharma Residence",
+    slug: "residence",
+    title: "Residence",
     category: "Three-Storey Boutique Home",
     status: "In Delivery",
     location: "Western Australia",
@@ -17,95 +23,100 @@ export const FALLBACK_HOMES = [
     cars: "",
     floorArea: "Marble main floors · 210 sqm ground",
     specLine: "Three storeys · Pool & alfresco · Marble floors",
-    image: STONE(1),
-    heroImage: STONE(1),
-    image2: "/images/projects/sharma-plan-02.jpg",
-    image3: "/images/projects/sharma-plan-03.jpg",
-    image4: "/images/projects/sharma-plan-01.jpg",
+    image: PLAN.ground,
+    heroImage: PLAN.ground,
+    image2: PLAN.ground,
+    image3: PLAN.upper,
+    image4: PLAN.under,
     videoUrl: "",
     videoHeading: "Walk through the composition",
-    videoText: "A film of Sharma Residence will sit here once photography is complete. Until then, the stills and plans below tell the story of how the house is composed.",
+    videoText: "A film of this residence will sit here once photography is complete. Until then, the drawings below are the true record of the home.",
     scenes: [
-      { image: STONE(1), caption: "The beauty of indoor-outdoor living", text: "Daily life gathers around a 210 sqm marble main floor, then opens to a 90 sqm colour-concrete alfresco and a 32 sqm pool — indoor and outdoor as one room." },
-      { image: STONE(6), caption: "A welcoming entrance to the home", text: "A 45 sqm marble entrance sets the pace of arrival: calm, ordered, and personal, without publishing the client’s street address." },
-      { image: STONE(16), caption: "Marble main floors, onyx stair and lift", text: "A 30 sqm onyx staircase and lift connect undercroft, ground and upper living so movement through the house feels continuous." },
-      { image: STONE(17), caption: "Poolside living with a personal touch", text: "The pool, hardstand and alfresco are planned with the architecture — not added later — so Western Australian light and privacy work together." },
-      { image: STONE(18), caption: "Upper living, mandir and rest", text: "An 180 sqm marble main floor includes a 15 sqm marble mandir, ensuites and balconies. Every level has a clear purpose: arrival, living, and rest." },
-      { image: STONE(20), caption: "Materials chosen for climate and light", text: "Marble, onyx, pool tiles and concrete, each in its right place — selected for how they feel underfoot and how they catch Western Australian light." },
+      { image: PLAN.ground, caption: "Ground floor plan", text: "Daily life gathers around a 210 sqm marble main floor, a 45 sqm marble entrance, and a 90 sqm colour-concrete alfresco opening to a 32 sqm pool." },
+      { image: PLAN.upper, caption: "Upper floor plan", text: "An 180 sqm marble main floor includes a 15 sqm marble mandir, ensuites and balconies — rest, prayer and outlook on one level." },
+      { image: PLAN.under, caption: "Undercroft plan", text: "Store, cellar, support spaces and pool plant below, connected by a 30 sqm onyx staircase and lift." },
     ],
     heading: "A three-storey boutique home composed as one complete living environment",
     paragraphs: [
-      "Sharma Residence is a three-storey boutique home designed as a complete composition — architecture, interiors, materials and how the family lives, considered together. In the spirit of a carefully resolved Western Australian residence, every level has a clear purpose: arrival, living, and rest.",
+      "Residence is a three-storey boutique home designed as a complete composition — architecture, builder interior design, materials and how the family lives, considered together. Every level has a clear purpose: arrival, living, and rest.",
       "The ground floor gathers daily life around a 210 sqm marble main floor, a 45 sqm marble entrance, and a 90 sqm colour-concrete alfresco opening to a 32 sqm pool. A 30 sqm onyx staircase and lift connect the home vertically, so movement through the house feels calm and continuous.",
-      "Below, the undercroft holds store and cellar, marble and carpeted support spaces, and pool plant. Above, an 180 sqm marble main floor includes a 15 sqm marble mandir, ensuites and balconies. Materials are selected for how they feel underfoot and how they catch Western Australian light — marble, onyx, pool tiles and concrete, each in its right place.",
+      "We do not publish the client’s street address. The drawings here are the project: pool, alfresco, marble floors, mandir and undercroft, resolved as one private family home.",
     ],
-    challengeTitle: "Architecture & interior, designed as one",
+    challengeTitle: "Builder interior design, composed as one",
     challengeText:
-      "The brief was a high-performing, comfortable family home with a personal touch: prayer space, guest rooms, master suite, pool and alfresco living, without treating any of these as add-ons. Our builder and interior design team planned the house as a single environment.",
+      "The brief was a high-performing, comfortable family home with a personal touch: prayer space, guest rooms, master suite, pool and alfresco living, without treating any of these as add-ons. Our licensed builder and interior design team planned the house as a single environment.",
     checks: [
       "Three storeys: undercroft, ground and upper living",
       "Marble main floors with onyx stair and lift core",
       "Alfresco, pool and hardstand for indoor–outdoor living",
       "Dedicated mandir and guest accommodation",
-      "Complete home solution — architecture, interiors and finishes",
+      "Complete home solution — builder interior design and finishes",
     ],
     resultTitle: "The composition of the home",
     resultText:
-      "A boutique Western Australian residence where form, function, proportion and material work together. We do not publish the client’s street address. Sharma Residence is presented as a private family home, designed for how they live today and tomorrow.",
+      "A boutique Western Australian residence where form, function, proportion and material work together. Presented as a private family home — designed for how they live today and tomorrow.",
   },
   {
     slug: "port-coogee-residence",
     title: "Port Coogee Residence",
-    category: "Upcoming Western Australia",
+    category: "Upcoming · Conceptual design",
     status: "Upcoming",
     location: "Western Australia",
     client: "Private residence",
-    conceptHeadline: "A coastal home still taking form",
+    conceptHeadline: "Conceptual design of an upcoming home",
     storeys: "3",
     beds: "",
     baths: "",
     cars: "",
     floorArea: "",
-    specLine: "Upcoming · Three storeys · Coastal WA",
+    specLine: "Upcoming · Conceptual design & drawings",
     image: STONE(5),
     heroImage: STONE(5),
-    image2: "/images/projects/sharma-plan-02.jpg",
-    image3: "/images/projects/sharma-plan-03.jpg",
-    image4: "/images/projects/sharma-plan-01.jpg",
+    image2: "",
+    image3: "",
+    image4: "",
     videoUrl: "",
-    videoHeading: "A film as the home takes form",
-    videoText: "We will share walkthrough photography when Port Coogee Residence is ready. The studies below show the design language it will share with our current work.",
+    videoHeading: "Drawings as the home takes form",
+    videoText: "Port Coogee is in concept. We will publish this home’s own drawing set as it is resolved — plans that belong to this project, not another.",
     scenes: [
-      { image: STONE(5), caption: "Coastal Western Australian living", text: "Light, proportion and indoor–outdoor connection, conceived for a coastal site — private, calm, and connected to outdoor living." },
-      { image: STONE(19), caption: "Architecture and interior as one", text: "The same KSD process as every commission: a personal brief, a complete composition, and a licensed builder with interior design under one roof." },
-      { image: STONE(21), caption: "A home still taking form", text: "Drawings, interiors and specification are in development. We do not publish the client’s address." },
+      { image: STONE(5), caption: "Conceptual design of an upcoming home", text: "Light, proportion and indoor–outdoor living for a coastal Western Australian site. Drawings are in development with our builder interior design team." },
     ],
     heading: "An upcoming three-storey boutique home on the Western Australian coast",
     paragraphs: [
-      "Port Coogee Residence is an upcoming KSD Homes commission in Western Australia — a three-storey boutique home conceived with the same design language as our current work: architecture and interior design as one complete home solution.",
-      "The project continues our focus on coastal Western Australian living — light, proportion, indoor–outdoor connection, and materials chosen for climate and comfort. Like all KSD homes, it begins with listening to how the household wants to live.",
-      "Drawings, interiors and specification are in development with our licensed builder and interior design team. We will share the home as a finished composition when it is ready — without publishing the client’s address.",
+      "Port Coogee Residence is an upcoming KSD Homes commission in Western Australia — a three-storey boutique home conceived with the same combined visionary: licensed builder and interior design under one roof.",
+      "The project is in conceptual design. Drawings, interiors and specification are in development with our Perth team. We will share this home as a finished composition when it is ready — without publishing the client’s address.",
+      "Until then, the page is honest about where the work sits: an upcoming coastal residence, designed for light, privacy and indoor–outdoor living.",
     ],
     challengeTitle: "Designed for the way they will live",
     challengeText:
-      "An upcoming coastal site asks for a home that feels private, calm and connected to outdoor living. Our approach is the same as every KSD commission: a personal brief, a complete composition, and a customer-centred process.",
+      "An upcoming coastal site asks for a home that feels private, calm and connected to outdoor living. Our approach is the same as every KSD commission: a personal brief, builder interior design, and a customer-centred process.",
     checks: [
       "Upcoming three-storey boutique home",
       "Western Australia — Port Coogee",
-      "Architecture and interior design together",
+      "Conceptual design and drawings in development",
       "Licensed builder for high-end boutique homes",
       "Client address remains private",
     ],
     resultTitle: "A home still taking form",
     resultText:
-      "Port Coogee Residence is in the studio now. It will be delivered as a complete KSD home: architecture, interiors and the way the family experience the space — designed for tomorrow as much as today.",
+      "Port Coogee Residence is in the studio now. It will be delivered as a complete KSD home: architecture, builder interior design, and the way the family experience the space.",
   },
 ];
 
 const pickImage = (...candidates) => candidates.find(Boolean) || "";
 
+function displayTitle(title = "") {
+  return /sharma/i.test(title) ? "Residence" : title;
+}
+
+function displaySlug(slug = "") {
+  return SLUG_ALIASES[slug] || slug;
+}
+
 export function mapHome(p = {}, idx = 0) {
-  const fallback = FALLBACK_HOMES[idx % FALLBACK_HOMES.length];
+  const rawSlug = displaySlug(p.slug || "");
+  const idxFromSlug = FALLBACK_HOMES.findIndex((h) => h.slug === rawSlug);
+  const fallback = FALLBACK_HOMES[idxFromSlug >= 0 ? idxFromSlug : (idx % FALLBACK_HOMES.length)];
   const imageA = p.imageA ? asset(p.imageA) : "";
   const imageB = p.imageB ? asset(p.imageB) : "";
   const hero = p.heroImage ? asset(p.heroImage) : "";
@@ -133,8 +144,8 @@ export function mapHome(p = {}, idx = 0) {
 
   return {
     id: p._id || p.slug || fallback.slug,
-    slug: p.slug || fallback.slug,
-    title: p.title || fallback.title,
+    slug: rawSlug || fallback.slug,
+    title: displayTitle(p.title || fallback.title),
     category,
     status,
     location,
@@ -191,8 +202,9 @@ export function mergeHomes(apiList) {
 }
 
 export function homeBySlug(slug, apiItem) {
-  const idx = FALLBACK_HOMES.findIndex((h) => h.slug === slug);
-  if (apiItem) return mapHome(apiItem, idx >= 0 ? idx : 0);
+  const resolved = displaySlug(slug);
+  const idx = FALLBACK_HOMES.findIndex((h) => h.slug === resolved);
+  if (apiItem) return mapHome({ ...apiItem, slug: resolved, title: displayTitle(apiItem.title) }, idx >= 0 ? idx : 0);
   return FALLBACK_HOMES[idx] || FALLBACK_HOMES[0];
 }
 

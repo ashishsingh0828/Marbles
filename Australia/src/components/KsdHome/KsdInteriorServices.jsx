@@ -15,7 +15,7 @@ const INTERIOR_SERVICES = [
     title: "Architecture & Design",
     desc: "A complete composition — form, proportion and how the family lives, resolved before a brick is laid.",
     img: "/images/ksd-stone-16.jpg",
-    link: "/services",
+    link: "/services/architecture-design",
     icon: (
       <Icon>
         <path d="M3 10h18" />
@@ -28,10 +28,10 @@ const INTERIOR_SERVICES = [
   },
   {
     num: "02",
-    title: "Interior Design",
+    title: "Builder Interior Design",
     desc: "Materials, joinery and light considered with the architecture, so every room feels like part of the same home.",
     img: "/images/ksd-stone-17.jpg",
-    link: "/services",
+    link: "/services/builder-interior-design",
     icon: (
       <Icon>
         <path d="M3 12h18v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3z" />
@@ -44,9 +44,9 @@ const INTERIOR_SERVICES = [
   {
     num: "03",
     title: "Complete Home Solutions",
-    desc: "Builder and interior design under one roof — one brief, one team, one finished residence.",
+    desc: "Combined visionary — licensed builder and interior design under one roof. One brief, one team, one finished residence.",
     img: "/images/ksd-stone-18.jpg",
-    link: "/services",
+    link: "/services/complete-home-solutions",
     icon: (
       <Icon>
         <rect x="3" y="4" width="18" height="16" />
@@ -59,7 +59,7 @@ const INTERIOR_SERVICES = [
     title: "Licensed Boutique Building",
     desc: "High-end Western Australian homes delivered by a licensed builder, with a customer-centred process.",
     img: "/images/ksd-stone-19.jpg",
-    link: "/services",
+    link: "/services/licensed-boutique-building",
     icon: (
       <Icon>
         <rect x="3" y="3" width="8" height="8" />
@@ -74,7 +74,7 @@ const INTERIOR_SERVICES = [
     title: "Indoor–Outdoor Living",
     desc: "Alfresco, pool and garden composed with the house so Western Australian light and privacy work together.",
     img: "/images/ksd-stone-20.jpg",
-    link: "/services",
+    link: "/services/indoor-outdoor-living",
     icon: (
       <Icon>
         <circle cx="12" cy="9" r="3.5" />
@@ -88,7 +88,7 @@ const INTERIOR_SERVICES = [
     title: "Materials & Finishes",
     desc: "Marble, timber, stone and concrete chosen for climate, touch and how they catch the light — each in its right place.",
     img: "/images/ksd-stone-21.jpg",
-    link: "/services",
+    link: "/services/materials-finishes",
     icon: (
       <Icon>
         <path d="M3 9h18" />
@@ -101,7 +101,7 @@ const INTERIOR_SERVICES = [
   },
 ];
 
-const HEADING = "Architecture, interiors and complete home solutions";
+const HEADING = "Architecture, builder interior design and complete homes";
 
 const Arrow = () => (
   <svg width="22" height="14" viewBox="0 0 26 16" fill="none" aria-hidden="true">
@@ -181,7 +181,7 @@ export default function KsdInteriorServices() {
       return backendServices.slice(0, 6).map((s, idx) => ({
         num: String(idx + 1).padStart(2, "0"),
         title: s.title,
-        desc: s.shortDescription || s.description || "Architecture and interior design as one complete home solution.",
+        desc: s.shortDescription || s.description || "Architecture and builder interior design as one complete home solution.",
         img: s.image ? asset(s.image) : `/images/ksd-stone-${String((idx % 10) + 16).padStart(2, "0")}.jpg`,
         link: `/services/${s.slug || s._id}`,
         icon: INTERIOR_SERVICES[idx % INTERIOR_SERVICES.length].icon,

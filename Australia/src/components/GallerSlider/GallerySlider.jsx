@@ -7,12 +7,12 @@ import "./GallerySlider.css";
 const BG_IMAGE = "/images/ksd-stone-01.jpg";
 
 const GALLERY_ITEMS = [
-  { id: 1, slug: "sharma-residence", image: "/images/ksd-stone-01.jpg", alt: "Sharma Residence", title: "Sharma Residence", status: "In Delivery" },
-  { id: 2, slug: "sharma-residence", image: "/images/ksd-stone-06.jpg", alt: "Sharma Residence interiors", title: "Sharma Residence", status: "In Delivery" },
-  { id: 3, slug: "sharma-residence", image: "/images/ksd-stone-16.jpg", alt: "Sharma Residence living", title: "Sharma Residence", status: "In Delivery" },
-  { id: 4, slug: "port-coogee-residence", image: "/images/ksd-stone-05.jpg", alt: "Port Coogee Residence", title: "Port Coogee Residence", status: "Upcoming" },
-  { id: 5, slug: "port-coogee-residence", image: "/images/ksd-stone-19.jpg", alt: "Port Coogee Residence study", title: "Port Coogee Residence", status: "Upcoming" },
-  { id: 6, slug: "sharma-residence", image: "/images/ksd-stone-20.jpg", alt: "Sharma Residence materials", title: "Sharma Residence", status: "In Delivery" },
+  { id: 1, slug: "residence", image: "/images/projects/sharma-plan-02.jpg", alt: "Residence ground floor", title: "Residence", status: "In Delivery" },
+  { id: 2, slug: "residence", image: "/images/projects/sharma-plan-03.jpg", alt: "Residence upper floor", title: "Residence", status: "In Delivery" },
+  { id: 3, slug: "residence", image: "/images/projects/sharma-plan-01.jpg", alt: "Residence undercroft", title: "Residence", status: "In Delivery" },
+  { id: 4, slug: "port-coogee-residence", image: "/images/ksd-stone-05.jpg", alt: "Port Coogee conceptual design", title: "Port Coogee Residence", status: "Upcoming" },
+  { id: 5, slug: "port-coogee-residence", image: "/images/ksd-stone-06.jpg", alt: "Upcoming coastal residence", title: "Port Coogee Residence", status: "Upcoming" },
+  { id: 6, slug: "residence", image: "/images/projects/sharma-plan-02.jpg", alt: "Residence plans", title: "Residence", status: "In Delivery" },
 ];
 
 const CLONES = 4;

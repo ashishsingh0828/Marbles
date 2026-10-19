@@ -263,7 +263,7 @@ export default function ServiceDetails({ service, links = [] }) {
           <Reveal className="ksd-sd-bottom-banner" delay={150}>
             <div className="ksd-sd-bottom-content">
               <h4>Ready to elevate your Australian residence?</h4>
-              <p>Speak with our senior interior design and stonemasonry specialists today.</p>
+              <p>Speak with our Perth builder interior design team today.</p>
             </div>
             <Link to="/contact" className="ksd-btn ksd-btn--orange">
               <span>Book A Consultation</span>
@@ -332,7 +332,7 @@ export default function ServiceDetails({ service, links = [] }) {
                 <span className="ksd-sd-check-dot" />
                 <div>
                   <strong>28+ Years Team Experience</strong>
-                  <p>Builder and interior design craft, combined in one team.</p>
+                  <p>Builder interior design — combined visionary in one team.</p>
                 </div>
               </li>
               <li>

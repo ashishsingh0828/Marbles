@@ -12,7 +12,7 @@ const TIMELINE = [
   {
     year: "Now",
     title: "Incorporated in Western Australia",
-    desc: "KSD Homes Pty Ltd is established in Perth as a licensed builder for high-end boutique homes, with architecture and interior design at the core of every commission.",
+    desc: "KSD Homes Pty Ltd is established in Perth as a licensed builder for high-end boutique homes, with architecture and builder interior design at the core of every commission.",
   },
   {
     year: "WA",
@@ -22,7 +22,7 @@ const TIMELINE = [
   {
     year: "Team",
     title: "28+ Years Combined Craft",
-    desc: "Our builder and interior design team brings more than twenty-eight years of combined professional experience to every home — without claiming decades as a company.",
+    desc: "Our builder interior design team brings more than twenty-eight years of combined professional experience to every home — without claiming decades as a company.",
   },
   {
     year: "Next",
@@ -70,7 +70,7 @@ export default function Abouts() {
             </div>
             <div className="ksd-about-intro__badge">
               <img src="/images/logo/logo.png" alt="KSD Homes logo" className="ksd-about-intro__logo" />
-              <span>Architecture &amp; Interior Design</span>
+              <span>Builder Interior Design</span>
             </div>
           </div>
 
@@ -89,7 +89,7 @@ export default function Abouts() {
             </p>
 
             <p className="ksd-about-intro__text">
-              Incorporated in Australia and based in Perth, we bring together architecture, interior design, innovation, functionality and craftsmanship. Every home should be a reflection of its people, their lifestyle and their aspirations. A KSD home is a carefully composed environment — an oasis of peace, relaxation and personal space — with a customer-centred, personal touch.
+              Incorporated in Australia and based in Perth, we bring together architecture, builder interior design, innovation, functionality and craftsmanship. Every home should be a reflection of its people, their lifestyle and their aspirations. A KSD home is a carefully composed environment — an oasis of peace, relaxation and personal space — with a customer-centred, personal touch. Combined visionary from a team with 28+ years of experience.
             </p>
 
             <div className="ksd-about-intro__stats">

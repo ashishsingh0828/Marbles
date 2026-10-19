@@ -44,7 +44,7 @@ const BLOGS = [
 ];
 
 const AUS_PROJECTS = [
-  ["Sharma Residence", "Boutique Home"],
+  ["Residence", "Boutique Home"],
   ["Port Coogee Residence", "Upcoming"],
 ];
 const AUS_SERVICES = [

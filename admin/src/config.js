@@ -49,7 +49,7 @@ const australiaProjects = {
   },
   sections: [
     { title: "Basics", desc: "Name the project. Use a suburb or region only — never a street address.", fields: [
-      { name: "title", label: "Project name", required: true, placeholder: "Sharma Residence" },
+      { name: "title", label: "Project name", required: true, placeholder: "Residence" },
       { name: "category", label: "Type", type: "select", options: opts(["Boutique Home", "Upcoming", "In Delivery", "Completed", "Architecture", "Interior Design"]) },
       { name: "status", label: "Status", type: "select", options: opts(["Upcoming", "In Delivery", "Completed"]) },
       { name: "location", label: "Location", placeholder: "Western Australia", help: "Suburb or region only. Do not enter a street address." },

@@ -230,14 +230,14 @@ export default function Footer() {
           <div className="ft-cta-copy">
             <span className="ft-eyebrow ft-item" style={{ "--i": 0 }}>
               <span className="ft-eyebrow-line" />
-              ARCHITECTURE · INTERIOR DESIGN · COMPLETE HOMES
+              ARCHITECTURE · BUILDER INTERIOR DESIGN · COMPLETE HOMES
             </span>
             <h2 className="ft-cta-title ft-item" style={{ "--i": 1 }}>
               Let&apos;s design the way you <em>experience</em> your home
             </h2>
           </div>
           <div className="ft-cta-action ft-item" style={{ "--i": 2 }}>
-            <CtaButton to="/contact">Book An Interior Consultation</CtaButton>
+            <CtaButton to="/contact">Book Consultation</CtaButton>
           </div>
         </div>
       </div>

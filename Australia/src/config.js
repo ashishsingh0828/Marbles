@@ -6,10 +6,10 @@ export const BRAND = {
   name: "KSD Homes",
   legalName: "KSD Homes Pty Ltd",
   abn: "51 690 684 603",
-  tagline: "Architecture | Interior Design | Complete Home Solutions",
+  tagline: "Architecture | Builder Interior Design | Complete Home Solutions",
   fullName: "KSD Homes Pty Ltd",
   about:
-    "KSD Homes Pty Ltd is an emerging architecture and design-led brand dedicated to creating thoughtfully designed homes and complete living environments. Incorporated in Western Australia, we bring together architecture, interior design, innovation, and craftsmanship — a brand of the Eagle Group of Companies.",
+    "KSD Homes Pty Ltd is an emerging architecture and design-led brand dedicated to creating thoughtfully designed homes and complete living environments. Incorporated in Western Australia, we bring together architecture, builder interior design, innovation, and craftsmanship — a brand of the Eagle Group of Companies.",
   phone: "+61 414 029 695",
   phoneHref: "tel:+61414029695",
   phoneLabel: "AJ",

@@ -7,10 +7,10 @@ import "./OurGallery.css";
    card shows a built-in marble texture (tone = stone type).
 ------------------------------------------------------------------- */
 const SLIDES = [
-  { title: "Sharma Residence", type: "Ground Floor", tone: "carrara", image: "/images/projects/sharma-plan-02.jpg" },
-  { title: "Sharma Residence", type: "Upper Floor", tone: "calacatta", image: "/images/projects/sharma-plan-03.jpg" },
-  { title: "Sharma Residence", type: "Undercroft", tone: "marquina", image: "/images/projects/sharma-plan-01.jpg" },
-  { title: "Port Coogee Residence", type: "Upcoming WA", tone: "verde", image: "/images/projects/sharma-plan-02.jpg" },
+  { title: "Residence", type: "Ground Floor", tone: "carrara", image: "/images/projects/sharma-plan-02.jpg" },
+  { title: "Residence", type: "Upper Floor", tone: "calacatta", image: "/images/projects/sharma-plan-03.jpg" },
+  { title: "Residence", type: "Undercroft", tone: "marquina", image: "/images/projects/sharma-plan-01.jpg" },
+  { title: "Port Coogee Residence", type: "Upcoming · Conceptual", tone: "verde", image: "/images/ksd-stone-05.jpg" },
 ];
 
 const HEADING = ["Boutique", "homes", "we're", "designing", "in", "WA"];
