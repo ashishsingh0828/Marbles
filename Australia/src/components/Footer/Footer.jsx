@@ -4,7 +4,7 @@ import { BRAND } from "../../config";
 import BrandLogo from "../BrandLogo";
 import "./Footer.css";
 
-const CTA_IMAGE = "/images/ksd-stone-02.jpg";
+const CTA_IMAGE = "/images/ksd-stone-07.jpg";
 
 const EXPLORE_LINKS = [
   { id: "home", label: "Home", to: "/" },

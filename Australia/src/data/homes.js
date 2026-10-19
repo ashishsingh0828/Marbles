@@ -1,10 +1,10 @@
-import { asset, paras, lines, pairs } from "../api";
+import { paras, lines, pairs, siteImage } from "../api";
+import { IMG } from "./images";
 
-const STONE = (n) => `/images/ksd-stone-${String(n).padStart(2, "0")}.jpg`;
 const PLAN = {
-  ground: "/images/projects/sharma-plan-02.jpg",
-  upper: "/images/projects/sharma-plan-03.jpg",
-  under: "/images/projects/sharma-plan-01.jpg",
+  ground: IMG.planGround,
+  upper: IMG.planUpper,
+  under: IMG.planUnder,
 };
 const SLUG_ALIASES = { "sharma-residence": "residence" };
 
@@ -28,8 +28,8 @@ export const FALLBACK_HOMES = [
     cars: "",
     floorArea: "Marble main floors · 210 sqm ground",
     specLine: "Three storeys · Pool & alfresco · Marble floors",
-    image: PLAN.ground,
-    heroImage: PLAN.ground,
+    image: IMG.dining,
+    heroImage: IMG.dining,
     image2: PLAN.ground,
     image3: PLAN.upper,
     image4: PLAN.under,
@@ -40,6 +40,9 @@ export const FALLBACK_HOMES = [
       { image: PLAN.ground, caption: "Ground floor plan", text: "Daily life gathers around a 210 sqm marble main floor, a 45 sqm marble entrance, and a 90 sqm colour-concrete alfresco opening to a 32 sqm pool." },
       { image: PLAN.upper, caption: "Upper floor plan", text: "An 180 sqm marble main floor includes a 15 sqm marble mandir, ensuites and balconies — rest, prayer and outlook on one level." },
       { image: PLAN.under, caption: "Undercroft plan", text: "Store, cellar, support spaces and pool plant below, connected by a 30 sqm onyx staircase and lift." },
+      { image: IMG.dining, caption: "Interior direction — dining", text: "Builder interior design direction for gathering rooms. These interiors are studio references, not finished photography of this house." },
+      { image: IMG.bedroom, caption: "Interior direction — rest", text: "Upper-level rooms are planned for rest, ensuite and outlook, with joinery and light specified with the architecture." },
+      { image: IMG.bathroomMarble, caption: "Interior direction — marble wet areas", text: "Marble is specified on the plans for main floors and wet rooms. This is the material language, not a photograph of the completed ensuite." },
     ],
     heading: "A three-storey boutique home composed as one complete living environment",
     paragraphs: [
@@ -80,8 +83,8 @@ export const FALLBACK_HOMES = [
     cars: "",
     floorArea: "",
     specLine: "Upcoming · Conceptual design & drawings",
-    image: STONE(5),
-    heroImage: STONE(5),
+    image: IMG.livingOutlook,
+    heroImage: IMG.livingOutlook,
     image2: "",
     image3: "",
     image4: "",
@@ -89,7 +92,9 @@ export const FALLBACK_HOMES = [
     videoHeading: "Drawings as the home takes form",
     videoText: "Port Coogee is in concept. We will publish this home’s own drawing set as it is resolved — plans that belong to this project, not another.",
     scenes: [
-      { image: STONE(5), caption: "Conceptual design of an upcoming home", text: "Light, proportion and indoor–outdoor living for a coastal Western Australian site. Drawings are in development with our builder interior design team." },
+      { image: IMG.livingOutlook, caption: "Conceptual outlook", text: "Light, proportion and indoor–outdoor living for a coastal Western Australian site. Drawings are in development with our builder interior design team." },
+      { image: IMG.livingCalm, caption: "Conceptual living", text: "Calm rooms and Western Australian light, composed as one with the architecture." },
+      { image: IMG.bedroomTimber, caption: "Conceptual rest", text: "Bedroom language for the upcoming home — studio direction, not a finished photograph of this site." },
     ],
     heading: "An upcoming three-storey boutique home on the Western Australian coast",
     paragraphs: [
@@ -127,14 +132,14 @@ export function mapHome(p = {}, idx = 0) {
   const rawSlug = displaySlug(p.slug || "");
   const idxFromSlug = FALLBACK_HOMES.findIndex((h) => h.slug === rawSlug);
   const fallback = FALLBACK_HOMES[idxFromSlug >= 0 ? idxFromSlug : (idx % FALLBACK_HOMES.length)];
-  const imageA = p.imageA ? asset(p.imageA) : "";
-  const imageB = p.imageB ? asset(p.imageB) : "";
-  const hero = p.heroImage ? asset(p.heroImage) : "";
-  const planA = p.floorPlanA ? asset(p.floorPlanA) : "";
-  const planB = p.floorPlanB ? asset(p.floorPlanB) : "";
-  const planC = p.floorPlanC ? asset(p.floorPlanC) : "";
+  const imageA = siteImage(p.imageA);
+  const imageB = siteImage(p.imageB);
+  const hero = siteImage(p.heroImage);
+  const planA = siteImage(p.floorPlanA);
+  const planB = siteImage(p.floorPlanB);
+  const planC = siteImage(p.floorPlanC);
   const gallery = ["galleryA", "galleryB", "galleryC", "galleryD", "galleryE", "galleryF", "galleryG", "galleryH"]
-    .map((key) => (p[key] ? asset(p[key]) : ""))
+    .map((key) => siteImage(p[key]))
     .filter(Boolean);
   const scenePairs = p.scenes ? pairs(p.scenes) : [];
   const scenes = scenePairs.length

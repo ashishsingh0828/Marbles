@@ -26,7 +26,7 @@ function slidesFrom(homes) {
 
   return [
     {
-      image: "/images/ksd-stone-06.jpg",
+      image: "/images/ksd-stone-07.jpg",
       eyebrow: "Perth’s boutique home builder",
       lines: ["The name KSD is synonymous with thoughtfully designed homes in Perth"],
       concept: "Architecture. Builder Interior Design. Complete Home Solutions — combined visionary, under one roof.",

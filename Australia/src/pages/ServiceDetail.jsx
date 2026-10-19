@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
 import ServiceDetails from "../components/Services/ServiceDetails";
-import { useApi, asset, paras, pairs, youtubeId } from "../api";
+import { useApi, siteImage, paras, pairs, youtubeId } from "../api";
 import { FALLBACK_SERVICES_MAP, DEFAULT_FALLBACK, SERVICE_SIDEBAR } from "../data/services";
 
 export default function ServiceDetail() {
@@ -50,9 +50,9 @@ export default function ServiceDetail() {
 
     return {
       title: raw.title || fallback.title,
-      hero: raw.heroImage ? asset(raw.heroImage) : (raw.image ? asset(raw.image) : fallback.heroImage),
-      contactImage: raw.image ? asset(raw.image) : fallback.image,
-      sideImage: raw.image ? asset(raw.image) : (raw.heroImage ? asset(raw.heroImage) : fallback.image),
+      hero: siteImage(raw.heroImage, siteImage(raw.image, fallback.heroImage)),
+      contactImage: siteImage(raw.image, fallback.image),
+      sideImage: siteImage(raw.image, siteImage(raw.heroImage, fallback.image)),
       shortDescription: raw.shortDescription || fallback.shortDescription,
       paragraphs: raw.paragraphs ? paras(raw.paragraphs) : (raw.description ? [raw.description] : fallback.paragraphs),
       strategyHeading: raw.strategyHeading || fallback.strategyHeading,
@@ -62,7 +62,7 @@ export default function ServiceDetail() {
       steps: parsedSteps && parsedSteps.length > 0 ? parsedSteps : fallback.steps,
       videoHeading: raw.videoHeading || fallback.videoHeading,
       videoText: raw.videoText || fallback.videoText,
-      video: vid ? { thumb: raw.heroImage ? asset(raw.heroImage) : fallback.heroImage, youtubeId: vid } : null,
+      video: vid ? { thumb: siteImage(raw.heroImage, fallback.heroImage), youtubeId: vid } : null,
       faqHeading: raw.faqHeading || fallback.faqHeading,
       faqs: parsedFaqs && parsedFaqs.length > 0 ? parsedFaqs : fallback.faqs,
     };

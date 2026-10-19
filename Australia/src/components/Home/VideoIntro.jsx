@@ -131,7 +131,7 @@ function AnimatedHeading({ text }) {
 
 export default function VideoIntro({
   videoUrl = VIDEO_URL,
-  image = "/images/ksd-stone-17.jpg",
+  image = "/images/ksd-stone-07.jpg",
 }) {
   const sectionRef = useRef(null);
   const playRef = useRef(null);

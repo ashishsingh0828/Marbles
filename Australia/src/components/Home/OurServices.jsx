@@ -1,35 +1,35 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useApi, asset } from "../../api";
+import { useApi, siteImage } from "../../api";
 import "./OurServices.css";
 
 const SERVICES = [
   {
     title: "Luxury Home Construction",
     text: "Architectural custom home building tailored to Australian lifestyle, blending structural precision with natural stone facades and grand layouts.",
-    image: "/images/ksd-stone-15.jpg",
-    hoverImage: "/images/ksd-stone-16.jpg",
+    image: "/images/ksd-stone-07.jpg",
+    hoverImage: "/images/ksd-stone-08.jpg",
     href: "/services",
   },
   {
     title: "Natural Stone Flooring",
     text: "Polished and honed marble, travertine, and quartzite flooring laid with razor-thin joints for a seamless, enduring finish.",
-    image: "/images/ksd-stone-17.jpg",
-    hoverImage: "/images/ksd-stone-18.jpg",
+    image: "/images/ksd-stone-09.jpg",
+    hoverImage: "/images/ksd-stone-12.jpg",
     href: "/services",
   },
   {
     title: "Kitchen Benchtops & Islands",
     text: "Custom waterfall kitchen islands, mitred aprons, and stain-resistant sealing engineered from high-grade natural granite and marble.",
-    image: "/images/ksd-stone-19.jpg",
-    hoverImage: "/images/ksd-stone-20.jpg",
+    image: "/images/ksd-stone-27.jpg",
+    hoverImage: "/images/ksd-stone-38.jpg",
     href: "/services",
   },
   {
     title: "Feature Walls & Ensuites",
     text: "Bookmatched feature walls, fireplace surrounds, and bespoke wellness bathroom stone that transform interiors into architectural works of art.",
-    image: "/images/ksd-stone-21.jpg",
-    hoverImage: "/images/ksd-stone-22.jpg",
+    image: "/images/ksd-stone-40.jpg",
+    hoverImage: "/images/ksd-stone-43.jpg",
     href: "/services",
   },
 ];
@@ -86,8 +86,8 @@ export default function OurServices({
       return backendServices.slice(0, 4).map((s, idx) => ({
         title: s.title,
         text: s.shortDescription || s.description || "Architectural custom stone and luxury residential building tailored to Australian lifestyle.",
-        image: s.image ? asset(s.image) : `/images/ksd-stone-${String((idx % 10) + 15).padStart(2, "0")}.jpg`,
-        hoverImage: `/images/ksd-stone-${String(((idx + 1) % 10) + 15).padStart(2, "0")}.jpg`,
+        image: siteImage(s.image, SERVICES[idx % SERVICES.length].image),
+        hoverImage: SERVICES[(idx + 1) % SERVICES.length].hoverImage,
         href: `/services/${s.slug || s._id}`,
       }));
     }

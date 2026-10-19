@@ -6,7 +6,7 @@ export default function DesignJourney() {
   return (
     <article className="dj">
       <header className="dj-hero">
-        <img src="/images/ksd-stone-02.jpg" alt="" />
+        <img src="/images/ksd-stone-07.jpg" alt="" />
         <div className="dj-hero__shade" />
         <div className="dj-hero__copy">
           <p>{JOURNEY_INTRO.eyebrow}</p>

@@ -103,11 +103,11 @@ export default function KsdStory() {
           <span className="ksd-story__dots ksd-story__fade" style={{ "--d": "0.6s" }} aria-hidden="true" />
 
           <div className="ksd-story__img ksd-story__img--main" style={{ "--d": "0s" }}>
-            <img src="/images/ksd-stone-03.jpg" alt="KSD Homes luxury architectural residence interior" loading="lazy" />
+            <img src="/images/ksd-stone-03.jpg" alt="KSD Homes dining and natural light" loading="lazy" />
           </div>
 
           <div className="ksd-story__img ksd-story__img--sub" style={{ "--d": "0.3s" }}>
-            <img src="/images/ksd-stone-04.jpg" alt="Natural marble craftsmanship" loading="lazy" />
+            <img src="/images/ksd-stone-07.jpg" alt="Architecture and outlook" loading="lazy" />
           </div>
 
           <div className="ksd-story__counter ksd-story__fade" style={{ "--d": "1.1s" }}>

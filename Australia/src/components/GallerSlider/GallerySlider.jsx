@@ -4,15 +4,15 @@ import { useApi } from "../../api";
 import { mergeHomes } from "../../data/homes";
 import "./GallerySlider.css";
 
-const BG_IMAGE = "/images/ksd-stone-01.jpg";
+const BG_IMAGE = "/images/ksd-stone-07.jpg";
 
 const GALLERY_ITEMS = [
-  { id: 1, slug: "residence", image: "/images/projects/sharma-plan-02.jpg", alt: "Residence ground floor", title: "Residence", status: "In Delivery" },
-  { id: 2, slug: "residence", image: "/images/projects/sharma-plan-03.jpg", alt: "Residence upper floor", title: "Residence", status: "In Delivery" },
-  { id: 3, slug: "residence", image: "/images/projects/sharma-plan-01.jpg", alt: "Residence undercroft", title: "Residence", status: "In Delivery" },
-  { id: 4, slug: "port-coogee-residence", image: "/images/ksd-stone-05.jpg", alt: "Port Coogee conceptual design", title: "Port Coogee Residence", status: "Upcoming" },
-  { id: 5, slug: "port-coogee-residence", image: "/images/ksd-stone-06.jpg", alt: "Upcoming coastal residence", title: "Port Coogee Residence", status: "Upcoming" },
-  { id: 6, slug: "residence", image: "/images/projects/sharma-plan-02.jpg", alt: "Residence plans", title: "Residence", status: "In Delivery" },
+  { id: 1, slug: "residence", image: "/images/ksd-stone-02.jpg", alt: "Residence interior direction", title: "Residence", status: "In Delivery" },
+  { id: 2, slug: "residence", image: "/images/projects/sharma-plan-02.jpg", alt: "Residence ground floor plan", title: "Residence", status: "In Delivery" },
+  { id: 3, slug: "residence", image: "/images/projects/sharma-plan-03.jpg", alt: "Residence upper floor plan", title: "Residence", status: "In Delivery" },
+  { id: 4, slug: "port-coogee-residence", image: "/images/ksd-stone-07.jpg", alt: "Port Coogee conceptual outlook", title: "Port Coogee Residence", status: "Upcoming" },
+  { id: 5, slug: "port-coogee-residence", image: "/images/ksd-stone-08.jpg", alt: "Port Coogee conceptual living", title: "Port Coogee Residence", status: "Upcoming" },
+  { id: 6, slug: "residence", image: "/images/ksd-stone-09.jpg", alt: "Residence bedroom direction", title: "Residence", status: "In Delivery" },
 ];
 
 const CLONES = 4;

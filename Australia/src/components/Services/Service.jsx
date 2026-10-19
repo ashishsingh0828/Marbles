@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useApi, asset } from "../../api";
+import { useApi, siteImage } from "../../api";
 import "./Service.css";
 
 const FALLBACK_SERVICES = [
@@ -10,7 +10,7 @@ const FALLBACK_SERVICES = [
     slug: "architecture-design",
     title: "Architecture & Design",
     icon: "layers",
-    image: "/images/ksd-stone-16.jpg",
+    image: "/images/ksd-stone-07.jpg",
     description: "Form, proportion and how the family lives, resolved before a brick is laid.",
   },
   {
@@ -19,7 +19,7 @@ const FALLBACK_SERVICES = [
     slug: "builder-interior-design",
     title: "Builder Interior Design",
     icon: "tiles",
-    image: "/images/ksd-stone-17.jpg",
+    image: "/images/ksd-stone-09.jpg",
     description: "Materials, joinery and light considered with the architecture, so every room feels like part of the same home.",
   },
   {
@@ -28,7 +28,7 @@ const FALLBACK_SERVICES = [
     slug: "complete-home-solutions",
     title: "Complete Home Solutions",
     icon: "plank",
-    image: "/images/ksd-stone-18.jpg",
+    image: "/images/ksd-stone-27.jpg",
     description: "Combined visionary — licensed builder and interior design under one roof. One brief, one team, one finished residence.",
   },
   {
@@ -37,7 +37,7 @@ const FALLBACK_SERVICES = [
     slug: "licensed-boutique-building",
     title: "Licensed Boutique Building",
     icon: "oak",
-    image: "/images/ksd-stone-19.jpg",
+    image: "/images/ksd-stone-38.jpg",
     description: "High-end Western Australian homes delivered by a licensed builder, with a customer-centred process.",
   },
   {
@@ -46,7 +46,7 @@ const FALLBACK_SERVICES = [
     slug: "indoor-outdoor-living",
     title: "Indoor–Outdoor Living",
     icon: "vein",
-    image: "/images/ksd-stone-20.jpg",
+    image: "/images/ksd-stone-03.jpg",
     description: "Alfresco, pool and garden composed with the house so Western Australian light and privacy work together.",
   },
   {
@@ -55,7 +55,7 @@ const FALLBACK_SERVICES = [
     slug: "materials-finishes",
     title: "Materials & Finishes",
     icon: "carpet",
-    image: "/images/ksd-stone-21.jpg",
+    image: "/images/ksd-stone-40.jpg",
     description: "Marble, timber, stone and concrete chosen for climate, touch and how they catch the light.",
   },
 ];
@@ -195,7 +195,11 @@ function Service() {
         slug: s.slug,
         title: s.title,
         icon: ["layers", "tiles", "plank", "oak", "vein", "carpet"][idx % 6],
-        image: s.image ? asset(s.image) : `/images/ksd-stone-${String((idx % 10) + 15).padStart(2, "0")}.jpg`,
+        image: siteImage(
+          s.image,
+          FALLBACK_SERVICES.find((item) => item.slug === s.slug)?.image
+            || FALLBACK_SERVICES[idx % FALLBACK_SERVICES.length].image
+        ),
         description: s.shortDescription || s.description || "Architecture and builder interior design as one complete home solution.",
       }))
     : FALLBACK_SERVICES;

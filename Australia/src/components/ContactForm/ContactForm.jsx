@@ -4,7 +4,7 @@ import { BRAND } from "../../config";
 import "./ContactForm.css";
 
 const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(BRAND.mapQuery)}&output=embed`;
-const IMAGE_SRC = "/images/ksd-stone-47.jpg";
+const IMAGE_SRC = "/images/ksd-stone-27.jpg";
 
 const INFO_ITEMS = [
   {

@@ -10,7 +10,7 @@ const SLIDES = [
   { title: "Residence", type: "Ground Floor", tone: "carrara", image: "/images/projects/sharma-plan-02.jpg" },
   { title: "Residence", type: "Upper Floor", tone: "calacatta", image: "/images/projects/sharma-plan-03.jpg" },
   { title: "Residence", type: "Undercroft", tone: "marquina", image: "/images/projects/sharma-plan-01.jpg" },
-  { title: "Port Coogee Residence", type: "Upcoming · Conceptual", tone: "verde", image: "/images/ksd-stone-05.jpg" },
+  { title: "Port Coogee Residence", type: "Upcoming · Conceptual", tone: "verde", image: "/images/ksd-stone-07.jpg" },
 ];
 
 const HEADING = ["Boutique", "homes", "we're", "designing", "in", "WA"];

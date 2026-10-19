@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useApi, asset, fmtDate } from "../../api";
+import { useApi, siteImage, fmtDate } from "../../api";
 import "./Blog.css";
 
 const PAGE_SIZE = 9;
 
 const FALLBACK_POSTS = [
   { id: 1, slug: "architectural-marble-trends-australia", category: "Trends", date: "October 10, 2026", comments: 4, title: "Architectural Marble Trends Transforming Modern Australian Waterfront Homes", image: "/images/ksd-stone-27.jpg" },
-  { id: 2, slug: "selecting-calacatta-kitchen-islands", category: "Design Guide", date: "October 02, 2026", comments: 6, title: "Mastering The Art of Mitered Waterfall Islands in Australian Kitchens", image: "/images/ksd-stone-28.jpg" },
-  { id: 3, slug: "limestone-travertine-outdoor-alfresco", category: "Outdoor Living", date: "September 24, 2026", comments: 2, title: "Natural Limestone & Travertine: Elevating Sydney & Melbourne Alfresco Spaces", image: "/images/ksd-stone-29.jpg" },
-  { id: 4, slug: "bookmatched-feature-walls-luxury-foyers", category: "Interiors", date: "September 15, 2026", comments: 3, title: "Grand Bookmatched Slabs: Turning Foyer Walls into Living Art", image: "/images/ksd-stone-30.jpg" },
-  { id: 5, slug: "sustainable-luxury-homebuilding-standards", category: "Construction", date: "September 08, 2026", comments: 1, title: "Sustainable Luxury Home Construction: Australian Climate & Stone Durability", image: "/images/ksd-stone-31.jpg" },
-  { id: 6, slug: "precision-stonemasonry-heritage-to-modern", category: "Craftsmanship", date: "August 29, 2026", comments: 5, title: "From Quarry to Finished Residence: The Artisanal Precision Behind KSD Homes", image: "/images/ksd-stone-32.jpg" },
+  { id: 2, slug: "selecting-calacatta-kitchen-islands", category: "Design Guide", date: "October 02, 2026", comments: 6, title: "Mastering The Art of Mitered Waterfall Islands in Australian Kitchens", image: "/images/ksd-stone-38.jpg" },
+  { id: 3, slug: "limestone-travertine-outdoor-alfresco", category: "Outdoor Living", date: "September 24, 2026", comments: 2, title: "Natural Limestone & Travertine: Elevating Sydney & Melbourne Alfresco Spaces", image: "/images/ksd-stone-03.jpg" },
+  { id: 4, slug: "bookmatched-feature-walls-luxury-foyers", category: "Interiors", date: "September 15, 2026", comments: 3, title: "Grand Bookmatched Slabs: Turning Foyer Walls into Living Art", image: "/images/ksd-stone-09.jpg" },
+  { id: 5, slug: "sustainable-luxury-homebuilding-standards", category: "Construction", date: "September 08, 2026", comments: 1, title: "Sustainable Luxury Home Construction: Australian Climate & Stone Durability", image: "/images/ksd-stone-07.jpg" },
+  { id: 6, slug: "precision-stonemasonry-heritage-to-modern", category: "Craftsmanship", date: "August 29, 2026", comments: 5, title: "From Quarry to Finished Residence: The Artisanal Precision Behind KSD Homes", image: "/images/ksd-stone-40.jpg" },
 ];
 
 function Reveal({ delay = 0, className = "", children }) {
@@ -82,7 +82,7 @@ function Blog() {
         date: fmtDate(b.publishedAt || b.createdAt || new Date()),
         comments: 2,
         title: b.title,
-        image: b.image ? asset(b.image) : `/images/ksd-stone-${String((idx % 10) + 27).padStart(2, "0")}.jpg`,
+        image: siteImage(b.image, FALLBACK_POSTS[idx % FALLBACK_POSTS.length].image),
       }))
     : FALLBACK_POSTS;
 

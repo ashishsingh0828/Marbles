@@ -2,7 +2,7 @@ import { Fragment, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Breadcrumb.css";
 
-const DEFAULT_BG = "/images/ksd-stone-01.jpg";
+const DEFAULT_BG = "/images/ksd-stone-07.jpg";
 
 const formatSegment = (segment) => {
   let decoded = segment;

@@ -126,8 +126,8 @@ function useCountUp(target, start, duration = 1800) {
 
 export default function ClientFeedback({
   items = TESTIMONIALS,
-  image = "/images/ksd-stone-05.jpg",
-  imageAlt = "KSD Homes luxury interior",
+  image = "/images/ksd-stone-08.jpg",
+  imageAlt = "Calm living interior",
   interval = 5000,
 }) {
   const sectionRef = useRef(null);

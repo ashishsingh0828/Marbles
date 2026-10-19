@@ -295,7 +295,7 @@ export default function ServiceDetails({ service, links = [] }) {
           <Reveal className="ksd-sd-widget ksd-sd-cta-widget" delay={120}>
             <div
               className="ksd-sd-cta-bg"
-              style={{ backgroundImage: `url(${service.contactImage || service.hero || "/images/ksd-stone-15.jpg"})` }}
+              style={{ backgroundImage: `url(${service.contactImage || service.hero || "/images/ksd-stone-07.jpg"})` }}
             />
             <div className="ksd-sd-cta-overlay" />
             <div className="ksd-sd-cta-inner">

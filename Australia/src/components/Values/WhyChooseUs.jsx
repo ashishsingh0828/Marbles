@@ -102,8 +102,8 @@ const GROUPS = [
 ];
 
 const GALLERY = [
-  { src: "/images/ksd-stone-03.jpg", alt: "Boutique home interior" },
-  { src: "/images/ksd-stone-05.jpg", alt: "Western Australian living interior" },
+  { src: "/images/ksd-stone-03.jpg", alt: "Dining and natural light" },
+  { src: "/images/ksd-stone-08.jpg", alt: "Calm living interior" },
 ];
 
 const QUOTE =
@@ -112,8 +112,8 @@ const QUOTE =
 /* ---------- component ---------- */
 export default function WhyChooseUs({
   groups = GROUPS,
-  image = "/images/ksd-stone-06.jpg",
-  imageAlt = "Complete home interior composed as one environment",
+  image = "/images/ksd-stone-07.jpg",
+  imageAlt = "Architecture and outlook composed as one environment",
   gallery = GALLERY,
   quote = QUOTE,
   lead = LEAD,

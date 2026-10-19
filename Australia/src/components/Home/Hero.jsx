@@ -11,7 +11,7 @@ const SLIDES = [
     text: "At KSD Homes, we combine master custom construction with hand-selected natural marble, granite, and stone — engineered for generations of distinction.",
     theme: "dark",
     scrim: "10, 24, 40",
-    image: "/images/ksd-stone-01.jpg",
+    image: "/images/ksd-stone-07.jpg",
   },
   {
     id: "stone-living",
@@ -21,7 +21,7 @@ const SLIDES = [
     text: "Direct-imported Italian and exotic natural marble, precision-cut and dry-lay aligned for continuous veining across expansive living spaces.",
     theme: "dark",
     scrim: "15, 30, 48",
-    image: "/images/ksd-stone-05.jpg",
+    image: "/images/ksd-stone-02.jpg",
   },
   {
     id: "kitchen-ensuite",
@@ -31,7 +31,7 @@ const SLIDES = [
     text: "Seamless waterfall edges, mitred stone aprons, and stain-sealed natural surfaces crafted to sub-millimeter tolerances by master stonemasons.",
     theme: "dark",
     scrim: "12, 28, 44",
-    image: "/images/ksd-stone-06.jpg",
+    image: "/images/ksd-stone-09.jpg",
   },
   {
     id: "master-craft",

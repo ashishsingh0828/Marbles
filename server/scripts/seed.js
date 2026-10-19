@@ -59,6 +59,18 @@ const AUS_BLOGS = [
   ["Materials chosen for climate and light", "Materials"],
   ["Planning a boutique family home", "Interior Design"],
 ];
+const AUS_PUBLIC = {
+  dining: "/images/ksd-stone-02.jpg",
+  diningLight: "/images/ksd-stone-03.jpg",
+  livingOutlook: "/images/ksd-stone-07.jpg",
+  livingCalm: "/images/ksd-stone-08.jpg",
+  bedroom: "/images/ksd-stone-09.jpg",
+  diningFormal: "/images/ksd-stone-27.jpg",
+  joinery: "/images/ksd-stone-38.jpg",
+  bathroomMarble: "/images/ksd-stone-40.jpg",
+  planGround: "/images/projects/sharma-plan-02.jpg",
+  planUpper: "/images/projects/sharma-plan-03.jpg",
+};
 
 const project = (site, label, [title, category], i) => (
   site === "australia"
@@ -74,7 +86,11 @@ const project = (site, label, [title, category], i) => (
       storeys: "3", specLine: i === 1 ? "Upcoming · Three storeys · Coastal WA" : "Three storeys · Pool & alfresco · Marble floors",
       conceptHeadline: i === 1 ? "Conceptual design of an upcoming home" : "The beauty of indoor-outdoor living",
       planLabels: i === 1 ? "" : "Ground\nUpper\nUndercroft",
-      imageA: pic(g(i), 0, 1400, 900), imageB: pic(g(i), 1, 900, 1000), heroImage: pic(g(i), 2, 1600, 1000),
+      imageA: i === 1 ? AUS_PUBLIC.livingOutlook : AUS_PUBLIC.dining,
+      imageB: i === 1 ? AUS_PUBLIC.livingCalm : AUS_PUBLIC.planGround,
+      heroImage: i === 1 ? AUS_PUBLIC.livingOutlook : AUS_PUBLIC.dining,
+      floorPlanA: i === 1 ? "" : AUS_PUBLIC.planGround,
+      floorPlanB: i === 1 ? "" : AUS_PUBLIC.planUpper,
       heading: "A boutique home composed as one complete living environment",
       paragraphs: `${text}\n\n${text2}`,
       factsTitle: "Architecture & interior, designed as one", factsText: text2,
@@ -89,9 +105,16 @@ const project = (site, label, [title, category], i) => (
       checks: "Hand-selected slabs\nPrecision cutting\nFast and reliable service\nAffordable solutions\nExpert installers\nModern equipment",
     }
 );
+const AUS_SERVICE_IMAGES = [
+  AUS_PUBLIC.livingOutlook,
+  AUS_PUBLIC.bedroom,
+  AUS_PUBLIC.diningFormal,
+  AUS_PUBLIC.diningLight,
+];
 const service = (site, label, [title, shortDescription], i) => ({
   site, title, slug: slugify(title), shortDescription, published: true,
-  image: pic(g(i), 0, 800, 800), heroImage: pic(g(i), 1, 1400, 900),
+  image: site === "australia" ? AUS_SERVICE_IMAGES[i % AUS_SERVICE_IMAGES.length] : pic(g(i), 0, 800, 800),
+  heroImage: site === "australia" ? AUS_SERVICE_IMAGES[i % AUS_SERVICE_IMAGES.length] : pic(g(i), 1, 1400, 900),
   paragraphs: `${text}\n\n${text2}`, strategyHeading: "Our Approach", strategyText: text2,
   features: "Expert Installation | Skilled fitters with years of stone experience.\nFlooring Upgrades | Refresh any room with a premium stone finish.",
   processHeading: "Service Process",
@@ -103,13 +126,15 @@ const service = (site, label, [title, shortDescription], i) => ({
 const blog = (site, label, [title, category], i) => ({
   site, title, slug: slugify(title), category, published: true, author: "admin", tags: `${category}, Marble`,
   date: new Date(Date.now() - i * 5 * day).toISOString().slice(0, 10), excerpt: text.slice(0, 140) + "…",
-  image: pic(g(i + 1), 0, 800, 800), heroImage: pic(g(i + 1), 1, 1400, 900),
+  image: site === "australia" ? AUS_SERVICE_IMAGES[i % AUS_SERVICE_IMAGES.length] : pic(g(i + 1), 0, 800, 800),
+  heroImage: site === "australia" ? AUS_SERVICE_IMAGES[i % AUS_SERVICE_IMAGES.length] : pic(g(i + 1), 1, 1400, 900),
   introHeading: "Premium stone for stylish spaces", introText: text,
-  galleryA: pic(g(i + 2), 0, 900, 700), galleryB: pic(g(i + 3), 1, 900, 700),
+  galleryA: site === "australia" ? AUS_PUBLIC.diningLight : pic(g(i + 2), 0, 900, 700),
+  galleryB: site === "australia" ? AUS_PUBLIC.bedroom : pic(g(i + 3), 1, 900, 700),
   secondHeading: "Why homeowners trust our stone experts", secondText: text2,
   approachHeading: "Our Personal Approach",
   approachItems: "Expert installation for homes and offices\nDurable materials built for daily wear\nSkilled craftsmanship for lasting results\nRegular care and maintenance advice",
-  approachImage: pic(g(i), 2, 800, 600),
+  approachImage: site === "australia" ? AUS_PUBLIC.joinery : pic(g(i), 2, 800, 600),
 });
 
 (async () => {

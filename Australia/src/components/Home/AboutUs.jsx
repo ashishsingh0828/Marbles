@@ -41,7 +41,7 @@ export default function AboutUs({
   images = {
     top: "/images/ksd-stone-08.jpg",
     bottom: "/images/ksd-stone-09.jpg",
-    tall: "/images/ksd-stone-10.jpg",
+    tall: "/images/ksd-stone-07.jpg",
   },
   founder = { name: "KSD Leadership", role: "Master Builder & Founder, KSD Homes", image: "" },
   learnMoreHref = "/about",
@@ -55,10 +55,10 @@ export default function AboutUs({
   ];
 
   const swatches = [
-    { name: "Carrara Marble", src: "/images/ksd-stone-11.jpg" },
-    { name: "Calacatta Gold", src: "/images/ksd-stone-12.jpg" },
-    { name: "Black Marquina", src: "/images/ksd-stone-13.jpg" },
-    { name: "Silver Travertine", src: "/images/ksd-stone-14.jpg" },
+    { name: "Dining and light", src: "/images/ksd-stone-03.jpg" },
+    { name: "Bedroom direction", src: "/images/ksd-stone-12.jpg" },
+    { name: "Joinery", src: "/images/ksd-stone-38.jpg" },
+    { name: "Marble wet areas", src: "/images/ksd-stone-40.jpg" },
   ];
 
   return (

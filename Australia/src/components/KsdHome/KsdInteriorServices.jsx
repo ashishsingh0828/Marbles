@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useApi, asset } from "../../api";
+import { useApi, siteImage } from "../../api";
 import "./KsdInteriorServices.css";
 
 const Icon = ({ children }) => (
@@ -14,7 +14,7 @@ const INTERIOR_SERVICES = [
     num: "01",
     title: "Architecture & Design",
     desc: "A complete composition — form, proportion and how the family lives, resolved before a brick is laid.",
-    img: "/images/ksd-stone-16.jpg",
+    img: "/images/ksd-stone-07.jpg",
     link: "/services/architecture-design",
     icon: (
       <Icon>
@@ -30,7 +30,7 @@ const INTERIOR_SERVICES = [
     num: "02",
     title: "Builder Interior Design",
     desc: "Materials, joinery and light considered with the architecture, so every room feels like part of the same home.",
-    img: "/images/ksd-stone-17.jpg",
+    img: "/images/ksd-stone-09.jpg",
     link: "/services/builder-interior-design",
     icon: (
       <Icon>
@@ -45,7 +45,7 @@ const INTERIOR_SERVICES = [
     num: "03",
     title: "Complete Home Solutions",
     desc: "Combined visionary — licensed builder and interior design under one roof. One brief, one team, one finished residence.",
-    img: "/images/ksd-stone-18.jpg",
+    img: "/images/ksd-stone-27.jpg",
     link: "/services/complete-home-solutions",
     icon: (
       <Icon>
@@ -58,7 +58,7 @@ const INTERIOR_SERVICES = [
     num: "04",
     title: "Licensed Boutique Building",
     desc: "High-end Western Australian homes delivered by a licensed builder, with a customer-centred process.",
-    img: "/images/ksd-stone-19.jpg",
+    img: "/images/ksd-stone-38.jpg",
     link: "/services/licensed-boutique-building",
     icon: (
       <Icon>
@@ -73,7 +73,7 @@ const INTERIOR_SERVICES = [
     num: "05",
     title: "Indoor–Outdoor Living",
     desc: "Alfresco, pool and garden composed with the house so Western Australian light and privacy work together.",
-    img: "/images/ksd-stone-20.jpg",
+    img: "/images/ksd-stone-03.jpg",
     link: "/services/indoor-outdoor-living",
     icon: (
       <Icon>
@@ -87,7 +87,7 @@ const INTERIOR_SERVICES = [
     num: "06",
     title: "Materials & Finishes",
     desc: "Marble, timber, stone and concrete chosen for climate, touch and how they catch the light — each in its right place.",
-    img: "/images/ksd-stone-21.jpg",
+    img: "/images/ksd-stone-40.jpg",
     link: "/services/materials-finishes",
     icon: (
       <Icon>
@@ -182,7 +182,7 @@ export default function KsdInteriorServices() {
         num: String(idx + 1).padStart(2, "0"),
         title: s.title,
         desc: s.shortDescription || s.description || "Architecture and builder interior design as one complete home solution.",
-        img: s.image ? asset(s.image) : `/images/ksd-stone-${String((idx % 10) + 16).padStart(2, "0")}.jpg`,
+        img: siteImage(s.image, INTERIOR_SERVICES[idx % INTERIOR_SERVICES.length].img),
         link: `/services/${s.slug || s._id}`,
         icon: INTERIOR_SERVICES[idx % INTERIOR_SERVICES.length].icon,
       }));

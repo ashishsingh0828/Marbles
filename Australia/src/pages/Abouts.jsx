@@ -26,7 +26,7 @@ export default function Abouts() {
   return (
     <div className="ksd-about-page">
       <header className="dj-hero ksd-about-hero">
-        <img src="/images/ksd-stone-02.jpg" alt="" />
+        <img src="/images/ksd-stone-07.jpg" alt="" />
         <div className="dj-hero__shade" />
         <div className="dj-hero__copy">
           <p>About us</p>
@@ -41,10 +41,10 @@ export default function Abouts() {
         <div className="ksd-about-intro__container">
           <div className="ksd-about-intro__visual">
             <div className="ksd-about-intro__main-img">
-              <img src="/images/ksd-stone-08.jpg" alt="KSD Homes interior studio" />
+              <img src="/images/ksd-stone-03.jpg" alt="KSD Homes dining and light" />
             </div>
             <div className="ksd-about-intro__sub-img">
-              <img src="/images/ksd-stone-09.jpg" alt="KSD Homes material and light" />
+              <img src="/images/ksd-stone-09.jpg" alt="KSD Homes bedroom interior direction" />
             </div>
             <div className="ksd-about-intro__badge">
               <img src="/images/logo/logo.png" alt="KSD Homes logo" className="ksd-about-intro__logo" />

@@ -5,7 +5,7 @@ import "./Faq.css";
 
 const MAIN_IMAGE = "/images/ksd-stone-03.jpg";
 const DECO_IMAGE_A = "/images/projects/sharma-plan-02.jpg";
-const DECO_IMAGE_B = "/images/ksd-stone-06.jpg";
+const DECO_IMAGE_B = "/images/ksd-stone-07.jpg";
 
 const ITEMS = [
   {

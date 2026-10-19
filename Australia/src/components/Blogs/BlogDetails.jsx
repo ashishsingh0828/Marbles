@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useApi, asset, fmtDate, paras } from "../../api";
+import { useApi, siteImage, fmtDate, paras } from "../../api";
 import "./BlogDetails.css";
 
 const FALLBACK_BLOG = {
@@ -9,8 +9,8 @@ const FALLBACK_BLOG = {
   date: "October 10, 2026",
   category: "Architectural Trends",
   heroImage: "/images/ksd-stone-27.jpg",
-  image2: "/images/ksd-stone-28.jpg",
-  image3: "/images/ksd-stone-29.jpg",
+  image2: "/images/ksd-stone-03.jpg",
+  image3: "/images/ksd-stone-09.jpg",
   paragraphs: [
     "From Sydney's iconic harbour foreshores to the expansive coastal estates of Byron Bay and Melbourne's elite inner suburbs, luxury Australian residential architecture is undergoing a profound evolution. Natural stone has transcended purely functional flooring to become the primary artistic centerpiece of the modern home.",
     "Today's discerning Australian homeowners and architects are demanding monolithic Calacatta waterfall kitchen islands, continuous bookmatched living room statement walls, and seamless indoor-to-outdoor transitions using slip-resistant honed limestone and travertine.",
@@ -154,9 +154,9 @@ function BlogDetails() {
     author: data.author || "KSD Homes Editorial",
     date: fmtDate(data.publishedAt || data.date || data.createdAt || new Date()),
     category: data.category || "Architecture",
-    heroImage: data.heroImage ? asset(data.heroImage) : (data.image ? asset(data.image) : FALLBACK_BLOG.heroImage),
-    image2: data.galleryA ? asset(data.galleryA) : (data.gallery && data.gallery[0] ? asset(data.gallery[0]) : FALLBACK_BLOG.image2),
-    image3: data.galleryB ? asset(data.galleryB) : (data.gallery && data.gallery[1] ? asset(data.gallery[1]) : FALLBACK_BLOG.image3),
+    heroImage: siteImage(data.heroImage, siteImage(data.image, FALLBACK_BLOG.heroImage)),
+    image2: siteImage(data.galleryA, siteImage(data.gallery?.[0], FALLBACK_BLOG.image2)),
+    image3: siteImage(data.galleryB, siteImage(data.gallery?.[1], FALLBACK_BLOG.image3)),
     paragraphs: parsedParagraphs,
     quote: data.excerpt || data.quote || FALLBACK_BLOG.quote,
     conclusion: data.conclusion || data.secondHeading || FALLBACK_BLOG.conclusion,

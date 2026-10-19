@@ -8,6 +8,13 @@ export const API = rawApi && !rawApi.startsWith("http") ? `https://${rawApi}` : 
 /* "/uploads/x.jpg" -> full image address; absolute URLs are left alone */
 export const asset = (u) => (!u ? "" : /^(https?:|data:|blob:)/.test(u) ? u : API + u);
 
+/* Prefer Australia/public/images over stock Unsplash seed URLs. Keep admin uploads. */
+export const siteImage = (u, fallback = "") => {
+  if (!u || /unsplash\.com|picsum\.photos/i.test(u)) return fallback || "";
+  if (String(u).startsWith("/images/")) return u;
+  return asset(u);
+};
+
 /* ---------- text helpers (the admin stores multi-line text as plain strings) ---------- */
 export const slugify = (s = "") => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 export const lines = (s) => String(s || "").split("\n").map((x) => x.trim()).filter(Boolean);

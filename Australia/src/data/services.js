@@ -1,4 +1,4 @@
-const img = (n) => `/images/ksd-stone-${String(n).padStart(2, "0")}.jpg`;
+import { IMG } from "./images";
 
 const ksd = (title, hero, extra = {}) => ({
   title,
@@ -16,7 +16,7 @@ const ksd = (title, hero, extra = {}) => ({
 });
 
 export const FALLBACK_SERVICES_MAP = {
-  "architecture-design": ksd("Architecture & Design", img(16), {
+  "architecture-design": ksd("Architecture & Design", IMG.livingOutlook, {
     shortDescription: "Form, proportion and how the family lives, resolved before a brick is laid.",
     paragraphs: [
       "KSD Homes Pty Ltd designs boutique Western Australian homes as complete compositions. Architecture is not a drawing set handed to someone else — it sits with builder interior design under one roof.",
@@ -36,7 +36,7 @@ export const FALLBACK_SERVICES_MAP = {
       { title: "Handover", text: "A complete living environment, not disconnected parts." },
     ],
   }),
-  "builder-interior-design": ksd("Builder Interior Design", img(17), {
+  "builder-interior-design": ksd("Builder Interior Design", IMG.bedroom, {
     shortDescription: "Materials, joinery and light considered with the architecture, so every room feels like part of the same home.",
     paragraphs: [
       "Builder interior design is the combined visionary of KSD Homes: the people who build the house also compose how it is lived in.",
@@ -56,7 +56,7 @@ export const FALLBACK_SERVICES_MAP = {
       { title: "Install", text: "The same team that designed the rooms sees them made." },
     ],
   }),
-  "complete-home-solutions": ksd("Complete Home Solutions", img(18), {
+  "complete-home-solutions": ksd("Complete Home Solutions", IMG.diningFormal, {
     shortDescription: "One brief, one team, one finished residence.",
     paragraphs: [
       "A KSD home is architecture, builder interior design, lighting, furniture and finishes designed as one complete home solution.",
@@ -76,7 +76,7 @@ export const FALLBACK_SERVICES_MAP = {
       { title: "Live", text: "A home that feels finished because it was composed that way." },
     ],
   }),
-  "licensed-boutique-building": ksd("Licensed Boutique Building", img(19), {
+  "licensed-boutique-building": ksd("Licensed Boutique Building", IMG.joinery, {
     shortDescription: "High-end Western Australian homes delivered by a licensed builder, with a customer-centred process.",
     paragraphs: [
       "KSD Homes Pty Ltd is a licensed builder for high-end boutique homes. We build from 171 Star Street, Carlisle, Perth WA 6101.",
@@ -96,7 +96,7 @@ export const FALLBACK_SERVICES_MAP = {
       { title: "Handover", text: "A complete home, not a shell plus a fit-out." },
     ],
   }),
-  "indoor-outdoor-living": ksd("Indoor–Outdoor Living", img(20), {
+  "indoor-outdoor-living": ksd("Indoor–Outdoor Living", IMG.diningLight, {
     shortDescription: "Alfresco, pool and garden composed with the house so Western Australian light and privacy work together.",
     paragraphs: [
       "Western Australian living asks for indoor and outdoor as one room. We plan alfresco, pool and garden with the architecture — not as later add-ons.",
@@ -116,7 +116,7 @@ export const FALLBACK_SERVICES_MAP = {
       { title: "Live", text: "Indoor–outdoor as daily life, not a weekend feature." },
     ],
   }),
-  "materials-finishes": ksd("Materials & Finishes", img(21), {
+  "materials-finishes": ksd("Materials & Finishes", IMG.bathroomMarble, {
     shortDescription: "Marble, timber, stone and concrete chosen for climate, touch and how they catch the light.",
     paragraphs: [
       "Materials are specified with the build. Marble main floors, onyx stair, colour-concrete alfresco and pool tiles each sit where they belong.",

@@ -32,4 +32,4 @@ export const BRAND = {
   ],
 };
 
-export const BANNER_IMAGE = "/images/ksd-stone-01.jpg";
+export const BANNER_IMAGE = "/images/ksd-stone-07.jpg";
