@@ -43,14 +43,47 @@ const BLOGS = [
   ["Easy Ways to Maintain Polished Marble", "Care & Maintenance"], ["Marble Design Ideas for Modern Interiors", "Design"],
 ];
 
-const project = (site, label, [title, category], i) => ({
-  site, title, slug: slugify(title), category, published: true,
-  client: `${label} Design Studio`, projectType: category, date: `1${i + 1} January 2026`, website: "yourdomain.com",
-  imageA: pic(g(i), 0, 900, 1000), imageB: pic(g(i), 1, 900, 1000), heroImage: pic(g(i), 2, 1400, 900),
-  heading: "Here to Know About This Project", paragraphs: `${text}\n\n${text2}`,
-  factsTitle: "Interesting Facts In Approach", factsText: text2,
-  checks: "Hand-selected slabs\nPrecision cutting\nFast and reliable service\nAffordable solutions\nExpert installers\nModern equipment",
-});
+const AUS_PROJECTS = [
+  ["Sharma Residence", "Boutique Home"],
+  ["Port Coogee Residence", "Upcoming"],
+];
+const AUS_SERVICES = [
+  ["Architecture & Design", "A complete composition — form, proportion and how the family lives, resolved before a brick is laid."],
+  ["Interior Design", "Materials, joinery and light considered with the architecture, so every room feels like part of the same home."],
+  ["Complete Home Solutions", "Builder and interior design under one roof — one brief, one team, one finished residence."],
+  ["Indoor–Outdoor Living", "Alfresco, pool and garden composed with the house so Western Australian light and privacy work together."],
+];
+const AUS_BLOGS = [
+  ["Design and build under one roof", "Process"],
+  ["Indoor–outdoor living in Western Australia", "Architecture"],
+  ["Materials chosen for climate and light", "Materials"],
+  ["Planning a boutique family home", "Interior Design"],
+];
+
+const project = (site, label, [title, category], i) => (
+  site === "australia"
+    ? {
+      site, title, slug: slugify(title), category, published: true,
+      client: "Private residence", projectType: category,
+      status: i === 1 ? "Upcoming" : "In Delivery",
+      location: "Western Australia", date: i === 1 ? "Upcoming" : "In delivery",
+      storeys: "3", specLine: i === 1 ? "Upcoming · Three storeys · Coastal WA" : "Three storeys · Pool & alfresco · Marble floors",
+      conceptHeadline: i === 1 ? "A coastal home still taking form" : "The beauty of indoor-outdoor living",
+      imageA: pic(g(i), 0, 1400, 900), imageB: pic(g(i), 1, 900, 1000), heroImage: pic(g(i), 2, 1600, 1000),
+      heading: "A boutique home composed as one complete living environment",
+      paragraphs: `${text}\n\n${text2}`,
+      factsTitle: "Architecture & interior, designed as one", factsText: text2,
+      checks: "Architecture and interior design together\nLicensed boutique builder\nIndoor–outdoor living\nClient address remains private",
+    }
+    : {
+      site, title, slug: slugify(title), category, published: true,
+      client: `${label} Design Studio`, projectType: category, date: `1${i + 1} January 2026`, website: "yourdomain.com",
+      imageA: pic(g(i), 0, 900, 1000), imageB: pic(g(i), 1, 900, 1000), heroImage: pic(g(i), 2, 1400, 900),
+      heading: "Here to Know About This Project", paragraphs: `${text}\n\n${text2}`,
+      factsTitle: "Interesting Facts In Approach", factsText: text2,
+      checks: "Hand-selected slabs\nPrecision cutting\nFast and reliable service\nAffordable solutions\nExpert installers\nModern equipment",
+    }
+);
 const service = (site, label, [title, shortDescription], i) => ({
   site, title, slug: slugify(title), shortDescription, published: true,
   image: pic(g(i), 0, 800, 800), heroImage: pic(g(i), 1, 1400, 900),
@@ -77,10 +110,13 @@ const blog = (site, label, [title, category], i) => ({
 (async () => {
   await connectDB();
   await Admin.ensure();
-  const sets = { projects: [PROJECTS, project], services: [SERVICES, service], blogs: [BLOGS, blog] };
+  const setsFor = (site) => site === "australia"
+    ? { projects: [AUS_PROJECTS, project], services: [AUS_SERVICES, service], blogs: [AUS_BLOGS, blog] }
+    : { projects: [PROJECTS, project], services: [SERVICES, service], blogs: [BLOGS, blog] };
 
   for (const site of SITES) {
     const label = site[0].toUpperCase() + site.slice(1);
+    const sets = setsFor(site);
     for (const [name, [rows, build]] of Object.entries(sets)) {
       const M = models[name];
       if (FORCE) await M.deleteMany({ site });

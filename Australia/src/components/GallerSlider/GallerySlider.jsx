@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { useApi } from "../../api";
+import { mergeHomes } from "../../data/homes";
 import "./GallerySlider.css";
 
 const BG_IMAGE = "/images/ksd-stone-01.jpg";
@@ -55,10 +57,15 @@ function useReveal(threshold = 0.15) {
 }
 
 function GallerySlider({ background = BG_IMAGE, items: propItems }) {
+  const { data } = useApi(propItems ? null : "/projects");
   const items = useMemo(() => {
     if (propItems && propItems.length > 0) return propItems;
-    return GALLERY_ITEMS;
-  }, [propItems]);
+    const fromHomes = mergeHomes(data).flatMap((home) => [
+      { id: `${home.slug}-hero`, slug: home.slug, image: home.image, alt: home.title },
+      { id: `${home.slug}-plan`, slug: home.slug, image: home.image2 || home.image, alt: `${home.title} plan` },
+    ]);
+    return fromHomes.length ? fromHomes : GALLERY_ITEMS;
+  }, [propItems, data]);
 
   const total = items.length;
   const [slidesPerView, setSlidesPerView] = useState(getSlidesPerView);
@@ -168,7 +175,7 @@ function GallerySlider({ background = BG_IMAGE, items: propItems }) {
             <span className="text">KSD HOMES PORTFOLIO</span>
             <span className="line" />
           </div>
-          <h2 className="gallery-title">Signature Residential Stone Curation</h2>
+          <h2 className="gallery-title">Homes designed as complete compositions</h2>
         </div>
       </div>
 
@@ -191,7 +198,7 @@ function GallerySlider({ background = BG_IMAGE, items: propItems }) {
           onKeyDown={handleKeyDown}
           role="region"
           aria-roledescription="carousel"
-          aria-label="Marblex gallery"
+          aria-label="KSD Homes gallery"
           tabIndex={0}
         >
           <div

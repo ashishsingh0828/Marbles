@@ -77,13 +77,36 @@
   padding: 190px 24px 110px;
 }
 
+.ksd-hero__eyebrow,
 .ksd-hero__title,
+.ksd-hero__concept,
 .ksd-hero__actions {
   animation: ksd-hero-rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
+.ksd-hero__eyebrow { animation-delay: 0.32s; }
 .ksd-hero__title   { animation-delay: 0.45s; }
+.ksd-hero__concept { animation-delay: 0.58s; }
 .ksd-hero__actions { animation-delay: 0.7s; }
+
+.ksd-hero__eyebrow {
+  margin: 0 0 16px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.ksd-hero__concept {
+  margin: -18px 0 36px;
+  max-width: 560px;
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.82);
+}
 
 @keyframes ksd-hero-rise {
   from {
@@ -250,7 +273,9 @@
     display: none;
   }
 
+  .ksd-hero__eyebrow,
   .ksd-hero__title,
+  .ksd-hero__concept,
   .ksd-hero__actions {
     animation: none;
   }

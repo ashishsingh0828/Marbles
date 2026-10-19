@@ -1,15 +1,12 @@
-import React from 'react'
-import Breadcrumb from '../components/Breadcrumb/Breadcrumb'
-import Project from '../components/Projects/Project'
+import React from "react";
+import Project from "../components/Projects/Project";
 
 function Projects() {
   return (
     <div>
-        <Breadcrumb/>
-      <Project/>
-      
+      <Project />
     </div>
-  )
+  );
 }
 
 export default Projects

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { resource, idOf, asset } from "../api";
-import { RESOURCES } from "../config";
+import { getResources } from "../config";
 import { Icon, PageHeader, Badge, Spinner, ConfirmModal, useToast } from "../components/ui";
 
 const PAGE = 8;
@@ -9,7 +9,7 @@ const fmt = (d) => new Date(d).toLocaleDateString(undefined, { day: "numeric", m
 
 export default function ResourceList() {
   const { resource: rk } = useParams();
-  const cfg = RESOURCES[rk];
+  const cfg = getResources()[rk];
   const toast = useToast();
   const [items, setItems] = useState(null);
   const [err, setErr] = useState("");

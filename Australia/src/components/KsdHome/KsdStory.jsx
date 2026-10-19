@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import "./KsdStory.css";
 
 const HEADING = [
-  { text: "Homes that reflect", accent: false },
-  { text: "the way you live", accent: true },
+  { text: "Design and build", accent: false },
+  { text: "under one roof", accent: true },
 ];
 
 const CHECKS = ["Licensed boutique home builder", "Architecture & interior design"];
@@ -132,7 +132,7 @@ export default function KsdStory() {
           <AnimatedHeading parts={HEADING} />
 
           <p className="ksd-story__text ksd-story__rise" style={{ "--d": "0.8s" }}>
-            KSD Homes Pty Ltd is an emerging architecture and design-led brand in Western Australia. We collaborate with clients to turn a simple house into a high-performing, comfortable home — with Western, European and Asian design expressions, and a cost-effective, customer-centred approach.
+            KSD Homes Pty Ltd is an emerging architecture and design-led brand in Western Australia. Builder and interior design sit under one roof, so architecture, materials and how you live are resolved as a single composition — Western, European and Asian expressions, with a cost-effective, customer-centred process.
           </p>
 
           <div className="ksd-story__row">

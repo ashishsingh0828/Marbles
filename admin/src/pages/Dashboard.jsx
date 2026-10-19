@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { resource, contacts, idOf, asset } from "../api";
-import { RESOURCES, RESOURCE_KEYS } from "../config";
+import { getResources, RESOURCE_KEYS } from "../config";
 import { Icon, PageHeader, Badge, Spinner } from "../components/ui";
 
 const fmt = (d) => new Date(d).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
 
 export default function Dashboard() {
+  const RESOURCES = getResources();
   const [data, setData] = useState(null);
   const [err, setErr] = useState("");
 

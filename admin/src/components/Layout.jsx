@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { auth, MOCK, SITES, getSite, setSite } from "../api";
-import { RESOURCES, RESOURCE_KEYS } from "../config";
+import { getResources, RESOURCE_KEYS } from "../config";
 import { Icon, Brand } from "./ui";
 
 export default function Layout() {
@@ -13,6 +13,7 @@ export default function Layout() {
   const email = auth.email();
   const [site, setSiteState] = useState(getSite());
 
+  const RESOURCES = getResources(site);
   const [, first, second] = pathname.split("/");
   const cfg = RESOURCES[first];
   const title = first === "contacts" ? "Messages" : !first ? "Dashboard" : cfg ? (second === "new" ? `New ${cfg.label}` : second ? `Edit ${cfg.label}` : cfg.plural) : "Dashboard";

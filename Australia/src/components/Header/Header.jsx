@@ -7,7 +7,7 @@ const MENU = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Projects", href: "/projects" },
+  { label: "Homes", href: "/projects" },
   { label: "Journal", href: "/blogs" },
   { label: "Contact", href: "/contact" },
 ];

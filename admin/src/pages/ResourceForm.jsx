@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { resource } from "../api";
-import { RESOURCES } from "../config";
+import { getResources } from "../config";
 import { FieldInput, PageHeader, Spinner, Icon, useToast } from "../components/ui";
 
 const emptyFor = (cfg) => {
@@ -12,7 +12,7 @@ const emptyFor = (cfg) => {
 
 export default function ResourceForm() {
   const { resource: rk, id } = useParams();
-  const cfg = RESOURCES[rk];
+  const cfg = getResources()[rk];
   const nav = useNavigate();
   const toast = useToast();
   const [values, setValues] = useState(() => (cfg ? emptyFor(cfg) : {}));

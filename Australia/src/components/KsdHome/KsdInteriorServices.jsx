@@ -12,8 +12,8 @@ const Icon = ({ children }) => (
 const INTERIOR_SERVICES = [
   {
     num: "01",
-    title: "Luxury Kitchen & Waterfall Islands",
-    desc: "Seamless 45° mitered edge Calacatta and Statuario waterfall islands, integrated stone sinks, and bookmatched splashbacks.",
+    title: "Architecture & Design",
+    desc: "A complete composition — form, proportion and how the family lives, resolved before a brick is laid.",
     img: "/images/ksd-stone-16.jpg",
     link: "/services",
     icon: (
@@ -28,8 +28,8 @@ const INTERIOR_SERVICES = [
   },
   {
     num: "02",
-    title: "Master Ensuite & Wellness Sanctuaries",
-    desc: "Floor-to-ceiling slab bathrooms, custom-carved stone basins, walk-in rain showers, and anti-slip honed travertine surfaces.",
+    title: "Interior Design",
+    desc: "Materials, joinery and light considered with the architecture, so every room feels like part of the same home.",
     img: "/images/ksd-stone-17.jpg",
     link: "/services",
     icon: (
@@ -43,8 +43,8 @@ const INTERIOR_SERVICES = [
   },
   {
     num: "03",
-    title: "Bookmatched Living Statement Walls",
-    desc: "Mirror-cut natural marble slabs creating symmetrical art pieces for penthouse living rooms, fireplaces, and entry foyers.",
+    title: "Complete Home Solutions",
+    desc: "Builder and interior design under one roof — one brief, one team, one finished residence.",
     img: "/images/ksd-stone-18.jpg",
     link: "/services",
     icon: (
@@ -56,8 +56,8 @@ const INTERIOR_SERVICES = [
   },
   {
     num: "04",
-    title: "Architectural Flooring & Inlays",
-    desc: "Large-format calibrated stone tiles, tight hairline joints, brass metal inlays, and custom entryway medallions.",
+    title: "Licensed Boutique Building",
+    desc: "High-end Western Australian homes delivered by a licensed builder, with a customer-centred process.",
     img: "/images/ksd-stone-19.jpg",
     link: "/services",
     icon: (
@@ -71,8 +71,8 @@ const INTERIOR_SERVICES = [
   },
   {
     num: "05",
-    title: "Alfresco & Terrace Entertaining",
-    desc: "Seamless indoor-outdoor transitions with salt-safe Australian coastal limestone, outdoor kitchen tops, and BBQ surrounds.",
+    title: "Indoor–Outdoor Living",
+    desc: "Alfresco, pool and garden composed with the house so Western Australian light and privacy work together.",
     img: "/images/ksd-stone-20.jpg",
     link: "/services",
     icon: (
@@ -85,8 +85,8 @@ const INTERIOR_SERVICES = [
   },
   {
     num: "06",
-    title: "Bespoke Custom Furniture & Hearth",
-    desc: "Artisan-sculpted monolithic dining tables, fluted stone plinths, cantilevered stair treads, and modern fireplace hearths.",
+    title: "Materials & Finishes",
+    desc: "Marble, timber, stone and concrete chosen for climate, touch and how they catch the light — each in its right place.",
     img: "/images/ksd-stone-21.jpg",
     link: "/services",
     icon: (
@@ -181,7 +181,7 @@ export default function KsdInteriorServices() {
       return backendServices.slice(0, 6).map((s, idx) => ({
         num: String(idx + 1).padStart(2, "0"),
         title: s.title,
-        desc: s.shortDescription || s.description || "Bespoke architectural stone and luxury interior craftsmanship.",
+        desc: s.shortDescription || s.description || "Architecture and interior design as one complete home solution.",
         img: s.image ? asset(s.image) : `/images/ksd-stone-${String((idx % 10) + 16).padStart(2, "0")}.jpg`,
         link: `/services/${s.slug || s._id}`,
         icon: INTERIOR_SERVICES[idx % INTERIOR_SERVICES.length].icon,

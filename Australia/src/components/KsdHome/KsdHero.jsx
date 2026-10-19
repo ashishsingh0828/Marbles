@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useApi } from "../../api";
+import { mergeHomes } from "../../data/homes";
 import "./KsdHero.css";
 
-const SLIDES = [
-  "/images/ksd-stone-01.jpg",
-  "/images/ksd-stone-05.jpg",
-  "/images/ksd-stone-06.jpg",
-];
-
-const AUTOPLAY_MS = 4000;
+const AUTOPLAY_MS = 5200;
 const SPEED_MS = 700;
 
 const Arrow = () => (
@@ -18,8 +14,33 @@ const Arrow = () => (
   </svg>
 );
 
+function slidesFrom(homes) {
+  const featured = homes.slice(0, 2).map((home) => ({
+    image: home.heroImage || home.image,
+    eyebrow: `${home.status} / ${home.location}`,
+    lines: [home.title],
+    concept: home.conceptHeadline,
+    primary: { to: `/projects/${home.slug}`, label: "View this home" },
+    secondary: { to: "/contact", label: "Book consultation" },
+  }));
+
+  return [
+    ...featured,
+    {
+      image: "/images/ksd-stone-06.jpg",
+      eyebrow: "KSD Homes · Perth",
+      lines: ["Architecture.", "Interior Design.", "Complete Home Solutions."],
+      concept: "Licensed boutique builder. Design and build under one roof.",
+      primary: { to: "/projects", label: "View our homes" },
+      secondary: { to: "/contact", label: "Book consultation" },
+    },
+  ];
+}
+
 export default function KsdHero() {
-  const total = SLIDES.length;
+  const { data } = useApi("/projects");
+  const slides = useMemo(() => slidesFrom(mergeHomes(data)), [data]);
+  const total = slides.length;
   const [index, setIndex] = useState(0);
   const [animate, setAnimate] = useState(true);
   const [curtain, setCurtain] = useState(true);
@@ -49,7 +70,7 @@ export default function KsdHero() {
     return () => cancelAnimationFrame(id);
   }, [animate]);
 
-  const slides = [...SLIDES, SLIDES[0]];
+  const track = [...slides, slides[0]];
 
   return (
     <section className="ksd-hero">
@@ -65,47 +86,53 @@ export default function KsdHero() {
         className={`ksd-hero__track ${animate ? "" : "is-instant"}`}
         style={{ transform: `translate3d(-${index * 100}%, 0, 0)` }}
       >
-        {slides.map((src, pos) => {
+        {track.map((slide, pos) => {
           const Title = pos === 0 ? "h1" : "div";
           const tab = pos === index ? 0 : -1;
 
           return (
             <div
-              key={pos}
+              key={`${slide.lines[0]}-${pos}`}
               className="ksd-hero__slide"
               aria-hidden={pos === 0 ? undefined : true}
             >
               <img
-                src={src}
+                src={slide.image}
                 alt=""
                 className="ksd-hero__img"
-                loading="eager"
+                loading={pos === 0 ? "eager" : "lazy"}
                 decoding="async"
               />
               <div className="ksd-hero__shade" />
 
               <div className="ksd-hero__container">
+                {slide.eyebrow && (
+                  <p className="ksd-hero__eyebrow">{slide.eyebrow}</p>
+                )}
                 <Title className="ksd-hero__title">
-                  <span>Architecture.</span>
-                  <span>Interior Design.</span>
-                  <span>Complete Home Solutions.</span>
+                  {slide.lines.map((line) => (
+                    <span key={line}>{line}</span>
+                  ))}
                 </Title>
+                {slide.concept && (
+                  <p className="ksd-hero__concept">{slide.concept}</p>
+                )}
 
                 <div className="ksd-hero__actions">
                   <Link
-                    to="/projects"
+                    to={slide.primary.to}
                     className="ksd-hero__btn ksd-hero__btn--solid"
                     tabIndex={tab}
                   >
-                    <span>View Signature Projects</span>
+                    <span>{slide.primary.label}</span>
                     <Arrow />
                   </Link>
                   <Link
-                    to="/contact"
+                    to={slide.secondary.to}
                     className="ksd-hero__btn ksd-hero__btn--light"
                     tabIndex={tab}
                   >
-                    <span>Book Consultation</span>
+                    <span>{slide.secondary.label}</span>
                     <Arrow />
                   </Link>
                 </div>
