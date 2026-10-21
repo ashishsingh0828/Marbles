@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import "./Footer.css";
 
-const CTA_IMAGE = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85";
+const CTA_IMAGE = "/Images/Banner Slider images/1.png";
 
 const EXPLORE_LINKS = [
   { id: "home", label: "Home", to: "/" },
@@ -319,40 +319,12 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Column 4: Kishangarh Showroom */}
             <div className="ft-col ft-col--contact ft-item" style={{ "--i": 3 }}>
-              <h4 className="ft-col-title">Visit Our Gallery</h4>
+              <h4 className="ft-col-title">Studio</h4>
               <ul className="ft-contact">
                 <li>
-                  <span className="ft-contact-icon">
-                    <ContactIcon type="pin" />
-                  </span>
                   <span className="ft-contact-text">
-                    Kishangarh Marble Market, Rajasthan 305801, India
-                  </span>
-                </li>
-                <li>
-                  <span className="ft-contact-icon">
-                    <ContactIcon type="phone" />
-                  </span>
-                  <a href="tel:+919876543210" className="ft-contact-link">
-                    +91 98765 43210
-                  </a>
-                </li>
-                <li>
-                  <span className="ft-contact-icon">
-                    <ContactIcon type="mail" />
-                  </span>
-                  <a href="mailto:info@iemarbles.com" className="ft-contact-link">
-                    info@iemarbles.com
-                  </a>
-                </li>
-                <li>
-                  <span className="ft-contact-icon">
-                    <ContactIcon type="clock" />
-                  </span>
-                  <span className="ft-contact-text">
-                    Mon – Sat: 9:00 AM – 7:00 PM
+                    A new natural stone studio. 28+ years of combined team experience. Use the contact form to enquire.
                   </span>
                 </li>
               </ul>

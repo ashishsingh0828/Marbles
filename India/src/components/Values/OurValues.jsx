@@ -106,7 +106,7 @@ const Check = () => (
 
 /* ---------- component ---------- */
 export default function OurValues({
-  image = "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85",
+  image = "/Images/Service/Bianco Vogue Marble.png",
   imageAlt = "Living space finished with Statuario bookmatched marble slabs",
 }) {
   const [ref, inView] = useInView(0.18);

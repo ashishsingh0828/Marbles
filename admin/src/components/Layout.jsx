@@ -63,11 +63,13 @@ export default function Layout() {
         <header className="adm-head">
           <button className="icon-btn burger" onClick={() => setOpen(true)} aria-label="Open menu"><Icon n="menu" size={22} /></button>
           <h1>{title}</h1>
-          <div className="site-switch" role="group" aria-label="Website">
-            {SITES.map((s) => (
-              <button key={s.key} className={site === s.key ? "on" : ""} onClick={() => switchSite(s.key)}>{s.label}</button>
-            ))}
-          </div>
+          {SITES.length > 1 && (
+            <div className="site-switch" role="group" aria-label="Website">
+              {SITES.map((s) => (
+                <button key={s.key} className={site === s.key ? "on" : ""} onClick={() => switchSite(s.key)}>{s.label}</button>
+              ))}
+            </div>
+          )}
           {MOCK && <span className="demo-chip" title="Data is saved in this browser only">Demo mode</span>}
           <a className="btn ghost sm view-site" href={SITES.find((s) => s.key === site)?.url} target="_blank" rel="noreferrer" title="Open this website in a new tab">
             <Icon n="eye" size={15} /> <span>View website</span>

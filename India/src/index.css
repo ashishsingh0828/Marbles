@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+:root {
+  --ie-beige: #f5f0e8;
+  --ie-brown: #6f4e37;
+  --ie-brown-dark: #4a3224;
+}
+html, body {
+  background: #f5f0e8;
+  color: #4a3224;
+}
+
 /* ==========================================================================
    1. BOOTSTRAP 5.3 ROOT COLOR & COMPONENT VARIABLES
    ========================================================================== */

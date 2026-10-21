@@ -32,11 +32,14 @@ export const BASE = normalizeUrl(import.meta.env.VITE_API_URL ?? "");
 export const MOCK = import.meta.env.VITE_USE_MOCK === "true";
 
 /* Which website's content is being edited. Every item is stored with its site key, so the two websites never share data. */
-export const SITES = [
-  { key: "india", label: "India", url: normalizeUrl(import.meta.env.VITE_INDIA_URL) || "http://localhost:3000" },
-  { key: "australia", label: "Australia", url: normalizeUrl(import.meta.env.VITE_AUSTRALIA_URL) || "http://localhost:3001" },
-];
-export const getSite = () => (SITES.some((s) => s.key === localStorage.getItem("admin_site")) ? localStorage.getItem("admin_site") : SITES[0].key);
+const LOCKED_SITE = import.meta.env.VITE_SITE || "";
+export const SITES = LOCKED_SITE
+  ? [{ key: LOCKED_SITE, label: LOCKED_SITE === "australia" ? "KSD Homes" : "IE Marbles", url: LOCKED_SITE === "australia" ? (normalizeUrl(import.meta.env.VITE_AUSTRALIA_URL) || "http://localhost:3001") : (normalizeUrl(import.meta.env.VITE_INDIA_URL) || "http://localhost:3000") }]
+  : [
+    { key: "india", label: "India", url: normalizeUrl(import.meta.env.VITE_INDIA_URL) || "http://localhost:3000" },
+    { key: "australia", label: "Australia", url: normalizeUrl(import.meta.env.VITE_AUSTRALIA_URL) || "http://localhost:3001" },
+  ];
+export const getSite = () => LOCKED_SITE || (SITES.some((s) => s.key === localStorage.getItem("admin_site")) ? localStorage.getItem("admin_site") : SITES[0].key);
 export const setSite = (s) => localStorage.setItem("admin_site", s);
 const S = getSite;
 

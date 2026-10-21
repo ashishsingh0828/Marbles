@@ -214,11 +214,8 @@ export default function Header() {
             </ul>
 
             <div className="header-nav-footer">
-              <a className="header-mobile-contact" href={BRAND.phoneHref}>
-                <span>Call Desk: {BRAND.phone}</span>
-              </a>
               <Link to="/contact" className="ie-btn header-mobile-cta" onClick={closeAll}>
-                <span>Request a Quote</span>
+                <span>Enquire</span>
                 <span className="ie-btn-arrow">&rarr;</span>
               </Link>
             </div>

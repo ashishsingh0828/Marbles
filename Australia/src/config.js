@@ -6,7 +6,7 @@ export const BRAND = {
   name: "KSD Homes",
   legalName: "KSD Homes Pty Ltd",
   abn: "51 690 684 603",
-  tagline: "Architecture | Builder Interior Design | Complete Home Solutions",
+  tagline: "A new Perth builder built on 28 years of experience",
   fullName: "KSD Homes Pty Ltd",
   about:
     "KSD Homes Pty Ltd is an emerging architecture and design-led brand dedicated to creating thoughtfully designed homes and complete living environments. Incorporated in Western Australia, we bring together architecture, builder interior design, innovation, and craftsmanship — a brand of the Eagle Group of Companies.",

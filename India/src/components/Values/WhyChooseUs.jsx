@@ -97,11 +97,11 @@ const REASONS = [
 
 /* marble slabs that fan out. High-res natural marble photos for realistic fan */
 const SLABS = [
-  { tone: "verde", image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&h=900&q=85" },
-  { tone: "marquina", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&h=900&q=85" },
-  { tone: "calacatta", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&h=900&q=85" },
-  { tone: "statuario", image: "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=600&h=900&q=85" },
-  { tone: "carrara", image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=600&h=900&q=85" },
+  { tone: "verde", image: "/Images/Service/Dover White Marble.png" },
+  { tone: "marquina", image: "/Images/Service/Omini Bianco Marble.png" },
+  { tone: "calacatta", image: "/Images/Service/Tempest Marble.png" },
+  { tone: "statuario", image: "/Images/Client feedback/Client feedback-1.png" },
+  { tone: "carrara", image: "/Images/Client feedback/Client feedback-2.png" },
 ];
 
 const HEADING = ["Why", "homeowners", "trust", "our", "marble"];

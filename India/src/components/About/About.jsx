@@ -30,7 +30,7 @@ export default function About() {
         <div className="about-story-media">
           <div className="about-story-imgbox">
             <img
-              src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=85"
+              src="/Images/Banner Slider images/1.png"
               alt="Master artisan cutting luxury marble slabs"
               loading="lazy"
             />

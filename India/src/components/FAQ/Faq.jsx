@@ -86,7 +86,7 @@ export default function Faq() {
                 Have a Specific Slab or Vein Requirement?
               </h3>
               <p className="faq-card-text">
-                Speak directly with our senior stone consultants in Kishangarh for customized slab selection, 3D dry-lay mapping, or fixed architectural estimates.
+                Write to the IE Marbles team through the contact form. We are a new studio, with 28+ years of combined team experience in natural stone.
               </p>
 
               {/* Category Filter Chips */}
@@ -111,12 +111,8 @@ export default function Faq() {
 
               <div className="faq-card-contact">
                 <div className="faq-contact-item">
-                  <span className="faq-contact-k">Direct Desk</span>
-                  <a href="tel:+919876543210" className="faq-contact-v">+91 98765 43210</a>
-                </div>
-                <div className="faq-contact-item">
-                  <span className="faq-contact-k">Gallery Hub</span>
-                  <span className="faq-contact-v">Kishangarh, Rajasthan</span>
+                  <span className="faq-contact-k">Experience</span>
+                  <span className="faq-contact-v">28+ years, team combined</span>
                 </div>
               </div>
 

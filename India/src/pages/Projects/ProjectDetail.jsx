@@ -7,7 +7,7 @@ import { useApi } from "../../api";
 
 const DUMMY_PROJECT_DETAIL = {
   title: "Statuario Grand Villa Living & Entryway",
-  heroImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85",
+  heroImage: "/Images/About Us images/Thasos Velluto Marble.png",
   client: "Private Luxury Residence",
   projectType: "Full Villa Marble Flooring & Bookmatched Entry",
   date: "October 2026",

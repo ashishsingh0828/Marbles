@@ -18,7 +18,7 @@ const SLIDES = [
     text: "Pure Italian Carrara marble, granite and natural stone, selected slab by slab, cut and polished with care, and fitted into luxury homes, hotels and offices built to last.",
     theme: "light",
     scrim: "250, 247, 242",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=85",
+    image: "/Images/Banner Slider images/1.png",
     marble: {
       seed: 7,
       bg: ["#fbfaf8", "#e6e2db"],
@@ -36,7 +36,7 @@ const SLIDES = [
     text: "Rich brown natural stone with fine honey veining, precision cut as statement villa floors, feature walls, and monolithic staircases.",
     theme: "dark",
     scrim: "52, 36, 23",
-    image: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1920&q=85",
+    image: "/Images/Banner Slider images/2.png",
     marble: {
       seed: 21,
       bg: ["#7b5a3e", "#46321f"],
@@ -54,7 +54,7 @@ const SLIDES = [
     text: "Hand-picked Statuario and grey-veined natural marble that keep kitchens, master baths and living halls bright, open and impeccably balanced.",
     theme: "light",
     scrim: "244, 244, 245",
-    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1920&q=85",
+    image: "/Images/Banner Slider images/3.png",
     marble: {
       seed: 43,
       bg: ["#e4e5e7", "#b3b5b9"],
@@ -72,7 +72,7 @@ const SLIDES = [
     text: "Precision-cut book-matched slabs, borders and accents in gold-veined black marble, made to measure for grand entrances and statement walls.",
     theme: "dark",
     scrim: "20, 17, 14",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85",
+    image: "/Images/Banner Slider images/4.png",
     marble: {
       seed: 64,
       bg: ["#27231f", "#0c0a08"],

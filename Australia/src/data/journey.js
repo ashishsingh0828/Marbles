@@ -2,37 +2,51 @@ import { IMG } from "./images";
 
 export const JOURNEY_INTRO = {
   eyebrow: "Design Journey",
-  title: "From sketch to furnishing, align yourself with the right team",
-  text: "Let us walk you through KSD Homes’ design and build process, and how this under-one-roof approach — architecture, licensed boutique building, and builder interior design — ensures the best outcome.",
+  title: "From sketch to furnishing",
+  text: "Six steps, one team. Architecture, interior design and licensed boutique building stay together from first conversation to handover.",
 };
 
 export const JOURNEY_STEPS = [
   {
     num: "01",
-    title: "Establish",
-    kicker: "Brief, site and budget",
+    title: "Consultation",
+    kicker: "Listen first",
     image: IMG.livingCalm,
-    text: "A custom home always begins in the unknown. We start with the end in mind: how you live, the Western Australian site, and what a complete KSD home should reasonably cost to design and build. Once the brief, accommodation and budget sit together, the design journey can begin with clarity.",
+    text: "Every KSD home begins with how you live, the Western Australian site, and a clear brief. We do not start drawings until the conversation is honest.",
   },
   {
     num: "02",
     title: "Design",
-    kicker: "Architecture and builder interior design",
+    kicker: "Architecture and interiors as one",
     image: IMG.bedroomWave,
-    text: "The first step is a detailed design brief with our Perth team — lifestyle, style, and how the house should feel. We then present a concept and refine it with you. Architecture and builder interior design are drawn as one composition from the start, so rooms, materials and outdoor living are never treated as a later layer.",
+    text: "Concept and rooms are drawn together — builder interior design sits on the same set as architecture, so materials and outdoor living are never a later layer.",
   },
   {
     num: "03",
-    title: "Develop",
-    kicker: "Documentation, finishes and contract",
+    title: "Approvals",
+    kicker: "Documentation and permits",
     image: IMG.bathroomModern,
-    text: "We develop the design into planning and construction documentation — working drawings, engineering, energy assessment, and a detailed specification of finishes and fixtures. That set is what we price, so the building contract can be clear, and the permit path to council is ready.",
+    text: "Working drawings, engineering, energy assessment and a priced specification, so the path to council and contract is clear.",
   },
   {
     num: "04",
     title: "Build",
     kicker: "Licensed boutique delivery",
     image: IMG.joinery,
-    text: "With approvals and contract in place, you meet the site team. From here the same builder interior design conversation continues through construction until you move in — one brief, one team, one finished residence.",
+    text: "A licensed Perth builder on site. The same team that designed the house stays with it through construction.",
+  },
+  {
+    num: "05",
+    title: "Interiors",
+    kicker: "Joinery, finishes and light",
+    image: IMG.diningFormal,
+    text: "Furniture, joinery and finishes specified with the architecture — not a catalogue after the shell is done.",
+  },
+  {
+    num: "06",
+    title: "Handover",
+    kicker: "A complete home",
+    image: IMG.diningLight,
+    text: "You move into a finished residence: architecture, interiors and construction composed as one.",
   },
 ];

@@ -13,7 +13,11 @@ server/.env.local
 # Uploads & local caches
 server/uploads/*
 !server/uploads/.gitkeep
+**/uploads/*
+!**/uploads/.gitkeep
 .cursor/
+.push-*/
+Australia/public/images.zip
 *.log
 .DS_Store
 Thumbs.db

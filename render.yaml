@@ -7,6 +7,7 @@ services:
     runtime: node
     plan: free
     region: oregon
+    autoDeployTrigger: commit
     rootDir: server
     buildCommand: npm install
     startCommand: node index.js
@@ -21,9 +22,13 @@ services:
       - key: JWT_SECRET
         value: f7e3c9a184b260d8e4f1a59c7b3d2e619483017a4b8c9e2f50d1a7b3c6e9f2a4
       - key: ADMIN_EMAIL
-        value: admin@marble.com
+        value: admin
       - key: ADMIN_PASSWORD
-        value: change-this-password
+        value: ksd@123
+      - key: ADMIN_EMAIL_2
+        value: ie
+      - key: ADMIN_PASSWORD_2
+        value: iemarbles@123
       - key: SITES
         value: india,australia
       - key: CORS_ORIGINS
@@ -41,6 +46,7 @@ services:
   - type: web
     name: marbles-india-site
     runtime: static
+    autoDeployTrigger: commit
     rootDir: India
     buildCommand: npm install && npm run build
     staticPublishPath: dist
@@ -61,6 +67,7 @@ services:
   - type: web
     name: ksd-australia-site
     runtime: static
+    autoDeployTrigger: commit
     rootDir: Australia
     buildCommand: npm install && npm run build
     staticPublishPath: dist
@@ -81,6 +88,7 @@ services:
   - type: web
     name: marbles-admin-panel
     runtime: static
+    autoDeployTrigger: commit
     rootDir: admin
     buildCommand: npm install && npm run build
     staticPublishPath: dist
@@ -105,4 +113,64 @@ services:
         fromService:
           type: web
           name: ksd-australia-site
+          property: host
+
+  # ---------------------------------------------------------------------------
+  # 5. KSD Homes admin (Australia only)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: ksd-admin-panel
+    runtime: static
+    autoDeployTrigger: commit
+    rootDir: Australia-admin
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_USE_MOCK
+        value: "false"
+      - key: VITE_SITE
+        value: australia
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: marbles-backend-api
+          property: host
+      - key: VITE_AUSTRALIA_URL
+        fromService:
+          type: web
+          name: ksd-australia-site
+          property: host
+
+  # ---------------------------------------------------------------------------
+  # 6. IE Marbles admin (India only)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: india-admin-panel
+    runtime: static
+    autoDeployTrigger: commit
+    rootDir: India-admin
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_USE_MOCK
+        value: "false"
+      - key: VITE_SITE
+        value: india
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: marbles-backend-api
+          property: host
+      - key: VITE_INDIA_URL
+        fromService:
+          type: web
+          name: marbles-india-site
           property: host

@@ -8,25 +8,11 @@ import "./ClientFeedback.css";
 ------------------------------------------------------------------- */
 const TESTIMONIALS = [
   {
-    name: "Vikram Singhania",
-    role: "Villa Owner, Jaipur",
+    name: "IE Marbles",
+    role: "Studio note",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&h=200&q=80",
-    text: "We chose Italian Statuario and Calacatta slabs for our residence. IE Marbles matched the veining across every single joint, and the finish is unmatched in Kishangarh.",
-  },
-  {
-    name: "Ananya Mehta",
-    role: "Architectural Designer, Mumbai",
-    rating: 4.9,
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&h=200&q=80",
-    text: "From selecting blocks at the Kishangarh yard to precision dry-lay layouts, their team handled our 12,000 sq.ft marble flooring project flawlessly.",
-  },
-  {
-    name: "Rajesh Kothari",
-    role: "Luxury Hotel Developer, Delhi",
-    rating: 5,
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&h=200&q=80",
-    text: "I specify IE Marbles stone on every high-end project. The slabs arrive exactly as inspected, the CNC edge detailing is sharp, and our guests always admire the finish.",
+    avatar: "/Images/logo.png",
+    text: "IE Marbles is a new studio. We do not publish client reviews we have not received. What we can say: 28+ years of combined team experience in natural stone.",
   },
 ];
 
@@ -103,7 +89,7 @@ const Arrow = ({ dir = "right" }) => (
 /* ---------- component ---------- */
 export default function ClientFeedback({
   items = TESTIMONIALS,
-  image = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=85", // main photo on the left
+  image = "/Images/Our gallery/Thassos White Marble.png", // main photo on the left
   imageAlt = "IE Marbles luxury stone showroom and installation",
   interval = 6000, // ms per testimonial
 }) {

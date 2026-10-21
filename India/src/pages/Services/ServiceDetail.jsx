@@ -7,8 +7,8 @@ import { useApi, asset, paras, pairs, youtubeId } from "../../api";
 
 const DUMMY_SERVICE_DETAIL = {
   title: "Marble Flooring & Dry-Lay",
-  heroImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85",
-  image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=85",
+  heroImage: "/Images/Service/Omini Bianco Marble.png",
+  image: "/Images/Service/Tempest Marble.png",
   paragraphs: [
     "We provide comprehensive natural marble slab selection, precision dry-lay layouts, and sub-millimeter joint installation for luxury residences, commercial lobbies, and villas.",
     "Every block is carefully selected at our Kishangarh stone facility for uniform density, natural mineral luster, and continuous vein movement across adjacent slabs.",

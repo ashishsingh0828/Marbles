@@ -1,0 +1,265 @@
+.ks-kicker {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent, #16793B);
+}
+
+.ks-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 14px 28px;
+  background: var(--accent, #16793B);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.ks-btn--ghost {
+  background: transparent;
+  color: #111;
+  border: 1.5px solid #111;
+}
+
+.ks-btn--ghost:hover,
+.ks-btn:hover {
+  background: var(--green-dark, #0f5c2c);
+  color: #fff;
+  border-color: var(--green-dark, #0f5c2c);
+}
+
+.ks-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  color: #fff;
+  background: #111;
+}
+
+.ks-hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ks-hero__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(17,17,17,0.2) 0%, rgba(17,17,17,0.72) 100%);
+}
+
+.ks-hero__copy {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  padding: 48px 24px 72px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.ks-hero__copy p {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ks-hero h1 {
+  margin: 16px 0 28px;
+  color: #fff;
+  font-size: clamp(36px, 6vw, 72px);
+  line-height: 1.05;
+}
+
+.ks-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.ks-strip p {
+  margin: 0;
+  padding: 28px 20px;
+  background: #fff;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+}
+
+.ks-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 96px 24px;
+}
+
+.ks-block--flip .ks-block__copy {
+  order: 2;
+}
+
+.ks-block h2,
+.ks-featured h2,
+.ks-team h2,
+.ks-news h2 {
+  margin: 0 0 18px;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.15;
+}
+
+.ks-block p,
+.ks-featured p,
+.ks-team__lead,
+.ks-news p {
+  margin: 0 0 24px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.ks-block__media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.ks-featured,
+.ks-team,
+.ks-news {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 96px;
+  text-align: center;
+}
+
+.ks-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-bottom: 36px;
+  text-align: left;
+}
+
+.ks-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  background: #fff;
+}
+
+.ks-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #eeeae2;
+}
+
+.ks-card span {
+  display: block;
+  margin: 14px 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent, #16793B);
+}
+
+.ks-card strong {
+  font-family: var(--font-heading);
+  font-size: 24px;
+}
+
+.ks-empty {
+  padding: 64px 24px;
+  border: 1px dashed var(--border);
+  color: var(--text2);
+}
+
+.ks-team ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ks-team li {
+  padding: 32px 24px;
+  background: #fff;
+  border: 1px solid var(--border);
+}
+
+.ks-team b {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 28px;
+}
+
+.ks-team span,
+.ks-team em {
+  display: block;
+  font-style: normal;
+  color: var(--text2);
+}
+
+.ks-news__form {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ks-news__form input {
+  min-width: min(320px, 100%);
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+@media (max-width: 799px) {
+  .ks-strip,
+  .ks-block,
+  .ks-block--flip .ks-block__copy,
+  .ks-cards,
+  .ks-team ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ks-block--flip .ks-block__copy {
+    order: 0;
+  }
+
+  .ks-hero {
+    min-height: 78svh;
+  }
+}

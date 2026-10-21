@@ -4,7 +4,6 @@ import AboutUs from "../../components/Home/AboutUs";
 import OurServices from "../../components/Home/OurServices";
 import VideoIntro from "../../components/Home/VideoIntro";
 import OurGallery from "../../components/Values/OurGallery";
-import ClientFeedback from "../../components/Values/ClientFeedback";
 import Faq from "../../components/FAQ/Faq";
 
 export default function Home() {
@@ -15,7 +14,6 @@ export default function Home() {
       <OurServices />
       <VideoIntro />
       <OurGallery />
-      <ClientFeedback />
       <Faq />
     </div>
   );

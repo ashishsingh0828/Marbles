@@ -67,7 +67,7 @@ function FallbackMark({ size = 46 }) {
 export default function Logo({
   light = false,
   compact = false,
-  imageSrc = "/logo.svg", // <-- Set your logo image path here (e.g. "/logo.png" or "/logo.svg")
+  imageSrc = "/Images/logo.png",
 }) {
   const [imgFailed, setImgFailed] = useState(false);
   const size = compact ? 38 : 46;

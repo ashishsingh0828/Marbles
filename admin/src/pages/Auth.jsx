@@ -64,10 +64,10 @@ export function Login() {
         {MOCK && <div className="note"><Icon n="info" size={16} /> Demo login: <b>admin@marble.com</b> / <b>admin123</b></div>}
         {err && <div className="alert">{err}</div>}
         <label className="fld">
-          <span className="fld-label">Email</span>
+          <span className="fld-label">Username</span>
           <span className="input-icon">
             <Icon n="mail" size={17} />
-            <input type="email" required autoComplete="username" value={f.email} onChange={(e) => setF({ ...f, email: e.target.value })} placeholder="you@example.com" />
+            <input type="text" required autoComplete="username" value={f.email} onChange={(e) => setF({ ...f, email: e.target.value })} placeholder="Admin" />
           </span>
         </label>
         <PasswordInput label="Password" value={f.password} onChange={(v) => setF({ ...f, password: v })} autoComplete="current-password" />

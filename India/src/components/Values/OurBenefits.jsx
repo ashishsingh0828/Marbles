@@ -149,7 +149,7 @@ const toEmbed = (url) => {
 export default function OurBenefits({
   stats = STATS,
   benefits = BENEFITS,
-  bgImage = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
+  bgImage = "/Images/Our gallery/Tortuga Marble.png",
   videoUrl = "https://www.youtube.com/watch?v=hddwAIXbKZo",
   onPlay, // optional: use your own handler instead of the built-in video pop-up
 }) {

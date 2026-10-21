@@ -22,28 +22,28 @@ const DEFAULT_SERVICES = [
     text: "Polished and honed marble floors, laid with tight joints for a seamless, long-lasting finish.",
     stone: "carrara",
     slug: "marble-flooring",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&h=800&q=85",
+    image: "/Images/About Us images/Calacatta Crema Marble.png",
   },
   {
     title: "Wall Cladding",
     text: "Feature walls and full-height cladding in book-matched marble and natural stone.",
     stone: "emperador",
     slug: "wall-cladding",
-    image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&h=800&q=85",
+    image: "/Images/About Us images/Calacatta Viola Marble.png",
   },
   {
     title: "Kitchen & Bath Surfaces",
     text: "Countertops, vanities and wet-area surfaces cut to measure and sealed against stains.",
     stone: "grey",
     slug: "kitchen-and-bath",
-    image: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&h=800&q=85",
+    image: "/Images/About Us images/Statuario Baratini Marble.png",
   },
   {
     title: "Staircases & Inlays",
     text: "Marble steps, borders and gold inlay details made to measure for entrances and feature spaces.",
     stone: "nero",
     slug: "staircases-and-inlays",
-    image: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800&h=800&q=85",
+    image: "/Images/About Us images/Thasos Velluto Marble.png",
   },
 ];
 

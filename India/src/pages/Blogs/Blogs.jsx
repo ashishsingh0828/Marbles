@@ -15,7 +15,7 @@ const DUMMY_BLOGS = [
     tags: "Italian Marble, Statuario, Calacatta",
     author: "IE Marbles Curators",
     excerpt: "Understand the subtle differences in veining, quarry origins, and translucency between Italy's most celebrated white marbles.",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&h=800&q=85",
+    image: "/Images/About Us images/Calacatta Crema Marble.png",
   },
   {
     slug: "honed-vs-polished-natural-stone-finishes",
@@ -24,7 +24,7 @@ const DUMMY_BLOGS = [
     tags: "Finishes, Honed, Polished, Architecture",
     author: "IE Marbles Tech Team",
     excerpt: "Explore slip resistance, light refraction, and tactile depth across honed, leathered, and high-gloss polished marble finishes.",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&h=800&q=85",
+    image: "/Images/About Us images/Calacatta Viola Marble.png",
   },
   {
     slug: "art-of-bookmatching-marble-slabs",
@@ -33,7 +33,7 @@ const DUMMY_BLOGS = [
     tags: "Bookmatching, Slabs, Interior Design",
     author: "IE Marbles Artisans",
     excerpt: "How mirror-cut adjacent slabs create symmetrical kaleidoscopic patterns that define luxury entry halls and master baths.",
-    image: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&h=800&q=85",
+    image: "/Images/About Us images/Statuario Baratini Marble.png",
   },
 ];
 

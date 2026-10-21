@@ -13,12 +13,26 @@ const schema = new mongoose.Schema(
 
 const Admin = mongoose.model("Admin", schema);
 
-/* Creates the admin account from .env the first time the server runs */
+/* Creates or updates admin accounts from .env */
 Admin.ensure = async () => {
-  if (await Admin.countDocuments()) return;
-  const email = process.env.ADMIN_EMAIL || "admin@marble.com";
-  await Admin.create({ email, passwordHash: bcrypt.hashSync(process.env.ADMIN_PASSWORD || "admin123", 10) });
-  console.log(`Admin account created  →  ${email}`);
+  const pairs = [
+    [process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD],
+    [process.env.ADMIN_EMAIL_2, process.env.ADMIN_PASSWORD_2],
+  ].filter(([email, password]) => email && password);
+  if (!pairs.length) pairs.push(["admin", "ksd@123"]);
+  for (const [rawEmail, password] of pairs) {
+    const email = String(rawEmail).trim().toLowerCase();
+    const passwordHash = bcrypt.hashSync(password, 10);
+    const existing = await Admin.findOne({ email });
+    if (!existing) {
+      await Admin.create({ email, passwordHash });
+      console.log(`Admin account created  →  ${email}`);
+    } else {
+      existing.passwordHash = passwordHash;
+      await existing.save();
+      console.log(`Admin account ready  →  ${email}`);
+    }
+  }
 };
 
 module.exports = Admin;
