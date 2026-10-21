@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useApi } from "../../api";
+import { asset, useApi } from "../../api";
+import { IMG } from "../../data/images";
 import "./OurGallery.css";
 
 /* ------------------------------------------------------------------
@@ -8,13 +9,20 @@ import "./OurGallery.css";
    Connected directly with Express & MongoDB Admin Panel.
 ------------------------------------------------------------------- */
 const DEFAULT_SLIDES = [
-  { title: "Carrara Living Room", type: "Wall Cladding", tone: "carrara", image: "", slug: "carrara-living-room" },
-  { title: "Calacatta Gold Bathroom", type: "Floor & Vanity", tone: "calacatta", image: "", slug: "calacatta-gold-bathroom" },
-  { title: "Nero Marquina Kitchen", type: "Countertop", tone: "marquina", image: "", slug: "nero-marquina-kitchen" },
-  { title: "Verde Alpi Entrance", type: "Feature Wall", tone: "verde", image: "", slug: "verde-alpi-entrance" },
-  { title: "Travertine Staircase", type: "Steps & Risers", tone: "travertine", image: "", slug: "travertine-staircase" },
-  { title: "Statuario Master Suite", type: "Bookmatched Slabs", tone: "statuario", image: "", slug: "statuario-master-suite" },
+  { title: "Bianco Vogue", type: "Gallery slab", tone: "carrara", image: IMG.galleryBianco, slug: "bianco-vogue" },
+  { title: "Fossana Marble", type: "Gallery slab", tone: "calacatta", image: IMG.galleryFossana, slug: "fossana" },
+  { title: "Paonazzo Marble", type: "Gallery slab", tone: "statuario", image: IMG.galleryPaonazzo, slug: "paonazzo" },
+  { title: "Pirgon Marble", type: "Gallery slab", tone: "travertine", image: IMG.galleryPirgon, slug: "pirgon" },
+  { title: "Thassos White", type: "Gallery slab", tone: "statuario", image: IMG.galleryThassos, slug: "thassos-white" },
+  { title: "Tortuga Marble", type: "Gallery slab", tone: "marquina", image: IMG.galleryTortuga, slug: "tortuga" },
 ];
+
+function slideImage(raw, fallback) {
+  if (!raw || /unsplash\.com|picsum\.photos/i.test(raw)) return fallback;
+  if (raw.startsWith("/Images/") || raw.startsWith("/images/")) return raw;
+  if (/^(https?:|data:)/i.test(raw)) return raw;
+  return asset(raw.startsWith("/") ? raw : `/uploads/${raw}`);
+}
 
 const HEADING = ["Marble", "interiors", "we've", "crafted"];
 const pad = (n) => String(n).padStart(2, "0");
@@ -65,7 +73,7 @@ const spot = (e) => {
   e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
 };
 
-export default function OurGallery({ bgImage = "" }) {
+export default function OurGallery({ bgImage = IMG.aboutThasos }) {
   const [sectionRef, inView] = useInView();
   const trackRef = useRef(null);
   const drag = useRef({ active: false, startX: 0, startLeft: 0, moved: false });
@@ -80,7 +88,7 @@ export default function OurGallery({ bgImage = "" }) {
         title: p.title,
         type: p.category || p.type || "Architectural Stone",
         tone: tones[idx % tones.length],
-        image: p.image ? (p.image.startsWith("http") ? p.image : `/uploads/${p.image}`) : "",
+        image: slideImage(p.image || p.imageA, DEFAULT_SLIDES[idx % DEFAULT_SLIDES.length].image),
         slug: p.slug || `project-${idx}`,
       }));
     }
@@ -130,12 +138,6 @@ export default function OurGallery({ bgImage = "" }) {
   };
   const onPointerMove = (e) => {
     if (e.pointerType !== "mouse") return;
-
-    const cur = cursorRef.current;
-    if (cur) {
-      const r = cur.parentElement.getBoundingClientRect();
-      cur.style.transform = `translate(${e.clientX - r.left}px, ${e.clientY - r.top}px) translate(-50%, -50%)`;
-    }
 
     const d = drag.current;
     if (!d.active) return;

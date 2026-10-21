@@ -16,7 +16,7 @@ export default function Abouts() {
       />
       <About />
       <OurValues />
-      <OurGallery />
+      <OurGallery bgImage="/Images/About Us images/Thasos Velluto Marble.png" />
       <WhyChooseUs />
       <OurBenefits />
       <Faq />

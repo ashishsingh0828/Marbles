@@ -46,12 +46,40 @@
   background: #111;
 }
 
-.ks-hero img {
+.ks-hero img,
+.ks-hero__video,
+.ks-hero canvas.ks-hero__video,
+.ks-hero__film,
+.ks-hero__film img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.ks-hero__film img {
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 1.4s ease, transform 7s ease-out;
+}
+
+.ks-hero__film img.is-on {
+  opacity: 1;
+  transform: scale(1);
+  animation: ks-ken 8s ease-out forwards;
+}
+
+@keyframes ks-ken {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-hero__film img.is-on {
+    animation: none;
+    transform: none;
+  }
 }
 
 .ks-hero__shade {

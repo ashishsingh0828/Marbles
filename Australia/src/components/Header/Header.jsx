@@ -17,6 +17,7 @@ export default function Header() {
   const [stuck, setStuck] = useState(false);
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+  const isHome = pathname === "/" || pathname === "/home";
   const close = useCallback(() => setOpen(false), []);
 
   useEffect(() => { close(); }, [pathname, close]);
@@ -41,7 +42,7 @@ export default function Header() {
   }, [open, close]);
 
   return (
-    <header className={`ksd-header ${stuck ? "is-stuck" : ""}`}>
+    <header className={`ksd-header${isHome ? " is-home" : ""}${stuck ? " is-stuck" : ""}${open ? " is-open" : ""}`}>
       <div className="ksd-nav-inner">
         <Link to="/" className="ksd-brand-logo" aria-label="KSD Homes Home">
           <BrandLogo className="ksd-logo-img" />

@@ -290,6 +290,56 @@
   color: rgba(10, 28, 48, 0.75);
 }
 
+.tt__nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 640px;
+  margin-top: 28px;
+}
+
+.tt__arrow {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid rgba(14, 42, 71, 0.2);
+  background: #fff;
+  color: var(--tt-ink);
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.tt__arrow:hover {
+  background: var(--tt-green);
+  border-color: var(--tt-green);
+  color: #fff;
+}
+
+.tt__dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tt__dots button {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(14, 42, 71, 0.22);
+  cursor: pointer;
+}
+
+.tt__dots button.is-on {
+  width: 28px;
+  border-radius: 999px;
+  background: var(--tt-green);
+}
+
 .tt__rating {
   display: flex;
   flex-wrap: wrap;

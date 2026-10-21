@@ -1,23 +1,66 @@
 import { Link, Navigate, useParams } from "react-router-dom";
-import { useApi } from "../../api";
-import { homeBySlug } from "../../data/homes";
+import { useApi, youtubeId } from "../../api";
+import { homeBySlug, specsOf } from "../../data/homes";
+import Breadcrumb from "../Breadcrumb/Breadcrumb";
 import "./ProjectDetails.css";
 
-function chunks(items) {
-  const out = [];
-  let i = 0;
-  let full = true;
-  while (i < items.length) {
-    if (full) {
-      out.push({ type: "full", items: items.slice(i, i + 1) });
-      i += 1;
-    } else {
-      out.push({ type: "pair", items: items.slice(i, i + 2) });
-      i += 2;
-    }
-    full = !full;
-  }
-  return out;
+function Split({ image, caption, text, kicker, flip }) {
+  if (!image) return null;
+  return (
+    <section className={`ps-split${flip ? " is-flip" : ""}`}>
+      <figure>
+        <img src={image} alt={caption || ""} />
+      </figure>
+      <div className="ps-split__copy">
+        {kicker && <p className="ps-kicker">{kicker}</p>}
+        {caption && <h2>{caption}</h2>}
+        {text && <p>{text}</p>}
+      </div>
+    </section>
+  );
+}
+
+function Cover({ image, caption }) {
+  if (!image) return null;
+  return (
+    <figure className="ps-cover">
+      <img src={image} alt={caption || ""} />
+      {caption && <figcaption>{caption}</figcaption>}
+    </figure>
+  );
+}
+
+function Film({ url, images, title, heading, text }) {
+  const id = youtubeId(url);
+  const frames = (images || []).filter(Boolean).slice(0, 4);
+  if (!id && !frames.length) return null;
+
+  return (
+    <section className="ps-film">
+      {id ? (
+        <div className="ps-film__frame">
+          <iframe
+            src={`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&rel=0`}
+            title={title}
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      ) : (
+        <div className="ps-film__reel" aria-hidden="true">
+          {frames.map((src) => (
+            <img key={src} src={src} alt="" />
+          ))}
+        </div>
+      )}
+      {(heading || text) && (
+        <div className="ps-film__copy">
+          {heading && <h2>{heading}</h2>}
+          {text && <p>{text}</p>}
+        </div>
+      )}
+    </section>
+  );
 }
 
 export default function ProjectDetails() {
@@ -33,7 +76,9 @@ export default function ProjectDetails() {
       .filter((src) => !(home.scenes || []).some((scene) => scene.image === src))
       .map((src) => ({ src, caption: "", text: "" })),
   ].filter((item) => item.src);
-  const rows = chunks(gallery);
+
+  const [first, second, ...rest] = gallery;
+  const specs = specsOf(home);
   const plans = [
     { src: home.image2, label: (home.planLabels || [])[0] || "Ground" },
     { src: home.image3, label: (home.planLabels || [])[1] || "Upper" },
@@ -42,50 +87,82 @@ export default function ProjectDetails() {
 
   return (
     <article className="ps">
-      <header className="ps-hero">
-        <img src={home.heroImage} alt={home.title} />
-        <div className="ps-hero__shade" />
-        <div className="ps-hero__copy">
-          <p className="ps-kicker">{home.suburb} · {home.year || "2026"}</p>
-          <h1>{home.title}</h1>
-          <p className="ps-hero__concept">{home.conceptHeadline}</p>
-        </div>
-      </header>
+      <Breadcrumb
+        title={home.title}
+        image={home.heroImage}
+        labels={{ projects: "Projects", [home.slug]: home.title }}
+      />
 
-      <div className="ps-body">
-        <p className="ps-kicker">{home.scope || home.status}</p>
-        <h2>{home.heading}</h2>
-        {(home.paragraphs || []).map((paragraph) => (
-          <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+      <section className="ps-info">
+        <p className="ps-kicker">{home.scope || home.status} · {home.year || "2026"}</p>
+        <h1>{home.heading || home.title}</h1>
+        {(home.paragraphs || []).slice(0, 2).map((paragraph) => (
+          <p key={paragraph.slice(0, 48)}>{paragraph}</p>
         ))}
-      </div>
+        {specs.length > 0 && (
+          <ul className="ps-specs">
+            {specs.map((spec) => (
+              <li key={spec.label}>
+                <span>{spec.label}</span>
+                <strong>{spec.value}</strong>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
 
-      {rows.map((row, idx) => (
-        <div key={idx} className={`ps-gallery ps-gallery--${row.type}`}>
-          {row.items.map((item) => (
-            <figure key={item.src}>
-              <img src={item.src} alt={item.caption || home.title} />
-              {(item.caption || item.text) && (
-                <figcaption>
-                  {item.caption && <strong>{item.caption}</strong>}
-                  {item.text && <p>{item.text}</p>}
-                </figcaption>
-              )}
-            </figure>
-          ))}
-        </div>
-      ))}
+      <Split
+        image={first?.src}
+        caption={first?.caption || home.conceptHeadline}
+        text={first?.text || (home.paragraphs || [])[0]}
+        kicker={home.suburb}
+      />
+
+      <Split
+        flip
+        image={second?.src}
+        caption={second?.caption || home.challengeTitle}
+        text={second?.text || home.challengeText}
+        kicker="Builder interior design"
+      />
+
+      <Film
+        url={home.videoUrl}
+        images={[home.heroImage, first?.src, second?.src, rest[0]?.src].filter(Boolean)}
+        title={home.title}
+        heading={home.videoHeading}
+        text={home.videoText}
+      />
+
+      {rest.map((item, idx) =>
+        idx % 3 === 2 ? (
+          <Cover key={item.src} image={item.src} caption={item.caption} />
+        ) : (
+          <Split
+            key={item.src}
+            flip={idx % 2 === 1}
+            image={item.src}
+            caption={item.caption}
+            text={item.text}
+            kicker={idx % 2 === 0 ? "Composition" : "Interior direction"}
+          />
+        )
+      )}
 
       {plans.length > 0 && (
-        <div className="ps-gallery ps-gallery--pair">
+        <section className="ps-plans">
           {plans.map((plan) => (
             <figure key={plan.src}>
               <img src={plan.src} alt={`${home.title} ${plan.label} plan`} />
-              <figcaption><strong>{plan.label}</strong></figcaption>
+              <figcaption>{plan.label}</figcaption>
             </figure>
           ))}
-        </div>
+        </section>
       )}
+
+      {(home.paragraphs || []).slice(2).map((paragraph) => (
+        <p className="ps-more" key={paragraph.slice(0, 40)}>{paragraph}</p>
+      ))}
 
       <div className="ps-end">
         <p>{home.resultText}</p>

@@ -7,8 +7,10 @@ import "./Project.css";
 const FILTERS = ["Residence", "Interior", "Upcoming"];
 
 function labelOf(home) {
-  if (/upcoming/i.test(home.collection || home.status || "")) return "Upcoming";
-  if (/interior/i.test(home.collection || home.scope || home.category || "")) return "Interior";
+  const collection = String(home.collection || "").toLowerCase();
+  const status = String(home.status || "").toLowerCase();
+  if (collection.includes("upcoming") || status.includes("upcoming")) return "Upcoming";
+  if (collection === "interior" || collection.startsWith("interior")) return "Interior";
   return "Residence";
 }
 

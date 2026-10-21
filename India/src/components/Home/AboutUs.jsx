@@ -145,7 +145,7 @@ const FEATURES = [
 
 export default function AboutUs({
   images = {}, // { top, bottom, tall } – optional real photos
-  founder = { name: "I.E. Marbles Team", role: "Master Stone Fabricators, Kishangarh", image: "" },
+  founder = { name: "I.E. Marbles Team", role: "Natural stone · 28+ years team experience", image: "" },
   learnMoreHref = "/about",
 }) {
   const [ref, visible] = useReveal();

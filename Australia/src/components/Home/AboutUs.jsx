@@ -43,7 +43,7 @@ export default function AboutUs({
     bottom: "/images/ksd-stone-09.jpg",
     tall: "/images/ksd-stone-07.jpg",
   },
-  founder = { name: "KSD Leadership", role: "Master Builder & Founder, KSD Homes", image: "" },
+  founder = { name: "KSD Homes", role: "28+ years team experience · Perth", image: "" },
   learnMoreHref = "/about",
 }) {
   const [ref, visible] = useReveal();
@@ -121,11 +121,11 @@ export default function AboutUs({
           </span>
 
           <h2 id="about-title" className="about__title about__reveal" style={{ "--d": "0.25s" }}>
-            Premier luxury home building &amp; architectural stone artistry
+            A new Perth builder, backed by 28+ years of team experience
           </h2>
 
           <p className="about__text about__reveal" style={{ "--d": "0.4s" }}>
-            At KSD Homes, we unite custom architectural home construction with hand-selected natural marble, granite, and stone. Every estate we construct is tailored to reflect individual style while adhering to the highest standards of structural integrity.
+            KSD Homes Pty Ltd was founded in 2026 so architecture, licensed boutique building and builder interior design sit with one Perth team. The company is new. The people are not: 28+ years of combined professional experience, delivered as a complete home solution.
           </p>
 
           <div className="about__quote about__reveal" style={{ "--d": "0.55s" }}>
@@ -137,7 +137,7 @@ export default function AboutUs({
               </svg>
             </span>
             <p>
-              &ldquo;We don&apos;t just build houses; we craft bespoke residences that elevate everyday living through timeless architectural stone.&rdquo;
+              &ldquo;We do not simply build houses. The same team handles architecture, interiors and construction from the first conversation to handover.&rdquo;
             </p>
           </div>
 

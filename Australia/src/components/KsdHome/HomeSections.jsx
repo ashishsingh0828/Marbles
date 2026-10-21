@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { BRAND } from "../../config";
 import { IMG } from "../../data/images";
@@ -5,15 +6,77 @@ import { mergeHomes } from "../../data/homes";
 import { useApi } from "../../api";
 import "./HomeSections.css";
 
-const TEAM = [
-  { name: "AJ", role: "Builder", note: "Licensed boutique building" },
-  { name: "Karl", role: "Interior Design", note: "Builder interior design" },
-];
+const HERO_FRAMES = [IMG.hero, IMG.diningLight, IMG.joinery, IMG.bathroomMarble];
+const FRAME_MS = 5200;
 
 export function Hero() {
+  const canvasRef = useRef(null);
+  const [fileReady, setFileReady] = useState(false);
+
+  useEffect(() => {
+    const probe = document.createElement("video");
+    const onReady = () => setFileReady(true);
+    probe.muted = true;
+    probe.preload = "auto";
+    probe.addEventListener("canplay", onReady);
+    probe.addEventListener("error", () => setFileReady(false));
+    probe.src = "/images/hero.mp4";
+    probe.load();
+    return () => {
+      probe.removeEventListener("canplay", onReady);
+      probe.src = "";
+    };
+  }, []);
+
+  useEffect(() => {
+    if (fileReady) return undefined;
+    const canvas = canvasRef.current;
+    if (!canvas) return undefined;
+    const ctx = canvas.getContext("2d");
+    canvas.width = 1920;
+    canvas.height = 1080;
+    const frames = HERO_FRAMES.map((src) => {
+      const img = new Image();
+      img.src = src;
+      return img;
+    });
+
+    let raf;
+    const started = performance.now();
+    const draw = (now) => {
+      const cycle = FRAME_MS * frames.length;
+      const t = (now - started) % cycle;
+      const index = Math.floor(t / FRAME_MS);
+      const progress = (t % FRAME_MS) / FRAME_MS;
+      const img = frames[index];
+      if (img && img.complete && img.naturalWidth) {
+        const scale = 1 + progress * 0.1;
+        const width = canvas.width * scale;
+        const height = canvas.height * scale;
+        ctx.drawImage(img, (canvas.width - width) / 2, (canvas.height - height) / 2, width, height);
+      }
+      raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+    return () => cancelAnimationFrame(raf);
+  }, [fileReady]);
+
   return (
     <section className="ks-hero">
-      <img src={IMG.hero} alt="" />
+      {fileReady ? (
+        <video
+          className="ks-hero__video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={IMG.hero}
+        >
+          <source src="/images/hero.mp4" type="video/mp4" />
+        </video>
+      ) : (
+        <canvas ref={canvasRef} className="ks-hero__video" aria-hidden="true" />
+      )}
       <div className="ks-hero__shade" />
       <div className="ks-hero__copy">
         <p>Founded 2026 · Perth</p>
@@ -96,27 +159,6 @@ export function FeaturedProjects() {
         </div>
       )}
       <Link to="/projects" className="ks-btn ks-btn--ghost">View projects</Link>
-    </section>
-  );
-}
-
-export function TeamPreview() {
-  return (
-    <section className="ks-team">
-      <p className="ks-kicker">The team</p>
-      <h2>28+ years of combined experience</h2>
-      <p className="ks-team__lead">
-        KSD is led from Perth by a builder and an interior designer working as one. We do not publish staff photographs until we have consented portraits.
-      </p>
-      <ul>
-        {TEAM.map((person) => (
-          <li key={person.name}>
-            <b>{person.name}</b>
-            <span>{person.role}</span>
-            <em>{person.note}</em>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }

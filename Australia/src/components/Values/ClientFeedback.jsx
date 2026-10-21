@@ -1,33 +1,33 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./ClientFeedback.css";
 
 const TESTIMONIALS = [
   {
-    name: "David & Sarah Miller",
-    role: "Vaucluse Residence, Sydney",
-    rating: 5,
-    avatar: "",
-    text: "Working with KSD Homes transformed our entire living space. The bespoke interior layout, 4-metre mitered Calacatta kitchen island, and bookmatched living room wall exceeded every expectation.",
+    name: "KSD Homes",
+    role: "Perth studio",
+    rating: 0,
+    avatar: "/images/logo/logo.png",
+    text: "Named client reviews will sit here when homeowners consent to share them. Until then, enquire with our Perth team about current work.",
   },
   {
-    name: "Harrison Wright",
-    role: "Luxury Penthouse Owner, Melbourne",
-    rating: 5,
-    avatar: "",
-    text: "KSD Homes delivers interior stone craftsmanship at the highest tier in Australia. Their spatial planning, adherence to timeline, and flawless stone finishing are simply extraordinary.",
+    name: "How we work",
+    role: "Builder + Interior design",
+    rating: 0,
+    avatar: "/images/ksd-stone-38.jpg",
+    text: "Architecture, licensed boutique building and interiors sit with one team from first conversation to handover — 28+ years of combined professional experience.",
   },
   {
-    name: "Amelia Hart",
-    role: "Senior Interior Architect, Sydney",
-    rating: 5,
-    avatar: "",
-    text: "I regularly collaborate with KSD Homes on high-end residential interiors. The slabs arrive immaculate, the joints are calibrated to sub-millimeter precision, and our clients are always thrilled.",
+    name: "Current work",
+    role: "Residence · 2026",
+    rating: 0,
+    avatar: "/images/ksd-stone-02.jpg",
+    text: "Residence is in delivery this year. Port Coogee is upcoming. The Interior collection stays empty until that work is ready to show.",
   },
 ];
 
 const HEADING = [
-  { text: "What our clients say", accent: false },
-  { text: "about working with us", accent: true },
+  { text: "Studio notes", accent: false },
+  { text: "on how we work", accent: true },
 ];
 
 const SPEED_MS = 1000;
@@ -199,21 +199,28 @@ export default function ClientFeedback({
     return () => clearTimeout(t);
   }, [index, total, loop]);
 
-  const next = () => {
+  const next = useCallback(() => {
+    if (!loop) return;
     setAnimate(true);
     setIndex((i) => Math.min(i + 1, total + 1));
-  };
+  }, [loop, total]);
 
-  const prev = () => {
+  const prev = useCallback(() => {
+    if (!loop) return;
     setAnimate(true);
     setIndex((i) => Math.max(i - 1, 0));
-  };
+  }, [loop]);
+
+  const goTo = useCallback((real) => {
+    setAnimate(true);
+    setIndex(loop ? real + 1 : real);
+  }, [loop]);
 
   useEffect(() => {
     if (!loop || !visible || dragging) return undefined;
     const t = setTimeout(next, interval);
     return () => clearTimeout(t);
-  }, [index, loop, visible, dragging, interval]);
+  }, [index, loop, visible, dragging, interval, next]);
 
   const onPointerDown = (e) => {
     if (!loop) return;
@@ -270,7 +277,7 @@ export default function ClientFeedback({
 
         <div className="tt__eyebrow tt__rise" style={{ "--d": "0.1s" }}>
           <span className="tt__eyebrow-line" />
-          <span>Client Testimonials</span>
+          <span>Client feedback</span>
         </div>
 
         <AnimatedHeading parts={HEADING} />
@@ -304,7 +311,7 @@ export default function ClientFeedback({
                   aria-roledescription="slide"
                   aria-label={`${real + 1} of ${total}`}
                 >
-                  <Stars rating={t.rating} />
+                  {t.rating > 0 && <Stars rating={t.rating} />}
 
                   <blockquote className="tt__text">
                     <p>{t.text}</p>
@@ -329,13 +336,43 @@ export default function ClientFeedback({
           </div>
         </div>
 
-        <div className="tt__rating tt__rise" style={{ "--d": "1.2s" }}>
-          <span className="tt__rating-num">{counted.toFixed(1)}</span>
-          <Stars rating={average} />
-          <span className="tt__rating-txt">
-            Based on {total} client {total === 1 ? "review" : "reviews"}
-          </span>
-        </div>
+        {loop && (
+          <div className="tt__nav tt__rise" style={{ "--d": "1.2s" }}>
+            <button type="button" className="tt__arrow" onClick={prev} aria-label="Previous note">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
+            </button>
+            <div className="tt__dots" role="tablist" aria-label="Feedback slides">
+              {items.map((item, i) => (
+                <button
+                  key={item.name}
+                  type="button"
+                  role="tab"
+                  aria-selected={(loop ? (index - 1 + total) % total : index) === i}
+                  className={(loop ? (index - 1 + total) % total : index) === i ? "is-on" : ""}
+                  onClick={() => goTo(i)}
+                  aria-label={`Show ${item.name}`}
+                />
+              ))}
+            </div>
+            <button type="button" className="tt__arrow" onClick={next} aria-label="Next note">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+        )}
+
+        {average > 0 && (
+          <div className="tt__rating tt__rise" style={{ "--d": "1.35s" }}>
+            <span className="tt__rating-num">{counted.toFixed(1)}</span>
+            <Stars rating={average} />
+            <span className="tt__rating-txt">
+              Based on {total} client {total === 1 ? "review" : "reviews"}
+            </span>
+          </div>
+        )}
       </div>
     </section>
   );
