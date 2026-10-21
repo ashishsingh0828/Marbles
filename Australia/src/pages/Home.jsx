@@ -1,5 +1,5 @@
-import About from "../components/About/About";
-import Service from "../components/Services/Service";
+import AboutUs from "../components/Home/AboutUs";
+import OurServices from "../components/Home/OurServices";
 import ClientFeedback from "../components/Values/ClientFeedback";
 import Project from "../components/Projects/Project";
 import Faq from "../components/FAQ/Faq";
@@ -10,8 +10,8 @@ export default function Home() {
     <div className="ksd-home-page">
       <Hero />
       <ExperienceStrip />
-      <About />
-      <Service limit={6} />
+      <AboutUs />
+      <OurServices />
       <ClientFeedback />
       <Project variant="home" />
       <Faq />
