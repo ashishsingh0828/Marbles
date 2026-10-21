@@ -56,9 +56,6 @@ export default function Header() {
             {item.label}
           </NavLink>
         ))}
-        <Link to="/contact" className="ksd-cta-btn ksd-overlay-cta" tabIndex={open ? 0 : -1} onClick={close}>
-          Enquire
-        </Link>
       </nav>
     </div>
   );

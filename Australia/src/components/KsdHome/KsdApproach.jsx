@@ -19,7 +19,7 @@ const ITEMS = [
   },
 ];
 
-export default function KsdApproach() {
+export default function KsdApproach({ ctaTo = "/contact", ctaLabel = "Start a conversation" }) {
   return (
     <section className="ksd-approach">
       <div className="ksd-approach__inner">
@@ -34,8 +34,8 @@ export default function KsdApproach() {
             </article>
           ))}
         </div>
-        <Link to="/about" className="ksd-approach__link">
-          Read the KSD story
+        <Link to={ctaTo} className="ksd-approach__link">
+          {ctaLabel}
         </Link>
       </div>
     </section>

@@ -22,4 +22,6 @@ export const IMG = {
   planGround: "/images/projects/sharma-plan-02.jpg",
   planUpper: "/images/projects/sharma-plan-03.jpg",
   planUnder: "/images/projects/sharma-plan-01.jpg",
+  elevFront: "/images/projects/sharma-elev-01.jpg",
+  elevSide: "/images/projects/sharma-elev-02.jpg",
 };

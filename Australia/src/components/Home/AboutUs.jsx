@@ -105,9 +105,9 @@ export default function AboutUs({
             </svg>
             <span className="about__badge-core" aria-hidden="true">
               <img
-                src={BRAND.logo || "/images/logo/logo.jpeg"}
+                src={BRAND.logo || "/images/logo/logo.png"}
                 alt="KSD Homes"
-                style={{ width: "48px", height: "auto", objectFit: "contain" }}
+                style={{ width: "48px", height: "auto", objectFit: "contain", background: "transparent" }}
               />
             </span>
           </Link>
@@ -164,7 +164,7 @@ export default function AboutUs({
 
             <div className="about__founder">
               <span className="about__avatar">
-                <img src={BRAND.logo || "/images/logo/logo.jpeg"} alt="KSD" style={{ width: "100%", height: "100%", objectFit: "contain", background: "#fff" }} />
+                <img src={BRAND.logo || "/images/logo/logo.png"} alt="KSD" style={{ width: "100%", height: "100%", objectFit: "contain", background: "transparent" }} />
               </span>
               <strong>{founder.name}</strong>
               <span>{founder.role}</span>

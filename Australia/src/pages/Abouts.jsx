@@ -1,7 +1,7 @@
 import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
-import KsdStory from "../components/KsdHome/KsdStory";
-import KsdInteriorServices from "../components/KsdHome/KsdInteriorServices";
+import AboutUs from "../components/Home/AboutUs";
 import WhyChooseUs from "../components/Values/WhyChooseUs";
+import KsdApproach from "../components/KsdHome/KsdApproach";
 import OurValues from "../components/Values/OurValues";
 import ClientFeedback from "../components/Values/ClientFeedback";
 import Faq from "../components/FAQ/Faq";
@@ -15,9 +15,9 @@ export default function Abouts() {
         image={IMG.hero}
         labels={{ about: "About" }}
       />
-      <KsdStory />
-      <KsdInteriorServices />
+      <AboutUs learnMoreHref="/contact" />
       <WhyChooseUs />
+      <KsdApproach />
       <OurValues />
       <ClientFeedback />
       <Faq />

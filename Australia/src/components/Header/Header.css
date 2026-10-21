@@ -167,7 +167,3 @@
 .ksd-overlay-link:hover {
   color: var(--accent, #16793B);
 }
-
-.ksd-overlay-cta {
-  margin-top: 28px;
-}

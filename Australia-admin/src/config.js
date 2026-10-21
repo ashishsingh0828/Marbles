@@ -88,7 +88,9 @@ const australiaProjects = {
       { name: "videoHeading", label: "Video heading", wide: true },
       { name: "videoText", label: "Video text", type: "textarea", rows: 3 },
     ] },
-    { title: "Project photography", desc: "Upload several images of this project. Captions appear under each photo, in order.", cols: 3, fields: [
+    { title: "Project photography", desc: "Upload several images of this project. Captions appear under each photo, in order. The live page uses heading left / copy right, then full video, then left image, right image, full image, repeating.", cols: 3, fields: [
+      { name: "beforeImage", label: "Before image", type: "image", help: "Drawing or existing condition. Shown in the first photo pair." },
+      { name: "afterImage", label: "After image", type: "image", help: "Interior direction or completed room." },
       { name: "galleryA", label: "Gallery 1", type: "image" },
       { name: "galleryB", label: "Gallery 2", type: "image" },
       { name: "galleryC", label: "Gallery 3", type: "image" },

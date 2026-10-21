@@ -322,10 +322,7 @@ export default function Footer() {
 
           <div className="ft-bottom">
             <p className="ft-copy">
-              &copy; {new Date().getFullYear()} {BRAND.legalName} (ABN {BRAND.abn}). Founded 2026. Licensed boutique builder, Perth. A brand of the {BRAND.group}.
-            </p>
-            <p className="ft-copy">
-              KSD Homes acknowledges the Traditional Owners of the land on which we live and work, and pays respect to Elders past and present.
+              &copy; {new Date().getFullYear()} {BRAND.legalName}.
             </p>
             <ul className="ft-legal">
               {LEGAL_LINKS.map((link) => (
