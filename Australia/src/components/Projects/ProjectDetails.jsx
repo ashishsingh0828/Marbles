@@ -1,6 +1,6 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import { useApi, youtubeId } from "../../api";
-import { homeBySlug, specsOf } from "../../data/homes";
+import { homeBySlug, mergeHomes, specsOf } from "../../data/homes";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
 import "./ProjectDetails.css";
 
@@ -67,8 +67,13 @@ export default function ProjectDetails() {
   const { slug } = useParams();
   const lookup = slug === "sharma-residence" ? "residence" : slug;
   const { data } = useApi(lookup ? `/projects/${lookup}` : null);
+  const { data: list } = useApi("/projects");
   const home = homeBySlug(lookup, data);
   if (slug === "sharma-residence") return <Navigate to="/projects/residence" replace />;
+
+  const homes = mergeHomes(list);
+  const currentIndex = homes.findIndex((item) => item.slug === home.slug);
+  const nextHome = homes[(currentIndex + 1) % Math.max(homes.length, 1)];
 
   const gallery = [
     ...(home.scenes || []).map((scene) => ({ src: scene.image, caption: scene.caption, text: scene.text })),
@@ -77,8 +82,9 @@ export default function ProjectDetails() {
       .map((src) => ({ src, caption: "", text: "" })),
   ].filter((item) => item.src);
 
-  const [first, second, ...rest] = gallery;
+  const [first, second, third, ...rest] = gallery;
   const specs = specsOf(home);
+  const checks = home.checks || [];
   const plans = [
     { src: home.image2, label: (home.planLabels || [])[0] || "Ground" },
     { src: home.image3, label: (home.planLabels || [])[1] || "Upper" },
@@ -94,8 +100,8 @@ export default function ProjectDetails() {
       />
 
       <section className="ps-info">
-        <p className="ps-kicker">{home.scope || home.status} · {home.year || "2026"}</p>
-        <h1>{home.heading || home.title}</h1>
+        <p className="ps-kicker">{home.scope || home.status} · {home.year || "2026"} · {home.suburb}</p>
+        <h2>{home.heading || home.conceptHeadline || home.title}</h2>
         {(home.paragraphs || []).slice(0, 2).map((paragraph) => (
           <p key={paragraph.slice(0, 48)}>{paragraph}</p>
         ))}
@@ -112,7 +118,7 @@ export default function ProjectDetails() {
       </section>
 
       <Split
-        image={first?.src}
+        image={first?.src || home.heroImage}
         caption={first?.caption || home.conceptHeadline}
         text={first?.text || (home.paragraphs || [])[0]}
         kicker={home.suburb}
@@ -126,16 +132,32 @@ export default function ProjectDetails() {
         kicker="Builder interior design"
       />
 
+      {checks.length > 0 && (
+        <section className="ps-checks">
+          <p className="ps-kicker">The brief</p>
+          <h2>{home.challengeTitle || "Resolved as one home"}</h2>
+          <ul>
+            {checks.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <Film
         url={home.videoUrl}
-        images={[home.heroImage, first?.src, second?.src, rest[0]?.src].filter(Boolean)}
+        images={[home.heroImage, first?.src, second?.src, third?.src].filter(Boolean)}
         title={home.title}
         heading={home.videoHeading}
         text={home.videoText}
       />
 
+      {third && (
+        <Cover image={third.src} caption={third.caption} />
+      )}
+
       {rest.map((item, idx) =>
-        idx % 3 === 2 ? (
+        idx % 3 === 1 ? (
           <Cover key={item.src} image={item.src} caption={item.caption} />
         ) : (
           <Split
@@ -165,8 +187,16 @@ export default function ProjectDetails() {
       ))}
 
       <div className="ps-end">
+        {home.resultTitle && <p className="ps-kicker">{home.resultTitle}</p>}
         <p>{home.resultText}</p>
-        <Link to="/contact" className="ps-enquire">Enquire</Link>
+        <div className="ps-end__actions">
+          <Link to="/contact" className="ps-enquire">Enquire</Link>
+          {nextHome && nextHome.slug !== home.slug && (
+            <Link to={`/projects/${nextHome.slug}`} className="ps-next">
+              Next · {nextHome.title}
+            </Link>
+          )}
+        </div>
       </div>
     </article>
   );

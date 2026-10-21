@@ -4,39 +4,39 @@
 }
 
 .ps-kicker {
-  margin: 0 0 12px;
+  margin: 0 0 14px;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent, #16793B);
 }
 
 .ps-info {
-  max-width: 860px;
+  max-width: 820px;
   margin: 0 auto;
-  padding: 72px 24px 40px;
+  padding: 88px 24px 48px;
   animation: ps-fade 0.8s ease both;
 }
 
-.ps-info h1 {
-  margin: 0 0 20px;
-  font-size: clamp(28px, 4vw, 48px);
-  line-height: 1.15;
+.ps-info h2 {
+  margin: 0 0 24px;
+  font-size: clamp(28px, 4.2vw, 48px);
+  line-height: 1.18;
 }
 
 .ps-info p {
-  margin: 0 0 18px;
-  font-size: 17px;
-  line-height: 1.8;
+  margin: 0 0 20px;
+  font-size: 18px;
+  line-height: 1.85;
   color: var(--text, #444);
 }
 
 .ps-specs {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1px;
-  margin: 36px 0 0;
+  margin: 40px 0 0;
   padding: 0;
   list-style: none;
   background: var(--border, #e6e1d8);
@@ -46,8 +46,8 @@
 .ps-specs li {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 18px 16px;
+  gap: 8px;
+  padding: 20px 18px;
   background: #fff;
 }
 
@@ -59,23 +59,23 @@
 }
 
 .ps-specs strong {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
 }
 
 .ps-split {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  gap: clamp(28px, 5vw, 72px);
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  gap: clamp(32px, 6vw, 88px);
   align-items: center;
-  max-width: 1240px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 48px 24px;
+  padding: 64px 24px;
   animation: ps-fade 0.9s ease both;
 }
 
 .ps-split.is-flip {
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.15fr);
 }
 
 .ps-split.is-flip figure {
@@ -90,28 +90,65 @@
 .ps-split img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 5 / 4;
   object-fit: cover;
   background: #eeeae2;
 }
 
 .ps-split__copy h2 {
-  margin: 0 0 16px;
-  font-size: clamp(24px, 3vw, 36px);
+  margin: 0 0 18px;
+  font-size: clamp(26px, 3.2vw, 40px);
   line-height: 1.2;
 }
 
 .ps-split__copy p {
   margin: 0;
-  font-size: 16px;
-  line-height: 1.8;
+  font-size: 17px;
+  line-height: 1.85;
   color: var(--text, #444);
 }
 
+.ps-checks {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 24px 72px;
+  animation: ps-fade 0.9s ease both;
+}
+
+.ps-checks h2 {
+  margin: 0 0 28px;
+  font-size: clamp(26px, 3vw, 40px);
+}
+
+.ps-checks ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ps-checks li {
+  position: relative;
+  padding: 12px 0 12px 28px;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+  line-height: 1.6;
+}
+
+.ps-checks li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent, #16793B);
+  transform: rotate(45deg);
+}
+
 .ps-film {
-  max-width: 1240px;
-  margin: 24px auto;
-  padding: 24px;
+  margin: 0 0 8px;
   animation: ps-fade 0.9s ease both;
 }
 
@@ -119,7 +156,7 @@
 .ps-film__reel {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  min-height: 70svh;
   overflow: hidden;
   background: #111;
 }
@@ -148,51 +185,53 @@
 .ps-film__reel img:nth-child(4) { animation-delay: 16.5s; }
 
 .ps-film__copy {
-  max-width: 720px;
-  margin: 28px auto 0;
+  max-width: 760px;
+  margin: 36px auto 48px;
+  padding: 0 24px;
   text-align: center;
 }
 
 .ps-film__copy h2 {
-  margin: 0 0 12px;
-  font-size: clamp(24px, 3vw, 36px);
+  margin: 0 0 14px;
+  font-size: clamp(26px, 3vw, 40px);
 }
 
 .ps-film__copy p {
   margin: 0;
-  line-height: 1.8;
+  font-size: 17px;
+  line-height: 1.85;
   color: var(--text, #444);
 }
 
 .ps-cover {
-  margin: 24px 0;
+  margin: 0 0 8px;
   animation: ps-fade 0.9s ease both;
 }
 
 .ps-cover img {
   display: block;
   width: 100%;
-  max-height: 86svh;
+  height: 86svh;
   object-fit: cover;
   background: #111;
 }
 
 .ps-cover figcaption {
-  max-width: 1240px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 16px 24px 0;
-  font-size: 14px;
-  letter-spacing: 0.08em;
+  padding: 18px 24px 48px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .ps-plans {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  max-width: 1240px;
+  gap: 20px;
+  max-width: 1320px;
   margin: 24px auto 0;
-  padding: 24px;
+  padding: 32px 24px 16px;
 }
 
 .ps-plans figure {
@@ -208,9 +247,9 @@
 }
 
 .ps-plans figcaption {
-  padding-top: 10px;
+  padding-top: 12px;
   font-size: 13px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -219,31 +258,37 @@
   margin: 0 auto 16px;
   padding: 0 24px;
   font-size: 17px;
-  line-height: 1.8;
+  line-height: 1.85;
   color: var(--text, #444);
 }
 
 .ps-end {
   max-width: 760px;
   margin: 0 auto;
-  padding: 48px 24px 96px;
+  padding: 64px 24px 112px;
   text-align: center;
 }
 
-.ps-end p {
-  margin: 0 0 28px;
-  font-size: 18px;
+.ps-end p:not(.ps-kicker) {
+  margin: 0 0 32px;
+  font-size: 20px;
   line-height: 1.7;
 }
 
-.ps-enquire {
+.ps-end__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.ps-enquire,
+.ps-next {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 52px;
-  padding: 16px 36px;
-  background: var(--accent, #16793B);
-  color: #fff;
+  padding: 16px 32px;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -251,8 +296,23 @@
   text-decoration: none;
 }
 
+.ps-enquire {
+  background: var(--accent, #16793B);
+  color: #fff;
+}
+
 .ps-enquire:hover {
   background: var(--green-dark, #0f5c2c);
+}
+
+.ps-next {
+  border: 1.5px solid #111;
+  color: #111;
+}
+
+.ps-next:hover {
+  background: #111;
+  color: #fff;
 }
 
 @keyframes ps-fade {
@@ -278,14 +338,24 @@
   .ps-split,
   .ps-split.is-flip {
     grid-template-columns: minmax(0, 1fr);
+    padding: 40px 24px;
   }
 
   .ps-split.is-flip figure {
     order: 0;
   }
 
+  .ps-checks ul,
   .ps-plans {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ps-cover img,
+  .ps-film__frame,
+  .ps-film__reel {
+    height: auto;
+    min-height: 52svh;
+    aspect-ratio: 4 / 3;
   }
 }
 
@@ -293,7 +363,8 @@
   .ps-info,
   .ps-split,
   .ps-film,
-  .ps-cover {
+  .ps-cover,
+  .ps-checks {
     animation: none;
   }
 

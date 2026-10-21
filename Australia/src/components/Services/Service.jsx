@@ -183,7 +183,7 @@ function ServiceCard({ service, index }) {
   );
 }
 
-function Service() {
+function Service({ limit }) {
   const { data } = useApi("/services");
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 9;
@@ -205,18 +205,26 @@ function Service() {
     : FALLBACK_SERVICES;
 
   const startIndex = (currentPage - 1) * pageSize;
-  const paginatedServices = services.slice(startIndex, startIndex + pageSize);
+  const shown = limit
+    ? services.slice(0, limit)
+    : services.slice(startIndex, startIndex + pageSize);
 
   return (
     <section className="service-section">
       <div className="service-container">
         <div className="service-grid">
-          {paginatedServices.map((service, index) => (
+          {shown.map((service, index) => (
             <ServiceCard key={service.id} service={service} index={index} />
           ))}
         </div>
 
-        {services.length > pageSize && (
+        {limit && (
+          <div className="service-more">
+            <Link to="/services">View all services</Link>
+          </div>
+        )}
+
+        {!limit && services.length > pageSize && (
           <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: "30px" }}>
             <nav className="ksd-pagination" aria-label="Page navigation" style={{ display: "flex", gap: "10px" }}>
               {Array.from({ length: Math.ceil(services.length / pageSize) }, (_, i) => i + 1).map((pg) => (

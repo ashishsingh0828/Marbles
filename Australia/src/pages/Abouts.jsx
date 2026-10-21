@@ -1,8 +1,10 @@
 import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
-import AboutUs from "../components/Home/AboutUs";
+import About from "../components/About/About";
 import WhyChooseUs from "../components/Values/WhyChooseUs";
 import OurValues from "../components/Values/OurValues";
+import OurBenefits from "../components/Values/OurBenefits";
 import ClientFeedback from "../components/Values/ClientFeedback";
+import Faq from "../components/FAQ/Faq";
 import { IMG } from "../data/images";
 
 export default function Abouts() {
@@ -13,10 +15,12 @@ export default function Abouts() {
         image={IMG.hero}
         labels={{ about: "About" }}
       />
-      <AboutUs />
+      <About />
       <WhyChooseUs />
       <OurValues />
+      <OurBenefits videoUrl="" />
       <ClientFeedback />
+      <Faq />
     </div>
   );
 }

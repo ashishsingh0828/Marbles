@@ -1,54 +1,42 @@
 .ksd-header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 1000;
-  background: rgba(247, 245, 240, 0.92);
-  backdrop-filter: blur(12px);
+  left: 0;
+  right: 0;
+  z-index: 1002;
+  background: transparent;
   border-bottom: 1px solid transparent;
   transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-.ksd-header.is-stuck {
+.ksd-header.is-stuck,
+.ksd-header.is-open {
+  background: #f7f5f0;
   border-bottom-color: var(--border);
-}
-
-.ksd-header.is-home {
-  position: fixed;
-  left: 0;
-  right: 0;
-  width: 100%;
-  background: transparent;
-  backdrop-filter: none;
-}
-
-.ksd-header.is-home.is-stuck,
-.ksd-header.is-home.is-open {
-  background: rgba(247, 245, 240, 0.96);
-  backdrop-filter: blur(12px);
   box-shadow: 0 8px 24px rgba(17, 17, 17, 0.06);
 }
 
-.ksd-header.is-home:not(.is-stuck):not(.is-open) .ksd-logo-img {
+.ksd-header:not(.is-stuck):not(.is-open) .ksd-logo-img {
   filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.45));
 }
 
-.ksd-header.is-home:not(.is-stuck):not(.is-open) .ksd-cta-btn {
+.ksd-header:not(.is-stuck):not(.is-open) .ksd-cta-btn {
   background: transparent;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.72);
 }
 
-.ksd-header.is-home:not(.is-stuck):not(.is-open) .ksd-cta-btn:hover {
+.ksd-header:not(.is-stuck):not(.is-open) .ksd-cta-btn:hover {
   background: #fff;
   color: #111;
 }
 
-.ksd-header.is-home:not(.is-stuck):not(.is-open) .ksd-burger {
+.ksd-header:not(.is-stuck):not(.is-open) .ksd-burger {
   background: transparent;
   border-color: rgba(255, 255, 255, 0.55);
 }
 
-.ksd-header.is-home:not(.is-stuck):not(.is-open) .ksd-burger span {
+.ksd-header:not(.is-stuck):not(.is-open) .ksd-burger span {
   background: #fff;
 }
 
@@ -65,7 +53,7 @@
 .ksd-brand-logo {
   display: flex;
   align-items: center;
-  z-index: 1002;
+  z-index: 1003;
 }
 
 .ksd-logo-img {
@@ -81,7 +69,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  z-index: 1002;
+  z-index: 1003;
 }
 
 .ksd-cta-btn {
@@ -97,6 +85,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
+  border: 1px solid transparent;
 }
 
 .ksd-cta-btn:hover {
@@ -121,7 +110,7 @@
   width: 18px;
   height: 1.5px;
   background: #111;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
 }
 
 .ksd-burger.is-open span:nth-child(1) {
@@ -140,15 +129,21 @@
   position: fixed;
   inset: 0;
   z-index: 1001;
-  background: #f7f5f0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 100px 24px 48px;
+  padding: 110px 24px 48px;
+  background: #f7f5f0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
 }
 
-.ksd-overlay:not(.is-open) {
-  display: none;
+.ksd-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .ksd-overlay-nav {

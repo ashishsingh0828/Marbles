@@ -213,22 +213,23 @@ export default function OurBenefits({
             </span>
           </div>
 
-          {/* rotating circular text + play button */}
-          <div className="ob__circle">
-            <svg className="ob__ring" viewBox="0 0 200 200" aria-hidden="true">
-              <defs>
-                <path id="ob-circle-path" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0" />
-              </defs>
-              <text>
-                <textPath href="#ob-circle-path" textLength="494" lengthAdjust="spacing">
-                  WATCH THE VIDEO • WATCH THE VIDEO •
-                </textPath>
-              </text>
-            </svg>
-            <button type="button" className="ob__play" onClick={play} aria-label="Watch the video">
-              <PlayIcon />
-            </button>
-          </div>
+          {videoUrl ? (
+            <div className="ob__circle">
+              <svg className="ob__ring" viewBox="0 0 200 200" aria-hidden="true">
+                <defs>
+                  <path id="ob-circle-path" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0" />
+                </defs>
+                <text>
+                  <textPath href="#ob-circle-path" textLength="494" lengthAdjust="spacing">
+                    WATCH THE VIDEO • WATCH THE VIDEO •
+                  </textPath>
+                </text>
+              </svg>
+              <button type="button" className="ob__play" onClick={play} aria-label="Watch the video">
+                <PlayIcon />
+              </button>
+            </div>
+          ) : null}
         </div>
 
         {/* ---------- counters ---------- */}

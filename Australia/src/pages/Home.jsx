@@ -1,21 +1,20 @@
-import AboutUs from "../components/Home/AboutUs";
-import OurServices from "../components/Home/OurServices";
+import About from "../components/About/About";
+import Service from "../components/Services/Service";
 import ClientFeedback from "../components/Values/ClientFeedback";
 import Project from "../components/Projects/Project";
-import VideoIntro from "../components/Home/VideoIntro";
-import { Hero, ExperienceStrip, Newsletter } from "../components/KsdHome/HomeSections";
+import Faq from "../components/FAQ/Faq";
+import { Hero, ExperienceStrip } from "../components/KsdHome/HomeSections";
 
 export default function Home() {
   return (
     <div className="ksd-home-page">
       <Hero />
       <ExperienceStrip />
-      <AboutUs />
-      <OurServices />
+      <About />
+      <Service limit={6} />
       <ClientFeedback />
       <Project variant="home" />
-      <VideoIntro />
-      <Newsletter />
+      <Faq />
     </div>
   );
 }

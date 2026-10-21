@@ -202,22 +202,7 @@ function CtaButton({ to, children }) {
 }
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
   const [rootRef, inView] = useInView(0.08);
-
-  useEffect(() => {
-    if (!subscribed) return undefined;
-    const timer = setTimeout(() => setSubscribed(false), 5000);
-    return () => clearTimeout(timer);
-  }, [subscribed]);
-
-  const handleSubscribe = (event) => {
-    event.preventDefault();
-    if (!email) return;
-    setSubscribed(true);
-    setEmail("");
-  };
 
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -245,35 +230,6 @@ export default function Footer() {
 
       <div className="ft-main">
         <div className="ft-container ft-main-inner">
-          <div className="ft-newsletter">
-            <div className="ft-newsletter-copy ft-item" style={{ "--i": 0 }}>
-              <h3>KSD Homes Design Notes</h3>
-              <p>
-                Occasional notes on boutique home design, interiors and Western Australian living — when we have something worth sharing.
-              </p>
-            </div>
-            <form className="ft-newsletter-form ft-item" style={{ "--i": 1 }} onSubmit={handleSubscribe}>
-              <div className="ft-field">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email address"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  autoComplete="email"
-                  aria-label="Email address"
-                  required
-                />
-                <button type="submit">Subscribe</button>
-              </div>
-              <p className={`ft-feedback ${subscribed ? "is-visible" : ""}`} role="status">
-                {subscribed ? "Thank you. You are subscribed to our design journal." : ""}
-              </p>
-            </form>
-          </div>
-
-          <span className="ft-line" />
-
           <div className="ft-columns">
             <div className="ft-col ft-col--brand ft-item" style={{ "--i": 0 }}>
               <Logo />

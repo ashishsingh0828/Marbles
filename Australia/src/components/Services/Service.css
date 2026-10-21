@@ -18,6 +18,33 @@
   gap: 30px;
 }
 
+.service-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.service-more a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 14px 28px;
+  border: 1.5px solid #111;
+  color: #111;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.service-more a:hover {
+  background: var(--accent, #16793B);
+  border-color: var(--accent, #16793B);
+  color: #fff;
+}
+
 .fade-up {
   opacity: 0;
   transform: translateY(40px);
