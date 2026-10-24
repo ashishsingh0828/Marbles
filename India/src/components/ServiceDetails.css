@@ -366,7 +366,7 @@
 }
 
 @media (max-width: 640px) {
-  .sd-section { padding: 50px 12px; --sd-radius: 14px; }
+  .sd-section { padding: 50px 12px 88px; --sd-radius: 14px; }
   .sd-side { grid-template-columns: 1fr; }
   .sd-features { grid-template-columns: 1fr; }
   .sd-features-img { aspect-ratio: 3 / 2; }

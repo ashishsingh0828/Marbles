@@ -103,6 +103,7 @@ const project = (site, label, [title, category], i) => (
       heading: "Here to Know About This Project", paragraphs: `${text}\n\n${text2}`,
       factsTitle: "Interesting Facts In Approach", factsText: text2,
       checks: "Hand-selected slabs\nPrecision cutting\nFast and reliable service\nAffordable solutions\nExpert installers\nModern equipment",
+      extraHeading: "A note on this project", extraParagraphs: text2,
     }
 );
 const AUS_SERVICE_IMAGES = [

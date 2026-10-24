@@ -149,8 +149,8 @@ const toEmbed = (url) => {
 export default function OurBenefits({
   stats = STATS,
   benefits = BENEFITS,
-  bgImage = "/Images/Our gallery/Tortuga Marble.png",
-  videoUrl = "https://www.youtube.com/watch?v=hddwAIXbKZo",
+  bgImage = "/Images/Banner Slider images/4.png",
+  videoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
   onPlay, // optional: use your own handler instead of the built-in video pop-up
 }) {
   const [ref, inView] = useInView();

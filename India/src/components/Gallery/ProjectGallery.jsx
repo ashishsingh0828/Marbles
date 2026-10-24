@@ -103,7 +103,7 @@ export default function ProjectGallery({ projects = [] }) {
       <div className="pg-grid">
         {projects.map((p) => (
           <GalleryCard
-            key={p.id}
+            key={p.slug || p.id || p._id}
             title={p.title}
             a={asset(p.imageA)}
             b={asset(p.imageB || p.imageA)}

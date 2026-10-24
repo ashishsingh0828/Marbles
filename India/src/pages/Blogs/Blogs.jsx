@@ -70,6 +70,7 @@ export default function Blogs() {
       <PageBanner
         title={label || "Stone & Marble Journal"}
         breadcrumbs={[{ label: "Home", path: "/" }, ...(filtered ? [{ label: "Blog", path: "/blogs" }] : []), { label: label || "Blog" }]}
+        bgImage="/Images/Banner Slider images/4.png"
       />
       {loading ? <PageLoader /> : error && !sourceData.length ? <PageError error={error} onRetry={reload} /> :
         posts.length ? (

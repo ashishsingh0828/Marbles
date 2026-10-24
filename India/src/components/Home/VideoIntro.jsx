@@ -119,8 +119,8 @@ function embedSrc(url) {
 
 export default function VideoIntro({
   title = "IE MARBLES",
-  image = "/Images/Our gallery/Bianco Vogue Marble.png",
-  videoUrl = "https://www.youtube.com/embed/Y-x0efG1seA",
+  image = "/Images/Banner Slider images/1.png",
+  videoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
 }) {
   const [ref, visible] = useReveal();
   const [open, setOpen] = useState(false);

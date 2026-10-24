@@ -52,7 +52,7 @@ export default function Services() {
 
   return (
     <>
-      <PageBanner title="Our Stone Services" breadcrumbs={[{ label: "Home", path: "/" }, { label: "Services" }]} />
+      <PageBanner title="Our Stone Services" breadcrumbs={[{ label: "Home", path: "/" }, { label: "Services" }]} bgImage="/Images/Banner Slider images/3.png" />
       {loading ? (
         <PageLoader />
       ) : error && (!data || !data.length) ? (
@@ -70,7 +70,7 @@ export default function Services() {
       ) : (
         <Empty title="No services yet" text="Services added in the admin panel will appear here." />
       )}
-      <Banner />
+      <Banner image="/Images/Banner Slider images/1.png" />
     </>
   );
 }

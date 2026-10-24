@@ -5,7 +5,7 @@
    ========================================================================== */
 
 .faq-section {
-  padding: 100px 24px;
+  padding: 100px 24px 130px;
   background: var(--ie-ivory, #FAF6EF);
   font-family: var(--ie-font, "Parkinsans", sans-serif);
   color: var(--ie-ink, #2A231C);
@@ -344,7 +344,7 @@
 }
 
 .faq-collapse.is-open {
-  max-height: 300px;
+  max-height: 900px;
 }
 
 .faq-answer-inner {
@@ -396,7 +396,10 @@
 
 @media (max-width: 640px) {
   .faq-section {
-    padding: 70px 18px;
+    padding: 64px 16px 110px;
+  }
+  .faq-header {
+    margin-bottom: 36px;
   }
   .faq-consult-card {
     padding: 24px 20px;
@@ -408,6 +411,12 @@
     font-size: 16px;
   }
   .faq-answer-inner {
-    padding: 0 20px 20px;
+    padding: 16px 20px 24px;
+  }
+  .faq-collapse.is-open {
+    max-height: 1400px;
+  }
+  .faq-list {
+    padding-bottom: 12px;
   }
 }

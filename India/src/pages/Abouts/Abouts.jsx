@@ -6,19 +6,21 @@ import OurGallery from "../../components/Values/OurGallery";
 import WhyChooseUs from "../../components/Values/WhyChooseUs";
 import OurBenefits from "../../components/Values/OurBenefits";
 import Faq from "../../components/FAQ/Faq";
+import { IMG } from "../../data/images";
 
 export default function Abouts() {
   return (
     <div className="abouts-page">
       <PageBanner
         title="About IE Marbles"
-        crumbs={[{ label: "Home", to: "/" }, { label: "About Us" }]}
+        breadcrumbs={[{ label: "Home", path: "/" }, { label: "About Us" }]}
+        bgImage={IMG.hero2}
       />
       <About />
       <OurValues />
-      <OurGallery bgImage="/Images/About Us images/Thasos Velluto Marble.png" />
+      <OurGallery bgImage={IMG.hero3} />
       <WhyChooseUs />
-      <OurBenefits />
+      <OurBenefits bgImage={IMG.hero4} videoUrl="https://www.youtube.com/watch?v=aqz-KE-bpKQ" />
       <Faq />
     </div>
   );

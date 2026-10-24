@@ -4,6 +4,8 @@ import Banner from "../../components/Banner/Banner";
 import ServiceDetails from "../../components/ServiceDetails";
 import { PageLoader, PageError } from "../../components/Status";
 import { useApi, asset, paras, pairs, youtubeId } from "../../api";
+import { BANNER_IMAGE, DUMMY_VIDEO } from "../../config";
+import { IMG } from "../../data/images";
 
 const DUMMY_SERVICE_DETAIL = {
   title: "Marble Flooring & Dry-Lay",
@@ -30,7 +32,9 @@ const DUMMY_SERVICE_DETAIL = {
   faqHeading: "Marble Care & Queries",
   faqs: [
     ["How often should natural marble floors be sealed?", "We apply a heavy-duty penetrating sealer that protects stone for 3 to 5 years depending on traffic."],
-    ["Can veins be continuous across large hall floors?", "Yes, through our computerized book-matching and pre-installation dry-lay process."]
+    ["Can veins be continuous across large hall floors?", "Yes, through our computerized book-matching and pre-installation dry-lay process."],
+    ["Do you work on homes and commercial spaces?", "Yes. Residences, hotels, lobbies and offices — the same dry-lay and installation process."],
+    ["Can I approve the slabs before they are cut?", "Yes. Clients and architects review the dry-lay in Kishangarh, or from high-resolution photographs, before fabrication."]
   ]
 };
 
@@ -60,7 +64,11 @@ export default function ServiceDetail() {
     );
   }
 
-  const vid = youtubeId(s.videoUrl);
+  const vid = youtubeId(s.videoUrl) || youtubeId(DUMMY_VIDEO);
+  const parsedFaqs = (Array.isArray(s.faqs) && typeof s.faqs[0] === "object" && !Array.isArray(s.faqs[0]))
+    ? s.faqs
+    : pairs(s.faqs).map(([q, a], i) => ({ q: `${i + 1}. ${q}`, a }));
+  const fallbackFaqs = DUMMY_SERVICE_DETAIL.faqs.map(([q, a], i) => ({ q: `${i + 1}. ${q}`, a }));
   const service = {
     hero: asset(s.heroImage || s.image),
     contactImage: asset(s.image),
@@ -75,13 +83,11 @@ export default function ServiceDetail() {
     steps: (Array.isArray(s.steps) && typeof s.steps[0] === 'object' && !Array.isArray(s.steps[0]))
       ? s.steps
       : pairs(s.steps).map(([title, text]) => ({ title, text })),
-    videoHeading: s.videoHeading || "",
+    videoHeading: s.videoHeading || "See How We Work",
     videoText: s.videoText || "",
-    video: vid ? { thumb: asset(s.heroImage || s.image), youtubeId: vid } : null,
+    video: vid ? { thumb: BANNER_IMAGE, youtubeId: vid } : null,
     faqHeading: s.faqHeading || "Frequently Asked Questions",
-    faqs: (Array.isArray(s.faqs) && typeof s.faqs[0] === 'object' && !Array.isArray(s.faqs[0]))
-      ? s.faqs
-      : pairs(s.faqs).map(([q, a], i) => ({ q: `${i + 1}. ${q}`, a })),
+    faqs: parsedFaqs.length ? parsedFaqs : fallbackFaqs,
   };
   const links = (all.data && all.data.length ? all.data : [
     { title: "Marble Flooring", slug: "marble-flooring" },
@@ -92,9 +98,9 @@ export default function ServiceDetail() {
 
   return (
     <>
-      <PageBanner title={s.title} breadcrumbs={crumbs(s.title)} />
+      <PageBanner title={s.title} breadcrumbs={crumbs(s.title)} bgImage={IMG.hero4} />
       <ServiceDetails service={service} links={links} />
-      <Banner />
+      <Banner image={IMG.hero1} />
     </>
   );
 }

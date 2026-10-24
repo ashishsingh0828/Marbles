@@ -497,6 +497,36 @@
 }
 
 @media (max-width: 640px) {
+  .ft-cta {
+    padding: 56px 0;
+  }
+  .ft-cta-action {
+    width: 100%;
+  }
+  .ft-square-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 16px;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    white-space: normal;
+    text-align: center;
+  }
+  .ft-field {
+    flex-direction: column;
+    border: none;
+    background: transparent;
+    gap: 10px;
+  }
+  .ft-field input {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .ft-field-btn {
+    width: 100%;
+    padding: 14px 18px;
+  }
   .ft-columns {
     grid-template-columns: 1fr;
     gap: 36px;

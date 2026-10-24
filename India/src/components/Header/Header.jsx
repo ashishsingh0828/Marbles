@@ -82,7 +82,10 @@ export default function Header() {
   }, [closeAll]);
 
   useEffect(() => {
-    const onResize = () => window.innerWidth > 1024 && setMobileOpen(false);
+    const onResize = () => {
+      if (window.innerWidth > 1024) setMobileOpen(false);
+      else setOpenTop(null);
+    };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
@@ -197,7 +200,10 @@ export default function Header() {
               className="header-burger"
               aria-label="Open navigation menu"
               aria-expanded={mobileOpen}
-              onClick={() => setMobileOpen(true)}
+              onClick={() => {
+                setOpenTop(null);
+                setMobileOpen(true);
+              }}
             >
               <span />
               <span />

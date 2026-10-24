@@ -15,8 +15,8 @@ export default function Home() {
         images={{ top: IMG.aboutCrema, bottom: IMG.aboutViola, tall: IMG.aboutStatuario }}
       />
       <OurServices />
-      <VideoIntro />
-      <OurGallery bgImage={IMG.aboutThasos} />
+      <VideoIntro image={IMG.hero1} videoUrl="https://www.youtube.com/watch?v=aqz-KE-bpKQ" />
+      <OurGallery bgImage={IMG.hero3} />
       <Faq />
     </div>
   );

@@ -340,14 +340,27 @@
 
   .header-dropdown {
     position: static;
-    opacity: 1;
-    visibility: visible;
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
     transform: none;
     box-shadow: none;
     border: none;
     background: rgba(200, 155, 74, 0.06);
+    margin-top: 0;
+    padding: 0 8px;
+    pointer-events: none;
+    transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.25s ease, margin 0.25s ease;
+  }
+
+  .header-item.is-open .header-dropdown {
+    max-height: 480px;
+    opacity: 1;
+    visibility: visible;
     margin-top: 8px;
     padding: 8px;
+    pointer-events: auto;
   }
 
   .header-nav-footer {
@@ -379,7 +392,7 @@
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    z-index: 1000;
+    z-index: 999;
   }
 
   .header-backdrop.is-active {

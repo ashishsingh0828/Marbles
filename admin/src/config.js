@@ -30,6 +30,8 @@ const indiaProjects = {
       { name: "factsTitle", label: "Facts title", wide: true },
       { name: "factsText", label: "Facts text", type: "textarea", rows: 4 },
       { name: "checks", label: "Checklist", type: "textarea", rows: 5, help: "One item per line." },
+      { name: "extraHeading", label: "Bottom heading", wide: true, help: "Optional heading above recent projects. Leave blank to hide." },
+      { name: "extraParagraphs", label: "Bottom paragraphs", type: "textarea", rows: 5, help: "Optional copy. Leave a blank line between paragraphs." },
     ] },
     publishing,
   ],
