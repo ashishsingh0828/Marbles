@@ -185,7 +185,27 @@ export default function ServiceDetails({ service, links = [] }) {
 
         {/* ============ SIDEBAR ============ */}
         <aside className="sd-side">
-          <Reveal className="sd-widget" delay={80}>
+          <Reveal delay={80}>
+            <Link className="sd-contact" to="/contact">
+              <img
+                className="sd-contact-photo"
+                src={service.contactImage || service.hero || "/Images/Client feedback/Client feedback-1.png"}
+                alt=""
+              />
+              <span className="sd-contact-shade" />
+              <span className="sd-contact-body">
+                <span className="sd-contact-icon">
+                  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                    <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <small>Need help? Talk to an expert</small>
+                <strong>Write to us for slab advice</strong>
+              </span>
+            </Link>
+          </Reveal>
+
+          <Reveal className="sd-widget" delay={160}>
             <h4>Service List</h4>
             <ul className="sd-links">
               {links.map((l) => (
@@ -194,21 +214,6 @@ export default function ServiceDetails({ service, links = [] }) {
                 </li>
               ))}
             </ul>
-          </Reveal>
-
-          <Reveal delay={160}>
-            <Link className="sd-contact" to="/contact" style={{ backgroundImage: `url(${service.contactImage || service.hero})` }}>
-              <span className="sd-contact-shade" />
-              <span className="sd-contact-body">
-                <span className="sd-contact-icon">
-                  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-                    <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                <small>Need help? Talk to expert</small>
-                <strong>Contact With us for any advice</strong>
-              </span>
-            </Link>
           </Reveal>
         </aside>
       </div>

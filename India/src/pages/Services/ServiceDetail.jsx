@@ -3,9 +3,16 @@ import PageBanner from "../../components/Breadcrumb/Breadcrumb";
 import Banner from "../../components/Banner/Banner";
 import ServiceDetails from "../../components/ServiceDetails";
 import { PageLoader, PageError } from "../../components/Status";
-import { useApi, asset, paras, pairs, youtubeId } from "../../api";
+import { useApi, asset, paras, youtubeId } from "../../api";
 import { BANNER_IMAGE, DUMMY_VIDEO } from "../../config";
 import { IMG, pic } from "../../data/images";
+import {
+  CONTACT_IMAGE,
+  FALLBACK_FAQS,
+  FALLBACK_STEPS,
+  installationHeading,
+  normalizePairs,
+} from "../../data/services";
 
 const DUMMY_SERVICE_DETAIL = {
   title: "Marble Flooring & Dry-Lay",
@@ -19,23 +26,13 @@ const DUMMY_SERVICE_DETAIL = {
   strategyHeading: "Our Stone Craftsmanship & Engineering",
   strategyText: "Leveraging 5-axis Italian bridge cutters and laser alignment tools, we eliminate uneven joints and lippage.",
   features: [
-    ["Direct Quarry Sourcing", "Imported Statuario, Calacatta, and premium Indian Makrana and Rajnagar marbles."],
-    ["Precision Dry-Lay Inspection", "Full-scale slab positioning mapped before any permanent bonding."]
+    { title: "Direct quarry sourcing", text: "Italian Statuario and Calacatta, with selected Indian stones, chosen slab by slab in Kishangarh." },
+    { title: "Precision dry-lay", text: "The full surface is laid out before bonding so book-matching and joints can be approved in person." },
   ],
-  processHeading: "Our Four-Stage Installation Process",
-  steps: [
-    ["Slab Selection & Dry-Lay", "Clients hand-select slabs and review dry-lay flow in our Kishangarh yard."],
-    ["Base Calibration", "Screed leveling with laser gauges to ensure an ultra-flat subfloor."],
-    ["Vein-Matched Laying", "Installation using high-performance stone adhesive and hairline color-matched joints."],
-    ["Diamond Polishing & Sealing", "Multi-stage diamond grinding followed by deep fluoropolymer nano-sealing."]
-  ],
+  processHeading: "Our Four-Step Installation Process",
+  steps: FALLBACK_STEPS,
   faqHeading: "Marble Care & Queries",
-  faqs: [
-    ["How often should natural marble floors be sealed?", "We apply a heavy-duty penetrating sealer that protects stone for 3 to 5 years depending on traffic."],
-    ["Can veins be continuous across large hall floors?", "Yes, through our computerized book-matching and pre-installation dry-lay process."],
-    ["Do you work on homes and commercial spaces?", "Yes. Residences, hotels, lobbies and offices — the same dry-lay and installation process."],
-    ["Can I approve the slabs before they are cut?", "Yes. Clients and architects review the dry-lay in Kishangarh, or from high-resolution photographs, before fabrication."]
-  ]
+  faqs: FALLBACK_FAQS,
 };
 
 export default function ServiceDetail() {
@@ -65,29 +62,31 @@ export default function ServiceDetail() {
   }
 
   const vid = youtubeId(s.videoUrl) || youtubeId(DUMMY_VIDEO);
-  const parsedFaqs = (Array.isArray(s.faqs) && typeof s.faqs[0] === "object" && !Array.isArray(s.faqs[0]))
-    ? s.faqs
-    : pairs(s.faqs).map(([q, a], i) => ({ q: `${i + 1}. ${q}`, a }));
-  const fallbackFaqs = DUMMY_SERVICE_DETAIL.faqs.map(([q, a], i) => ({ q: `${i + 1}. ${q}`, a }));
+  const parsedFaqs = normalizePairs(s.faqs, ["q", "a"]);
+  const parsedSteps = normalizePairs(s.steps, ["title", "text"]);
+  const genericSteps = parsedSteps.some((row) => /request for service/i.test(row.title));
+  const genericFaqs = parsedFaqs.some((row) => /emergency repair/i.test(`${row.q} ${row.a}`));
+  const steps = parsedSteps.length && !genericSteps ? parsedSteps : FALLBACK_STEPS;
+  const faqs = parsedFaqs.length >= 2 && !genericFaqs ? parsedFaqs : FALLBACK_FAQS;
   const service = {
     hero: pic(asset(s.heroImage || s.image), 0),
-    contactImage: pic(asset(s.image), 1),
-    paragraphs: paras(s.paragraphs),
+    contactImage: pic(asset(s.contactImage) || CONTACT_IMAGE, 5),
+    paragraphs: Array.isArray(s.paragraphs) && s.paragraphs.length
+      ? s.paragraphs
+      : (paras(s.paragraphs).length ? paras(s.paragraphs) : DUMMY_SERVICE_DETAIL.paragraphs),
     strategyHeading: s.strategyHeading || "",
     strategyText: s.strategyText || "",
-    sideImage: pic(asset(s.image), 2),
-    features: (Array.isArray(s.features) && typeof s.features[0] === 'object' && !Array.isArray(s.features[0]))
-      ? s.features
-      : pairs(s.features).map(([title, text]) => ({ title, text })),
-    processHeading: s.processHeading || "Service Process",
-    steps: (Array.isArray(s.steps) && typeof s.steps[0] === 'object' && !Array.isArray(s.steps[0]))
-      ? s.steps
-      : pairs(s.steps).map(([title, text]) => ({ title, text })),
+    sideImage: pic(asset(s.image || s.heroImage), 2),
+    features: normalizePairs(s.features, ["title", "text"]),
+    processHeading: installationHeading(s.processHeading, steps.length),
+    steps,
     videoHeading: s.videoHeading || "See How We Work",
     videoText: s.videoText || "",
-    video: vid ? { thumb: BANNER_IMAGE, youtubeId: vid } : null,
-    faqHeading: s.faqHeading || "Frequently Asked Questions",
-    faqs: parsedFaqs.length ? parsedFaqs : fallbackFaqs,
+    video: vid ? { thumb: pic(asset(s.image) || BANNER_IMAGE, 3), youtubeId: vid } : null,
+    faqHeading: s.faqHeading && !/^frequently asked questions$/i.test(s.faqHeading)
+      ? s.faqHeading
+      : "Marble Care & Queries",
+    faqs,
   };
   const links = (all.data && all.data.length ? all.data : [
     { title: "Marble Flooring", slug: "marble-flooring" },

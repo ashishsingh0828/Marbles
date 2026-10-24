@@ -326,17 +326,24 @@
   min-height: 270px;
   border-radius: var(--sd-radius);
   overflow: hidden;
-  background-size: cover;
-  background-position: center;
+  background: #2C221A;
   color: #fff;
   isolation: isolate;
+}
+.sd-contact-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .sd-contact-shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(30, 25, 20, 0.92) 8%, rgba(30, 25, 20, 0.35) 70%);
+  background: linear-gradient(to top, rgba(30, 25, 20, 0.88) 8%, rgba(30, 25, 20, 0.28) 70%);
   transition: background 0.4s ease;
-  z-index: -1;
+  z-index: 1;
 }
 .sd-contact:hover .sd-contact-shade { background: linear-gradient(to top, rgba(30, 25, 20, 0.96) 15%, rgba(30, 25, 20, 0.55) 80%); }
 .sd-contact-body {
@@ -347,6 +354,7 @@
   justify-items: center;
   gap: 6px;
   text-align: center;
+  z-index: 2;
 }
 .sd-contact-icon {
   width: 54px;
