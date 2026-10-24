@@ -13,6 +13,7 @@ export default function Home() {
       <Hero />
       <AboutUs
         images={{ top: IMG.aboutCrema, bottom: IMG.aboutViola, tall: IMG.aboutStatuario }}
+        founder={{ name: "I.E. Marbles Team", role: "Natural stone · 28+ years team experience", image: IMG.aboutThasos }}
       />
       <OurServices />
       <VideoIntro image={IMG.hero1} videoUrl="https://www.youtube.com/watch?v=aqz-KE-bpKQ" />

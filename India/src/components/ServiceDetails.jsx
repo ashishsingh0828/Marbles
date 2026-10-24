@@ -2,6 +2,8 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./ServiceDetails.css";
 
+const ENTER = ["right", "left", "bottom", "top"];
+
 /* ---------- Helpers ---------- */
 function Reveal({ as: Tag = "div", delay = 0, className = "", children, ...rest }) {
   const ref = useRef(null);
@@ -22,61 +24,19 @@ function Reveal({ as: Tag = "div", delay = 0, className = "", children, ...rest 
   );
 }
 
-/* Fade-in image + pixelate -> sharp wipe (left to right) on hover */
-function PixelImage({ src, alt = "", className = "" }) {
-  const imgRef = useRef(null);
-  const canvasRef = useRef(null);
-  const timer = useRef(null);
+function FadeImage({ src, alt = "", className = "", enter = "right" }) {
+  const aRef = useRef(null);
+  const bRef = useRef(null);
+  const markLoaded = (e) => e.currentTarget.classList.add("is-loaded");
 
   useEffect(() => {
-    imgRef.current?.complete && imgRef.current.classList.add("is-loaded");
-    return () => clearTimeout(timer.current);
-  }, []);
-
-  const draw = useCallback((block) => {
-    const image = imgRef.current;
-    const canvas = canvasRef.current;
-    if (!image?.naturalWidth || !canvas) return false;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const w = Math.round(canvas.clientWidth * dpr);
-    const h = Math.round(canvas.clientHeight * dpr);
-    if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
-    const ir = image.naturalWidth / image.naturalHeight;
-    const cr = w / h;
-    let sx = 0, sy = 0, sw = image.naturalWidth, sh = image.naturalHeight;
-    if (ir > cr) { sw = sh * cr; sx = (image.naturalWidth - sw) / 2; }
-    else { sh = sw / cr; sy = (image.naturalHeight - sh) / 2; }
-    const w2 = Math.max(1, Math.round(w / (block * dpr)));
-    const h2 = Math.max(1, Math.round(h / (block * dpr)));
-    const small = document.createElement("canvas");
-    small.width = w2;
-    small.height = h2;
-    small.getContext("2d").drawImage(image, sx, sy, sw, sh, 0, 0, w2, h2);
-    const ctx = canvas.getContext("2d");
-    ctx.imageSmoothingEnabled = false;
-    ctx.clearRect(0, 0, w, h);
-    ctx.drawImage(small, 0, 0, w2, h2, 0, 0, w, h);
-    return true;
-  }, []);
-
-  const stop = () => {
-    clearTimeout(timer.current);
-    canvasRef.current.classList.remove("is-wipe", "is-on");
-  };
-  const start = () => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const c = canvasRef.current;
-    stop();
-    if (!draw(26)) return;
-    void c.offsetWidth;
-    c.classList.add("is-on");
-    timer.current = setTimeout(() => { draw(12); c.classList.add("is-wipe"); }, 170);
-  };
+    [aRef.current, bRef.current].forEach((el) => el?.complete && el.classList.add("is-loaded"));
+  }, [src]);
 
   return (
-    <div className={`sd-pix ${className}`} onMouseEnter={start} onMouseLeave={stop}>
-      <img ref={imgRef} src={src || undefined} alt={alt} loading="lazy" onLoad={(e) => e.currentTarget.classList.add("is-loaded")} />
-      <canvas ref={canvasRef} className="sd-pixel" aria-hidden="true" />
+    <div className={`sd-pix ${className}`} data-enter={enter}>
+      <img ref={aRef} className="sd-img sd-img-a" src={src || "/Images/Banner Slider images/1.png"} alt={alt} loading="lazy" onLoad={markLoaded} />
+      <img ref={bRef} className="sd-img sd-img-b" src={src || "/Images/Banner Slider images/2.png"} alt="" aria-hidden="true" loading="lazy" onLoad={markLoaded} />
     </div>
   );
 }
@@ -163,7 +123,7 @@ export default function ServiceDetails({ service, links = [] }) {
       <div className="sd-container">
         {/* ============ MAIN ============ */}
         <div className="sd-main">
-          {service.hero && <Reveal className="sd-hero"><PixelImage src={service.hero} alt="" /></Reveal>}
+          {service.hero && <Reveal className="sd-hero"><FadeImage src={service.hero} alt="" enter={ENTER[0]} /></Reveal>}
 
           {service.paragraphs.map((p, i) => (
             <Reveal as="p" key={i} delay={60 * i}>{p}</Reveal>
@@ -174,7 +134,7 @@ export default function ServiceDetails({ service, links = [] }) {
 
           {service.features?.length > 0 && (
           <div className="sd-features">
-            <Reveal><PixelImage src={service.sideImage} className="sd-features-img" /></Reveal>
+            <Reveal><FadeImage src={service.sideImage} className="sd-features-img" enter={ENTER[1]} /></Reveal>
             <Reveal className="sd-features-card" delay={140}>
               {service.features.map((f, i) => (
                 <div key={`${f.title}-${i}`} className="sd-feature">

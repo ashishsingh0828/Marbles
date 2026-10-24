@@ -5,7 +5,7 @@ import ServiceDetails from "../../components/ServiceDetails";
 import { PageLoader, PageError } from "../../components/Status";
 import { useApi, asset, paras, pairs, youtubeId } from "../../api";
 import { BANNER_IMAGE, DUMMY_VIDEO } from "../../config";
-import { IMG } from "../../data/images";
+import { IMG, pic } from "../../data/images";
 
 const DUMMY_SERVICE_DETAIL = {
   title: "Marble Flooring & Dry-Lay",
@@ -49,7 +49,7 @@ export default function ServiceDetail() {
   if (one.loading) {
     return (
       <>
-        <PageBanner title="Service Details" breadcrumbs={crumbs("Service Details")} />
+        <PageBanner title="Service Details" breadcrumbs={crumbs("Service Details")} bgImage={IMG.hero4} />
         <PageLoader />
       </>
     );
@@ -58,7 +58,7 @@ export default function ServiceDetail() {
   if (!s) {
     return (
       <>
-        <PageBanner title="Service Details" breadcrumbs={crumbs("Service Details")} />
+        <PageBanner title="Service Details" breadcrumbs={crumbs("Service Details")} bgImage={IMG.hero4} />
         <PageError error={one.error} onRetry={one.reload} />
       </>
     );
@@ -70,12 +70,12 @@ export default function ServiceDetail() {
     : pairs(s.faqs).map(([q, a], i) => ({ q: `${i + 1}. ${q}`, a }));
   const fallbackFaqs = DUMMY_SERVICE_DETAIL.faqs.map(([q, a], i) => ({ q: `${i + 1}. ${q}`, a }));
   const service = {
-    hero: asset(s.heroImage || s.image),
-    contactImage: asset(s.image),
+    hero: pic(asset(s.heroImage || s.image), 0),
+    contactImage: pic(asset(s.image), 1),
     paragraphs: paras(s.paragraphs),
     strategyHeading: s.strategyHeading || "",
     strategyText: s.strategyText || "",
-    sideImage: asset(s.image),
+    sideImage: pic(asset(s.image), 2),
     features: (Array.isArray(s.features) && typeof s.features[0] === 'object' && !Array.isArray(s.features[0]))
       ? s.features
       : pairs(s.features).map(([title, text]) => ({ title, text })),

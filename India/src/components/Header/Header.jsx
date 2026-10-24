@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useApi } from "../../api";
 import Logo from "../Logo/Logo";
@@ -27,8 +28,72 @@ function Icon({ name, className }) {
   );
 }
 
+function MenuList({ menuItems, pathname, openTop, setOpenTop, desktop }) {
+  const isSection = (href) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+
+  return (
+    <ul className="header-menu">
+      {menuItems.map((item, index) => {
+        const isOpen = openTop === index;
+        const cls = [
+          "header-item",
+          isOpen && "is-open",
+          isSection(item.href) && "is-current",
+        ]
+          .filter(Boolean)
+          .join(" ");
+
+        if (!item.children) {
+          return (
+            <li className={cls} key={item.label}>
+              <NavLink to={item.href} end={item.end} className="header-link">
+                <span>{item.label}</span>
+                <span className="header-link-line" aria-hidden="true" />
+              </NavLink>
+            </li>
+          );
+        }
+
+        return (
+          <li
+            className={cls}
+            key={item.label}
+            onMouseEnter={() => desktop && setOpenTop(index)}
+            onMouseLeave={() => desktop && setOpenTop(null)}
+          >
+            <button
+              type="button"
+              className="header-link"
+              aria-haspopup="true"
+              aria-expanded={isOpen}
+              onClick={() => setOpenTop(isOpen ? null : index)}
+            >
+              <span>{item.label}</span>
+              <Icon name="chevronDown" className="header-link-chevron" />
+              <span className="header-link-line" aria-hidden="true" />
+            </button>
+            <ul className="header-dropdown">
+              <li className="header-dropdown-heading">
+                <span>Architectural Slabs &amp; Services</span>
+              </li>
+              {item.children.map((child) => (
+                <li className="header-subitem" key={child.href}>
+                  <NavLink to={child.href} end className="header-sublink">
+                    <span>{child.label}</span>
+                    <Icon name="arrow" className="header-sublink-arrow" />
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
 export default function Header() {
-  const navRef = useRef(null);
+  const desktopNavRef = useRef(null);
   const { pathname } = useLocation();
   const services = useApi("/services").data || [];
   const [stuck, setStuck] = useState(false);
@@ -68,8 +133,10 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    const onPointerDown = (e) =>
-      navRef.current && !navRef.current.contains(e.target) && setOpenTop(null);
+    const onPointerDown = (e) => {
+      if (window.innerWidth <= 1024) return;
+      if (desktopNavRef.current && !desktopNavRef.current.contains(e.target)) setOpenTop(null);
+    };
     const onKeyDown = (e) => e.key === "Escape" && closeAll();
     document.addEventListener("mousedown", onPointerDown);
     document.addEventListener("touchstart", onPointerDown, { passive: true });
@@ -97,18 +164,66 @@ export default function Header() {
     };
   }, [mobileOpen]);
 
-  const isSection = (href) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const stuckCls = stuck ? " is-stuck" : "";
 
   return (
-    <header className={`header-section${stuck ? " is-stuck" : ""}`}>
-      <div className="header-bar">
-        <div className="header-inner">
-          <Logo />
+    <>
+      <header className={`header-section header-desktop${stuckCls}`}>
+        <div className="header-bar">
+          <div className="header-inner">
+            <Logo />
+            <nav ref={desktopNavRef} className="header-nav" aria-label="Primary">
+              <MenuList
+                menuItems={menuItems}
+                pathname={pathname}
+                openTop={openTop}
+                setOpenTop={setOpenTop}
+                desktop
+              />
+            </nav>
+            <div className="header-actions">
+              <Link to="/contact" className="ie-btn header-cta">
+                <span>Request a Quote</span>
+                <span className="ie-btn-arrow">&rarr;</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
 
+      <header className={`header-section header-mobile${stuckCls}`}>
+        <div className="header-bar">
+          <div className="header-inner">
+            <Logo />
+            <button
+              type="button"
+              className={`header-burger${mobileOpen ? " is-open" : ""}`}
+              aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileOpen}
+              onClick={() => {
+                setOpenTop(null);
+                setMobileOpen((open) => !open);
+              }}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {createPortal(
+        <>
+          <div
+            className={`header-backdrop${mobileOpen ? " is-active" : ""}`}
+            onClick={closeAll}
+            aria-hidden="true"
+          />
           <nav
-            ref={navRef}
-            className={`header-nav${mobileOpen ? " is-open" : ""}`}
-            aria-label="Primary"
+            className={`header-nav header-nav--drawer${mobileOpen ? " is-open" : ""}`}
+            aria-label="Mobile"
+            aria-hidden={!mobileOpen}
           >
             <div className="header-nav-head">
               <Logo />
@@ -121,65 +236,13 @@ export default function Header() {
                 <Icon name="close" />
               </button>
             </div>
-
-            <ul className="header-menu">
-              {menuItems.map((item, index) => {
-                const isOpen = openTop === index;
-                const cls = [
-                  "header-item",
-                  isOpen && "is-open",
-                  isSection(item.href) && "is-current",
-                ]
-                  .filter(Boolean)
-                  .join(" ");
-
-                if (!item.children) {
-                  return (
-                    <li className={cls} key={item.label}>
-                      <NavLink to={item.href} end={item.end} className="header-link">
-                        <span>{item.label}</span>
-                        <span className="header-link-line" aria-hidden="true" />
-                      </NavLink>
-                    </li>
-                  );
-                }
-
-                return (
-                  <li
-                    className={cls}
-                    key={item.label}
-                    onMouseEnter={() => window.innerWidth > 1024 && setOpenTop(index)}
-                    onMouseLeave={() => window.innerWidth > 1024 && setOpenTop(null)}
-                  >
-                    <button
-                      type="button"
-                      className="header-link"
-                      aria-haspopup="true"
-                      aria-expanded={isOpen}
-                      onClick={() => setOpenTop(isOpen ? null : index)}
-                    >
-                      <span>{item.label}</span>
-                      <Icon name="chevronDown" className="header-link-chevron" />
-                      <span className="header-link-line" aria-hidden="true" />
-                    </button>
-                    <ul className="header-dropdown">
-                      <li className="header-dropdown-heading">
-                        <span>Architectural Slabs &amp; Services</span>
-                      </li>
-                      {item.children.map((child) => (
-                        <li className="header-subitem" key={child.href}>
-                          <NavLink to={child.href} end className="header-sublink">
-                            <span>{child.label}</span>
-                            <Icon name="arrow" className="header-sublink-arrow" />
-                          </NavLink>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                );
-              })}
-            </ul>
-
+            <MenuList
+              menuItems={menuItems}
+              pathname={pathname}
+              openTop={openTop}
+              setOpenTop={setOpenTop}
+              desktop={false}
+            />
             <div className="header-nav-footer">
               <Link to="/contact" className="ie-btn header-mobile-cta" onClick={closeAll}>
                 <span>Enquire</span>
@@ -187,37 +250,9 @@ export default function Header() {
               </Link>
             </div>
           </nav>
-
-          {/* Right Action: Square Hover Button */}
-          <div className="header-actions">
-            <Link to="/contact" className="ie-btn header-cta">
-              <span>Request a Quote</span>
-              <span className="ie-btn-arrow">&rarr;</span>
-            </Link>
-
-            <button
-              type="button"
-              className="header-burger"
-              aria-label="Open navigation menu"
-              aria-expanded={mobileOpen}
-              onClick={() => {
-                setOpenTop(null);
-                setMobileOpen(true);
-              }}
-            >
-              <span />
-              <span />
-              <span />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div
-        className={`header-backdrop${mobileOpen ? " is-active" : ""}`}
-        onClick={closeAll}
-        aria-hidden="true"
-      />
-    </header>
+        </>,
+        document.body
+      )}
+    </>
   );
 }

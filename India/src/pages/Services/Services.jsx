@@ -5,6 +5,7 @@ import ServiceList from "../../components/ServiceList/ServiceList";
 import Pagination from "../../components/Common/Pagination";
 import { PageLoader, PageError, Empty } from "../../components/Status";
 import { useApi, asset } from "../../api";
+import { pic } from "../../data/images";
 
 const DUMMY_SERVICES = [
   {
@@ -43,7 +44,7 @@ export default function Services() {
         slug: s.slug,
         title: s.title,
         description: s.shortDescription || "",
-        image: asset(s.image),
+        image: pic(asset(s.image), 0),
       }))
     : DUMMY_SERVICES;
 

@@ -30,12 +30,6 @@ const SOCIALS = [
   { id: "pinterest", label: "Pinterest", href: "https://pinterest.com" },
 ];
 
-const LEGAL_LINKS = [
-  { id: "privacy", label: "Privacy Policy", to: "/contact" },
-  { id: "terms", label: "Terms of Supply", to: "/contact" },
-  { id: "care", label: "Stone Care Guide", to: "/about" },
-];
-
 function useInView(threshold = 0.08) {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
@@ -320,11 +314,11 @@ export default function Footer() {
             </div>
 
             <div className="ft-col ft-col--contact ft-item" style={{ "--i": 3 }}>
-              <h4 className="ft-col-title">Studio</h4>
+              <h4 className="ft-col-title">Showroom</h4>
               <ul className="ft-contact">
                 <li>
                   <span className="ft-contact-text">
-                    A new natural stone studio. 28+ years of combined team experience. Use the contact form to enquire.
+                    A new natural stone showroom. 28+ years of combined team experience. Use the contact form to enquire.
                   </span>
                 </li>
               </ul>
@@ -338,21 +332,13 @@ export default function Footer() {
             <p className="ft-copy">
               &copy; {new Date().getFullYear()} IE Marbles. All rights reserved.
             </p>
-            <ul className="ft-legal">
-              {LEGAL_LINKS.map((link) => (
-                <li key={link.id}>
-                  <Link to={link.to}>{link.label}</Link>
-                </li>
-              ))}
-            </ul>
             <button
               type="button"
               className="ft-top-btn"
               onClick={scrollTop}
               aria-label="Back to top"
             >
-              <span>Back to Top</span>
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 19V5M5 12l7-7 7 7" />
               </svg>
             </button>

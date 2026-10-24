@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { asset, paras, lines } from "../../api";
-import { GalleryCard } from "../Gallery/ProjectGallery"; // same pixelate-swap card + white label
+import { pic } from "../../data/images";
+import { GalleryCard } from "../Gallery/ProjectGallery";
 import "./ProjectDetail.css";
 
 const card = (p) => ({ title: p.title, a: asset(p.imageA || p.image), b: asset(p.imageB || p.imageA || p.image), href: `/projects/${p.slug}` });
@@ -76,7 +77,7 @@ export default function ProjectDetail({ data }) {
         <section className="pd-top">
           <Reveal className="pd-hero">
             <img
-              src={project.hero || undefined}
+              src={pic(project.hero, 3)}
               alt={project.heading}
               onLoad={(e) => e.currentTarget.classList.add("is-loaded")}
               ref={(el) => el?.complete && el.classList.add("is-loaded")}
@@ -148,13 +149,10 @@ export default function ProjectDetail({ data }) {
         {project.related.length > 0 && (
         <section className="pg-section pd-related">
           <Reveal as="h3" className="pd-recent-title">Recent Projects</Reveal>
-          {project.next && (
-            <p className="pd-next-hint">Next project suggestion · {project.next.title}</p>
-          )}
           <div className="pg-grid">
             {project.related.map((p, i) => (
               <Reveal key={p.href} delay={120 * i} className="pd-related-item">
-                <GalleryCard {...p} />
+                <GalleryCard {...p} index={i} />
               </Reveal>
             ))}
           </div>

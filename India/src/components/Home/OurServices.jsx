@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useApi } from "../../api";
+import { pic } from "../../data/images";
 import "./OurServices.css";
 
 /* ------------------------------------------------------------------ */
@@ -157,7 +158,9 @@ export default function OurServices() {
         title: s.title,
         text: s.shortText || s.summary || s.description || "Precision cut and installed natural stone surfaces.",
         stone: stoneKeys[idx % stoneKeys.length],
-        image: s.image ? (s.image.startsWith("http") ? s.image : `/uploads/${s.image}`) : null,
+        image: s.image
+          ? (s.image.startsWith("http") || s.image.startsWith("/Images/") ? s.image : `/uploads/${s.image}`)
+          : pic(null, idx),
         slug: s.slug || `service-${idx}`,
       }));
     }
