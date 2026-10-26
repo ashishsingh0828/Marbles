@@ -45,30 +45,49 @@ function firstLine(text = "") {
   const t = String(text).trim();
   if (!t) return "";
   const match = t.match(/^[^.!?]+[.!?]?/);
-  return (match ? match[0] : t).slice(0, 160);
+  return (match ? match[0] : t).slice(0, 220);
 }
 
-function Split({ image, caption, text, flip }) {
-  if (!image) return null;
+function pad(n) {
+  return String(n).padStart(2, "0");
+}
+
+function Room({ room, index, total, flip }) {
+  const num = pad(index + 1);
+  const of = pad(total);
+  const features = (room.features || []).filter(Boolean).slice(0, 3);
+  if (!room.image) return null;
+
   return (
-    <Reveal className={`ps-split${flip ? " is-flip" : ""}`}>
-      <figure>
-        <img src={image} alt={caption || ""} />
+    <Reveal className={`ps-room${flip ? " is-flip" : ""}`}>
+      <figure className="ps-room__media">
+        <div className="ps-room__frame">
+          <img src={room.image} alt={room.caption || `Room ${num}`} />
+        </div>
       </figure>
-      <div className="ps-split__copy">
-        {caption && <h2>{caption}</h2>}
-        {text && <p>{firstLine(text)}</p>}
+      <div className="ps-room__copy">
+        <p className="ps-room__label">Room {num}</p>
+        <p className="ps-room__count">{num} / {of}</p>
+        {room.caption && <h2>{room.caption}</h2>}
+        {room.text && <p className="ps-room__text">{room.text}</p>}
+        {room.dimensions && <p className="ps-room__dim">{room.dimensions}</p>}
+        {features.length > 0 && (
+          <ul className="ps-room__features">
+            {features.map((feature) => (
+              <li key={feature}>{feature}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </Reveal>
   );
 }
 
-function Cover({ image, caption }) {
+function Banner({ image, caption }) {
   if (!image) return null;
   return (
-    <Reveal className="ps-cover" as="figure">
-      <img src={image} alt={caption || ""} />
-      {caption && <figcaption>{caption}</figcaption>}
+    <Reveal className="ps-banner" as="figure">
+      <img src={image} alt={caption || "Project banner"} />
     </Reveal>
   );
 }
@@ -94,24 +113,13 @@ function Film({ url, images, title }) {
         <video className="ps-film__video" src={file} autoPlay muted loop playsInline />
       ) : (
         <div className="ps-film__reel" aria-hidden="true">
-          {frames.map((src) => (
-            <img key={src} src={src} alt="" />
+          {frames.map((src, i) => (
+            <img key={`${src}-${i}`} src={src} alt="" />
           ))}
         </div>
       )}
     </Reveal>
   );
-}
-
-function photoBlocks(photos) {
-  const out = [];
-  for (let i = 0; i < photos.length; i += 3) {
-    const [left, right, cover] = photos.slice(i, i + 3);
-    if (left) out.push({ type: "split", flip: false, item: left });
-    if (right) out.push({ type: "split", flip: true, item: right });
-    if (cover) out.push({ type: "cover", item: cover });
-  }
-  return out;
 }
 
 export default function ProjectDetails() {
@@ -128,17 +136,44 @@ export default function ProjectDetails() {
 
   const planSrc = new Set([home.image2, home.image3, home.image4].filter(Boolean));
   const gallery = [
-    ...(home.scenes || []).map((scene) => ({ src: scene.image, caption: scene.caption, text: scene.text })),
+    ...(home.scenes || []).map((scene) => ({
+      src: scene.image,
+      caption: scene.caption,
+      text: scene.text,
+      features: scene.features,
+      dimensions: scene.dimensions,
+    })),
     ...(home.gallery || [])
       .filter((src) => !(home.scenes || []).some((scene) => scene.image === src))
-      .map((src) => ({ src, caption: "", text: "" })),
+      .map((src) => ({ src, caption: "", text: "", features: [], dimensions: "" })),
   ].filter((item) => item.src && !planSrc.has(item.src));
 
   const pair = [
-    home.beforeImage && { src: home.beforeImage, caption: "Before", text: "As drawn." },
-    home.afterImage && { src: home.afterImage, caption: "After", text: "Interior direction." },
+    home.beforeImage && {
+      src: home.beforeImage,
+      caption: "Elevation",
+      text: "The street elevation as drawn: rendered masonry planes, deep eaves and a composed arrival sequence.",
+      features: ["Rendered masonry planes", "Deep eaves", "Composed entry"],
+      dimensions: "Front elevation",
+    },
+    home.afterImage && {
+      src: home.afterImage,
+      caption: "Dining",
+      text: "A long dining table on marble floors, set for family gatherings and lit from the western court.",
+      features: ["Marble main floors", "Western court light", "Family dining table"],
+      dimensions: "6.4 × 4.8 m",
+    },
   ].filter((item) => item && item.src && !gallery.some((photo) => photo.src === item.src));
-  const photos = [...pair, ...gallery];
+
+  const rooms = [...pair, ...gallery].map((item) => ({
+    image: item.src,
+    caption: item.caption,
+    text: item.text,
+    features: item.features || [],
+    dimensions: item.dimensions || "",
+  }));
+  const banners = (home.banners || []).filter((banner) => banner.src);
+
   const leadNote = firstLine((home.paragraphs || [])[0] || home.heading || "");
   const facts = [
     home.year && { label: "Year", value: home.year },
@@ -183,22 +218,28 @@ export default function ProjectDetails() {
 
       <Film
         url={home.videoUrl}
-        images={[home.heroImage, photos[0]?.src, photos[1]?.src, photos[2]?.src].filter(Boolean)}
+        images={[home.heroImage, rooms[0]?.image, rooms[1]?.image, rooms[2]?.image].filter(Boolean)}
         title={home.title}
       />
 
-      {photoBlocks(photos).map((block) =>
-        block.type === "cover" ? (
-          <Cover key={block.item.src} image={block.item.src} caption={block.item.caption} />
-        ) : (
-          <Split
-            key={block.item.src}
-            flip={block.flip}
-            image={block.item.src}
-            caption={block.item.caption}
-            text={block.item.text}
-          />
-        )
+      {rooms.length > 0 && (
+        <div className="ps-rooms">
+          {rooms.map((room, index) => (
+            <div key={`${room.image}-${index}`}>
+              <Room
+                room={room}
+                index={index}
+                total={rooms.length}
+                flip={index % 2 === 1}
+              />
+              {banners
+                .filter((banner) => Number(banner.after) === index + 1)
+                .map((banner) => (
+                  <Banner key={`${banner.src}-${banner.after}`} image={banner.src} caption={room.caption} />
+                ))}
+            </div>
+          ))}
+        </div>
       )}
 
       {plans.length > 0 && (
@@ -212,11 +253,17 @@ export default function ProjectDetails() {
         </Reveal>
       )}
 
-      <Reveal className="ps-end">
+      <Reveal className="ps-cta">
         {home.resultTitle && <p className="ps-kicker">{home.resultTitle}</p>}
-        {home.resultText && <p>{firstLine(home.resultText)}</p>}
-        <div className="ps-end__actions">
-          <Link to="/contact" className="ps-enquire">Enquire</Link>
+        <h2>Want a room like this?</h2>
+        <p>
+          {home.resultText
+            ? firstLine(home.resultText)
+            : "Enquire about this project — we will walk you through how this home was specified, from rooms to finishes."}
+        </p>
+        <p className="ps-cta__prompt">Enquire about this project</p>
+        <div className="ps-cta__actions">
+          <Link to="/contact" className="ps-enquire">Enquire about this project</Link>
           {nextHome && nextHome.slug !== home.slug && (
             <Link to={`/projects/${nextHome.slug}`} className="ps-next">
               Next · {nextHome.title}

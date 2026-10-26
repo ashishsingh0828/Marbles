@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import { auth, MOCK } from "../api";
+import { auth, MOCK, getSite } from "../api";
 import { Icon, Brand } from "../components/ui";
 
 function Shell({ title, subtitle, children }) {
+  const australia = getSite() === "australia";
   return (
     <div className="auth">
       <div className="auth-brand">
         <Brand />
         <div className="auth-quote">
-          <h2>Manage your projects, services and blog in one place.</h2>
-          <p>Add content, upload images and publish to the India and Australia websites in a few clicks.</p>
+          <h2>{australia ? "Manage KSD Homes projects, services and journal in one place." : "Manage your projects, services and blog in one place."}</h2>
+          <p>{australia ? "Add content, upload images and publish to the Australia website in a few clicks." : "Add content, upload images and publish to the India and Australia websites in a few clicks."}</p>
         </div>
-        <small>© {new Date().getFullYear()} IE Marbles &amp; Traders · Admin</small>
+        <small>© {new Date().getFullYear()} {australia ? "KSD Homes" : "IE Marbles & Traders"} · Admin</small>
       </div>
       <div className="auth-form">
         <div className="auth-card">

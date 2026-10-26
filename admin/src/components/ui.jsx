@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useMemo, useRef, useEffect } from "react";
-import { asset } from "../api";
+import { asset, getSite } from "../api";
 
 /* ---------- Icons ---------- */
 const P = {
@@ -72,9 +72,22 @@ export const BrandMark = ({ size = 36 }) => (
     </g>
   </svg>
 );
-export const Brand = ({ className = "" }) => (
-  <div className={`brand ${className}`}><BrandMark /> <span>IE Marbles<small>Admin Portal</small></span></div>
+export const KsdMark = ({ size = 36 }) => (
+  <svg className="brand-mark" viewBox="0 0 100 100" width={size} height={size} aria-hidden="true">
+    <rect width="100" height="100" rx="18" fill="#16793B" />
+    <path d="M18 46 L50 20 L82 46 V80 H60 V60 H40 V80 H18 Z" fill="#F4EBDD" />
+    <rect x="45" y="64" width="10" height="16" fill="#16793B" />
+  </svg>
 );
+export const Brand = ({ className = "" }) => {
+  const australia = getSite() === "australia";
+  return (
+    <div className={`brand ${className}`}>
+      {australia ? <KsdMark /> : <BrandMark />}
+      <span>{australia ? "KSD Homes" : "IE Marbles"}<small>Admin Portal</small></span>
+    </div>
+  );
+};
 
 /* ---------- Toasts ---------- */
 const ToastCtx = createContext(() => {});

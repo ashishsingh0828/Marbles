@@ -35,45 +35,13 @@ export const Icon = ({ n, size = 18 }) => (
 /* ---------- Brand ---------- */
 export const BrandMark = ({ size = 36 }) => (
   <svg className="brand-mark" viewBox="0 0 100 100" width={size} height={size} aria-hidden="true">
-    <defs>
-      <linearGradient id="adm-gold" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#FFF2D1" />
-        <stop offset="40%" stopColor="#DFB76C" />
-        <stop offset="70%" stopColor="#B38634" />
-        <stop offset="100%" stopColor="#7E5818" />
-      </linearGradient>
-      <linearGradient id="adm-brown" x1="0%" y1="0%" x2="80%" y2="100%">
-        <stop offset="0%" stopColor="#6B5340" />
-        <stop offset="50%" stopColor="#4B3626" />
-        <stop offset="100%" stopColor="#352418" />
-      </linearGradient>
-      <linearGradient id="adm-white" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#FFFFFF" />
-        <stop offset="100%" stopColor="#DCD9D3" />
-      </linearGradient>
-    </defs>
-    <g transform="translate(1, 0)">
-      {/* 1 */}
-      <path d="M 23 15 L 28 10 L 37 18 L 37 85 L 26 85 L 26 27 Z" fill="url(#adm-gold)" opacity="0.95" />
-      <polygon points="28,23 37,18 37,85 28,85" fill="url(#adm-brown)" />
-      <line x1="37" y1="18" x2="37" y2="85" stroke="url(#adm-gold)" strokeWidth="1.2" />
-      {/* E */}
-      <polygon points="46,18 77,18 77,27 46,27" fill="url(#adm-brown)" />
-      <polygon points="46,14 77,14 77,18 46,18" fill="url(#adm-gold)" />
-      <polygon points="46,27 54,27 54,76 46,76" fill="url(#adm-brown)" />
-      <polygon points="54,44 77,44 77,53 54,53" fill="url(#adm-brown)" />
-      <polygon points="46,76 79,76 79,85 46,85" fill="url(#adm-brown)" />
-      <polygon points="46,85 79,85 77,89 46,89" fill="url(#adm-gold)" />
-      <polygon points="42,14 46,18 46,85 42,89" fill="url(#adm-gold)" />
-      {/* Diagonal white facet */}
-      <polygon points="46,35 54,27 68,40 61,48" fill="url(#adm-white)" />
-      <polygon points="46,35 54,27 57,29 49,37" fill="url(#adm-gold)" />
-      <polygon points="68,40 61,48 64,51 71,43" fill="url(#adm-gold)" />
-    </g>
+    <rect width="100" height="100" rx="18" fill="#16793B" />
+    <path d="M18 46 L50 20 L82 46 V80 H60 V60 H40 V80 H18 Z" fill="#F4EBDD" />
+    <rect x="45" y="64" width="10" height="16" fill="#16793B" />
   </svg>
 );
 export const Brand = ({ className = "" }) => (
-  <div className={`brand ${className}`}><BrandMark /> <span>IE Marbles<small>Admin Portal</small></span></div>
+  <div className={`brand ${className}`}><BrandMark /> <span>KSD Homes<small>Admin Portal</small></span></div>
 );
 
 /* ---------- Toasts ---------- */

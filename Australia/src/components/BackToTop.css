@@ -1,0 +1,49 @@
+.ksd-totop {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 1200;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  color: #fff;
+  background: var(--accent, #16793B);
+  border: 0;
+  border-radius: 0;
+  box-shadow: 0 10px 24px rgba(17, 17, 17, 0.18);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease;
+}
+
+.ksd-totop.is-on {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.ksd-totop:hover,
+.ksd-totop:focus-visible {
+  background: var(--green-dark, #0f5c2c);
+  outline: none;
+}
+
+@media (max-width: 575px) {
+  .ksd-totop {
+    right: 16px;
+    bottom: 16px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ksd-totop {
+    transition: none;
+  }
+}

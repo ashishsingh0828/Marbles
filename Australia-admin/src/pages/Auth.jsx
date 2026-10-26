@@ -9,10 +9,10 @@ function Shell({ title, subtitle, children }) {
       <div className="auth-brand">
         <Brand />
         <div className="auth-quote">
-          <h2>Manage your projects, services and blog in one place.</h2>
-          <p>Add content, upload images and publish to the India and Australia websites in a few clicks.</p>
+          <h2>Manage KSD Homes projects, services and journal in one place.</h2>
+          <p>Add content, upload images and publish to the Australia website in a few clicks.</p>
         </div>
-        <small>© {new Date().getFullYear()} IE Marbles &amp; Traders · Admin</small>
+        <small>© {new Date().getFullYear()} KSD Homes · Admin</small>
       </div>
       <div className="auth-form">
         <div className="auth-card">

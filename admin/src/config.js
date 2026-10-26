@@ -104,6 +104,14 @@ const australiaProjects = {
       { name: "scenes", label: "Photo captions", type: "textarea", rows: 8, wide: true, help: "One per line, in gallery order:  Caption | Short description  (e.g.  Poolside living | The ground floor opens to the alfresco and pool.)" },
       { name: "overlayCaption", label: "Hero overlay line", placeholder: "IN DELIVERY / RESIDENCE", wide: true },
     ] },
+    { title: "Between-room banners", desc: "Optional full-width images that sit between room chapters. Leave a banner blank to skip it.", cols: 3, fields: [
+      { name: "bannerA", label: "Banner 1", type: "image" },
+      { name: "bannerB", label: "Banner 2", type: "image" },
+      { name: "bannerC", label: "Banner 3", type: "image" },
+      { name: "bannerAfterA", label: "Banner 1 after room", placeholder: "3", help: "Room number after which Banner 1 appears, e.g. 3." },
+      { name: "bannerAfterB", label: "Banner 2 after room", placeholder: "6" },
+      { name: "bannerAfterC", label: "Banner 3 after room", placeholder: "9" },
+    ] },
     { title: "Story", fields: [
       { name: "heading", label: "Story heading", wide: true },
       { name: "paragraphs", label: "Paragraphs", type: "textarea", rows: 8, help: "Leave a blank line between paragraphs. Do not include the client street address." },

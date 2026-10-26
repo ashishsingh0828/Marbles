@@ -204,10 +204,6 @@ function CtaButton({ to, children }) {
 export default function Footer() {
   const [rootRef, inView] = useInView(0.08);
 
-  const scrollTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <footer ref={rootRef} className={`ft ${inView ? "is-visible" : ""}`}>
       {/* Pre-footer Architectural CTA Banner */}
@@ -268,7 +264,7 @@ export default function Footer() {
             </div>
 
             <div className="ft-col ft-col--contact ft-item" style={{ "--i": 3 }}>
-              <h4 className="ft-col-title">Perth Studio</h4>
+              <h4 className="ft-col-title">Perth Office</h4>
               <ul className="ft-contact">
                 <li>
                   <span className="ft-contact-icon">
@@ -331,15 +327,6 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-            <button
-              type="button"
-              className="ft-totop"
-              onClick={scrollTop}
-              aria-label="Scroll back to top"
-            >
-              <span>Back To Top</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
-            </button>
           </div>
         </div>
       </div>

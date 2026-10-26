@@ -18,9 +18,9 @@
 
 .ft-container {
   width: 100%;
-  max-width: 1320px;
+  max-width: 1340px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 24px;
 }
 
 .ft-item {
@@ -534,20 +534,21 @@ a.ft-contact-text:focus-visible {
 }
 
 .ft-wordmark {
-  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 12px 0 4px;
   overflow: hidden;
   font-family: var(--ft-serif);
-  font-size: clamp(56px, 15.5vw, 250px);
+  font-size: clamp(40px, 10.5vw, 148px);
   font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: 0.06em;
+  line-height: 0.92;
+  letter-spacing: 0.14em;
   text-align: center;
   white-space: nowrap;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(220, 174, 94, 0.3);
+  color: rgba(21, 122, 60, 0.34);
   user-select: none;
-  -webkit-mask-image: linear-gradient(to bottom, #000 25%, transparent 95%);
-  mask-image: linear-gradient(to bottom, #000 25%, transparent 95%);
 }
 
 .ft-line--bottom {
