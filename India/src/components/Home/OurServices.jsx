@@ -17,28 +17,28 @@ const DEFAULT_SERVICES = [
     text: "Marble, quartzite, travertine and limestone shortlisted by colour, veining, texture and finish for your application.",
     stone: "carrara",
     slug: "stone-selection",
-    image: "/Images/About Us images/Calacatta Crema Marble.png",
+    image: "/Images/Home/Services and sourcing/Feature Walls & Facades.png",
   },
   {
     title: "Processing Coordination",
     text: "CNC and waterjet processing coordination, where available, arranged through specialist partners.",
     stone: "emperador",
     slug: "processing-coordination",
-    image: "/Images/About Us images/Calacatta Viola Marble.png",
+    image: "/Images/Home/Services and sourcing/Processing Coordination.png",
   },
   {
     title: "Feature Walls & Facades",
     text: "Stone selection and processing coordination for book-matched feature walls and facade applications.",
     stone: "grey",
     slug: "feature-walls-and-facades",
-    image: "/Images/About Us images/Statuario Baratini Marble.png",
+    image: "/Images/Home/Services and sourcing/Stone Selection.png",
   },
   {
     title: "Supply Coordination",
     text: "Dimensional and calibration requirements coordinated to the agreed specification, from quantities to delivery.",
     stone: "nero",
     slug: "supply-coordination",
-    image: "/Images/About Us images/Thasos Velluto Marble.png",
+    image:  "/Images/Home/Services and sourcing/Supply Coordination.png",
   },
 ];
 

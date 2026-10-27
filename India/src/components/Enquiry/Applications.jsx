@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import useInView from "../hooks/useInView";
 import { IMG } from "../../data/images";
 import "./Applications.css";
-
-const APPLICATIONS_DATA = [
+export const APPLICATIONS_DATA = [
   {
     id: "01",
     tabTitle: "Feature Walls & Book-Matching",
@@ -16,7 +15,7 @@ const APPLICATIONS_DATA = [
       { label: "Slab thickness", value: "18mm to 20mm calibrated" },
       { label: "Coordination focus", value: "Dry-lay vein sequencing before delivery" },
     ],
-    image: IMG.aboutViola,
+    image: IMG.appVideo1,
     alt: "Book-matched luxury marble feature wall with bold veining",
   },
   {
@@ -30,7 +29,7 @@ const APPLICATIONS_DATA = [
       { label: "Edge detailing", value: "Chamfered, Mitered, Calibrated backs" },
       { label: "Coordination focus", value: "Weight tolerance and structural anchors" },
     ],
-    image: IMG.aboutStatuario,
+    image: IMG.appVideo2,
     alt: "Refined light natural stone facade cladding",
   },
   {
@@ -44,7 +43,7 @@ const APPLICATIONS_DATA = [
       { label: "Surface texture", value: "Honed with fluted anti-slip inserts" },
       { label: "Coordination focus", value: "Color and batch uniformity across flights" },
     ],
-    image: IMG.aboutThasos,
+    image: IMG.appVideo3,
     alt: "Solid natural stone staircase and architectural landing",
   },
   {
@@ -58,11 +57,10 @@ const APPLICATIONS_DATA = [
       { label: "Slab sizing", value: "Gang-saw jumbo slabs for minimum joints" },
       { label: "Coordination focus", value: "Flatness tolerances and lot consistency" },
     ],
-    image: IMG.aboutCrema,
+    image: IMG.appVideo4,
     alt: "Warm toned marble suited to floors and architectural surfaces",
   },
 ];
-
 export default function Applications() {
   const [ref, inView] = useInView();
   const [activeIdx, setActiveIdx] = useState(0);

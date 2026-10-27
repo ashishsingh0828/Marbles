@@ -11,7 +11,7 @@ const SLIDES = [
     text: "Marble, quartzite, travertine and limestone, selected with architects, designers and developers for the spaces they shape.",
     theme: "light",
     scrim: "250, 247, 242",
-    image: "/Images/Banner Slider images/1.png",
+    image: "/Images/Home/Slider Benner/1.png",
     marble: {
       seed: 7,
       bg: ["#fbfaf8", "#e6e2db"],
@@ -29,7 +29,7 @@ const SLIDES = [
     text: "Rich brown stone with fine honey veining, suited to floors, feature walls and staircases.",
     theme: "dark",
     scrim: "52, 36, 23",
-    image: "/Images/Banner Slider images/2.png",
+ image: "/Images/Home/Slider Benner/2.png",
     marble: {
       seed: 21,
       bg: ["#7b5a3e", "#46321f"],
@@ -47,7 +47,7 @@ const SLIDES = [
     text: "Statuario and grey-veined marble for kitchens, bathrooms and living spaces that stay bright and balanced.",
     theme: "light",
     scrim: "244, 244, 245",
-    image: "/Images/Banner Slider images/3.png",
+   image: "/Images/Home/Slider Benner/3.png",
     marble: {
       seed: 43,
       bg: ["#e4e5e7", "#b3b5b9"],
@@ -65,7 +65,7 @@ const SLIDES = [
     text: "Stone selection and processing coordination for book-matched feature walls and statement entrances.",
     theme: "dark",
     scrim: "20, 17, 14",
-    image: "/Images/Banner Slider images/4.png",
+ image: "/Images/Home/Slider Benner/4.png",
     marble: {
       seed: 64,
       bg: ["#27231f", "#0c0a08"],

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import "./VideoIntro.css";
 
 const STONE = {
@@ -20,7 +21,7 @@ function marbleUri(m, W = 1600, H = 900) {
   const flt = (id, inner) =>
     `<filter id="${id}" filterUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}" color-interpolation-filters="sRGB">${inner}</filter>`;
   const opaque =
-    '<feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0 1"';
+    '<feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0 1"/>';
 
   const vein = (id, seed, fx, fy, width, warp, color) =>
     flt(
@@ -93,27 +94,37 @@ function useReveal(threshold = 0.25) {
   return [ref, visible];
 }
 
+/**
+ * Turns any normal YouTube / Vimeo link into an embeddable player URL.
+ * Fixes: youtu.be links were previously sent to the Vimeo player (wrong site).
+ */
 function embedSrc(url) {
   try {
     const u = new URL(url);
-    const host = u.hostname.replace(/^www\./, "");
-    let out = u;
+    const host = u.hostname.replace(/^(www\.|m\.)/, "");
+    let out = null;
 
-    if (host === "youtube.com" || host === "m.youtube.com") {
-      const id = u.searchParams.get("v");
-      if (id && u.pathname === "/watch") {
-        out = new URL(`https://www.youtube.com/embed/${id}`);
-      }
+    if (host === "youtube.com" || host === "youtube-nocookie.com") {
+      const parts = u.pathname.split("/").filter(Boolean);
+      let id = null;
+      if (u.pathname === "/watch") id = u.searchParams.get("v");
+      else if (["embed", "shorts", "live", "v"].includes(parts[0])) id = parts[1];
+      if (id) out = new URL(`https://www.youtube.com/embed/${id}`);
     } else if (host === "youtu.be") {
-      const id = u.pathname.slice(1);
+      const id = u.pathname.split("/").filter(Boolean)[0];
       if (id) out = new URL(`https://www.youtube.com/embed/${id}`);
     } else if (host === "vimeo.com") {
       const id = u.pathname.split("/").filter(Boolean)[0];
       if (id && /^\d+$/.test(id)) out = new URL(`https://player.vimeo.com/video/${id}`);
+    } else if (host === "player.vimeo.com") {
+      out = u;
     }
+
+    if (!out) out = u; // unknown host: use as-is
 
     out.searchParams.set("autoplay", "1");
     out.searchParams.set("rel", "0");
+    out.searchParams.set("playsinline", "1");
     return out.toString();
   } catch {
     return url;
@@ -122,7 +133,7 @@ function embedSrc(url) {
 
 export default function VideoIntro({
   title = "STONE, CURATED",
-  image = "/Images/Banner Slider images/1.png",
+  image = "/Images/Video section Images/Video section Images.png",
   videoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
 }) {
   const [ref, visible] = useReveal();
@@ -130,8 +141,15 @@ export default function VideoIntro({
   const [closing, setClosing] = useState(false);
   const playRef = useRef(null);
   const closeRef = useRef(null);
+  const closingRef = useRef(false);
 
-  const bg = useMemo(() => image || marbleUri(STONE), [image]);
+  const [imgSrc, setImgSrc] = useState(image || marbleUri(STONE));
+
+  useEffect(() => {
+    setImgSrc(image || marbleUri(STONE));
+  }, [image]);
+
+  const src = useMemo(() => embedSrc(videoUrl), [videoUrl]);
 
   const onMove = useCallback((e) => {
     const el = ref.current;
@@ -142,10 +160,13 @@ export default function VideoIntro({
   }, [ref]);
 
   const close = useCallback(() => {
+    if (closingRef.current) return;
+    closingRef.current = true;
     setClosing(true);
     window.setTimeout(() => {
       setOpen(false);
       setClosing(false);
+      closingRef.current = false;
       playRef.current?.focus();
     }, 320);
   }, []);
@@ -167,6 +188,48 @@ export default function VideoIntro({
 
   const letters = Array.from(title);
 
+  // Rendered into <body> so it always sits above the header, menus and every other section
+  const modal =
+    open && typeof document !== "undefined"
+      ? createPortal(
+          <div
+            className={`video__modal${closing ? " is-closing" : ""}`}
+            role="dialog"
+            aria-modal="true"
+            aria-label="IE Marble & Traders video"
+            onClick={close}
+          >
+            <button
+              ref={closeRef}
+              type="button"
+              className="video__close"
+              onClick={(e) => {
+                e.stopPropagation();
+                close();
+              }}
+              aria-label="Close video"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" />
+              </svg>
+            </button>
+
+            <div className="video__dialog" onClick={(e) => e.stopPropagation()}>
+              <div className="video__player">
+                <iframe
+                  src={src}
+                  title="IE Marble & Traders video"
+                  allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                  allowFullScreen
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+              </div>
+            </div>
+          </div>,
+          document.body
+        )
+      : null;
+
   return (
     <section
       ref={ref}
@@ -174,7 +237,18 @@ export default function VideoIntro({
       onPointerMove={onMove}
       aria-label="IE Marble & Traders introduction video"
     >
-      <img className="video__bg" src={bg} alt="" decoding="async" draggable="false" />
+      <img
+        className="video__bg"
+        src={imgSrc}
+        alt=""
+        decoding="async"
+        draggable="false"
+        onError={() => {
+          console.warn(`[VideoIntro] Could not load image from: ${imgSrc}. Falling back to procedural marble.`);
+          setImgSrc(marbleUri(STONE));
+        }}
+      />
+      {/* Dark overlay that keeps the text readable on bright images — tune it in VideoIntro.css (.video__shade) */}
       <div className="video__shade" aria-hidden="true" />
       <div className="video__spot" aria-hidden="true" />
       <div className="video__frame" aria-hidden="true" />
@@ -219,31 +293,7 @@ export default function VideoIntro({
         )}
       </h2>
 
-      {open && (
-        <div
-          className={`video__modal${closing ? " is-closing" : ""}`}
-          role="dialog"
-          aria-modal="true"
-          aria-label="IE Marble & Traders video"
-          onClick={close}
-        >
-          <div className="video__dialog" onClick={(e) => e.stopPropagation()}>
-            <button ref={closeRef} type="button" className="video__close" onClick={close} aria-label="Close video">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6 6l12 12M18 6L6 18" />
-              </svg>
-            </button>
-            <div className="video__player">
-              <iframe
-                src={embedSrc(videoUrl)}
-                title="IE Marble & Traders video"
-                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-                allowFullScreen
-              />
-            </div>
-          </div>
-        </div>
-      )}
+      {modal}
     </section>
   );
 }

@@ -8,26 +8,21 @@ import "./OurGallery.css";
    DATASETS
    ──────────────────────────────────────────────────────────── */
 
-/** Curated slabs: raw slab photography (variant="slab") */
 export const STONE_SLIDES = [
-  { title: "Bianco Vogue",    tone: "carrara",    image: IMG.galleryBianco,   slug: "bianco-vogue" },
-  { title: "Fossana Marble",  tone: "calacatta",  image: IMG.galleryFossana,  slug: "fossana" },
-  { title: "Paonazzo Marble", tone: "statuario",  image: IMG.galleryPaonazzo, slug: "paonazzo" },
-  { title: "Pirgon Marble",   tone: "travertine", image: IMG.galleryPirgon,   slug: "pirgon" },
-  { title: "Thassos White",   tone: "statuario",  image: IMG.galleryThassos,  slug: "thassos-white" },
-  { title: "Tortuga Marble",  tone: "marquina",   image: IMG.galleryTortuga,  slug: "tortuga" },
+  { title: "Bianco Vogue",    tone: "carrara",    image: IMG.curatedBianco,   slug: "bianco-vogue" },
+  { title: "Fossana Marble",  tone: "calacatta",  image: IMG.curatedFossana,  slug: "fossana" },
+  { title: "Paonazzo Marble", tone: "statuario",  image: IMG.curatedPaonazzo, slug: "paonazzo" },
+  { title: "Pirgon Marble",   tone: "travertine", image: IMG.curatedPirgon,   slug: "pirgon" },
+  { title: "Thassos White",   tone: "statuario",  image: IMG.curatedThassos,  slug: "thassos-white" },
+  { title: "Tortuga Marble",  tone: "marquina",   image: IMG.curatedTortuga,  slug: "tortuga" },
 ];
 
-/**
- * Verified projects: finished architectural photography (variant="project").
- * Uses IMG.project* keys when you add them to data/images; until then it falls
- * back to the about* images, which are different files from STONE_SLIDES.
- */
+
 export const PROJECT_SLIDES = [
-  { title: "Marble Feature Wall",  tone: "marquina",   image: IMG.projectVilla     ?? IMG.aboutViola,     slug: "marble-feature-wall" },
-  { title: "Sky Residence Lobby",  tone: "statuario",  image: IMG.projectPenthouse ?? IMG.aboutStatuario, slug: "sky-residence-lobby" },
-  { title: "Monolithic Staircase", tone: "carrara",    image: IMG.projectStaircase ?? IMG.aboutThasos,    slug: "monolithic-staircase" },
-  { title: "Stone Flooring Suite", tone: "travertine", image: IMG.projectHotel     ?? IMG.aboutCrema,     slug: "stone-flooring-suite" },
+  { title: "Marble Feature Wall",  tone: "marquina",   image: IMG.appVideo1     ?? IMG.appVideo1,     slug: "marble-feature-wall" },
+  { title: "Sky Residence Lobby",  tone: "statuario",  image: IMG.appVideo2 ?? IMG.appVideo2, slug: "sky-residence-lobby" },
+  { title: "Monolithic Staircase", tone: "carrara",    image: IMG.appVideo3 ?? IMG.appVideo3,    slug: "monolithic-staircase" },
+  { title: "Stone Flooring Suite", tone: "travertine", image: IMG.appVideo4     ?? IMG.appVideo4,     slug: "stone-flooring-suite" },
 ];
 
 /* ────────────────────────────────────────────────────────────
