@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useApi, siteImage, fmtDate, paras } from "../../api";
 import "./BlogDetails.css";
@@ -60,6 +60,10 @@ const INITIAL_COMMENTS = [
 ];
 
 const INITIAL_FORM = { name: "", email: "", message: "" };
+
+const SEARCH_MIN_CHARS = 2;
+const SEARCH_DEBOUNCE_MS = 350;
+const SEARCH_MAX_RESULTS = 6;
 
 function Reveal({ as: Tag = "div", variant = "up", delay = 0, className = "", children }) {
   const ref = useRef(null);
@@ -135,9 +139,46 @@ function BlogDetails() {
   const { slug } = useParams();
   const { data } = useApi(slug ? `/blogs/${slug}` : null);
   const [search, setSearch] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // debounced value sent to the backend
   const [comments, setComments] = useState(INITIAL_COMMENTS);
   const [form, setForm] = useState(INITIAL_FORM);
   const messageRef = useRef(null);
+
+  /* ───────── Backend search ─────────
+     Sends GET /blogs?search=<term>. The result list is also filtered by the same
+     term on the client, so it stays correct even if the endpoint ignores `search`. */
+  useEffect(() => {
+    const timer = setTimeout(() => setSearchTerm(search.trim()), SEARCH_DEBOUNCE_MS);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  const isSearching = searchTerm.length >= SEARCH_MIN_CHARS;
+  const searchApi = useApi(isSearching ? `/blogs?search=${encodeURIComponent(searchTerm)}` : null);
+  const searchLoading =
+    isSearching && (searchApi.loading ?? (searchApi.data == null && !searchApi.error));
+
+  const searchResults = useMemo(() => {
+    if (!isSearching) return [];
+    const raw = searchApi.data;
+    const list = Array.isArray(raw) ? raw : raw?.items || raw?.blogs || raw?.data || [];
+    if (!Array.isArray(list)) return [];
+    const q = searchTerm.toLowerCase();
+    return list
+      .filter((item) => {
+        if (!item || !item.slug) return false;
+        const haystack = Object.values(item)
+          .filter((value) => typeof value === "string")
+          .join(" ")
+          .toLowerCase();
+        return haystack.includes(q);
+      })
+      .slice(0, SEARCH_MAX_RESULTS);
+  }, [isSearching, searchApi.data, searchTerm]);
+
+  const clearSearch = () => {
+    setSearch("");
+    setSearchTerm("");
+  };
 
   const parsedParagraphs = data
     ? (data.introText || data.secondText
@@ -169,6 +210,11 @@ function BlogDetails() {
 
   const handleSearch = (event) => {
     event.preventDefault();
+    setSearchTerm(search.trim()); // search immediately on Enter / button click
+  };
+
+  const handleSearchKeyDown = (event) => {
+    if (event.key === "Escape") clearSearch();
   };
 
   const handleSubmit = (event) => {
@@ -190,25 +236,49 @@ function BlogDetails() {
       <div className="bd-container">
         <div className="bd-layout">
           <aside className="bd-sidebar">
-            <Reveal variant="left" delay={0.05} className="bd-widget">
+            {/* <Reveal variant="left" delay={0.05} className="bd-widget">
               <div className="bd-wid-title">
                 <h3>Search Articles</h3>
               </div>
-              <form className="bd-search" onSubmit={handleSearch}>
+              <form className="bd-search" onSubmit={handleSearch} role="search">
                 <input
-                  type="text"
+                  type="search"
                   placeholder="Search architecture articles..."
+                  aria-label="Search articles"
+                  autoComplete="off"
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
+                  onKeyDown={handleSearchKeyDown}
                 />
                 <button type="submit" aria-label="Search">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <circle cx="11" cy="11" r="8" />
                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
                   </svg>
                 </button>
               </form>
-            </Reveal>
+
+              {isSearching && (
+                <div className="bd-search-results" aria-live="polite">
+                  {searchLoading ? (
+                    <p className="bd-search-note">Searching…</p>
+                  ) : searchResults.length > 0 ? (
+                    <ul>
+                      {searchResults.map((item) => (
+                        <li key={item.slug}>
+                          <Link to={`/blogs/${item.slug}`} onClick={clearSearch}>
+                            <span className="bd-search-title">{item.title}</span>
+                            {item.category && <span className="bd-search-cat">{item.category}</span>}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="bd-search-note">No articles found for “{searchTerm}”.</p>
+                  )}
+                </div>
+              )}
+            </Reveal> */}
 
             <Reveal variant="left" delay={0.1} className="bd-widget">
               <div className="bd-wid-title">
@@ -341,6 +411,7 @@ function BlogDetails() {
                       type="text"
                       name="name"
                       placeholder="Your Name *"
+                      aria-label="Your name"
                       value={form.name}
                       onChange={handleFormChange}
                       required
@@ -351,6 +422,7 @@ function BlogDetails() {
                       type="email"
                       name="email"
                       placeholder="Your Email *"
+                      aria-label="Your email"
                       value={form.email}
                       onChange={handleFormChange}
                       required
@@ -363,6 +435,7 @@ function BlogDetails() {
                     name="message"
                     rows={6}
                     placeholder="Write Comment *"
+                    aria-label="Your comment"
                     value={form.message}
                     onChange={handleFormChange}
                     required

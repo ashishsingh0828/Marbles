@@ -147,11 +147,15 @@ a.mx-info-line:focus-visible {
   color: var(--mx-accent);
 }
 
+/* ───────── Map: fills its whole grid cell ───────── */
+
 .mx-map {
   position: relative;
-  min-height: 420px;
+  min-height: 460px;
 }
 
+/* .mx-map-frame is the class used in the JSX; .mx-map-box is kept as an alias */
+.mx-map-frame,
 .mx-map-box {
   position: absolute;
   inset: 0;
@@ -159,6 +163,7 @@ a.mx-info-line:focus-visible {
   background: var(--theme2);
 }
 
+.mx-map-frame iframe,
 .mx-map-box iframe {
   position: absolute;
   inset: 0;
@@ -167,6 +172,8 @@ a.mx-info-line:focus-visible {
   height: 100%;
   border: 0;
 }
+
+/* ───────── Image ───────── */
 
 .mx-image {
   position: relative;
@@ -217,6 +224,8 @@ a.mx-info-line:focus-visible {
   transform: translateX(100%);
   transition: transform 1s ease, opacity 1s ease;
 }
+
+/* ───────── Form ───────── */
 
 .mx-form-cell {
   padding: 70px 41px 70px var(--mx-pad-left);
@@ -347,6 +356,8 @@ a.mx-info-line:focus-visible {
   transform: translateY(0);
 }
 
+/* ───────── Responsive ───────── */
+
 @media (max-width: 1399px) {
   .mx-contact {
     padding-top: 90px;
@@ -391,7 +402,7 @@ a.mx-info-line:focus-visible {
   }
 
   .mx-map {
-    min-height: 380px;
+    min-height: 400px;
   }
 
   .mx-image {
@@ -436,7 +447,7 @@ a.mx-info-line:focus-visible {
   }
 
   .mx-map {
-    min-height: 300px;
+    min-height: 320px;
   }
 
   .mx-image {
