@@ -58,9 +58,6 @@
   position: absolute;
   inset: 0;
   z-index: -2;
-  background:
-    radial-gradient(120% 90% at 50% 40%, rgba(12, 10, 8, 0) 45%, rgba(12, 10, 8, 0.3) 100%),
-    linear-gradient(180deg, rgba(12, 10, 8, 0.22) 0%, rgba(12, 10, 8, 0.04) 40%, rgba(12, 10, 8, 0.62) 100%);
 }
 
 .video .video__spot {
