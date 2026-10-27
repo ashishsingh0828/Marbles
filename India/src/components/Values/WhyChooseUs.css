@@ -123,6 +123,7 @@
 .wc__word > span {
   display: inline-block;
   opacity: 0;
+  padding-right: 0.4rem;
   transform: translateY(110%);
   transition:
     transform 1.3s var(--ease) calc(150ms + var(--i) * 90ms),
