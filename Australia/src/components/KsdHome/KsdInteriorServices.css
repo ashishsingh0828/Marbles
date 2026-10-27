@@ -126,6 +126,7 @@
   color: inherit;
   text-decoration: none;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .ksd-svc__card:hover,
@@ -151,16 +152,6 @@
   transition: transform 0.9s ease;
 }
 
-.ksd-svc__card:hover .ksd-svc__media img,
-.ksd-svc__card:focus-visible .ksd-svc__media img {
-  transform: scale(1.06);
-}
-
-.ksd-svc__card:focus-visible .ksd-svc__media {
-  outline: 2px solid var(--svc-orange);
-  outline-offset: 4px;
-}
-
 .ksd-svc__tab {
   position: absolute;
   top: -10%;
@@ -178,11 +169,6 @@
   transition: background-color 0.5s ease-in-out;
 }
 
-.ksd-svc__card:hover .ksd-svc__tab,
-.ksd-svc__card:focus-visible .ksd-svc__tab {
-  background: var(--svc-navy);
-}
-
 .ksd-svc__panel {
   position: absolute;
   left: 8%;
@@ -193,13 +179,6 @@
   background: #ffffff;
   color: var(--svc-ink);
   transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
-}
-
-.ksd-svc__card:hover .ksd-svc__panel,
-.ksd-svc__card:focus-visible .ksd-svc__panel {
-  background: var(--svc-green);
-  color: #ffffff;
-  box-shadow: 0 18px 36px -14px rgba(10, 28, 48, 0.45);
 }
 
 .ksd-svc__row {
@@ -224,11 +203,7 @@
   transition: transform 0.5s ease-in-out;
 }
 
-.ksd-svc__card:hover .ksd-svc__row svg,
-.ksd-svc__card:focus-visible .ksd-svc__row svg {
-  transform: translateX(4px);
-}
-
+/* Description is collapsed by default; the panel grows upward when it opens */
 .ksd-svc__descwrap {
   display: grid;
   grid-template-rows: 0fr;
@@ -251,16 +226,78 @@
   transition: opacity 0.4s ease-in-out;
 }
 
-.ksd-svc__card:hover .ksd-svc__descwrap,
-.ksd-svc__card:focus-visible .ksd-svc__descwrap {
+/* ---------- Open state: keyboard focus or tapped card (works on all devices) ---------- */
+
+.ksd-svc__card:focus-visible .ksd-svc__media img,
+.ksd-svc__card.is-active .ksd-svc__media img {
+  transform: scale(1.06);
+}
+
+.ksd-svc__card:focus-visible .ksd-svc__media {
+  outline: 2px solid var(--svc-orange);
+  outline-offset: 4px;
+}
+
+.ksd-svc__card:focus-visible .ksd-svc__tab,
+.ksd-svc__card.is-active .ksd-svc__tab {
+  background: var(--svc-navy);
+}
+
+.ksd-svc__card:focus-visible .ksd-svc__panel,
+.ksd-svc__card.is-active .ksd-svc__panel {
+  background: var(--svc-green);
+  color: #ffffff;
+  box-shadow: 0 18px 36px -14px rgba(10, 28, 48, 0.45);
+}
+
+.ksd-svc__card:focus-visible .ksd-svc__row svg,
+.ksd-svc__card.is-active .ksd-svc__row svg {
+  transform: translateX(4px);
+}
+
+.ksd-svc__card:focus-visible .ksd-svc__descwrap,
+.ksd-svc__card.is-active .ksd-svc__descwrap {
   grid-template-rows: 1fr;
 }
 
-.ksd-svc__card:hover .ksd-svc__desc,
-.ksd-svc__card:focus-visible .ksd-svc__desc {
+.ksd-svc__card:focus-visible .ksd-svc__desc,
+.ksd-svc__card.is-active .ksd-svc__desc {
   opacity: 1;
   transition-delay: 0.15s;
 }
+
+/* ---------- Real hover: only on devices that support it (prevents sticky hover on phones) ---------- */
+
+@media (hover: hover) {
+  .ksd-svc__card:hover .ksd-svc__media img {
+    transform: scale(1.06);
+  }
+
+  .ksd-svc__card:hover .ksd-svc__tab {
+    background: var(--svc-navy);
+  }
+
+  .ksd-svc__card:hover .ksd-svc__panel {
+    background: var(--svc-green);
+    color: #ffffff;
+    box-shadow: 0 18px 36px -14px rgba(10, 28, 48, 0.45);
+  }
+
+  .ksd-svc__card:hover .ksd-svc__row svg {
+    transform: translateX(4px);
+  }
+
+  .ksd-svc__card:hover .ksd-svc__descwrap {
+    grid-template-rows: 1fr;
+  }
+
+  .ksd-svc__card:hover .ksd-svc__desc {
+    opacity: 1;
+    transition-delay: 0.15s;
+  }
+}
+
+/* ---------- Footer button ---------- */
 
 .ksd-svc__foot {
   display: flex;
@@ -336,25 +373,7 @@
   outline-offset: 3px;
 }
 
-@media (hover: none) {
-  .ksd-svc__descwrap {
-    grid-template-rows: 1fr;
-  }
-
-  .ksd-svc__desc,
-  .ksd-svc__card:hover .ksd-svc__desc,
-  .ksd-svc__card:focus-visible .ksd-svc__desc {
-    opacity: 1;
-    color: rgba(10, 28, 48, 0.8);
-  }
-
-  .ksd-svc__card:hover .ksd-svc__panel,
-  .ksd-svc__card:focus-visible .ksd-svc__panel {
-    background: #ffffff;
-    color: var(--svc-ink);
-    box-shadow: none;
-  }
-}
+/* ---------- Responsive ---------- */
 
 @media (max-width: 991px) {
   .ksd-svc__grid {
@@ -376,6 +395,8 @@
     width: 100%;
   }
 }
+
+/* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
   .ksd-svc .ksd-svc__rise {

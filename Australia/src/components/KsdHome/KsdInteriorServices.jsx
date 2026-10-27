@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useApi, siteImage } from "../../api";
 import "./KsdInteriorServices.css";
@@ -147,9 +147,17 @@ function AnimatedHeading({ text }) {
   );
 }
 
+// True on phones/tablets where the primary input cannot hover
+const isTouchDevice = () =>
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(hover: none)").matches;
+
 export default function KsdInteriorServices() {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
+  // Index of the card opened by a tap on touch screens
+  const [activeIdx, setActiveIdx] = useState(null);
 
   useEffect(() => {
     const node = ref.current;
@@ -173,6 +181,27 @@ export default function KsdInteriorServices() {
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
+
+  // Tapping anywhere outside a card closes the open card
+  useEffect(() => {
+    const close = (e) => {
+      if (!e.target.closest(".ksd-svc__card")) setActiveIdx(null);
+    };
+    document.addEventListener("pointerdown", close);
+    return () => document.removeEventListener("pointerdown", close);
+  }, []);
+
+  // First tap on touch screens opens the card; second tap follows the link.
+  // On desktop the click navigates normally (hover handles the reveal).
+  const handleCardClick = useCallback(
+    (e, i) => {
+      if (isTouchDevice() && activeIdx !== i) {
+        e.preventDefault();
+        setActiveIdx(i);
+      }
+    },
+    [activeIdx]
+  );
 
   const { data: backendServices } = useApi("/services");
 
@@ -207,7 +236,8 @@ export default function KsdInteriorServices() {
             <Link
               key={item.num}
               to={item.link}
-              className="ksd-svc__card ksd-svc__rise"
+              className={`ksd-svc__card ksd-svc__rise${activeIdx === i ? " is-active" : ""}`}
+              onClick={(e) => handleCardClick(e, i)}
               style={{ "--d": `${0.5 + (i % 3) * 0.15 + Math.floor(i / 3) * 0.2}s` }}
               aria-label={item.title}
             >
