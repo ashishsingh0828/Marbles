@@ -1,16 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./VideoIntro.css";
 
-/* ------------------------------------------------------------------ */
-/*  IE Marbles – Video intro                                           */
-/*  Big "IE MARBLES" title that fades to gold on hover, a glowing      */
-/*  play button and a popup video player.                              */
-/*                                                                     */
-/*  <VideoIntro videoUrl="https://www.youtube.com/embed/XXXX" />        */
-/*  Optional: image="/your-photo.jpg" to use a real background photo.  */
-/* ------------------------------------------------------------------ */
-
-/* black marble with gold veins – same family as the Hero slide */
 const STONE = {
   seed: 64,
   bg: ["#27231f", "#0c0a08"],
@@ -26,7 +16,6 @@ function veinTable(width) {
   ).join(" ");
 }
 
-/* built once as a cached image so the page stays smooth */
 function marbleUri(m, W = 1600, H = 900) {
   const flt = (id, inner) =>
     `<filter id="${id}" filterUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}" color-interpolation-filters="sRGB">${inner}</filter>`;
@@ -77,7 +66,6 @@ function marbleUri(m, W = 1600, H = 900) {
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
-/* adds .is-visible once the section scrolls into view */
 function useReveal(threshold = 0.25) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -105,20 +93,35 @@ function useReveal(threshold = 0.25) {
   return [ref, visible];
 }
 
-/* turns any YouTube / Vimeo / direct embed link into an autoplay embed URL */
 function embedSrc(url) {
   try {
     const u = new URL(url);
-    u.searchParams.set("autoplay", "1");
-    u.searchParams.set("rel", "0");
-    return u.toString();
+    const host = u.hostname.replace(/^www\./, "");
+    let out = u;
+
+    if (host === "youtube.com" || host === "m.youtube.com") {
+      const id = u.searchParams.get("v");
+      if (id && u.pathname === "/watch") {
+        out = new URL(`https://www.youtube.com/embed/${id}`);
+      }
+    } else if (host === "youtu.be") {
+      const id = u.pathname.slice(1);
+      if (id) out = new URL(`https://www.youtube.com/embed/${id}`);
+    } else if (host === "vimeo.com") {
+      const id = u.pathname.split("/").filter(Boolean)[0];
+      if (id && /^\d+$/.test(id)) out = new URL(`https://player.vimeo.com/video/${id}`);
+    }
+
+    out.searchParams.set("autoplay", "1");
+    out.searchParams.set("rel", "0");
+    return out.toString();
   } catch {
     return url;
   }
 }
 
 export default function VideoIntro({
-  title = "IE MARBLES",
+  title = "STONE, CURATED",
   image = "/Images/Banner Slider images/1.png",
   videoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
 }) {
@@ -130,7 +133,6 @@ export default function VideoIntro({
 
   const bg = useMemo(() => image || marbleUri(STONE), [image]);
 
-  /* soft gold spotlight that follows the mouse */
   const onMove = useCallback((e) => {
     const el = ref.current;
     if (!el) return;
@@ -148,7 +150,6 @@ export default function VideoIntro({
     }, 320);
   }, []);
 
-  /* popup: Esc to close, lock page scroll, focus the close button */
   useEffect(() => {
     if (!open) return undefined;
     const onKey = (e) => {
@@ -171,21 +172,20 @@ export default function VideoIntro({
       ref={ref}
       className={`video${visible ? " is-visible" : ""}`}
       onPointerMove={onMove}
-      aria-label="IE Marbles introduction video"
+      aria-label="IE Marble & Traders introduction video"
     >
       <img className="video__bg" src={bg} alt="" decoding="async" draggable="false" />
       <div className="video__shade" aria-hidden="true" />
       <div className="video__spot" aria-hidden="true" />
       <div className="video__frame" aria-hidden="true" />
 
-      {/* play button */}
       <div className="video__stage">
         <button
           ref={playRef}
           type="button"
           className="video__play"
           onClick={() => setOpen(true)}
-          aria-label="Play the IE Marbles video"
+          aria-label="Play the IE Marble & Traders video"
           aria-haspopup="dialog"
         >
           <span className="video__ripple" aria-hidden="true" />
@@ -197,16 +197,14 @@ export default function VideoIntro({
         </button>
       </div>
 
-      {/* info row */}
       <div className="video__meta">
         <span className="video__tag">
           <i aria-hidden="true" />
-          Premium marble &amp; natural stone
+          IE Marble &amp; Traders
         </span>
-        <p>Watch how raw stone becomes finished marble interiors.</p>
+        <p>A short introduction to how we help select and coordinate natural stone for your project.</p>
       </div>
 
-      {/* title – letters fade to gold on hover */}
       <h2 className="video__title" aria-label={title}>
         {letters.map((ch, i) =>
           ch === " " ? (
@@ -221,13 +219,12 @@ export default function VideoIntro({
         )}
       </h2>
 
-      {/* popup player */}
       {open && (
         <div
           className={`video__modal${closing ? " is-closing" : ""}`}
           role="dialog"
           aria-modal="true"
-          aria-label="IE Marbles video"
+          aria-label="IE Marble & Traders video"
           onClick={close}
         >
           <div className="video__dialog" onClick={(e) => e.stopPropagation()}>
@@ -239,7 +236,7 @@ export default function VideoIntro({
             <div className="video__player">
               <iframe
                 src={embedSrc(videoUrl)}
-                title="IE Marbles video"
+                title="IE Marble & Traders video"
                 allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
                 allowFullScreen
               />

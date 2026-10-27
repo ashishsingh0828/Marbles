@@ -4,12 +4,6 @@ import { useApi } from "../../api";
 import { pic } from "../../data/images";
 import "./OurServices.css";
 
-/* ------------------------------------------------------------------ */
-/*  IE Marbles – Our Services                                          */
-/*  Connected directly with Express & MongoDB Admin Panel              */
-/*  Fallback SVG marble procedural textures when photos aren't loaded. */
-/* ------------------------------------------------------------------ */
-
 const STONES = {
   carrara: { seed: 7, bg: ["#fbfaf8", "#e6e2db"], cloud: "#cfc9bf", vein: "#6c7078", vein2: "#a7aab0", gold: "#c9a24b" },
   emperador: { seed: 21, bg: ["#7b5a3e", "#46321f"], cloud: "#2c1e12", vein: "#f0e1c0", vein2: "#c9a24b", gold: "#e6c97c" },
@@ -19,43 +13,41 @@ const STONES = {
 
 const DEFAULT_SERVICES = [
   {
-    title: "Marble Flooring",
-    text: "Polished and honed marble floors, laid with tight joints for a seamless, long-lasting finish.",
+    title: "Stone Selection",
+    text: "Marble, quartzite, travertine and limestone shortlisted by colour, veining, texture and finish for your application.",
     stone: "carrara",
-    slug: "marble-flooring",
+    slug: "stone-selection",
     image: "/Images/About Us images/Calacatta Crema Marble.png",
   },
   {
-    title: "Wall Cladding",
-    text: "Feature walls and full-height cladding in book-matched marble and natural stone.",
+    title: "Processing Coordination",
+    text: "CNC and waterjet processing coordination, where available, arranged through specialist partners.",
     stone: "emperador",
-    slug: "wall-cladding",
+    slug: "processing-coordination",
     image: "/Images/About Us images/Calacatta Viola Marble.png",
   },
   {
-    title: "Kitchen & Bath Surfaces",
-    text: "Countertops, vanities and wet-area surfaces cut to measure and sealed against stains.",
+    title: "Feature Walls & Facades",
+    text: "Stone selection and processing coordination for book-matched feature walls and facade applications.",
     stone: "grey",
-    slug: "kitchen-and-bath",
+    slug: "feature-walls-and-facades",
     image: "/Images/About Us images/Statuario Baratini Marble.png",
   },
   {
-    title: "Staircases & Inlays",
-    text: "Marble steps, borders and gold inlay details made to measure for entrances and feature spaces.",
+    title: "Supply Coordination",
+    text: "Dimensional and calibration requirements coordinated to the agreed specification, from quantities to delivery.",
     stone: "nero",
-    slug: "staircases-and-inlays",
+    slug: "supply-coordination",
     image: "/Images/About Us images/Thasos Velluto Marble.png",
   },
 ];
 
-/* thin vein lines where the noise crosses ~0.49 */
 function veinTable(width) {
   return Array.from({ length: 40 }, (_, i) =>
     Math.max(0, 1 - Math.abs(i - 19) / width).toFixed(3)
   ).join(" ");
 }
 
-/* built once as a cached image so hover and scroll stay smooth */
 function marbleUri(m, W = 800, H = 800) {
   const k = 1.5;
   const flt = (id, inner) =>
@@ -144,19 +136,18 @@ function ArrowIcon() {
   );
 }
 
-const TITLE = "Transforming spaces with perfect marble finishes";
+const TITLE = "From first reference to supply";
 
 export default function OurServices() {
   const [ref, visible] = useReveal();
   const apiServices = useApi("/services").data;
 
-  // Use dynamic services from Admin panel if available, else default list
   const services = useMemo(() => {
     if (Array.isArray(apiServices) && apiServices.length > 0) {
       const stoneKeys = ["carrara", "emperador", "grey", "nero"];
       return apiServices.slice(0, 4).map((s, idx) => ({
         title: s.title,
-        text: s.shortText || s.summary || s.description || "Precision cut and installed natural stone surfaces.",
+        text: s.shortText || s.summary || s.description || "Material selection and supply coordination for your project.",
         stone: stoneKeys[idx % stoneKeys.length],
         image: s.image
           ? (s.image.startsWith("http") || s.image.startsWith("/Images/") ? s.image : `/uploads/${s.image}`)
@@ -192,12 +183,11 @@ export default function OurServices() {
       </svg>
 
       <div className="services__inner">
-        {/* ---------------- Header ---------------- */}
         <header className="services__head">
           <div className="services__head-left">
             <span className="services__tag services__fade" style={{ "--d": "0.05s" }}>
               <i aria-hidden="true" />
-              Services we provide
+              Services and sourcing
             </span>
 
             <h2 id="services-title" className="services__title" aria-label={TITLE}>
@@ -215,15 +205,15 @@ export default function OurServices() {
           </div>
 
           <p className="services__lead services__fade" style={{ "--d": "0.5s" }}>
-            We are a professional marble and natural stone studio. From supply
-            and cutting to polishing and installation, we deliver finished
-            interiors for homes, hotels and commercial projects.
+            We help identify natural stone suited to your project and coordinate
+            material selection, processing and supply through relevant suppliers
+            and specialist partners, so design intent and practical
+            requirements stay aligned.
           </p>
         </header>
 
         <span className="services__rule" aria-hidden="true" />
 
-        {/* ---------------- Cards ---------------- */}
         <ul className="services__grid">
           {services.map((s, i) => {
             const href = `/services/${s.slug}`;
@@ -270,13 +260,20 @@ export default function OurServices() {
           })}
         </ul>
 
-        {/* ---------------- Bottom link ---------------- */}
-        <div className="services__more services__fade" style={{ "--d": "1.3s" }}>
-          <Link className="services__all" to="/services">
-            <span>View all services</span>
+        <div className="services__more services__fade" style={{ "--d": "0.4s" }}>
+          <Link className="services__all" to="/contact">
+            <span>Share Your BOQ</span>
+            <ArrowIcon />
+          </Link>
+          <Link className="services__all services__all--ghost" to="/contact">
+            <span>Request Material Details</span>
             <ArrowIcon />
           </Link>
         </div>
+
+        <p className="services__browse services__fade" style={{ "--d": "0.5s" }}>
+          <Link to="/services">View all services</Link>
+        </p>
       </div>
     </section>
   );

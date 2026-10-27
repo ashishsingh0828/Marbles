@@ -183,7 +183,7 @@ export default function Header() {
             </nav>
             <div className="header-actions">
               <Link to="/contact" className="ie-btn header-cta">
-                <span>Request a Quote</span>
+                <span>Discuss a Project</span>
                 <span className="ie-btn-arrow">&rarr;</span>
               </Link>
             </div>
@@ -245,7 +245,7 @@ export default function Header() {
             />
             <div className="header-nav-footer">
               <Link to="/contact" className="ie-btn header-mobile-cta" onClick={closeAll}>
-                <span>Enquire</span>
+                <span>Discuss a Project</span>
                 <span className="ie-btn-arrow">&rarr;</span>
               </Link>
             </div>
