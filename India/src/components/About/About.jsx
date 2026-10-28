@@ -30,7 +30,7 @@ export default function About() {
         <div className="about-story-media">
           <div className="about-story-imgbox">
             <img
-              src="/Images/Banner Slider images/1.png"
+              src="/Images/About/Main/about.png"
               alt="Natural stone slab detailing, veining, and texture"
               loading="lazy"
             />

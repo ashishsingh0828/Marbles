@@ -17,7 +17,7 @@ export default function Abouts() {
       <PageBanner
         title="About IE Marble & Traders"
         breadcrumbs={[{ label: "Home", path: "/" }, { label: "About Us" }]}
-        bgImage={IMG.hero2}
+        bgImage={IMG.hero5}
       />
 
       {/* 2. Core Narrative: Where Natural Stone Meets Architectural Intent */}
@@ -34,7 +34,7 @@ export default function Abouts() {
         id="about-gallery"
         variant="project"
         items={PROJECT_SLIDES}
-        bgImage={IMG.hero3}
+        bgImage={IMG.hero5}
         eyebrow="Material Studies"
         heading={["Curated", "Stone", "in Architecture"]}
         lead="Authentic photography reflecting natural variation, surface finishes, and spatial applications."
@@ -44,7 +44,7 @@ export default function Abouts() {
 
       {/* 6. Processing Coordination & Capabilities */}
       <OurBenefits
-        bgImage={IMG.hero4}
+        bgImage={IMG.hero6}
         videoUrl="https://www.youtube.com/watch?v=aqz-KE-bpKQ"
       />
 

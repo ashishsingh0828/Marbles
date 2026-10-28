@@ -4,6 +4,8 @@ export const IMG = {
   hero2: "/Images/Banner Slider images/2.png",
   hero3: "/Images/Banner Slider images/3.png",
   hero4: "/Images/Banner Slider images/4.png",
+  hero5: "/Images/About/Banner/banner.png",
+  hero6:"/Images/About/Main/about.png",
   aboutCrema: "/Images/Home/About/Selected Marble Slabs.png",
   aboutViola: "/Images/Home/About/Distinctive Quartzite.png",
   aboutStatuario: "/Images/Home/About/Textured Travertine.png",

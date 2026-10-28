@@ -118,7 +118,7 @@ const Check = () => (
 );
 
 export default function OurValues({
-  image = "/Images/Service/Bianco Vogue Marble.png",
+  image = "/Images/About/Guiding Principles/banner.png",
   imageAlt = "Architectural interior showcasing natural stone veining and material selection",
 }) {
   const [ref, inView] = useInView(0.18);

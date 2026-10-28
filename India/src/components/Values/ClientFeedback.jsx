@@ -96,7 +96,7 @@ const Arrow = ({ dir = "right" }) => (
 
 export default function ClientFeedback({
   items = TESTIMONIALS,
-  image = "/Images/Banner Slider images/1.png",
+  image = "/Images/About/Feed/feed.png",
   imageAlt = "Architectural stone installation and curated slab selection",
   interval = 7000,
 }) {

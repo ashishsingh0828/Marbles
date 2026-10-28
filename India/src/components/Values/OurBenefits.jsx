@@ -150,7 +150,7 @@ const toEmbed = (url) => {
 export default function OurBenefits({
   stats = STATS,
   benefits = BENEFITS,
-  bgImage = "/Images/Banner Slider images/4.png",
+  bgImage = "/Images/About/sourcing/source.png",
   videoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
   onPlay,
 }) {
