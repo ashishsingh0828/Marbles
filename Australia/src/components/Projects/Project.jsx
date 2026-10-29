@@ -4,14 +4,27 @@ import { useApi } from "../../api";
 import { mergeHomes } from "../../data/homes";
 import "./Project.css";
 
-const FILTERS = ["Residence", "Interior", "Upcoming"];
+const FILTERS = ["Residence", "Interior", "Ongoing"];
 
 function labelOf(home) {
   const collection = String(home.collection || "").toLowerCase();
   const status = String(home.status || "").toLowerCase();
-  if (collection.includes("upcoming") || status.includes("upcoming")) return "Upcoming";
+  if (
+    collection.includes("ongoing") ||
+    status.includes("ongoing") ||
+    collection.includes("upcoming") ||
+    status.includes("upcoming")
+  ) {
+    return "Ongoing";
+  }
   if (collection === "interior" || collection.startsWith("interior")) return "Interior";
   return "Residence";
+}
+
+function formatStatus(status = "") {
+  const s = String(status).trim();
+  if (!s || /^upcoming/i.test(s)) return "Ongoing";
+  return s;
 }
 
 export default function Project({ variant = "page" }) {
@@ -28,8 +41,8 @@ export default function Project({ variant = "page" }) {
   return (
     <section className={`homes-section ${variant === "home" ? "is-home" : ""}`}>
       <div className="homes-intro">
-        <p>Projects</p>
-        <h2>Residence, interiors and upcoming work</h2>
+        <p>Portfolio</p>
+        <h2>Architectural residences, interiors and ongoing work</h2>
       </div>
 
       <div className="homes-filters" role="tablist" aria-label="Project collection">
@@ -48,7 +61,7 @@ export default function Project({ variant = "page" }) {
       </div>
 
       {shown.length === 0 ? (
-        <p className="homes-empty">Coming soon</p>
+        <p className="homes-empty">Projects currently in curation</p>
       ) : (
         <div className="homes-grid">
           {shown.map((home) => (
@@ -59,7 +72,7 @@ export default function Project({ variant = "page" }) {
                   <span>
                     {/completed|delivered/i.test(home.status)
                       ? `Delivered by our team · ${home.year || "2026"} · ${home.suburb}`
-                      : `${home.status} · ${home.year || "2026"} · ${home.suburb}`}
+                      : `${formatStatus(home.status)} · ${home.year || "2026"} · ${home.suburb}`}
                   </span>
                   <h3>{home.title}</h3>
                 </div>

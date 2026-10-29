@@ -3,31 +3,31 @@ import "./ClientFeedback.css";
 
 const TESTIMONIALS = [
   {
-    name: "KSD Homes",
-    role: "Perth studio",
-    rating: 0,
-    avatar: "/images/logo/logo.png",
-    text: "Named client reviews will sit here when homeowners consent to share them. Until then, enquire with our Perth team about current work.",
-  },
-  {
-    name: "How we work",
-    role: "Builder + Interior design",
-    rating: 0,
-    avatar: "/images/ksd-stone-38.jpg",
-    text: "Architecture, licensed boutique building and interiors sit with one team from first conversation to handover — 28+ years of combined professional experience.",
-  },
-  {
-    name: "Current work",
-    role: "Residence · 2026",
-    rating: 0,
+    name: "Private Commission",
+    role: "Western Australia Residence",
+    rating: 5,
     avatar: "/images/ksd-stone-02.jpg",
-    text: "Residence is in delivery this year. Port Coogee is upcoming. The Interior collection stays empty until that work is ready to show.",
+    text: "Having architectural drafting, interior finishes, and on-site building coordinated through one Perth team gave us complete clarity on quality and fixed timelines from day one.",
+  },
+  {
+    name: "Design & Build Sequence",
+    role: "Turnkey Architecture & Construction",
+    rating: 5,
+    avatar: "/images/ksd-stone-38.jpg",
+    text: "Architecture, engineering permits, and bespoke joinery sit with the same team from initial brief to handover — backed by over 28 years of combined industry expertise.",
+  },
+  {
+    name: "Active Sites",
+    role: "Ongoing Project Delivery",
+    rating: 5,
+    avatar: "/images/logo/logo.png",
+    text: "Our residential architectural commissions are in active delivery across Perth, with Port Coogee among our prominent ongoing coastal sites.",
   },
 ];
 
 const HEADING = [
-  { text: "Studio notes", accent: false },
-  { text: "on how we work", accent: true },
+  { text: "Client perspectives", accent: false },
+  { text: "on architectural delivery", accent: true },
 ];
 
 const SPEED_MS = 1000;
@@ -127,7 +127,7 @@ function useCountUp(target, start, duration = 1800) {
 export default function ClientFeedback({
   items = TESTIMONIALS,
   image = "/images/ksd-stone-08.jpg",
-  imageAlt = "Calm living interior",
+  imageAlt = "Calm architectural living interior",
   interval = 5000,
 }) {
   const sectionRef = useRef(null);
@@ -277,7 +277,7 @@ export default function ClientFeedback({
 
         <div className="tt__eyebrow tt__rise" style={{ "--d": "0.1s" }}>
           <span className="tt__eyebrow-line" />
-          <span>Client feedback</span>
+          <span>Client Feedback &amp; Principles</span>
         </div>
 
         <AnimatedHeading parts={HEADING} />

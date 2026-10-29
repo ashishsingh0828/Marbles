@@ -286,7 +286,9 @@
   .ks-block--flip .ks-block__copy {
     order: 0;
   }
-
+.ks-hero__copy {
+  padding: 60px 24px 72px;
+}
   .ks-hero {
     min-height: 78svh;
   }

@@ -3,11 +3,16 @@ import { Link } from "react-router-dom";
 import "./KsdStory.css";
 
 const HEADING = [
-  { text: "Design and build", accent: false },
+  { text: "Architecture and build", accent: false },
   { text: "under one roof", accent: true },
 ];
 
-const CHECKS = ["Licensed boutique home builder", "Builder interior design"];
+const CHECKS = [
+  "Licensed boutique luxury home builder",
+  "Integrated builder interior design",
+  "Site-responsive WA architectural planning",
+  "Fixed-price contract transparency",
+];
 
 const Arrow = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -103,11 +108,11 @@ export default function KsdStory() {
           <span className="ksd-story__dots ksd-story__fade" style={{ "--d": "0.6s" }} aria-hidden="true" />
 
           <div className="ksd-story__img ksd-story__img--main" style={{ "--d": "0s" }}>
-            <img src="/images/ksd-stone-03.jpg" alt="KSD Homes dining and natural light" loading="lazy" />
+            <img src="/images/ksd-stone-08.jpg" alt="Bespoke luxury interior and spatial planning" loading="lazy" />
           </div>
 
           <div className="ksd-story__img ksd-story__img--sub" style={{ "--d": "0.3s" }}>
-            <img src="/images/ksd-stone-07.jpg" alt="Architecture and outlook" loading="lazy" />
+            <img src="/images/ksd-stone-10.jpg" alt="Architectural stone and facade detailing" loading="lazy" />
           </div>
 
           <div className="ksd-story__counter ksd-story__fade" style={{ "--d": "1.1s" }}>
@@ -132,7 +137,7 @@ export default function KsdStory() {
           <AnimatedHeading parts={HEADING} />
 
           <p className="ksd-story__text ksd-story__rise" style={{ "--d": "0.8s" }}>
-            KSD Homes Pty Ltd is an emerging architecture and design-led brand in Western Australia. Combined visionary: licensed builder and interior design under one roof, so architecture, materials and how you live are resolved as a single composition — Western, European and Asian expressions, with a cost-effective, customer-centred process.
+            KSD Homes is a licensed boutique builder delivering bespoke residential architecture across Western Australia. By integrating architectural drafting, interior curation, and master construction within a single multidisciplinary studio, we eliminate disconnects between designers and site trades. Every proportion, material palette, and structural detail is tailored to your block and designed for how your family lives.
           </p>
 
           <div className="ksd-story__row">
@@ -148,7 +153,7 @@ export default function KsdStory() {
 
               <div className="ksd-story__cta ksd-story__rise" style={{ "--d": "1.15s" }}>
                 <Link to="/about" className="ksd-story__btn">
-                  <span>Explore Our Design Story</span>
+                  <span>Explore Our Philosophy</span>
                   <Arrow />
                 </Link>
               </div>
@@ -160,8 +165,8 @@ export default function KsdStory() {
                   <PhoneIcon />
                 </span>
                 <span className="ksd-story__info-body">
-                  <span className="ksd-story__info-sub">Need any help?</span>
-                  <span className="ksd-story__info-title">Talk to our design team</span>
+                  <span className="ksd-story__info-sub">Direct Consultation</span>
+                  <span className="ksd-story__info-title">Discuss Your Project</span>
                 </span>
               </Link>
 
@@ -173,7 +178,7 @@ export default function KsdStory() {
                 />
                 <span className="ksd-story__info-body">
                   <span className="ksd-story__info-title">KSD Homes Pty Ltd</span>
-                  <span className="ksd-story__info-sub">Carlisle, Perth WA</span>
+                  <span className="ksd-story__info-sub">Carlisle Studio · Perth WA</span>
                 </span>
               </div>
             </div>

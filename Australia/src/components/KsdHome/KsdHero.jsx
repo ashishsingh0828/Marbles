@@ -14,24 +14,30 @@ const Arrow = () => (
   </svg>
 );
 
+function formatStatus(status = "") {
+  const s = String(status).trim();
+  if (!s || /^upcoming/i.test(s)) return "Ongoing";
+  return s;
+}
+
 function slidesFrom(homes) {
   const featured = homes.filter((home) => home.featured !== false).slice(0, 4).map((home) => ({
     image: home.heroImage || home.image,
-    eyebrow: `${home.status} / ${home.suburb || home.title}`,
+    eyebrow: `${formatStatus(home.status)} / ${home.suburb || home.title}`,
     lines: [home.suburb || home.title, home.shortCode].filter(Boolean),
     concept: home.conceptHeadline,
     primary: { to: `/projects/${home.slug}`, label: "View project" },
-    secondary: { to: "/contact", label: "Enquire" },
+    secondary: { to: "/contact", label: "Discuss Your Project" },
   }));
 
   return [
     {
       image: "/images/ksd-stone-07.jpg",
-      eyebrow: "Perth’s boutique home builder",
-      lines: ["The name KSD is synonymous with thoughtfully designed homes in Perth"],
-      concept: "Architecture. Builder Interior Design. Complete Home Solutions — combined visionary, under one roof.",
-      primary: { to: "/about", label: "About us" },
-      secondary: { to: "/contact", label: "Enquire" },
+      eyebrow: "Perth Boutique Custom Builders",
+      lines: ["Bespoke Architectural Residences in Western Australia"],
+      concept: "Architecture. Builder Interior Design. Complete Turnkey Delivery — united under one Perth studio.",
+      primary: { to: "/about", label: "About Us" },
+      secondary: { to: "/contact", label: "Discuss Your Project" },
     },
     ...featured,
   ];

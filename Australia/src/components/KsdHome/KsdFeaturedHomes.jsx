@@ -10,6 +10,13 @@ const Arrow = () => (
   </svg>
 );
 
+// Ensures any status marked "Upcoming" or similar displays cleanly as "Ongoing"
+function formatStatus(status = "") {
+  const s = String(status).trim();
+  if (!s || /^upcoming/i.test(s)) return "Ongoing";
+  return s;
+}
+
 export default function KsdFeaturedHomes() {
   const { data } = useApi("/projects");
   const homes = mergeHomes(data).slice(0, 2);
@@ -17,10 +24,10 @@ export default function KsdFeaturedHomes() {
   return (
     <section className="ksd-featured">
       <div className="ksd-featured__intro">
-        <p className="ksd-featured__eyebrow">Our projects</p>
+        <p className="ksd-featured__eyebrow">Selected Residences</p>
         <h2>Architecture and interiors, composed as one</h2>
         <p>
-          Each project is a complete living environment — designed and built under one roof for Western Australian light, privacy, and how the family actually lives.
+          Each home is an individual architectural statement — engineered and constructed from initial concept to completion for Western Australian coastal light, privacy, and seamless indoor-outdoor living.
         </p>
       </div>
 
@@ -31,16 +38,20 @@ export default function KsdFeaturedHomes() {
             to={`/projects/${home.slug}`}
             className="ksd-featured__card"
           >
-            <img src={home.image} alt={home.title} loading="lazy" />
+            <img 
+              src={home.image || "/images/ksd-stone-07.jpg"} 
+              alt={home.title || "KSD Homes Project"} 
+              loading="lazy" 
+            />
             <div className="ksd-featured__shade" />
             <div className="ksd-featured__copy">
               <span className="ksd-featured__meta">
-                {home.status} / {home.location}
+                {formatStatus(home.status)} {home.location ? `/ ${home.location}` : home.suburb ? `/ ${home.suburb}` : ""}
               </span>
               <h3>{home.title}</h3>
-              <p>{home.conceptHeadline}</p>
+              {home.conceptHeadline && <p>{home.conceptHeadline}</p>}
               <span className="ksd-featured__cta">
-                View project <Arrow />
+                View Project <Arrow />
               </span>
             </div>
           </Link>

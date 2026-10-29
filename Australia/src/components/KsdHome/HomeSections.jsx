@@ -79,9 +79,9 @@ export function Hero() {
       )}
       <div className="ks-hero__shade" />
       <div className="ks-hero__copy">
-        <p>Founded 2026 · Perth</p>
-        <h1>Building Perth&apos;s finest homes, backed by 28+ years of experience</h1>
-        <Link to="/contact" className="ks-btn">Enquire</Link>
+        <p>Boutique Custom Builders · Perth WA</p>
+        <h1>Crafting Perth&apos;s finest bespoke homes, backed by 28+ years of expertise</h1>
+        <Link to="/contact" className="ks-btn">Discuss Your Project</Link>
       </div>
     </section>
   );
@@ -91,8 +91,8 @@ export function ExperienceStrip() {
   return (
     <section className="ks-strip" aria-label="Experience">
       <p>28+ years team experience</p>
-      <p>Builder + Interior design under one roof</p>
-      <p>Licensed Perth builder · ABN {BRAND.abn}</p>
+      <p>Architecture + Builder Interior Design united</p>
+      <p>Licensed Perth boutique builder · ABN {BRAND.abn}</p>
     </section>
   );
 }
@@ -101,13 +101,12 @@ export function OurStory() {
   return (
     <section className="ks-block">
       <div className="ks-block__copy">
-        <p className="ks-kicker">Our story</p>
-        <h2>A new Perth builder built on 28 years of experience</h2>
+        <p className="ks-kicker">Our Story</p>
+        <h2>Architectural precision united with boutique residential craftsmanship</h2>
         <p>
-          KSD Homes Pty Ltd was founded in 2026 so architecture, interior design and construction could sit with one team.
-          The company is new. The people are not: 28+ years of combined professional experience, delivered as a licensed boutique builder in Perth.
+          KSD Homes brings bespoke architectural design, interior planning, and premium construction together under one dedicated Perth studio. Backed by 28+ years of combined industry mastery, we deliver complete, site-responsive residential solutions from first sketch to final handover.
         </p>
-        <Link to="/about" className="ks-btn ks-btn--ghost">About us</Link>
+        <Link to="/about" className="ks-btn ks-btn--ghost">About Us</Link>
       </div>
       <figure className="ks-block__media">
         <img src={IMG.diningLight} alt="KSD Homes interior direction" />
@@ -123,7 +122,7 @@ export function SketchToFurnishing() {
         <p className="ks-kicker">From sketch to furnishing</p>
         <h2>Architecture, interior design and build under one roof</h2>
         <p>
-          Consultation, design, approvals, build, interiors and handover are one sequence — not a house handed between separate firms.
+          Consultation, design, approvals, build, interiors and handover are one continuous sequence — delivering a cohesive home without handoffs between disconnected firms.
         </p>
         <Link to="/design-journey" className="ks-btn ks-btn--ghost">Design Journey</Link>
       </div>
@@ -141,24 +140,24 @@ export function FeaturedProjects() {
   return (
     <section className="ks-featured">
       <div className="ks-featured__intro">
-        <p className="ks-kicker">Projects</p>
-        <h2>Work by our team</h2>
-        <p>Real commissions only. If a collection is still empty, it stays empty until the work is ready.</p>
+        <p className="ks-kicker">Portfolio</p>
+        <h2>Curated Residential Projects</h2>
+        <p>A selection of custom residences designed and engineered to complement Western Australia&apos;s lifestyle and landscape.</p>
       </div>
       {homes.length === 0 ? (
-        <p className="ks-empty">Coming soon</p>
+        <p className="ks-empty">Projects currently loading</p>
       ) : (
         <div className="ks-cards">
           {homes.map((home) => (
             <Link key={home.slug} to={`/projects/${home.slug}`} className="ks-card">
               <img src={home.image} alt={home.title} />
-              <span>{home.scope || home.status} · {home.suburb} · {home.year || "2026"}</span>
+              <span>{home.scope || home.status} · {home.suburb}</span>
               <strong>{home.title}</strong>
             </Link>
           ))}
         </div>
       )}
-      <Link to="/projects" className="ks-btn ks-btn--ghost">View projects</Link>
+      <Link to="/projects" className="ks-btn ks-btn--ghost">View All Projects</Link>
     </section>
   );
 }
@@ -166,12 +165,12 @@ export function FeaturedProjects() {
 export function Newsletter() {
   return (
     <section className="ks-news">
-      <h2>Be first to see our upcoming projects</h2>
-      <p>Notes from the Perth studio when there is something worth sharing — no awards we have not earned, no padding.</p>
+      <h2>Follow our ongoing projects</h2>
+      <p>Direct updates from our Carlisle studio on active site progress, architectural concepts, and private commissions across Western Australia.</p>
       <form className="ks-news__form" onSubmit={(e) => e.preventDefault()}>
         <label className="sr-only" htmlFor="ks-news-email">Email address</label>
-        <input id="ks-news-email" type="email" required placeholder="Email address" />
-        <button type="submit" className="ks-btn">Enquire</button>
+        <input id="ks-news-email" type="email" required placeholder="Enter your email address" />
+        <button type="submit" className="ks-btn">Subscribe</button>
       </form>
     </section>
   );

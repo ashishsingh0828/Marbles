@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { BRAND } from "../../config";
 import "./AboutUs.css";
@@ -32,9 +32,9 @@ function useReveal(threshold = 0.18) {
 }
 
 const FEATURES = [
-  "Licensed builder for high-end boutique homes",
-  "Architecture and interior design as one",
-  "Complete home solutions with a personal touch",
+  "Licensed boutique builder for high-end custom homes",
+  "Seamless integration of architecture and interior design",
+  "Turnkey residential delivery with dedicated client focus",
 ];
 
 export default function AboutUs({
@@ -43,7 +43,7 @@ export default function AboutUs({
     bottom: "/images/ksd-stone-09.jpg",
     tall: "/images/ksd-stone-07.jpg",
   },
-  founder = { name: "KSD Homes", role: "28+ years team experience · Perth", image: "" },
+  founder = { name: "KSD Homes", role: "28+ years team experience · Perth WA", image: "" },
   learnMoreHref = "/about",
 }) {
   const [ref, visible] = useReveal();
@@ -54,10 +54,11 @@ export default function AboutUs({
     { key: "tall", cls: "about__panel--tall", src: images.tall, label: "Architectural Stone Facade", d: "0.2s" },
   ];
 
+  /* Using unique, non-repeating image paths */
   const swatches = [
-    { name: "Dining and light", src: "/images/ksd-stone-03.jpg" },
+    { name: "Dining and light", src: "/images/ksd-stone-15.jpg" },
     { name: "Bedroom direction", src: "/images/ksd-stone-12.jpg" },
-    { name: "Joinery", src: "/images/ksd-stone-38.jpg" },
+    { name: "Custom joinery", src: "/images/ksd-stone-38.jpg" },
     { name: "Marble wet areas", src: "/images/ksd-stone-40.jpg" },
   ];
 
@@ -121,11 +122,11 @@ export default function AboutUs({
           </span>
 
           <h2 id="about-title" className="about__title about__reveal" style={{ "--d": "0.25s" }}>
-            A new Perth builder, backed by 28+ years of team experience
+            Bespoke Western Australian Architecture &amp; Boutique Construction
           </h2>
 
           <p className="about__text about__reveal" style={{ "--d": "0.4s" }}>
-            KSD Homes Pty Ltd was founded in 2026 so architecture, licensed boutique building and builder interior design sit with one Perth team. The company is new. The people are not: 28+ years of combined professional experience, delivered as a complete home solution.
+            KSD Homes unites luxury residential architecture, builder interior design, and bespoke craftsmanship within one Perth-based multidisciplinary studio. Backed by more than 28 years of combined construction and design mastery, we engineer tailored, site-responsive homes from initial concept drafting through to master handover.
           </p>
 
           <div className="about__quote about__reveal" style={{ "--d": "0.55s" }}>
@@ -137,11 +138,11 @@ export default function AboutUs({
               </svg>
             </span>
             <p>
-              &ldquo;We do not simply build houses. The same team handles architecture, interiors and construction from the first conversation to handover.&rdquo;
+              &ldquo;We do not simply build houses. The same team directs architecture, materiality, and construction from the very first conversation to handover.&rdquo;
             </p>
           </div>
 
-          <ul className="about__stones about__reveal" style={{ "--d": "0.7s" }} aria-label="Signature stones">
+          <ul className="about__stones about__reveal" style={{ "--d": "0.7s" }} aria-label="Signature interior features">
             {swatches.map((s) => (
               <li key={s.name}>
                 <span className="about__swatch" style={{ backgroundImage: `url("${s.src}")` }} aria-hidden="true" />
