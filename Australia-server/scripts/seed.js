@@ -1,6 +1,3 @@
-/* Adds sample content for every site so the websites show real data straight away.
-     npm run seed          -> only fills sites/types that are empty
-     npm run seed:force    -> wipes sample content for all sites and re-creates it   */
 require("dotenv").config();
 const mongoose = require("mongoose");
 const connectDB = require("../config/db");
@@ -11,7 +8,6 @@ const { slugify } = require("../utils/helpers");
 const { SITES } = require("../middleware/guards");
 
 const FORCE = process.argv.includes("--force");
-/* Free Unsplash photos (interiors with stone floors, countertops, bathrooms). Replace them from the admin panel. */
 const IMG = {
   floor: ["1600607687939-ce8a6c25118c", "1618221195710-dd6b41faaea6", "1600210492486-724fe5c67fb0", "1616486338812-3dadae4b4ace"],
   kitchen: ["1507089947368-19c1da9775ae", "1541123437800-1bb1317badc2", "1484154218962-a197022b5858"],
@@ -45,7 +41,7 @@ const BLOGS = [
 
 const AUS_PROJECTS = [
   ["Residence", "Boutique Home"],
-  ["Port Coogee Residence", "Upcoming"],
+  ["Port Coogee Residence", "Ongoing"],
 ];
 const AUS_SERVICES = [
   ["Architecture & Design", "A complete composition — form, proportion and how the family lives, resolved before a brick is laid."],
@@ -59,6 +55,9 @@ const AUS_BLOGS = [
   ["Materials chosen for climate and light", "Materials"],
   ["Planning a boutique family home", "Interior Design"],
 ];
+/* Plan drawings and any file name containing a client name were removed. */
+const FRONT_PHOTO = ""; // e.g. "/images/your-front-elevation.jpg"
+const BACK_PHOTO = "";  // e.g. "/images/your-back-elevation.jpg"
 const AUS_PUBLIC = {
   dining: "/images/ksd-stone-02.jpg",
   diningLight: "/images/ksd-stone-03.jpg",
@@ -68,8 +67,6 @@ const AUS_PUBLIC = {
   diningFormal: "/images/ksd-stone-27.jpg",
   joinery: "/images/ksd-stone-38.jpg",
   bathroomMarble: "/images/ksd-stone-40.jpg",
-  planGround: "/images/projects/sharma-plan-02.jpg",
-  planUpper: "/images/projects/sharma-plan-03.jpg",
 };
 
 const project = (site, label, [title, category], i) => (
@@ -80,17 +77,19 @@ const project = (site, label, [title, category], i) => (
       suburb: i === 1 ? "Port Coogee" : "Residence",
       shortCode: "",
       featured: true,
-      status: i === 1 ? "Upcoming" : "In Delivery",
-      collection: i === 1 ? "Upcoming" : "In Delivery",
-      location: "Western Australia", date: i === 1 ? "Upcoming" : "In delivery",
-      storeys: "3", specLine: i === 1 ? "Upcoming · Three storeys · Coastal WA" : "Three storeys · Pool & alfresco · Marble floors",
-      conceptHeadline: i === 1 ? "Conceptual design of an upcoming home" : "The beauty of indoor-outdoor living",
-      planLabels: i === 1 ? "" : "Ground\nUpper\nUndercroft",
-      imageA: i === 1 ? AUS_PUBLIC.livingOutlook : AUS_PUBLIC.dining,
-      imageB: i === 1 ? AUS_PUBLIC.livingCalm : AUS_PUBLIC.planGround,
-      heroImage: i === 1 ? AUS_PUBLIC.livingOutlook : AUS_PUBLIC.dining,
-      floorPlanA: i === 1 ? "" : AUS_PUBLIC.planGround,
-      floorPlanB: i === 1 ? "" : AUS_PUBLIC.planUpper,
+      status: i === 1 ? "Ongoing" : "In Delivery",
+      collection: i === 1 ? "Ongoing" : "Residence",
+      location: "Western Australia", date: i === 1 ? "Ongoing" : "In delivery",
+      storeys: "3", specLine: i === 1 ? "Ongoing · Three storeys · Coastal WA" : "Three storeys · Pool & alfresco · Marble floors",
+      conceptHeadline: i === 1 ? "Conceptual design of an ongoing home" : "The beauty of indoor-outdoor living",
+      planLabels: "",
+      /* KSD residence = front and back photos only */
+      frontBackOnly: i !== 1,
+      beforeImage: i === 1 ? "" : FRONT_PHOTO,
+      afterImage: i === 1 ? "" : BACK_PHOTO,
+      imageA: i === 1 ? AUS_PUBLIC.livingOutlook : FRONT_PHOTO,
+      imageB: i === 1 ? AUS_PUBLIC.livingCalm : BACK_PHOTO,
+      heroImage: i === 1 ? AUS_PUBLIC.livingOutlook : FRONT_PHOTO,
       heading: "A boutique home composed as one complete living environment",
       paragraphs: `${text}\n\n${text2}`,
       factsTitle: "Architecture & interior, designed as one", factsText: text2,

@@ -4,28 +4,28 @@ import "./OurValues.css";
 const VALUES = [
   {
     num: "01",
-    title: "Customer-centred innovation",
-    text: "We enrol products and interiors into the environment around how you live — an oasis of peace, relaxation and personal space.",
+    title: "Client-Centred Collaboration",
+    text: "We design and build around your lifestyle, spatial rituals, and personal priorities — crafting residences of privacy, proportion, and enduring comfort.",
     img: "/images/ksd-stone-38.jpg",
-    alt: "Thoughtfully designed KSD Homes interior",
+    alt: "Bespoke architectural joinery and interior detailing",
   },
   {
     num: "02",
-    title: "A personal touch",
-    text: "Successful architecture is created through a strong relationship between the designer, the client and the space. We listen first.",
-    img: "/images/ksd-stone-03.jpg",
-    alt: "Boutique home living environment",
+    title: "Architectural Integrity",
+    text: "Every project responds to Western Australia's coastal climate and natural light. We listen deeply from the initial brief to resolve form and function seamlessly.",
+    img: "/images/ksd-stone-11.jpg",
+    alt: "Light-filled custom residential living space",
   },
   {
     num: "03",
-    title: "Complete composition",
-    text: "Architecture, interiors, lighting, materials, furniture and technology are designed together as one integrated home solution.",
+    title: "Unified Turnkey Delivery",
+    text: "Architecture, structural engineering, builder interior design, and master finishes are coordinated under one roof for complete design continuity.",
     img: "/images/ksd-stone-04.jpg",
-    alt: "Integrated architecture and interior detailing",
+    alt: "Integrated residential architecture and premium finishes",
   },
 ];
 
-const HEADING = "Foundational values behind KSD Homes craft";
+const HEADING = "Foundational principles behind our architectural craft";
 
 function AnimatedHeading({ text }) {
   let count = 0;
@@ -95,7 +95,7 @@ export default function OurValues() {
         <div className="ov__head">
           <div className="ov__eyebrow ov__rise" style={{ "--d": "0.05s" }}>
             <span className="ov__eyebrow-icon" aria-hidden="true" />
-            <span>Our Values</span>
+            <span>Our Principles</span>
             <span className="ov__eyebrow-icon" aria-hidden="true" />
           </div>
           <AnimatedHeading text={HEADING} />

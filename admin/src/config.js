@@ -1,6 +1,4 @@
-/* One config object per content type drives its list page AND its form.
-   Australia uses a luxury-homes layout (suburb, status, specs, floor plans).
-   India keeps the stone / interiors project fields. */
+
 import { getSite } from "./api";
 
 const opts = (a) => a.map((v) => ({ value: v, label: v }));
@@ -48,24 +46,25 @@ const australiaProjects = {
     location: "Western Australia",
     suburb: "Residence",
     status: "In Delivery",
-    collection: "In Delivery",
+    collection: "Residence",
     featured: true,
     published: true,
   },
   sections: [
-    { title: "Basics", desc: "Name the project the way it appears on the collection — suburb first, never a street address.", fields: [
-      { name: "title", label: "Project name", required: true, placeholder: "Residence" },
-      { name: "suburb", label: "Collection name", placeholder: "Residence", help: "Large title on the project page, e.g. Residence or Port Coogee." },
-      { name: "shortCode", label: "Short code (optional)", placeholder: "R01", help: "Optional second line under the name, in the luxury-builder style." },
-      { name: "category", label: "Type", type: "select", options: opts(["Boutique Home", "Upcoming", "In Delivery", "Completed", "Architecture", "Interior Design"]) },
-      { name: "status", label: "Status", type: "select", options: opts(["Upcoming", "In Delivery", "Completed"]) },
-      { name: "collection", label: "Collection filter", type: "select", options: opts(["Residence", "Interior", "Upcoming"]) },
+    { title: "Basics", desc: "Use the street name only. Never enter a client name, a supplier or brand name, or a house number.", fields: [
+      { name: "title", label: "Project name (street name only)", required: true, placeholder: "Ocean Drive", help: "Changing this name also changes the project's web address." },
+      { name: "suburb", label: "Collection name", placeholder: "Ocean Drive", help: "Shown on the project cards. Street name only." },
+      { name: "shortCode", label: "Short code (optional)", placeholder: "R01", help: "Optional second line under the name." },
+      { name: "category", label: "Type", type: "select", options: opts(["Boutique Home", "Ongoing", "In Delivery", "Completed", "Architecture", "Interior Design"]) },
+      { name: "status", label: "Status", type: "select", options: opts(["Ongoing", "In Delivery", "Completed"]) },
+      { name: "collection", label: "Collection filter", type: "select", options: opts(["Residence", "Interior", "Ongoing"]), help: "Which tab the project appears under on the Projects page." },
       { name: "year", label: "Year", placeholder: "2026" },
-      { name: "scope", label: "Scope", type: "select", options: opts(["Build", "Interior", "Build + Interior", "Upcoming"]) },
+      { name: "scope", label: "Scope", type: "select", options: opts(["Build", "Interior", "Build + Interior", "Ongoing"]) },
       { name: "location", label: "Location", placeholder: "Western Australia", help: "Suburb or region only. Do not enter a street address." },
-      { name: "client", label: "Client", placeholder: "Private residence" },
-      { name: "date", label: "Date or phase", placeholder: "In delivery" },
+      { name: "client", label: "Client (private, never shown)", placeholder: "Private residence", help: "Not shown on the website. Do not enter a client name." },
+      { name: "date", label: "Date or phase", placeholder: "Ongoing" },
       { name: "featured", label: "Featured on homepage collection", type: "switch" },
+      { name: "frontBackOnly", label: "Show only the front and back photos", type: "switch", help: "Turn on to hide all other photos, renders and plans on this project page." },
     ] },
     { title: "Specifications", desc: "Shown as a spec strip on the project page. Leave blank if not public.", cols: 3, fields: [
       { name: "storeys", label: "Storeys", placeholder: "3" },
@@ -76,7 +75,7 @@ const australiaProjects = {
       { name: "specLine", label: "Short spec line", placeholder: "Three storeys · Pool & alfresco", wide: true },
       { name: "conceptHeadline", label: "Concept line", placeholder: "The beauty of indoor-outdoor living", wide: true, help: "The large line on the hero, e.g. indoor–outdoor living." },
     ] },
-    { title: "Hero & plans", desc: "Listing image plus floor plans.", cols: 3, fields: [
+    { title: "Hero & plans", desc: "Listing image plus floor plans. Plans are hidden when 'Show only the front and back photos' is on.", cols: 3, fields: [
       { name: "imageA", label: "Listing image", type: "image", required: true },
       { name: "imageB", label: "Secondary image", type: "image" },
       { name: "heroImage", label: "Detail page hero", type: "image" },
@@ -85,14 +84,15 @@ const australiaProjects = {
       { name: "floorPlanC", label: "Floor plan — undercroft", type: "image" },
       { name: "planLabels", label: "Plan labels", type: "textarea", rows: 3, wide: true, help: "One per line, matching the three plans: Ground / Upper / Undercroft." },
     ] },
-    { title: "Film", desc: "A YouTube walkthrough sits in the project story, the way a luxury builder showcases the finished house.", fields: [
+    { title: "Film", desc: "A YouTube or video-file walkthrough. It shows at the top of the photos, or after the view number you choose.", fields: [
       { name: "videoUrl", label: "YouTube video link", type: "url", placeholder: "https://www.youtube.com/watch?v=..." },
+      { name: "videoAfter", label: "Show video after view number", placeholder: "0", help: "0 or blank = at the top. 2 = after the second photo." },
       { name: "videoHeading", label: "Video heading", wide: true },
       { name: "videoText", label: "Video text", type: "textarea", rows: 3 },
     ] },
-    { title: "Project photography", desc: "Upload several images of this project. Captions appear under each photo, in order. The live page uses heading left / copy right, then full video, then left image, right image, full image, repeating.", cols: 3, fields: [
-      { name: "beforeImage", label: "Before image", type: "image", help: "Drawing or existing condition. Shown in the first photo pair." },
-      { name: "afterImage", label: "After image", type: "image", help: "Interior direction or completed room." },
+    { title: "Project photography", desc: "Use only real site photos. Each photo can appear once. Interior photos are grouped under Interior and outdoor photos under Outdoor living.", cols: 3, fields: [
+      { name: "beforeImage", label: "Front elevation photo", type: "image", help: "The front of the home (site photo)." },
+      { name: "afterImage", label: "Back elevation photo", type: "image", help: "The back of the home (site photo)." },
       { name: "galleryA", label: "Gallery 1", type: "image" },
       { name: "galleryB", label: "Gallery 2", type: "image" },
       { name: "galleryC", label: "Gallery 3", type: "image" },
@@ -101,20 +101,20 @@ const australiaProjects = {
       { name: "galleryF", label: "Gallery 6", type: "image" },
       { name: "galleryG", label: "Gallery 7", type: "image" },
       { name: "galleryH", label: "Gallery 8", type: "image" },
-      { name: "scenes", label: "Photo captions", type: "textarea", rows: 8, wide: true, help: "One per line, in gallery order:  Caption | Short description  (e.g.  Poolside living | The ground floor opens to the alfresco and pool.)" },
-      { name: "overlayCaption", label: "Hero overlay line", placeholder: "IN DELIVERY / RESIDENCE", wide: true },
+      { name: "scenes", label: "Photo captions", type: "textarea", rows: 8, wide: true, help: "One per line, in gallery order:  Caption | Short description | indoor   (end each line with | indoor or | outdoor so the photo goes in the right section. Example:  Alfresco | Long table by the pool | outdoor)" },
+      { name: "overlayCaption", label: "Hero overlay line", placeholder: "Ongoing", wide: true },
     ] },
-    { title: "Between-room banners", desc: "Optional full-width images that sit between room chapters. Leave a banner blank to skip it.", cols: 3, fields: [
+    { title: "Between-room banners", desc: "Optional full-width images that sit between photos. Leave a banner blank to skip it. If the number is higher than the number of photos, the banner shows after the last photo.", cols: 3, fields: [
       { name: "bannerA", label: "Banner 1", type: "image" },
       { name: "bannerB", label: "Banner 2", type: "image" },
       { name: "bannerC", label: "Banner 3", type: "image" },
-      { name: "bannerAfterA", label: "Banner 1 after room", placeholder: "3", help: "Room number after which Banner 1 appears, e.g. 3." },
-      { name: "bannerAfterB", label: "Banner 2 after room", placeholder: "6" },
-      { name: "bannerAfterC", label: "Banner 3 after room", placeholder: "9" },
+      { name: "bannerAfterA", label: "Banner 1 after photo", placeholder: "3", help: "Photo number after which Banner 1 appears, e.g. 3." },
+      { name: "bannerAfterB", label: "Banner 2 after photo", placeholder: "6" },
+      { name: "bannerAfterC", label: "Banner 3 after photo", placeholder: "9" },
     ] },
     { title: "Story", fields: [
       { name: "heading", label: "Story heading", wide: true },
-      { name: "paragraphs", label: "Paragraphs", type: "textarea", rows: 8, help: "Leave a blank line between paragraphs. Do not include the client street address." },
+      { name: "paragraphs", label: "Paragraphs", type: "textarea", rows: 8, help: "Leave a blank line between paragraphs. Do not include client names, supplier names or the street address." },
       { name: "factsTitle", label: "How we composed it — heading", wide: true },
       { name: "factsText", label: "How we composed it — text", type: "textarea", rows: 4 },
       { name: "checks", label: "Highlights", type: "textarea", rows: 5, help: "One item per line." },

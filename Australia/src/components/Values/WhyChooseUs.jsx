@@ -76,48 +76,49 @@ const ArrowUpRight = () => (
   </svg>
 );
 
-/* ---------- content (edit freely) ---------- */
-const HEADING = ["Why" , " choose", ""," KSD", "Homes"];
+/* ---------- content ---------- */
+const HEADING = ["Why", "Choose", "KSD", "Homes"];
 
 const LEAD =
-  "Combined visionary: licensed builder and interior design under one roof, so architecture and how you live become one complete home — with a customer-centred approach and a personal touch.";
+  "Architecture, builder interior design, and master construction united under one Perth studio. We compose site-responsive residences designed around natural light, spatial continuity, and the way you live — delivered with total contract transparency and dedicated care.";
 
 const GROUPS = [
   {
-    title: "Builder Interior Design",
+    title: "Integrated Architecture & Build",
     items: [
-      "Licensed boutique home builder",
-      "28+ years team experience",
-      "Architecture and interiors as one",
+      "Licensed boutique custom home builder",
+      "28+ years of combined team experience",
+      "Architecture, interior joinery & construction as one",
     ],
   },
   {
-    title: "A Personal Process",
+    title: "A Client-Centred Approach",
     items: [
-      "Every project begins with listening",
-      "Customised to how you live",
-      "Western, European & Asian influences",
+      "Site-responsive WA coastal design",
+      "Full statutory council approvals management",
+      "Fixed-price contracts and seamless handover",
     ],
   },
 ];
 
+/* Distinct, non-repeating gallery assets */
 const GALLERY = [
-  { src: "/images/ksd-stone-03.jpg", alt: "Dining and natural light" },
-  { src: "/images/ksd-stone-08.jpg", alt: "Calm living interior" },
+  { src: "/images/ksd-stone-16.jpg", alt: "Architectural dining and natural lighting" },
+  { src: "/images/ksd-stone-21.jpg", alt: "Seamless alfresco and outdoor living connection" },
 ];
 
 const QUOTE =
-  "We don't simply design spaces. We design the way you experience them — with a personal touch from first conversation to handover.";
+  "“We do not simply build structures. We orchestrate how you experience light, proportion, and materiality — guided by one team from first concept to handover.”";
 
 /* ---------- component ---------- */
 export default function WhyChooseUs({
   groups = GROUPS,
   image = "/images/ksd-stone-07.jpg",
-  imageAlt = "Architecture and outlook composed as one environment",
+  imageAlt = "Architectural stone facade and spatial outlook",
   gallery = GALLERY,
   quote = QUOTE,
   lead = LEAD,
-  buttonLabel = "About us",
+  buttonLabel = "Discuss Your Project",
   href = "/about",
   onButtonClick,
 }) {
@@ -147,13 +148,13 @@ export default function WhyChooseUs({
         {/* ---------------- right: content ---------------- */}
         <div className="wc__right">
           <span className="wc__pill wc__fade" style={{ "--d": "0ms" }}>
-            <i aria-hidden="true" /> Why choose us
+            <i aria-hidden="true" /> Why Choose Us
           </span>
 
           {/* words rise in one by one */}
           <h2 id="wc-heading" className="wc__title" aria-label={HEADING.join(" ")}>
             {HEADING.map((w, i) => (
-              <span className="wc__word" key={w} aria-hidden="true">
+              <span className="wc__word" key={`${w}-${i}`} aria-hidden="true">
                 <span style={{ "--i": i }}>{w}</span>{" "}
               </span>
             ))}

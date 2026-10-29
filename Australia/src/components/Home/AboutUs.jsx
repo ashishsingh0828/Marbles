@@ -43,7 +43,7 @@ export default function AboutUs({
     bottom: "/images/ksd-stone-09.jpg",
     tall: "/images/ksd-stone-07.jpg",
   },
-  founder = { name: "KSD Homes", role: "28+ years team experience · Perth WA", image: "" },
+  founder = { name: "KSD Homes", role: "28+ years team experience, Perth WA", image: "" },
   learnMoreHref = "/about",
 }) {
   const [ref, visible] = useReveal();
@@ -54,13 +54,14 @@ export default function AboutUs({
     { key: "tall", cls: "about__panel--tall", src: images.tall, label: "Architectural Stone Facade", d: "0.2s" },
   ];
 
-  /* Using unique, non-repeating image paths */
   const swatches = [
     { name: "Dining and light", src: "/images/ksd-stone-15.jpg" },
     { name: "Bedroom direction", src: "/images/ksd-stone-12.jpg" },
     { name: "Custom joinery", src: "/images/ksd-stone-38.jpg" },
     { name: "Marble wet areas", src: "/images/ksd-stone-40.jpg" },
   ];
+
+  const logo = BRAND.logo || "/images/logo/logo.png";
 
   return (
     <section
@@ -69,12 +70,6 @@ export default function AboutUs({
       className={`about ${visible ? "is-visible" : ""}`}
       aria-labelledby="about-title"
     >
-      <svg className="about__veins" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <path d="M-40 140 C 240 200, 420 60, 700 140 S 1120 260, 1500 120" />
-        <path d="M-20 760 C 200 700, 420 820, 720 760 S 1120 660, 1500 780" />
-        <path className="gold" d="M900 -10 C 940 120, 880 200, 960 330" />
-      </svg>
-
       <div className="about__inner">
         {/* Images */}
         <div className="about__media">
@@ -82,7 +77,7 @@ export default function AboutUs({
             <figure key={p.key} className={`about__panel ${p.cls}`} style={{ "--d": p.d }}>
               <span className="about__panel-line" aria-hidden="true" />
               <div className="about__img">
-                <img src={p.src} alt={`${p.label}`} loading="lazy" decoding="async" draggable="false" />
+                <img src={p.src} alt={p.label} loading="lazy" decoding="async" draggable="false" />
                 <span className="about__shine" aria-hidden="true" />
                 <figcaption className="about__caption">
                   <i aria-hidden="true" />
@@ -92,7 +87,7 @@ export default function AboutUs({
             </figure>
           ))}
 
-          {/* Rotating badge with KSD Logo */}
+          {/* Rotating badge with KSD logo */}
           <Link className="about__badge about__reveal" style={{ "--d": "0.7s" }} to={learnMoreHref} aria-label="Learn about KSD Homes">
             <svg className="about__ring" viewBox="0 0 200 200" aria-hidden="true">
               <defs>
@@ -105,11 +100,7 @@ export default function AboutUs({
               </text>
             </svg>
             <span className="about__badge-core" aria-hidden="true">
-              <img
-                src={BRAND.logo || "/images/logo/logo.png"}
-                alt="KSD Homes"
-                style={{ width: "48px", height: "auto", objectFit: "contain", background: "transparent" }}
-              />
+              <img src={logo} alt="" />
             </span>
           </Link>
         </div>
@@ -118,7 +109,7 @@ export default function AboutUs({
         <div className="about__content">
           <span className="about__tag about__reveal" style={{ "--d": "0.1s" }}>
             <i className="about__diamond" aria-hidden="true" />
-            ABOUT KSD HOMES AUSTRALIA
+            About KSD Homes Australia
           </span>
 
           <h2 id="about-title" className="about__title about__reveal" style={{ "--d": "0.25s" }}>
@@ -165,12 +156,19 @@ export default function AboutUs({
 
             <div className="about__founder">
               <span className="about__avatar">
-                <img src={BRAND.logo || "/images/logo/logo.png"} alt="KSD" style={{ width: "100%", height: "100%", objectFit: "contain", background: "transparent" }} />
+                <img src={founder.image || logo} alt="KSD Homes" />
               </span>
               <strong>{founder.name}</strong>
               <span>{founder.role}</span>
             </div>
           </div>
+
+          <Link className="about__cta about__reveal" style={{ "--d": "1s" }} to={learnMoreHref}>
+            Discuss your project
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>

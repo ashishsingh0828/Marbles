@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useApi } from "../../api";
-import { mergeHomes } from "../../data/homes";
+import { mergeHomes, cleanText, imgKey } from "../../data/homes";
 import "./Project.css";
 
 const FILTERS = ["Residence", "Interior", "Ongoing"];
@@ -22,9 +22,7 @@ function labelOf(home) {
 }
 
 function formatStatus(status = "") {
-  const s = String(status).trim();
-  if (!s || /^upcoming/i.test(s)) return "Ongoing";
-  return s;
+  return cleanText(status) || "Ongoing";
 }
 
 export default function Project({ variant = "page" }) {
@@ -37,6 +35,17 @@ export default function Project({ variant = "page" }) {
     [homes, filter]
   );
   const shown = variant === "home" ? filtered.slice(0, 3) : filtered;
+
+  /* a card never repeats a photo already used by another card */
+  const used = new Set();
+  const cardImage = (home) => {
+    const pick = [home.image, home.heroImage, ...(home.gallery || [])]
+      .filter(Boolean)
+      .find((src) => !used.has(imgKey(src)));
+    const src = pick || home.image;
+    used.add(imgKey(src));
+    return src;
+  };
 
   return (
     <section className={`homes-section ${variant === "home" ? "is-home" : ""}`}>
@@ -67,7 +76,9 @@ export default function Project({ variant = "page" }) {
           {shown.map((home) => (
             <article key={home.slug} className="home-card">
               <Link to={`/projects/${home.slug}`} className="home-card__link" aria-label={`View ${home.title}`}>
-                <img src={home.image} alt={home.title} loading="lazy" />
+                <div className="home-card__img">
+                  <img src={cardImage(home)} alt={home.title} loading="lazy" decoding="async" />
+                </div>
                 <div className="home-card__copy">
                   <span>
                     {/completed|delivered/i.test(home.status)

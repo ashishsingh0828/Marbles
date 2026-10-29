@@ -1,21 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap");
 
-/* =========================================================
-   Why Choose Us – marble theme, split layout
 
-   HOW THE ANIMATION WORKS
-   Entrances are CSS *transitions* toggled by `.is-visible`,
-   so they replay every time the section scrolls back into view.
-   Hover effects use `translate` / `scale` (separate properties)
-   so they never fight the entrance fade.
-   ========================================================= */
 .wc {
   --stone: #efe9e0;
   --stone-light: #f7f3ec;
   --stone-deep: #e4dccf;
   --ink: #1f1a17;
   --ink-soft: #5c534b;
-  --bronze: #9a6a3f;
+  --bronze:  #157A3C;
   --gold: #c9a063;
   --gold-light: #e6cd9b;
   --navy: #0e2a47;

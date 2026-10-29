@@ -1,146 +1,226 @@
+/* Project list – quiet, premium. Every rule is scoped under .homes-section. */
+
 .homes-section {
+  --ov-navy: var(--navy, #0E2A47);
+  --ov-green: var(--green, #157A3C);
+  --ov-orange: var(--orange, #E67E22);
+  --hs-head: var(--font-heading, Georgia, "Times New Roman", serif);
+  --hs-line: rgba(14, 42, 71, 0.14);
+  --hs-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
   width: 100%;
-  padding: 80px 0 100px;
-  background: #f7f5f0;
-  color: #111;
+  padding: clamp(64px, 8vw, 100px) 0 clamp(72px, 9vw, 110px);
+  background: #fbfaf8;
+  color: var(--ov-navy);
 }
 
-.homes-intro {
+.homes-section *,
+.homes-section *::before,
+.homes-section *::after {
+  box-sizing: border-box;
+}
+
+.homes-section .homes-intro {
   max-width: 820px;
   margin: 0 auto;
-  padding: 0 24px 40px;
+  padding: 0 24px 36px;
   text-align: center;
 }
 
-.homes-intro p {
-  margin: 0 0 12px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent, #16793B);
+.homes-section .homes-intro p {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 14px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  color: var(--ov-green);
 }
 
-.homes-intro h2 {
+.homes-section .homes-intro p::before,
+.homes-section .homes-intro p::after {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--ov-orange);
+}
+
+.homes-section .homes-intro h2 {
   margin: 0;
-  font-size: clamp(28px, 4vw, 44px);
-  line-height: 1.15;
+  font-family: var(--hs-head);
+  font-weight: 400;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--ov-navy);
+  text-wrap: balance;
 }
 
-.homes-filters {
+.homes-section .homes-filters {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  margin: 0 auto 36px;
+  gap: 8px;
+  margin: 0 auto 44px;
   padding: 0 24px;
 }
 
-.homes-filters button {
-  min-width: 120px;
-  height: 44px;
-  padding: 0 18px;
-  border: 1.5px solid var(--border);
-  background: #fff;
-  color: #111;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+.homes-section .homes-filters button {
+  min-width: 110px;
+  height: 42px;
+  padding: 0 22px;
+  border: 1px solid var(--hs-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ov-navy);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
   cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.homes-filters button.is-on,
-.homes-filters button:hover {
-  background: var(--accent, #16793B);
-  border-color: var(--accent, #16793B);
+.homes-section .homes-filters button:hover {
+  border-color: var(--ov-navy);
+}
+
+.homes-section .homes-filters button.is-on {
+  background: var(--ov-navy);
+  border-color: var(--ov-navy);
   color: #fff;
 }
 
-.homes-grid {
+.homes-section .homes-filters button:focus-visible,
+.homes-section .homes-more a:focus-visible,
+.homes-section .home-card__link:focus-visible {
+  outline: 2px solid var(--ov-orange);
+  outline-offset: 3px;
+}
+
+.homes-section .homes-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
-  max-width: 1100px;
+  gap: clamp(28px, 4vw, 48px);
+  max-width: 1120px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
-.home-card {
-  background: #fff;
+.homes-section .home-card {
+  background: transparent;
 }
 
-.home-card__link {
+.homes-section .home-card__link {
   display: block;
   color: inherit;
   text-decoration: none;
 }
 
-.home-card__link img {
+.homes-section .home-card__img {
+  overflow: hidden;
+  border-radius: 2px;
+  background: #e9e6df;
+  box-shadow: 0 18px 40px rgba(14, 42, 71, 0.12);
+}
+
+.homes-section .home-card__img img {
   display: block;
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  background: #eeeae2;
+  transition: transform 1.4s var(--hs-ease);
 }
 
-.home-card__copy {
-  padding: 18px 4px 8px;
+.homes-section .home-card__link:hover .home-card__img img {
+  transform: scale(1.05);
 }
 
-.home-card__copy span {
+.homes-section .home-card__copy {
+  position: relative;
+  padding: 22px 2px 6px;
+}
+
+.homes-section .home-card__copy::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 2px;
+  width: 28px;
+  height: 1px;
+  background: var(--ov-orange);
+  transition: width 0.5s var(--hs-ease);
+}
+
+.homes-section .home-card__link:hover .home-card__copy::before {
+  width: 64px;
+}
+
+.homes-section .home-card__copy span {
   display: block;
-  margin-bottom: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent, #16793B);
+  margin: 6px 0 8px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--ov-green);
 }
 
-.home-card__copy h3 {
+.homes-section .home-card__copy h3 {
   margin: 0;
-  font-size: clamp(22px, 2.2vw, 28px);
-  line-height: 1.2;
+  font-family: var(--hs-head);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  line-height: 1.15;
+  color: var(--ov-navy);
 }
 
-.homes-empty {
+.homes-section .homes-empty {
   max-width: 720px;
   margin: 0 auto;
   padding: 72px 24px;
   text-align: center;
-  border: 1px dashed var(--border);
-  color: var(--text2);
+  border: 1px dashed var(--hs-line);
+  color: rgba(14, 42, 71, 0.7);
 }
 
-.homes-more {
+.homes-section .homes-more {
   display: flex;
   justify-content: center;
-  margin-top: 36px;
+  margin-top: 44px;
 }
 
-.homes-more a {
+.homes-section .homes-more a {
   display: inline-flex;
   align-items: center;
-  min-height: 48px;
-  padding: 14px 28px;
-  border: 1.5px solid #111;
-  color: #111;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  min-height: 50px;
+  padding: 14px 30px;
+  border-radius: 2px;
+  background: var(--ov-navy);
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
   text-decoration: none;
+  transition: background 0.35s ease;
 }
 
-.homes-more a:hover {
-  background: var(--accent, #16793B);
-  border-color: var(--accent, #16793B);
-  color: #fff;
+.homes-section .homes-more a:hover {
+  background: #123659;
 }
 
 @media (max-width: 799px) {
-  .homes-grid {
+  .homes-section .homes-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homes-section .home-card__img img,
+  .homes-section .home-card__copy::before {
+    transition: none;
   }
 }
