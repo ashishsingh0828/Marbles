@@ -1,260 +1,174 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { BRAND } from "../../config";
-import "./About.css";
+import "./AboutUs.css";
 
-const MAIN_IMAGE = "/images/ksd-stone-03.jpg";
-const TILES_IMAGE = "/images/ksd-stone-04.jpg";
-
-const LIST_ITEMS = [
-  "Licensed builder for high-end boutique homes",
-  "Residential architecture and interior design",
-  "Space planning, finishes and complete home solutions",
-  "Customer-centred process with a personal touch",
-];
-
-const prefersReducedMotion = () =>
-  typeof window !== "undefined" &&
-  window.matchMedia &&
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-function useInView(threshold = 0.15) {
+/* adds .is-visible once the section scrolls into view */
+function useReveal(threshold = 0.18) {
   const ref = useRef(null);
-  const [inView, setInView] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const node = ref.current;
-    if (!node) return undefined;
+    const el = ref.current;
+    if (!el) return undefined;
     if (typeof IntersectionObserver === "undefined") {
-      setInView(true);
+      setVisible(true);
       return undefined;
     }
-    const observer = new IntersectionObserver(
+    const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
+          setVisible(true);
+          io.disconnect();
         }
       },
-      { threshold }
+      { threshold, rootMargin: "0px 0px -8% 0px" }
     );
-    observer.observe(node);
-    return () => observer.disconnect();
+    io.observe(el);
+    return () => io.disconnect();
   }, [threshold]);
 
-  return [ref, inView];
+  return [ref, visible];
 }
 
-function useCountUp(target, active, duration = 2200) {
-  const [value, setValue] = useState(0);
+const FEATURES = [
+  "Licensed boutique builder for high-end custom homes",
+  "Seamless integration of architecture and interior design",
+  "Turnkey residential delivery with dedicated client focus",
+];
 
-  useEffect(() => {
-    if (!active) return undefined;
-    if (prefersReducedMotion()) {
-      setValue(target);
-      return undefined;
-    }
-    let frame;
-    const start = performance.now();
-    const tick = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(target * eased);
-      if (progress < 1) frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [target, active, duration]);
+export default function AboutUs({
+  images = {
+    top: "/images/ksd-stone-08.jpg",
+    bottom: "/images/ksd-stone-09.jpg",
+    tall: "/images/ksd-stone-07.jpg",
+  },
+  founder = { name: "KSD Homes", role: "28+ years team experience, Perth WA", image: "" },
+  learnMoreHref = "/about",
+}) {
+  const [ref, visible] = useReveal();
 
-  return value;
-}
+  const panels = [
+    { key: "top", cls: "about__panel--top", src: images.top, label: "Statuary Marble Living", d: "0.1s" },
+    { key: "bottom", cls: "about__panel--bottom", src: images.bottom, label: "Bookmatched Kitchen Island", d: "0.35s" },
+    { key: "tall", cls: "about__panel--tall", src: images.tall, label: "Architectural Stone Facade", d: "0.2s" },
+  ];
 
-function Reveal({ as: Tag = "div", variant = "up", delay = 0, className = "", children }) {
-  const [ref, inView] = useInView(0.12);
-  const classes = [
-    "ab-reveal",
-    `ab-reveal--${variant}`,
-    inView ? "is-visible" : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const swatches = [
+    { name: "Dining and light", src: "/images/ksd-stone-15.jpg" },
+    { name: "Bedroom direction", src: "/images/ksd-stone-12.jpg" },
+    { name: "Custom joinery", src: "/images/ksd-stone-38.jpg" },
+    { name: "Marble wet areas", src: "/images/ksd-stone-40.jpg" },
+  ];
+
+  const logo = BRAND.logo || "/images/logo/logo.png";
 
   return (
-    <Tag ref={ref} className={classes} style={{ "--d": `${delay}s` }}>
-      {children}
-    </Tag>
-  );
-}
-
-function SplitHeading({ text }) {
-  const [ref, inView] = useInView(0.3);
-  const words = text.split(" ");
-
-  return (
-    <h2
+    <section
       ref={ref}
-      className={`ab-heading ${inView ? "is-visible" : ""}`}
-      aria-label={text}
+      id="about"
+      className={`about ${visible ? "is-visible" : ""}`}
+      aria-labelledby="about-title"
     >
-      {words.map((word, index) => (
-        <span key={`${word}-${index}`}>
-          <span className="ab-word" aria-hidden="true" style={{ "--w": index }}>
-            <span>{word}</span>
-          </span>
-          {index < words.length - 1 ? " " : null}
-        </span>
-      ))}
-    </h2>
-  );
-}
+      <div className="about__inner">
+        {/* Images */}
+        <div className="about__media">
+          {panels.map((p) => (
+            <figure key={p.key} className={`about__panel ${p.cls}`} style={{ "--d": p.d }}>
+              <span className="about__panel-line" aria-hidden="true" />
+              <div className="about__img">
+                <img src={p.src} alt={p.label} loading="lazy" decoding="async" draggable="false" />
+                <span className="about__shine" aria-hidden="true" />
+                <figcaption className="about__caption">
+                  <i aria-hidden="true" />
+                  {p.label}
+                </figcaption>
+              </div>
+            </figure>
+          ))}
 
-function RotatingBadge({ logo = BRAND.logo || "/images/logo/logo.jpeg" }) {
-  return (
-    <div className="ab-circle" aria-hidden="true">
-      <span className="ab-circle-ring">
-        <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <path id="ab-circle-path" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0" />
-          </defs>
-          <text>
-            <textPath href="#ab-circle-path" startOffset="0" textLength="496" lengthAdjust="spacing">
-              KSD HOMES PTY LTD ✦ ARCHITECTURE & INTERIORS ✦
-            </textPath>
-          </text>
-        </svg>
-      </span>
-      <span className="ab-circle-core">
-        <img src={logo} alt="KSD Homes" />
-      </span>
-    </div>
-  );
-}
-
-function StatBadge() {
-  const [ref, inView] = useInView(0.4);
-  const value = useCountUp(28, inView, 2200);
-
-  return (
-    <div ref={ref} className={`ab-stat ${inView ? "is-visible" : ""}`}>
-      <span className="ab-stat-number">
-        {Math.round(value)}
-        <span>+</span>
-      </span>
-      <span className="ab-stat-label">
-        Years Combined
-        <br />
-        Team Experience
-      </span>
-    </div>
-  );
-}
-
-function Signature() {
-  return (
-    <svg className="ab-sign" xmlns="http://www.w3.org/2000/svg" width="140" height="52" viewBox="0 0 140 52" fill="none" aria-hidden="true">
-      <path
-        d="M6 34c14-16 28-26 40-26 15 0 8 28-2 36s-16 4-10-8 22-26 44-24 24 16 26 28c1 8 6 12 14 12 12 0 16-10 16-10"
-        stroke="#157A3C"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function CurlyArrow() {
-  return (
-    <svg className="ab-curl" xmlns="http://www.w3.org/2000/svg" width="86" height="130" viewBox="0 0 86 130" fill="none" aria-hidden="true">
-      <path
-        className="ab-draw"
-        pathLength="1"
-        d="M22 126C8 98 14 74 40 66C64 58 70 34 50 22C34 12 18 24 26 40C34 54 62 50 70 28C73 20 72 12 66 4"
-      />
-      <path className="ab-draw ab-draw--late" pathLength="1" d="M66 4 54 12M66 4l8 12" />
-    </svg>
-  );
-}
-
-export default function About() {
-  return (
-    <section className="ab-section">
-      <svg className="ab-defs" width="0" height="0" aria-hidden="true" focusable="false">
-        <defs>
-          <clipPath id="ab-shape-clip" clipPathUnits="objectBoundingBox">
-            <path d="M0,0.04Q0,0 0.05,0H0.8Q0.842,0 0.847,0.035L0.995,0.962Q1,1 0.95,1H0.05Q0,1 0,0.96Z" />
-          </clipPath>
-        </defs>
-      </svg>
-
-      <div className="ab-container">
-        <div className="ab-top">
-          <div className="ab-title-wrap">
-            <Reveal variant="up">
-              <span className="ab-pill">
-                <span className="ab-pill-dot" />
-                ABOUT KSD HOMES
-              </span>
-            </Reveal>
-            <SplitHeading text="Architecture, interior design and complete home solutions in Western Australia" />
-          </div>
-          <Reveal variant="zoom" delay={0.3} className="ab-circle-wrap">
-            <RotatingBadge />
-          </Reveal>
+          {/* Rotating badge with KSD logo */}
+          <Link className="about__badge about__reveal" style={{ "--d": "0.7s" }} to={learnMoreHref} aria-label="Learn about KSD Homes">
+            <svg className="about__ring" viewBox="0 0 200 200" aria-hidden="true">
+              <defs>
+                <path id="aboutRingPath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" />
+              </defs>
+              <text>
+                <textPath href="#aboutRingPath" textLength="484" lengthAdjust="spacing">
+                  KSD HOMES AUSTRALIA • BESPOKE ARCHITECTURE •{" "}
+                </textPath>
+              </text>
+            </svg>
+            <span className="about__badge-core" aria-hidden="true">
+              <img src={logo} alt="" />
+            </span>
+          </Link>
         </div>
 
-        <div className="ab-body">
-          <Reveal variant="left" delay={0.1} className="ab-media">
-            <div className="ab-media-shape">
-              <img src={MAIN_IMAGE} alt="KSD Homes luxury craftsmanship" loading="lazy" />
-            </div>
-            <StatBadge />
-          </Reveal>
+        {/* Content */}
+        <div className="about__content">
+          <span className="about__tag about__reveal" style={{ "--d": "0.1s" }}>
+            <i className="about__diamond" aria-hidden="true" />
+            About KSD Homes Australia
+          </span>
 
-          <div className="ab-content">
-            <Reveal variant="up" delay={0.2}>
-              <h3 className="ab-lead">
-                At KSD Homes we see a home as more than a structure. It is a carefully composed environment that influences how we live, work, relax and connect — designed with form, function, light and a personal touch.
-              </h3>
-            </Reveal>
+          <h2 id="about-title" className="about__title about__reveal" style={{ "--d": "0.25s" }}>
+            Bespoke Western Australian Architecture &amp; Boutique Construction
+          </h2>
 
-            <div className="ab-lower">
-              <div className="ab-lower-left">
-                <ul className="ab-list">
-                  {LIST_ITEMS.map((item, index) => (
-                    <Reveal
-                      key={item}
-                      variant="up"
-                      delay={0.3 + index * 0.1}
-                      className="ab-list-item"
-                    >
-                      <li>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 7 7" fill="currentColor" aria-hidden="true">
-                          <path d="M3.5 0L7 3.5L3.5 7L0 3.5L3.5 0Z" />
-                        </svg>
-                        <span>{item}</span>
-                      </li>
-                    </Reveal>
-                  ))}
-                </ul>
+          <p className="about__text about__reveal" style={{ "--d": "0.4s" }}>
+            KSD Homes unites luxury residential architecture, builder interior design, and bespoke craftsmanship within one Perth-based multidisciplinary studio. Backed by more than 28 years of combined construction and design mastery, we engineer tailored, site-responsive homes from initial concept drafting through to master handover.
+          </p>
 
-                <Reveal variant="up" delay={0.7} className="ab-author">
-                  <Signature />
-                  <h5>KSD Homes Pty Ltd</h5>
-                  <p>Builder &amp; Interior Design · Perth WA</p>
-                </Reveal>
-              </div>
+          <div className="about__quote about__reveal" style={{ "--d": "0.55s" }}>
+            <span className="about__quote-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z" />
+                <path d="M3 12l9 4.5 9-4.5" />
+                <path d="M3 16.5L12 21l9-4.5" />
+              </svg>
+            </span>
+            <p>
+              &ldquo;We do not simply build houses. The same team directs architecture, materiality, and construction from the very first conversation to handover.&rdquo;
+            </p>
+          </div>
 
-              <Reveal variant="up" delay={0.6} className="ab-lower-right">
-                <CurlyArrow />
-                <div className="ab-tiles">
-                  <span className="ab-tile-layer ab-tile-layer--2" />
-                  <span className="ab-tile-layer ab-tile-layer--1" />
-                  <img src={TILES_IMAGE} alt="Natural marble craftsmanship" loading="lazy" />
-                </div>
-              </Reveal>
+          <ul className="about__stones about__reveal" style={{ "--d": "0.7s" }} aria-label="Signature interior features">
+            {swatches.map((s) => (
+              <li key={s.name}>
+                <span className="about__swatch" style={{ backgroundImage: `url("${s.src}")` }} aria-hidden="true" />
+                {s.name}
+              </li>
+            ))}
+          </ul>
+
+          <div className="about__foot about__reveal" style={{ "--d": "0.85s" }}>
+            <ul className="about__list">
+              {FEATURES.map((f) => (
+                <li key={f}>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 12.5l4.5 4.5L19 7.5" />
+                  </svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            <div className="about__founder">
+              <span className="about__avatar">
+                <img src={founder.image || logo} alt="KSD Homes" />
+              </span>
+              <strong>{founder.name}</strong>
+              <span>{founder.role}</span>
             </div>
           </div>
+
+          <Link className="about__cta about__reveal" style={{ "--d": "1s" }} to={learnMoreHref}>
+            Discuss your project
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>

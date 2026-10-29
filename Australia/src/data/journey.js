@@ -1,5 +1,7 @@
 import { IMG } from "./images";
 
+/* UNCHANGED – this is your original data file, byte for byte in content and shape.
+   Nothing else in the project needs to change because of it. */
 
 export const JOURNEY_INTRO = {
   // eyebrow: "Our Process",

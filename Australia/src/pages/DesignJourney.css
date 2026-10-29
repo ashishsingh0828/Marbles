@@ -1,3 +1,9 @@
+/* ==================================================================
+   Design Journey – elegant, premium. Frontend only.
+   - no new font downloads (uses your site's --font-heading / body font)
+   - no scroll listeners, no fixed elements, nothing global
+   - every rule is scoped under .dj
+   ================================================================== */
 
 .dj {
   --ov-navy: var(--navy, #0E2A47);
