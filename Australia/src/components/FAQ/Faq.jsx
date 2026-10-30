@@ -3,47 +3,42 @@ import { Link } from "react-router-dom";
 import { BRAND } from "../../config";
 import "./Faq.css";
 
-const MAIN_IMAGE = "/images/ksd-stone-03.jpg";
-const DECO_IMAGE_A = "/images/projects/sharma-plan-02.jpg";
-const DECO_IMAGE_B = "/images/ksd-stone-07.jpg";
+const MAIN_IMAGE = "/Image/products/tiles-textures/stone-tile-02.jpg";
+const DECO_IMAGE_A = "/Image/projects/sharma-residence/floor-plan-03.jpg";
+const DECO_IMAGE_B = "/Image/products/tiles-textures/stone-tile-09.jpg";
 
 const ITEMS = [
   {
     id: 1,
     title: "What does KSD Homes design and build?",
-    text: "KSD Homes is a licensed boutique builder specialising in bespoke luxury residences and multi-storey custom homes across Western Australia. Our integrated approach unites residential architectural drafting, luxury interior design, structural engineering coordination, and high-craftsmanship construction under one unified team.",
+    text: "KSD Homes is a licensed boutique builder specialising in bespoke luxury residences and multi-storey custom homes across Western Australia. Our integrated approach brings residential design and drafting, interior design, engineering coordination, and high-quality construction together under one team.",
   },
   {
     id: 2,
-    title: "Do you build custom architectural designs or pre-designed plans?",
-    text: "Every KSD home is an individual, site-responsive custom architectural build. We design from a blank canvas to maximize your block's orientation, natural light, coastal breeze, and local council zoning (R-Codes). You can also bring your own external architectural plans for our team to engineer, value-manage, and construct.",
+    title: "Do you build custom designs or pre-designed plans?",
+    text: "Every KSD home is an individual, site-responsive custom build. We design from a blank canvas to make the most of your block's orientation, natural light, coastal breezes, and local council requirements (R-Codes). You can also bring your own architectural plans for our team to review, cost, and build.",
   },
   {
     id: 3,
     title: "Do you manage planning approvals and council permits?",
-    text: "Yes, our team handles the complete statutory approvals lifecycle across local Perth councils and the Western Australian Planning Commission (WAPC). This includes Development Applications (DA), R-Code compliance, Design Review Panel submissions, and Building Permits (Certified BA1 applications).",
+    text: "Yes. Our team manages the full approvals process with local Perth councils and the Western Australian Planning Commission (WAPC). This includes Development Approvals, R-Codes compliance, Design Review Panel submissions, and Building Permit applications.",
   },
   {
     id: 4,
     title: "Where are your current project sites located?",
-    text: "We construct and transform luxury residences across Perth's premium established suburbs and coastal precincts. Current works include multi-level architectural residences, with Port Coogee among our active ongoing sites.",
+    text: "We build and renovate luxury homes across Perth's established suburbs and coastal areas. Our current projects include multi-level residences, with Port Coogee among our active sites.",
   },
   {
     id: 5,
     title: "How does the design and pre-construction process work?",
-    text: "We begin with a site appraisal and lifestyle brief, progressing through spatial concept development, 3D architectural visualisation, interior selections, and detailed cost planning. Backed by 28+ years of combined industry expertise, our fixed-price building contracts provide total transparency before on-site construction begins.",
+    text: "We start with a site appraisal and a brief about how you live, then move through concept design, 3D visualisation, interior selections, and detailed cost planning. With 28+ years of combined industry experience, our fixed-price building contracts give you clarity on cost before construction begins.",
   },
   {
     id: 6,
     title: "Where is the KSD Homes design studio based?",
-    text: "Our studio is located at 171 Star Street, Carlisle, Perth WA 6101. Consultations are available by appointment with our architectural and construction team. Direct contact: +61 414 029 695 or email admin@ksdhomes.com.au.",
+    text: `Our studio is at ${BRAND.address}. Consultations are available by appointment. You can call us on ${BRAND.phone} or email ${BRAND.email}.`,
   },
 ];
-
-const prefersReducedMotion = () =>
-  typeof window !== "undefined" &&
-  window.matchMedia &&
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
@@ -116,11 +111,11 @@ function RatingCard() {
       ref={ref}
       className={`fq-rating${inView ? " is-visible" : ""}`}
       role="img"
-      aria-label="28 plus years team experience, licensed boutique builder, Perth"
+      aria-label="28 plus years of team experience, licensed boutique builder, Perth"
     >
       <span className="fq-rating-logo">
         <img
-          src={BRAND.logo || "/images/logo/logo.png"}
+          src={BRAND.logo || "/Image/branding/brand-logo.png"}
           alt="KSD Homes"
           style={{ width: "42px", height: "auto", objectFit: "contain", background: "#fff" }}
         />
@@ -132,7 +127,7 @@ function RatingCard() {
             <span> yrs</span>
           </span>
         </div>
-        <p>Team experience · Licensed boutique builder · Perth WA</p>
+        <p>Team experience · Licensed boutique builder · Perth, WA</p>
       </div>
     </div>
   );
@@ -150,7 +145,7 @@ function LearnMoreButton() {
   return (
     <Link to="/contact" className="fq-btn">
       <span className="fq-btn-bg" />
-      <span className="fq-btn-text"> Discuss Your Project</span>
+      <span className="fq-btn-text">Discuss Your Project</span>
       <span className="fq-btn-icon">
         <ArrowIcon />
       </span>
@@ -178,7 +173,7 @@ function Faq() {
           <Reveal variant="left" className="fq-media-wrap">
             <div className="fq-media">
               <div className="fq-media-image">
-                <img src={MAIN_IMAGE} alt="Marble bathroom interior" loading="lazy" />
+                <img src={MAIN_IMAGE} alt="Custom kitchen with marble island and timber joinery" loading="lazy" />
               </div>
               <RatingCard />
             </div>
@@ -196,7 +191,7 @@ function Faq() {
 
             <Reveal variant="up" delay={0.1}>
               <p className="fq-text">
-                Architecture, luxury interior design, and turnkey residential construction — backed by over 28 years of combined industry expertise from our Carlisle design studio.
+                Architecture, interior design, and turnkey residential construction, backed by over 28 years of combined industry experience from our Perth studio.
               </p>
             </Reveal>
 

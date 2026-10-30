@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useApi } from "../../api";
 import { mergeHomes } from "../../data/homes";
@@ -32,7 +32,7 @@ function slidesFrom(homes) {
 
   return [
     {
-      image: "/images/ksd-stone-07.jpg",
+      image: "/Image/banners/hero/hero-banner-01.jpg",
       eyebrow: "Perth Boutique Custom Builders",
       lines: ["Bespoke Architectural Residences in Western Australia"],
       concept: "Architecture. Builder Interior Design. Complete Turnkey Delivery — united under one Perth studio.",

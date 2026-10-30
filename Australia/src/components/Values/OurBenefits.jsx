@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./OurBenefits.css";
 
-/* ---------- content (edit freely) ---------- */
 const STATS = [
   { label: "Years team experience", value: 28, suffix: "+", decimals: 0 },
   { label: "Complete home solution", value: 1, suffix: "", decimals: 0 },
@@ -22,9 +21,6 @@ const reducedMotion = () =>
   !!window.matchMedia &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ------------------------------------------------------------------
-   Reveal hook – replays EVERY time the section scrolls back into view.
-------------------------------------------------------------------- */
 function useInView() {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
@@ -48,10 +44,6 @@ function useInView() {
   return [ref, inView];
 }
 
-/* ------------------------------------------------------------------
-   Count-up hook – runs from 0 every time `active` turns true,
-   and resets to 0 when it turns false (so it replays on re-entry).
-------------------------------------------------------------------- */
 function useCountUp(target, active, { delay = 0, duration = 2000 } = {}) {
   const [val, setVal] = useState(0);
   useEffect(() => {
@@ -140,7 +132,6 @@ const toEmbed = (url) => {
     if (!id && u.hostname === "youtu.be") id = u.pathname.slice(1);
     if (id) return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
   } catch (e) {
-    /* not a valid URL – use as is */
   }
   return url;
 };
@@ -149,14 +140,13 @@ const toEmbed = (url) => {
 export default function OurBenefits({
   stats = STATS,
   benefits = BENEFITS,
-  bgImage = "/images/ksd-stone-43.jpg", // photo behind the section; without it a dark marble texture is used
+  bgImage = "/Image/banners/feature/feature-banner-02.jpg",
   videoUrl = "https://www.youtube.com/watch?v=hddwAIXbKZo",
-  onPlay, // optional: use your own handler instead of the built-in video pop-up
+  onPlay,
 }) {
   const [ref, inView] = useInView();
   const [open, setOpen] = useState(false);
 
-  /* video pop-up: Esc to close, lock page scroll while open */
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => e.key === "Escape" && setOpen(false);

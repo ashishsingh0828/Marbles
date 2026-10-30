@@ -1,12 +1,7 @@
 import { IMG } from "./images";
 
-/* UNCHANGED – this is your original data file, byte for byte in content and shape.
-   Nothing else in the project needs to change because of it. */
-
 export const JOURNEY_INTRO = {
-  // eyebrow: "Our Process",
   title: "Our Process",
-  // text: "A disciplined, six-stage architectural journey. Architectural drafting, builder interior design, and licensed boutique construction remain unified under one Perth team from concept to completion.",
 };
 
 export const JOURNEY_STEPS = [
@@ -15,41 +10,41 @@ export const JOURNEY_STEPS = [
     title: "Site Appraisal & Brief",
     kicker: "Listening & Feasibility",
     image: IMG.livingCalm,
-    text: "Every bespoke residence begins with a detailed lifestyle brief and site appraisal. We analyse block orientation, prevailing breezes, topography, and council zoning (R-Codes) before drafting commences.",
+    text: "Every bespoke home begins with a detailed lifestyle brief and site appraisal. We assess your block's orientation, prevailing breezes, slope, and council zoning (R-Codes) before drafting begins.",
   },
   {
     num: "02",
     title: "Architectural Concept",
-    kicker: "Architecture & Spatial Flow",
-    image: IMG.bedroomWave,
-    text: "Custom floor layouts and 3D architectural elevations are resolved alongside interior volume. Alfresco courtyards, natural light paths, and structural lines are composed as a single cohesive design.",
+    kicker: "Design & Spatial Flow",
+    image: IMG.planGround,
+    text: "Custom floor plans and 3D elevations are developed together with the interior layout. Alfresco areas, courtyards, natural light, and structure are designed as one cohesive home.",
   },
   {
     num: "03",
     title: "Statutory Approvals",
     kicker: "Permits, Engineering & Fixed Pricing",
-    image: IMG.stoneTall || IMG.bathroomModern,
-    text: "We manage complete Development Applications (DA), certified engineering, energy compliance assessments, and local council building permits, accompanied by a transparent, fixed-price contract.",
+    image: IMG.elevFront,
+    text: "We manage Development Approvals, engineering, energy compliance assessments, and local council building permits, and provide a transparent, fixed-price contract.",
   },
   {
     num: "04",
     title: "Precision Construction",
     kicker: "Licensed Boutique Building",
-    image: IMG.joinery,
-    text: "Dedicated on-site supervision by our licensed Perth building team. The same multidisciplinary designers who drafted your home direct construction to ensure uncompromised structural integrity.",
+    image: IMG.bathroomModern,
+    text: "Dedicated on-site supervision by our licensed Perth building team. The same designers who drafted your home oversee construction, keeping quality and structural integrity on track.",
   },
   {
     num: "05",
     title: "Interior Selections",
     kicker: "Joinery, Lighting & Surface Finishes",
-    image: IMG.diningFormal,
-    text: "Bespoke cabinetry, natural stone slabs, architectural lighting fixtures, and surface finishes curated to harmonize with the structural geometry and coastal environment.",
+    image: IMG.joinery,
+    text: "Custom cabinetry, natural stone, lighting, and surface finishes are selected to suit your home's design and Western Australia's coastal environment.",
   },
   {
     num: "06",
     title: "Turnkey Handover",
-    kicker: "Complete Quality Delivery",
+    kicker: "Final Inspection & Handover",
     image: IMG.diningLight,
-    text: "A meticulous quality audit precedes client handover. You receive keys to a fully realized architectural residence — built to the highest Western Australian building standards.",
+    text: "A thorough quality inspection comes before handover. You receive the keys to a fully finished home, built to Western Australian building standards.",
   },
 ];

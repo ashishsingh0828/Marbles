@@ -2,7 +2,8 @@ import { Fragment, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Breadcrumb.css";
 
-const DEFAULT_BG = "/images/ksd-stone-07.jpg";
+// Uses the widescreen architectural hero banner
+const DEFAULT_BG = "/Image/banners/hero/hero-banner-01.jpg";
 
 const formatSegment = (segment) => {
   let decoded = segment;

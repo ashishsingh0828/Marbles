@@ -1,33 +1,34 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./ClientFeedback.css";
 
 const TESTIMONIALS = [
   {
-    name: "Private Commission",
-    role: "Western Australia Residence",
-    rating: 5,
-    avatar: "/images/ksd-stone-02.jpg",
-    text: "Having architectural drafting, interior finishes, and on-site building coordinated through one Perth team gave us complete clarity on quality and fixed timelines from day one.",
+    name: "One Team",
+    role: "Architecture, interiors and construction",
+    rating: 0,
+    avatar: "/Image/products/slabs/stone-slab-02.jpg",
+    text: "Architectural drafting, interior finishes, and on-site building are coordinated by one Perth team, so you get clear communication on quality and timelines from day one.",
   },
   {
-    name: "Design & Build Sequence",
-    role: "Turnkey Architecture & Construction",
-    rating: 5,
-    avatar: "/images/ksd-stone-38.jpg",
-    text: "Architecture, engineering permits, and bespoke joinery sit with the same team from initial brief to handover — backed by over 28 years of combined industry expertise.",
+    name: "Brief to Handover",
+    role: "Turnkey design and construction",
+    rating: 0,
+    avatar: "/Image/products/slabs/stone-slab-06.jpg",
+    text: "Planning approvals, engineering coordination, and custom joinery stay with the same team from the first brief to handover, backed by over 28 years of combined industry experience.",
   },
   {
     name: "Active Sites",
-    role: "Ongoing Project Delivery",
-    rating: 5,
-    avatar: "/images/logo/logo.png",
-    text: "Our residential architectural commissions are in active delivery across Perth, with Port Coogee among our prominent ongoing coastal sites.",
+    role: "Ongoing project delivery",
+    rating: 0,
+    avatar: "/Image/branding/brand-logo.png",
+    text: "Our residential projects are in active delivery across Perth, with Port Coogee among our current coastal sites.",
   },
 ];
 
 const HEADING = [
-  { text: "Client perspectives", accent: false },
-  { text: "on architectural delivery", accent: true },
+  { text: "How we work", accent: false },
+  { text: "from brief to handover", accent: true },
 ];
 
 const SPEED_MS = 1000;
@@ -126,8 +127,8 @@ function useCountUp(target, start, duration = 1800) {
 
 export default function ClientFeedback({
   items = TESTIMONIALS,
-  image = "/images/ksd-stone-08.jpg",
-  imageAlt = "Calm architectural living interior",
+  image = "/Image/products/tiles-textures/stone-tile-10.jpg",
+  imageAlt = "Calm living lounge with warm lighting and soft seating",
   interval = 5000,
 }) {
   const sectionRef = useRef(null);
@@ -145,8 +146,9 @@ export default function ClientFeedback({
   const [dragging, setDragging] = useState(false);
   const [dragX, setDragX] = useState(0);
 
-  const average = total
-    ? items.reduce((sum, t) => sum + (Number(t.rating) || 0), 0) / total
+  const rated = items.filter((t) => Number(t.rating) > 0);
+  const average = rated.length
+    ? rated.reduce((sum, t) => sum + Number(t.rating), 0) / rated.length
     : 0;
   const counted = useCountUp(average, visible);
 
@@ -277,7 +279,7 @@ export default function ClientFeedback({
 
         <div className="tt__eyebrow tt__rise" style={{ "--d": "0.1s" }}>
           <span className="tt__eyebrow-line" />
-          <span>Client Feedback &amp; Principles</span>
+          <span>Our Approach</span>
         </div>
 
         <AnimatedHeading parts={HEADING} />
@@ -288,7 +290,7 @@ export default function ClientFeedback({
           style={{ "--d": "0.9s" }}
           role="region"
           aria-roledescription="carousel"
-          aria-label="Client testimonials"
+          aria-label="Our approach"
           tabIndex={0}
           onKeyDown={onKeyDown}
           onPointerDown={onPointerDown}
@@ -338,12 +340,12 @@ export default function ClientFeedback({
 
         {loop && (
           <div className="tt__nav tt__rise" style={{ "--d": "1.2s" }}>
-            <button type="button" className="tt__arrow" onClick={prev} aria-label="Previous note">
+            <button type="button" className="tt__arrow" onClick={prev} aria-label="Previous slide">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
                 <path d="M15 6l-6 6 6 6" />
               </svg>
             </button>
-            <div className="tt__dots" role="tablist" aria-label="Feedback slides">
+            <div className="tt__dots" role="tablist" aria-label="Slides">
               {items.map((item, i) => (
                 <button
                   key={item.name}
@@ -356,7 +358,7 @@ export default function ClientFeedback({
                 />
               ))}
             </div>
-            <button type="button" className="tt__arrow" onClick={next} aria-label="Next note">
+            <button type="button" className="tt__arrow" onClick={next} aria-label="Next slide">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
                 <path d="M9 6l6 6-6 6" />
               </svg>
@@ -369,7 +371,7 @@ export default function ClientFeedback({
             <span className="tt__rating-num">{counted.toFixed(1)}</span>
             <Stars rating={average} />
             <span className="tt__rating-txt">
-              Based on {total} client {total === 1 ? "review" : "reviews"}
+              Based on {rated.length} client {rated.length === 1 ? "review" : "reviews"}
             </span>
           </div>
         )}

@@ -6,12 +6,60 @@ import "./Blog.css";
 const PAGE_SIZE = 9;
 
 const FALLBACK_POSTS = [
-  { id: 1, slug: "architectural-marble-trends-australia", category: "Trends", date: "October 10, 2026", comments: 4, title: "Architectural Marble Trends Transforming Modern Australian Waterfront Homes", image: "/images/ksd-stone-27.jpg" },
-  { id: 2, slug: "selecting-calacatta-kitchen-islands", category: "Design Guide", date: "October 02, 2026", comments: 6, title: "Mastering The Art of Mitered Waterfall Islands in Australian Kitchens", image: "/images/ksd-stone-38.jpg" },
-  { id: 3, slug: "limestone-travertine-outdoor-alfresco", category: "Outdoor Living", date: "September 24, 2026", comments: 2, title: "Natural Limestone & Travertine: Elevating Sydney & Melbourne Alfresco Spaces", image: "/images/ksd-stone-03.jpg" },
-  { id: 4, slug: "bookmatched-feature-walls-luxury-foyers", category: "Interiors", date: "September 15, 2026", comments: 3, title: "Grand Bookmatched Slabs: Turning Foyer Walls into Living Art", image: "/images/ksd-stone-09.jpg" },
-  { id: 5, slug: "sustainable-luxury-homebuilding-standards", category: "Construction", date: "September 08, 2026", comments: 1, title: "Sustainable Luxury Home Construction: Australian Climate & Stone Durability", image: "/images/ksd-stone-07.jpg" },
-  { id: 6, slug: "precision-stonemasonry-heritage-to-modern", category: "Craftsmanship", date: "August 29, 2026", comments: 5, title: "From Quarry to Finished Residence: The Artisanal Precision Behind KSD Homes", image: "/images/ksd-stone-40.jpg" },
+  {
+    id: 1,
+    slug: "timber-and-stone-bathroom-design-trends",
+    category: "Design Trends",
+    date: "10 October 2026",
+    comments: 4,
+    title: "Timber Vanities and Natural Tones: Bathroom Design Trends in Australian Homes",
+    image: "/Image/banners/hero/hero-banner-03.jpg",
+  },
+  {
+    id: 2,
+    slug: "planning-a-family-kitchen-island",
+    category: "Kitchen Design",
+    date: "2 October 2026",
+    comments: 6,
+    title: "Planning a Kitchen Island That Works Hard for Busy Family Life",
+    image: "/Image/banners/living-room/living-banner-02.jpg",
+  },
+  {
+    id: 3,
+    slug: "alfresco-kitchens-australian-outdoor-living",
+    category: "Outdoor Living",
+    date: "24 September 2026",
+    comments: 2,
+    title: "Designing Alfresco Kitchens That Connect Your Home to the Outdoors",
+    image: "/Image/banners/living-room/living-banner-03.jpg",
+  },
+  {
+    id: 4,
+    slug: "feature-walls-for-living-rooms",
+    category: "Interiors",
+    date: "15 September 2026",
+    comments: 3,
+    title: "Feature Walls That Give Your Living Room Warmth and Character",
+    image: "/Image/products/slabs/stone-slab-04.jpg",
+  },
+  {
+    id: 5,
+    slug: "from-floor-plan-to-handover",
+    category: "Construction",
+    date: "8 September 2026",
+    comments: 1,
+    title: "From Floor Plan to Handover: How We Deliver a Turnkey Custom Home in Perth",
+    image: "/Image/projects/sharma-residence/floor-plan-02.jpg",
+  },
+  {
+    id: 6,
+    slug: "designing-a-home-cinema-room",
+    category: "Home Entertainment",
+    date: "29 August 2026",
+    comments: 5,
+    title: "Designing a Home Cinema Room: Lighting, Acoustics and Seating",
+    image: "/Image/banners/general/banner-wide-03.jpg",
+  },
 ];
 
 function Reveal({ delay = 0, className = "", children }) {

@@ -13,8 +13,8 @@ const INTERIOR_SERVICES = [
   {
     num: "01",
     title: "Architectural Design & Planning",
-    desc: "Site-responsive luxury architecture tailored to your block's solar orientation, topography, and council R-Codes before construction begins.",
-    img: "/images/ksd-stone-07.jpg",
+    desc: "Site-responsive home design shaped around your block's orientation, slope, and council R-Codes, resolved before construction begins.",
+    img: "/Image/projects/sharma-residence/floor-plan-01.jpg",
     link: "/services/architecture-design",
     icon: (
       <Icon>
@@ -29,8 +29,8 @@ const INTERIOR_SERVICES = [
   {
     num: "02",
     title: "Builder Interior Design",
-    desc: "Bespoke joinery, architectural lighting, and cohesive spatial layouts engineered in direct harmony with the structural build.",
-    img: "/images/ksd-stone-09.jpg",
+    desc: "Custom joinery, lighting, and cohesive layouts designed together with the build, so interior and structure work as one.",
+    img: "/Image/products/tiles-textures/stone-tile-04.jpg",
     link: "/services/builder-interior-design",
     icon: (
       <Icon>
@@ -44,8 +44,8 @@ const INTERIOR_SERVICES = [
   {
     num: "03",
     title: "Turnkey Residential Delivery",
-    desc: "A singular, disciplined sequence: planning approvals, structural engineering, interior curation, and meticulous handover under one roof.",
-    img: "/images/ksd-stone-27.jpg",
+    desc: "One clear sequence from planning approvals and engineering to interiors and handover, managed by a single team.",
+    img: "/Image/products/tiles-textures/stone-tile-01.jpg",
     link: "/services/complete-home-solutions",
     icon: (
       <Icon>
@@ -57,8 +57,8 @@ const INTERIOR_SERVICES = [
   {
     num: "04",
     title: "Licensed Boutique Building",
-    desc: "Master-crafted bespoke construction backed by over 28 years of combined industry expertise across Western Australia.",
-    img: "/images/ksd-stone-38.jpg",
+    desc: "Quality bespoke construction backed by over 28 years of combined industry experience across Western Australia.",
+    img: "/Image/banners/hero/hero-banner-08.jpg",
     link: "/services/licensed-boutique-building",
     icon: (
       <Icon>
@@ -71,9 +71,9 @@ const INTERIOR_SERVICES = [
   },
   {
     num: "05",
-    title: "Indoor–Outdoor Living",
-    desc: "Curated alfresco pavilions, seamless pool surrounds, and private courtyards composed for the Western Australian coastal climate.",
-    img: "/images/ksd-stone-14.jpg",
+    title: "Indoor-Outdoor Living",
+    desc: "Alfresco areas, pool surrounds, and courtyards designed for Western Australia's coastal climate.",
+    img: "/Image/banners/hero/hero-banner-07.jpg",
     link: "/services/indoor-outdoor-living",
     icon: (
       <Icon>
@@ -85,9 +85,9 @@ const INTERIOR_SERVICES = [
   },
   {
     num: "06",
-    title: "Curated Materials & Finishes",
-    desc: "Natural stone, fine hardwoods, and calibrated surface treatments selected for tactile longevity, thermal performance, and light absorption.",
-    img: "/images/ksd-stone-40.jpg",
+    title: "Materials & Finishes",
+    desc: "Natural stone, quality timbers, and carefully chosen finishes, selected for durability, thermal performance, and how they handle light.",
+    img: "/Image/banners/hero/hero-banner-05.jpg",
     link: "/services/materials-finishes",
     icon: (
       <Icon>
@@ -147,7 +147,6 @@ function AnimatedHeading({ text }) {
   );
 }
 
-// True on phones/tablets where the primary input cannot hover
 const isTouchDevice = () =>
   typeof window !== "undefined" &&
   typeof window.matchMedia === "function" &&
@@ -181,7 +180,6 @@ export default function KsdInteriorServices() {
     return () => observer.disconnect();
   }, []);
 
-  // Tapping anywhere outside a card closes the open card
   useEffect(() => {
     const close = (e) => {
       if (!e.target.closest(".ksd-svc__card")) setActiveIdx(null);
@@ -207,7 +205,7 @@ export default function KsdInteriorServices() {
       return backendServices.slice(0, 6).map((s, idx) => ({
         num: String(idx + 1).padStart(2, "0"),
         title: s.title,
-        desc: s.shortDescription || s.description || "Architecture and builder interior design as one complete home solution.",
+        desc: s.shortDescription || s.description || "Architecture and interior design as one complete home solution.",
         img: siteImage(s.image, INTERIOR_SERVICES[idx % INTERIOR_SERVICES.length].img),
         link: `/services/${s.slug || s._id}`,
         icon: INTERIOR_SERVICES[idx % INTERIOR_SERVICES.length].icon,

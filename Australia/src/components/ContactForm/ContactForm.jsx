@@ -4,7 +4,7 @@ import { BRAND } from "../../config";
 import "./ContactForm.css";
 
 const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(BRAND.mapQuery)}&output=embed`;
-const IMAGE_SRC = "/images/ksd-stone-27.jpg";
+const IMAGE_SRC = "/Image/products/tiles-textures/stone-tile-03.jpg";
 
 const INFO_ITEMS = [
   {
@@ -26,7 +26,7 @@ const INFO_ITEMS = [
   {
     id: "email",
     icon: "mail",
-    title: "Email Our Consultants",
+    title: "Email Us",
     lines: [
       { text: BRAND.email, href: `mailto:${BRAND.email}` },
     ],
@@ -129,7 +129,7 @@ function ContactForm() {
       setForm(INITIAL_FORM);
     } catch (err) {
       setIsSuccess(false);
-      setStatusMsg(err.message || "Failed to send message. Please try again or call us directly.");
+      setStatusMsg(err.message || "Failed to send your message. Please try again or call us directly.");
     } finally {
       setLoading(false);
     }
@@ -150,7 +150,7 @@ function ContactForm() {
             Start Your Custom Home Journey
           </h2>
           <p className="mx-text mx-item" style={{ "--i": 2 }}>
-            Planning a boutique home, a renovation, or a complete interior fit-out? Speak with our Perth builder and interior design team. Every project begins with listening.
+            Planning a custom home, a renovation, or a complete interior fit-out? Speak with our Perth builders and interior designers. Every project begins with listening.
           </p>
           <ul className="mx-info-list">
             {INFO_ITEMS.map((item, index) => (
@@ -208,7 +208,7 @@ function ContactForm() {
           className={`mx-cell mx-image ${imageVisible ? "is-visible" : ""}`}
         >
           <div className="mx-image-box mx-item mx-item--left" style={{ "--i": 0 }}>
-            <img src={IMAGE_SRC} alt="KSD Homes architectural natural stone" loading="lazy" />
+            <img src={IMAGE_SRC} alt="Elegant living room designed and built by KSD Homes" loading="lazy" />
           </div>
         </div>
 
@@ -220,7 +220,7 @@ function ContactForm() {
             We&apos;d love to hear from you
           </h2>
           <p className="mx-form-text mx-item" style={{ "--i": 1 }}>
-            For personalised assistance and to begin a complete KSD home, write to our Perth team.
+            Tell us about your plans and our Perth team will get back to you.
           </p>
           <form onSubmit={handleSubmit}>
             <div className="mx-fields-grid">
@@ -228,7 +228,7 @@ function ContactForm() {
                 <input
                   type="text"
                   name="name"
-                  placeholder="Your Full Name *"
+                  placeholder="Name *"
                   value={form.name}
                   onChange={handleChange}
                   autoComplete="name"
@@ -239,7 +239,7 @@ function ContactForm() {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Email Address *"
+                  placeholder="Email *"
                   value={form.email}
                   onChange={handleChange}
                   autoComplete="email"
@@ -250,7 +250,7 @@ function ContactForm() {
                 <input
                   type="tel"
                   name="phone"
-                  placeholder="Phone or WhatsApp (e.g. +61 414 029 695)"
+                  placeholder="Phone"
                   value={form.phone}
                   onChange={handleChange}
                   autoComplete="tel"
@@ -260,7 +260,7 @@ function ContactForm() {
                 <input
                   type="text"
                   name="scope"
-                  placeholder="Project Scope (e.g. New Home, Interior Design, Renovation)"
+                  placeholder="Project type"
                   value={form.scope}
                   onChange={handleChange}
                 />
@@ -269,7 +269,7 @@ function ContactForm() {
                 <textarea
                   name="message"
                   rows={5}
-                  placeholder="Tell us about the home you want to design and build... *"
+                  placeholder="Message *"
                   value={form.message}
                   onChange={handleChange}
                   required
@@ -278,7 +278,7 @@ function ContactForm() {
             </div>
             <div className="mx-btn-wrap mx-item" style={{ "--i": 7 }}>
               <button type="submit" className="mx-btn" disabled={loading}>
-                {loading ? "Sending Enquiry..." : "Submit Consultation Request"}
+                {loading ? "Sending..." : "Send Enquiry"}
               </button>
             </div>
             {statusMsg && (

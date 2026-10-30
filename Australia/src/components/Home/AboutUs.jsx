@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { BRAND } from "../../config";
 import "./AboutUs.css";
 
-/* adds .is-visible once the section scrolls into view */
 function useReveal(threshold = 0.18) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -34,34 +33,34 @@ function useReveal(threshold = 0.18) {
 const FEATURES = [
   "Licensed boutique builder for high-end custom homes",
   "Seamless integration of architecture and interior design",
-  "Turnkey residential delivery with dedicated client focus",
+  "Turnkey residential delivery with a dedicated client focus",
 ];
 
 export default function AboutUs({
   images = {
-    top: "/images/ksd-stone-08.jpg",
-    bottom: "/images/ksd-stone-09.jpg",
-    tall: "/images/ksd-stone-07.jpg",
+    top: "/Image/banners/living-room/living-banner-01.jpg",
+    bottom: "/Image/banners/kitchen/kitchen-banner-01.jpg",
+    tall: "/Image/products/slabs/stone-slab-03.jpg",
   },
-  founder = { name: "KSD Homes", role: "28+ years team experience, Perth WA", image: "" },
-  learnMoreHref = "/about",
+  founder = { name: "KSD Homes", role: "28+ years of team experience, Perth, WA", image: "" },
+  learnMoreHref = "/contact",
 }) {
   const [ref, visible] = useReveal();
 
   const panels = [
-    { key: "top", cls: "about__panel--top", src: images.top, label: "Statuary Marble Living", d: "0.1s" },
-    { key: "bottom", cls: "about__panel--bottom", src: images.bottom, label: "Bookmatched Kitchen Island", d: "0.35s" },
-    { key: "tall", cls: "about__panel--tall", src: images.tall, label: "Architectural Stone Facade", d: "0.2s" },
+    { key: "top", cls: "about__panel--top", src: images.top, label: "Custom Kitchen Joinery", d: "0.1s" },
+    { key: "bottom", cls: "about__panel--bottom", src: images.bottom, label: "Sculpted Timber Bedroom Design", d: "0.35s" },
+    { key: "tall", cls: "about__panel--tall", src: images.tall, label: "Open-Plan Dining Design", d: "0.2s" },
   ];
 
   const swatches = [
-    { name: "Dining and light", src: "/images/ksd-stone-15.jpg" },
-    { name: "Bedroom direction", src: "/images/ksd-stone-12.jpg" },
-    { name: "Custom joinery", src: "/images/ksd-stone-38.jpg" },
-    { name: "Marble wet areas", src: "/images/ksd-stone-40.jpg" },
+    { name: "Dining and light", src: "/Image/products/tiles-textures/stone-tile-02.jpg" },
+    { name: "Bedroom direction", src: "/Image/products/tiles-textures/stone-tile-05.jpg" },
+    { name: "Custom joinery", src: "/Image/products/slabs/stone-slab-07.jpg" },
+    { name: "Bathrooms and wet areas", src: "/Image/banners/hero/hero-banner-04.jpg" },
   ];
 
-  const logo = BRAND.logo || "/images/logo/logo.png";
+  const logo = BRAND.logo || "/Image/branding/brand-logo.png";
 
   return (
     <section
@@ -71,7 +70,6 @@ export default function AboutUs({
       aria-labelledby="about-title"
     >
       <div className="about__inner">
-        {/* Images */}
         <div className="about__media">
           {panels.map((p) => (
             <figure key={p.key} className={`about__panel ${p.cls}`} style={{ "--d": p.d }}>
@@ -87,8 +85,7 @@ export default function AboutUs({
             </figure>
           ))}
 
-          {/* Rotating badge with KSD logo */}
-          <Link className="about__badge about__reveal" style={{ "--d": "0.7s" }} to={learnMoreHref} aria-label="Learn about KSD Homes">
+          <Link className="about__badge about__reveal" style={{ "--d": "0.7s" }} to={learnMoreHref} aria-label="Contact KSD Homes">
             <svg className="about__ring" viewBox="0 0 200 200" aria-hidden="true">
               <defs>
                 <path id="aboutRingPath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" />
@@ -105,7 +102,6 @@ export default function AboutUs({
           </Link>
         </div>
 
-        {/* Content */}
         <div className="about__content">
           <span className="about__tag about__reveal" style={{ "--d": "0.1s" }}>
             <i className="about__diamond" aria-hidden="true" />
@@ -117,7 +113,7 @@ export default function AboutUs({
           </h2>
 
           <p className="about__text about__reveal" style={{ "--d": "0.4s" }}>
-            KSD Homes unites luxury residential architecture, builder interior design, and bespoke craftsmanship within one Perth-based multidisciplinary studio. Backed by more than 28 years of combined construction and design mastery, we engineer tailored, site-responsive homes from initial concept drafting through to master handover.
+            KSD Homes brings luxury residential architecture, interior design, and bespoke craftsmanship together in one Perth-based, multidisciplinary studio. With more than 28 years of combined construction and design experience, we deliver tailored, site-responsive homes from the first concept sketch through to final handover.
           </p>
 
           <div className="about__quote about__reveal" style={{ "--d": "0.55s" }}>
@@ -129,7 +125,7 @@ export default function AboutUs({
               </svg>
             </span>
             <p>
-              &ldquo;We do not simply build houses. The same team directs architecture, materiality, and construction from the very first conversation to handover.&rdquo;
+              &ldquo;We don&rsquo;t simply build houses. One team directs the architecture, materials, and construction, from the very first conversation to handover.&rdquo;
             </p>
           </div>
 

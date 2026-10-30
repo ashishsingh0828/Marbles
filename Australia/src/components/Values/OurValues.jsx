@@ -5,27 +5,27 @@ const VALUES = [
   {
     num: "01",
     title: "Client-Centred Collaboration",
-    text: "We design and build around your lifestyle, spatial rituals, and personal priorities — crafting residences of privacy, proportion, and enduring comfort.",
-    img: "/images/ksd-stone-38.jpg",
-    alt: "Bespoke architectural joinery and interior detailing",
+    text: "We design and build around your lifestyle and priorities, creating homes with privacy, good proportions, and lasting comfort.",
+    img: "/Image/products/tiles-textures/stone-tile-06.jpg",
+    alt: "Home cinema room designed around the way a family lives",
   },
   {
     num: "02",
     title: "Architectural Integrity",
-    text: "Every project responds to Western Australia's coastal climate and natural light. We listen deeply from the initial brief to resolve form and function seamlessly.",
-    img: "/images/ksd-stone-11.jpg",
-    alt: "Light-filled custom residential living space",
+    text: "Every project responds to Western Australia's coastal climate and natural light. We listen from the first brief so form and function work together.",
+    img: "/Image/products/slabs/stone-slab-14.jpg",
+    alt: "Light-filled bathroom with floor-to-ceiling windows and freestanding bath",
   },
   {
     num: "03",
     title: "Unified Turnkey Delivery",
-    text: "Architecture, structural engineering, builder interior design, and master finishes are coordinated under one roof for complete design continuity.",
-    img: "/images/ksd-stone-04.jpg",
-    alt: "Integrated residential architecture and premium finishes",
+    text: "Architecture, engineering coordination, interior design, and quality finishes are managed under one roof, so the whole home feels consistent.",
+    img: "/Image/banners/kitchen/kitchen-banner-04.jpg",
+    alt: "Bedroom with custom timber joinery and a curved TV unit",
   },
 ];
 
-const HEADING = "Foundational principles behind our architectural craft";
+const HEADING = "The principles behind every KSD home";
 
 function AnimatedHeading({ text }) {
   let count = 0;
