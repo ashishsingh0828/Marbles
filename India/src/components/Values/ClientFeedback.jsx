@@ -7,7 +7,7 @@ const TESTIMONIALS = [
     role: "Principal Architect, Studio Forma",
     rating: 5,
     avatar: "",
-    text: "IE Marble & Traders approached our villa project with genuine material intent. The vein-matching across the double-height feature wall and the dry-lay inspection before dispatch made on-site execution effortless.",
+    text: "IE Marbles approached our villa project with genuine material intent. The vein-matching across the double-height feature wall and the dry-lay inspection before dispatch made on-site execution effortless.",
   },
   {
     name: "Sunaina Kapoor",

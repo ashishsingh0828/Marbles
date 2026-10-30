@@ -136,7 +136,7 @@ const FEATURES = [
 export default function AboutUs({
   images = {},
   founder = {
-    name: "IE Marble & Traders",
+    name: "IE Marbles",
     role: "Stone, Curated · Sourcing & Specification",
     image: "",
   },
@@ -233,7 +233,7 @@ export default function AboutUs({
             className="about__badge about__reveal"
             style={{ "--d": "0.7s" }}
             to={learnMoreHref}
-            aria-label="Learn more about IE Marble & Traders"
+            aria-label="Learn more about IE Marbles"
           >
             <svg
               className="about__ring"
@@ -252,7 +252,7 @@ export default function AboutUs({
                   textLength="484"
                   lengthAdjust="spacing"
                 >
-                  STONE, CURATED • IE MARBLE & TRADERS •{" "}
+                IE MARBLES {" "}
                 </textPath>
               </text>
             </svg>
@@ -267,7 +267,7 @@ export default function AboutUs({
         <div className="about__content">
           <span className="about__tag about__reveal" style={{ "--d": "0.1s" }}>
             <i className="about__diamond" aria-hidden="true" />
-            IE Marble &amp; Traders
+            IE Marbles
           </span>
 
           <h2

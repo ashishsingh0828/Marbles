@@ -15,7 +15,7 @@ export default function Abouts() {
     <div className="abouts-page">
       {/* 1. Page Header */}
       <PageBanner
-        title="About IE Marble & Traders"
+        title="About IE Marbles"
         breadcrumbs={[{ label: "Home", path: "/" }, { label: "About Us" }]}
         bgImage={IMG.hero5}
       />

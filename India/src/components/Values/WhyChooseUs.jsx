@@ -185,7 +185,7 @@ export default function WhyChooseUs({
           </p>
 
           <p className="wc__lead wc__fade" style={{ "--d": "700ms" }}>
-            At IE Marble &amp; Traders, we approach every enquiry with a focus
+            At IE Marbles, we approach every enquiry with a focus
             on thoughtful material selection, clear specifications and
             project-oriented coordination. Our aim is to help architects,
             interior designers, developers and private clients identify

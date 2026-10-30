@@ -175,7 +175,7 @@ export default function Hero({
       className={`hero${paused ? " is-paused" : ""}`}
       data-theme={slides[index].theme}
       aria-roledescription="carousel"
-      aria-label="IE Marble & Traders featured stone"
+      aria-label="IE Marbles featured stone"
       onFocus={(e) => {
         if (e.target.matches(":focus-visible")) setPaused(true);
       }}

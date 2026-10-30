@@ -45,7 +45,7 @@ export default function About() {
         <div className="about-story-content">
           <span className="about-story-pill">
             <i aria-hidden="true" />
-            IE Marble &amp; Traders — Stone, Curated
+            IE Marbles 
           </span>
 
           <h2 className="about-story-title">
@@ -53,7 +53,7 @@ export default function About() {
           </h2>
 
           <p className="about-story-lead">
-            IE Marble &amp; Traders is a natural-stone sourcing and supply business focused on helping architects, designers, developers and private clients identify materials suited to their projects.
+            IE Marbles is a natural-stone sourcing and supply business focused on helping architects, designers, developers and private clients identify materials suited to their projects.
           </p>
 
           <p className="about-story-text">

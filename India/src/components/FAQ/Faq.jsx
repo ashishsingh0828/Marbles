@@ -79,7 +79,7 @@ export default function Faq() {
         <div className="faq-layout">
           <aside className="faq-aside">
             <div className="faq-consult-card">
-              <span className="faq-card-tag">IE Marble &amp; Traders</span>
+              <span className="faq-card-tag">IE Marbles</span>
               <h3 className="faq-card-title">Have a stone or specification in mind?</h3>
               <p className="faq-card-text">
                 Send us your material reference, drawings or BOQ through the contact form and we will take it from there.

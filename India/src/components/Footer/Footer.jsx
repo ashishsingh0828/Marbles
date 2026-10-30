@@ -22,7 +22,7 @@ const MATERIAL_LINKS = [
 ];
 
 const SOCIALS = [
-  { id: "instagram", label: "Instagram", href: "https://instagram.com" },
+  { id: "instagram", label: "Instagram", href: "https://www.instagram.com/ie.marbles/" },
   { id: "facebook", label: "Facebook", href: "https://facebook.com" },
   { id: "linkedin", label: "LinkedIn", href: "https://linkedin.com" },
   { id: "pinterest", label: "Pinterest", href: "https://pinterest.com" },
@@ -238,7 +238,6 @@ export default function Footer({ onSubscribe }) {
                 <p className="ft-about">
                   IE Marble &amp; Traders is a natural-stone sourcing and supply business, helping architects, designers, developers and private clients identify materials suited to their projects.
                 </p>
-                <p className="ft-tagline">Stone, curated.</p>
                 <div className="ft-socials">
                   {SOCIALS.map((social) => (
                     <a key={social.id} href={social.href} target="_blank" rel="noreferrer" aria-label={social.label}>
@@ -311,7 +310,6 @@ export default function Footer({ onSubscribe }) {
               <p className="ft-copy">
                 &copy; {new Date().getFullYear()} IE Marble &amp; Traders. All rights reserved.
               </p>
-              <p className="ft-copy">Stone, curated.</p>
             </div>
           </div>
         </div>

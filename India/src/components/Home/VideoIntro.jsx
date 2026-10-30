@@ -196,7 +196,7 @@ export default function VideoIntro({
             className={`video__modal${closing ? " is-closing" : ""}`}
             role="dialog"
             aria-modal="true"
-            aria-label="IE Marble & Traders video"
+            aria-label="IE Marbles"
             onClick={close}
           >
             <button
@@ -218,7 +218,7 @@ export default function VideoIntro({
               <div className="video__player">
                 <iframe
                   src={src}
-                  title="IE Marble & Traders video"
+                  title="IE Marbles"
                   allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
                   allowFullScreen
                   referrerPolicy="strict-origin-when-cross-origin"
@@ -235,7 +235,7 @@ export default function VideoIntro({
       ref={ref}
       className={`video${visible ? " is-visible" : ""}`}
       onPointerMove={onMove}
-      aria-label="IE Marble & Traders introduction video"
+      aria-label="IE Marbles introduction video"
     >
       <img
         className="video__bg"
@@ -259,7 +259,7 @@ export default function VideoIntro({
           type="button"
           className="video__play"
           onClick={() => setOpen(true)}
-          aria-label="Play the IE Marble & Traders video"
+          aria-label="Play the IE Marbles video"
           aria-haspopup="dialog"
         >
           <span className="video__ripple" aria-hidden="true" />
@@ -274,7 +274,7 @@ export default function VideoIntro({
       <div className="video__meta">
         <span className="video__tag">
           <i aria-hidden="true" />
-          IE Marble &amp; Traders
+          IE Marbles
         </span>
         <p>A short introduction to how we help select and coordinate natural stone for your project.</p>
       </div>

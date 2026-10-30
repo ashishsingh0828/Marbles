@@ -18,7 +18,7 @@ function ArrowIcon() {
 
 export default function Banner({
 image = BANNER_IMAGE,
-  subtitle = "IE Marble & Traders — Stone, Curated",
+  subtitle = "IE Marbles— Stone, Curated",
   headingLines = defaultLines,
   buttonText = "Discuss a Project",
   buttonHref = "/contact",
