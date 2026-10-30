@@ -69,14 +69,23 @@ export default function ServiceDetail() {
   }, [serviceApi.data, slug]);
 
   const sidebarLinks = useMemo(() => {
-    if (allServicesApi.data && allServicesApi.data.length > 0) {
-      return allServicesApi.data.map((item) => ({
+    const fromList = allServicesApi.data && allServicesApi.data.length > 0
+      ? allServicesApi.data
+      : null;
+    const fromRelated = serviceApi.data?.related?.length
+      ? [serviceApi.data, ...serviceApi.data.related].filter(
+          (x, i, arr) => x?.slug && arr.findIndex((y) => y.slug === x.slug) === i
+        )
+      : null;
+    const rows = fromList || fromRelated;
+    if (rows?.length) {
+      return rows.map((item) => ({
         label: item.title,
         href: `/services/${item.slug || item.id}`,
       }));
     }
     return SERVICE_SIDEBAR;
-  }, [allServicesApi.data]);
+  }, [allServicesApi.data, serviceApi.data]);
 
   return (
     <div>

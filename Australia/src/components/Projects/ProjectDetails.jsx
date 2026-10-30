@@ -136,7 +136,21 @@ export default function ProjectDetails() {
 
   const homes = mergeHomes(list);
   const currentIndex = homes.findIndex((item) => item.slug === home.slug);
-  const nextHome = homes[(currentIndex + 1) % Math.max(homes.length, 1)];
+  /* Prefer API neighbors (admin-published), else circular next from live/fallback list. */
+  const nextFromApi = data?.next?.slug && data.next.slug !== home.slug ? data.next : null;
+  const prevFromApi = data?.prev?.slug && data.prev.slug !== home.slug ? data.prev : null;
+  const nextFromList = homes.length > 1
+    ? homes[(currentIndex + 1) % homes.length]
+    : null;
+  const prevFromList = homes.length > 1
+    ? homes[(currentIndex - 1 + homes.length) % homes.length]
+    : null;
+  const nextHome = nextFromApi || (nextFromList && nextFromList.slug !== home.slug ? nextFromList : null);
+  const prevHome = prevFromApi || (prevFromList && prevFromList.slug !== home.slug ? prevFromList : null);
+  const relatedHomes = (Array.isArray(data?.related) && data.related.length
+    ? data.related
+    : homes.filter((item) => item.slug !== home.slug).slice(0, 2)
+  ).filter((item) => item?.slug && item.slug !== home.slug);
 
   /* one photo = one place on the page */
   const claimed = new Set();
@@ -301,12 +315,26 @@ export default function ProjectDetails() {
         </p>
         <div className="ps-cta__actions">
           <Link to="/contact" className="ps-enquire">Enquire about this project</Link>
-          {nextHome && nextHome.slug !== home.slug && (
+          {prevHome && (
+            <Link to={`/projects/${prevHome.slug}`} className="ps-next">
+              Previous · {prevHome.title}
+            </Link>
+          )}
+          {nextHome && (
             <Link to={`/projects/${nextHome.slug}`} className="ps-next">
               Next · {nextHome.title}
             </Link>
           )}
         </div>
+        {relatedHomes.length > 0 && (
+          <div className="ps-cta__related" style={{ marginTop: "1.25rem", display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
+            {relatedHomes.map((item) => (
+              <Link key={item.slug} to={`/projects/${item.slug}`} className="ps-next">
+                {item.title}
+              </Link>
+            ))}
+          </div>
+        )}
       </Reveal>
     </article>
   );

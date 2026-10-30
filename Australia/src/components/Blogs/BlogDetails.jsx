@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useApi, siteImage, fmtDate, paras } from "../../api";
+import { useApi, siteImage, fmtDate, paras, splitTags } from "../../api";
 import "./BlogDetails.css";
 
 const FALLBACK_BLOG = {
@@ -8,6 +8,7 @@ const FALLBACK_BLOG = {
   author: "KSD Homes Design Editorial",
   date: "October 10, 2026",
   category: "Architectural Trends",
+  tags: "Luxury Home Build, Natural Stone, Australian Architecture",
   heroImage: "/images/ksd-stone-27.jpg",
   image2: "/images/ksd-stone-03.jpg",
   image3: "/images/ksd-stone-09.jpg",
@@ -20,23 +21,24 @@ const FALLBACK_BLOG = {
   conclusion: "Whether embarking on a full custom architectural build or a transformative master interior renovation, partnering with master builders and stonemasons ensures an enduring architectural heirloom.",
 };
 
-const CATEGORIES = [
-  { id: 1, name: "Custom Home Building", count: "14" },
-  { id: 2, name: "Calacatta & Statuario Marble", count: "18" },
-  { id: 3, name: "Mitered Waterfall Islands", count: "12", active: true },
-  { id: 4, name: "Outdoor Limestone & Travertine", count: "09" },
-  { id: 5, name: "Architectural Feature Walls", count: "11" },
+const FALLBACK_CATEGORIES = [
+  { id: 1, name: "Design Trends", count: "01" },
+  { id: 2, name: "Kitchen Design", count: "01" },
+  { id: 3, name: "Outdoor Living", count: "01" },
+  { id: 4, name: "Interiors", count: "01" },
+  { id: 5, name: "Construction", count: "01" },
+  { id: 6, name: "Home Entertainment", count: "01" },
 ];
 
-const SIDEBAR_TAGS = [
-  { id: 1, name: "Sydney Luxury Homes" },
-  { id: 2, name: "Bookmatched Marble", active: true },
-  { id: 3, name: "Natural Stone Flooring" },
-  { id: 4, name: "Custom Stonemasonry" },
-  { id: 5, name: "Waterfall Islands" },
+const FALLBACK_SIDEBAR_TAGS = [
+  { id: 1, name: "Design Trends" },
+  { id: 2, name: "Bathrooms" },
+  { id: 3, name: "Kitchen Design" },
+  { id: 4, name: "Outdoor Living" },
+  { id: 5, name: "Perth" },
 ];
 
-const POST_TAGS = [
+const FALLBACK_POST_TAGS = [
   { id: 1, name: "Luxury Home Build" },
   { id: 2, name: "Natural Stone", active: true },
   { id: 3, name: "Australian Architecture" },
@@ -138,6 +140,7 @@ function formatNow() {
 function BlogDetails() {
   const { slug } = useParams();
   const { data } = useApi(slug ? `/blogs/${slug}` : null);
+  const allBlogs = useApi("/blogs");
   const [search, setSearch] = useState("");
   const [searchTerm, setSearchTerm] = useState(""); // debounced value sent to the backend
   const [comments, setComments] = useState(INITIAL_COMMENTS);
@@ -195,13 +198,55 @@ function BlogDetails() {
     author: data.author || "KSD Homes Editorial",
     date: fmtDate(data.publishedAt || data.date || data.createdAt || new Date()),
     category: data.category || "Architecture",
+    tags: splitTags(data.tags),
     heroImage: siteImage(data.heroImage, siteImage(data.image, FALLBACK_BLOG.heroImage)),
     image2: siteImage(data.galleryA, siteImage(data.gallery?.[0], FALLBACK_BLOG.image2)),
     image3: siteImage(data.galleryB, siteImage(data.gallery?.[1], FALLBACK_BLOG.image3)),
     paragraphs: parsedParagraphs,
     quote: data.excerpt || data.quote || FALLBACK_BLOG.quote,
     conclusion: data.conclusion || data.secondHeading || FALLBACK_BLOG.conclusion,
-  } : FALLBACK_BLOG;
+  } : { ...FALLBACK_BLOG, tags: splitTags(FALLBACK_BLOG.tags) };
+
+  const blogList = Array.isArray(allBlogs.data) ? allBlogs.data : [];
+  const categories = useMemo(() => {
+    if (!blogList.length) return FALLBACK_CATEGORIES;
+    const counts = {};
+    blogList.forEach((item) => {
+      const name = String(item.category || "").trim();
+      if (!name) return;
+      counts[name] = (counts[name] || 0) + 1;
+    });
+    return Object.entries(counts).map(([name, count], i) => ({
+      id: i + 1,
+      name,
+      count: String(count).padStart(2, "0"),
+      active: name === post.category,
+    }));
+  }, [blogList, post.category]);
+
+  const sidebarTags = useMemo(() => {
+    if (!blogList.length) return FALLBACK_SIDEBAR_TAGS;
+    const names = [...new Set(blogList.flatMap((item) => splitTags(item.tags)))];
+    if (!names.length) return FALLBACK_SIDEBAR_TAGS;
+    return names.slice(0, 12).map((name, i) => ({
+      id: i + 1,
+      name,
+      active: post.tags?.includes(name),
+    }));
+  }, [blogList, post.tags]);
+
+  const postTags = useMemo(() => {
+    if (post.tags?.length) {
+      return post.tags.map((name, i) => ({ id: i + 1, name, active: i === 0 }));
+    }
+    return FALLBACK_POST_TAGS;
+  }, [post.tags]);
+
+  const relatedPosts = useMemo(() => {
+    const fromApi = Array.isArray(data?.related) ? data.related : [];
+    if (fromApi.length) return fromApi.slice(0, 3);
+    return blogList.filter((item) => item.slug && item.slug !== slug).slice(0, 3);
+  }, [data?.related, blogList, slug]);
 
   const handleFormChange = (event) => {
     const { name, value } = event.target;
@@ -285,7 +330,7 @@ function BlogDetails() {
                 <h3>Categories</h3>
               </div>
               <ul className="bd-categories">
-                {CATEGORIES.map((cat) => (
+                {categories.map((cat) => (
                   <li key={cat.id}>
                     <Link to="/blogs" className={cat.active ? "active" : undefined}>
                       <span className="dot" />
@@ -302,13 +347,31 @@ function BlogDetails() {
                 <h3>Popular Tags</h3>
               </div>
               <div className="bd-tagcloud">
-                {SIDEBAR_TAGS.map((tag) => (
+                {sidebarTags.map((tag) => (
                   <Link key={tag.id} to="/blogs" className={tag.active ? "active" : undefined}>
                     {tag.name}
                   </Link>
                 ))}
               </div>
             </Reveal>
+
+            {relatedPosts.length > 0 && (
+              <Reveal variant="left" delay={0.2} className="bd-widget">
+                <div className="bd-wid-title">
+                  <h3>Related Posts</h3>
+                </div>
+                <ul className="bd-categories">
+                  {relatedPosts.map((item) => (
+                    <li key={item.slug}>
+                      <Link to={`/blogs/${item.slug}`}>
+                        <span className="dot" />
+                        <span>{item.title}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            )}
           </aside>
 
           <div className="bd-main">
@@ -370,7 +433,7 @@ function BlogDetails() {
             <Reveal variant="up" className="bd-tag-share">
               <div className="bd-post-tags">
                 <h6>Tags:</h6>
-                {POST_TAGS.map((tag) => (
+                {postTags.map((tag) => (
                   <Link key={tag.id} to="/blogs" className={tag.active ? "active" : undefined}>
                     {tag.name}
                   </Link>

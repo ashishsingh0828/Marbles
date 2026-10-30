@@ -16,8 +16,8 @@ import {
 
 const DUMMY_SERVICE_DETAIL = {
   title: "Marble Flooring & Dry-Lay",
-  heroImage: "/Images/Service/Omini Bianco Marble.png",
-  image: "/Images/Service/Tempest Marble.png",
+  heroImage: "/Images/Services/S-1.png",
+  image: "/Images/Services/S-1.png",
   paragraphs: [
     "We provide comprehensive natural marble slab selection, precision dry-lay layouts, and sub-millimeter joint installation for luxury residences, commercial lobbies, and villas.",
     "Every block is carefully selected at our Kishangarh stone facility for uniform density, natural mineral luster, and continuous vein movement across adjacent slabs.",
@@ -88,12 +88,19 @@ export default function ServiceDetail() {
       : "Marble Care & Queries",
     faqs,
   };
-  const links = (all.data && all.data.length ? all.data : [
-    { title: "Marble Flooring", slug: "marble-flooring" },
-    { title: "Wall Cladding", slug: "wall-cladding" },
-    { title: "Countertops & Vanities", slug: "countertops-vanities" },
-    { title: "Custom Staircases", slug: "staircases-inlays" },
-  ]).map((x) => ({ label: x.title, href: `/services/${x.slug}` }));
+  /* Sidebar list: live admin services, else dummy seed list (editable once API has data). */
+  const FALLBACK_SERVICE_LINKS = [
+    { title: "Flooring Selection & Dry-Lay Coordination", slug: "marble-flooring" },
+    { title: "Feature Walls & Facade Coordination", slug: "wall-cladding" },
+    { title: "Surfaces & Edge Detailing Coordination", slug: "countertops-vanities" },
+    { title: "Custom Staircases & Architectural Details", slug: "staircases-inlays" },
+  ];
+  const serviceRows = (all.data && all.data.length)
+    ? all.data
+    : (one.data?.related?.length
+      ? [one.data, ...one.data.related].filter((x, i, arr) => x?.slug && arr.findIndex((y) => y.slug === x.slug) === i)
+      : FALLBACK_SERVICE_LINKS);
+  const links = serviceRows.map((x) => ({ label: x.title, href: `/services/${x.slug}` }));
 
   return (
     <>
