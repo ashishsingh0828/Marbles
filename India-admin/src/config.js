@@ -126,6 +126,7 @@ const indiaServices = {
     ] },
     { title: "Images", cols: 2, fields: [
       { name: "image", label: "List page image", type: "image", required: true },
+      { name: "imageB", label: "List hover / secondary image", type: "image", help: "Second image shown on hover in the services grid." },
       { name: "heroImage", label: "Detail page top image", type: "image" },
     ] },
     { title: "Detail page content", fields: [
