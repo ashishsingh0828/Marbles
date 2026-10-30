@@ -5,7 +5,7 @@ export const IMG = {
   hero3: "/Images/Banner Slider images/3.png",
   hero4: "/Images/Banner Slider images/4.png",
   hero5: "/Images/About/Banner/banner.png",
-  hero6:"/Images/About/Main/about.png",
+  hero6: "/Images/About/Main/about.png",
   aboutCrema: "/Images/Home/About/Selected Marble Slabs.png",
   aboutViola: "/Images/Home/About/Distinctive Quartzite.png",
   aboutStatuario: "/Images/Home/About/Textured Travertine.png",
@@ -39,7 +39,6 @@ export const IMG = {
   feedback2: "/Images/Client feedback/Client feedback-2.png",
   video: "/Images/Video section Images/Video section Images.png",
 };
-
 export const ONLINE = [
   "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
   "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1600&q=80",
