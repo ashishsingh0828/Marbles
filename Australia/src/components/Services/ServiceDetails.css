@@ -335,50 +335,61 @@
   100% { transform: scale(1.4); opacity: 0; }
 }
 
-/* Video Modal */
+/* Video Modal (portaled to body) */
 .ksd-sd-modal {
   position: fixed;
   inset: 0;
   background: rgba(10, 24, 40, 0.92);
-  z-index: 99999;
+  z-index: 2147483646;
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: max(20px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
 }
 
 .ksd-sd-modal-box {
   position: relative;
-  width: min(980px, 100%);
+  width: min(980px, 100%, calc((100dvh - 96px) * 16 / 9));
   aspect-ratio: 16 / 9;
   background: #000000;
+  overflow: hidden;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
 }
 
 .ksd-sd-modal-box iframe {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
   display: block;
+  background: #000;
 }
 
 .ksd-sd-modal-close {
   position: absolute;
-  top: -46px;
-  right: 0;
-  background: var(--sd-gold);
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  background: rgba(10, 24, 40, 0.9);
   color: #FFFFFF;
   border: 0;
-  width: 38px;
-  height: 38px;
-  font-size: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   cursor: pointer;
   display: grid;
   place-items: center;
-  transition: background 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .ksd-sd-modal-close:hover {
-  background: var(--sd-green);
+  background: var(--sd-gold);
+  transform: rotate(90deg);
+}
+.ksd-sd-modal-close:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
 }
 
 /* FAQ Accordion */

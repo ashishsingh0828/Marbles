@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { Link, NavLink } from "react-router-dom";
 import "./ServiceDetails.css";
 
@@ -68,7 +69,7 @@ function StoneCraftIcon({ alt }) {
   );
 }
 
-/* Video Modal Popup */
+/* Video Modal Popup — portaled to <body> so it is never clipped by section overflow */
 function VideoModal({ id, onClose }) {
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && onClose();
@@ -81,18 +82,26 @@ function VideoModal({ id, onClose }) {
     };
   }, [onClose]);
 
-  return (
+  if (typeof document === "undefined" || !id) return null;
+
+  return createPortal(
     <div className="ksd-sd-modal" role="dialog" aria-modal="true" aria-label="Video Showcase" onClick={onClose}>
       <div className="ksd-sd-modal-box" onClick={(e) => e.stopPropagation()}>
-        <button className="ksd-sd-modal-close" onClick={onClose} aria-label="Close video">✕</button>
+        <button type="button" className="ksd-sd-modal-close" onClick={onClose} aria-label="Close video">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </button>
         <iframe
-          src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`}
+          src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1`}
           title="KSD Homes Service Video"
-          allow="autoplay; encrypted-media; picture-in-picture"
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
           allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
         />
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

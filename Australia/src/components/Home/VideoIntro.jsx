@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import "./VideoIntro.css";
 
@@ -61,7 +62,9 @@ function VideoModal({ url, onClose }) {
     };
   }, [onClose]);
 
-  return (
+  if (typeof document === "undefined" || !url) return null;
+
+  return createPortal(
     <div
       className="vi-modal"
       role="dialog"
@@ -89,12 +92,14 @@ function VideoModal({ url, onClose }) {
             title="Introduction video"
             allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
             allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
           />
         ) : (
           <video src={media.src} controls autoPlay playsInline />
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

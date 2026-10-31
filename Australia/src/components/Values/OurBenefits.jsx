@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import "./OurBenefits.css";
 
 const STATS = [
@@ -130,7 +131,7 @@ const toEmbed = (url) => {
     const u = new URL(url);
     let id = u.searchParams.get("v");
     if (!id && u.hostname === "youtu.be") id = u.pathname.slice(1);
-    if (id) return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+    if (id) return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1`;
   } catch (e) {
   }
   return url;
@@ -248,36 +249,40 @@ export default function OurBenefits({
         </ul>
       </div>
 
-      {/* ---------- video pop-up ---------- */}
-      {open && (
-        <div
-          className="ob__modal"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Video"
-          onClick={() => setOpen(false)}
-        >
-          <div className="ob__modal-box" onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              className="ob__close"
-              onClick={() => setOpen(false)}
-              aria-label="Close video"
-              autoFocus
-            >
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-                <path d="M6 6l12 12M18 6 6 18" />
-              </svg>
-            </button>
-            <iframe
-              src={toEmbed(videoUrl)}
-              title="Video"
-              allow="autoplay; encrypted-media; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-        </div>
-      )}
+      {/* ---------- video pop-up (portaled so overflow never clips it) ---------- */}
+      {open &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
+            className="ob__modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Video"
+            onClick={() => setOpen(false)}
+          >
+            <div className="ob__modal-box" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                className="ob__close"
+                onClick={() => setOpen(false)}
+                aria-label="Close video"
+                autoFocus
+              >
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+                  <path d="M6 6l12 12M18 6 6 18" />
+                </svg>
+              </button>
+              <iframe
+                src={toEmbed(videoUrl)}
+                title="Video"
+                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                allowFullScreen
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            </div>
+          </div>,
+          document.body
+        )}
     </section>
   );
 }
