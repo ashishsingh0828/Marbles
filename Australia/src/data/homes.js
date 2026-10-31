@@ -423,7 +423,11 @@ export function mergeHomes(apiList) {
 export function homeBySlug(slug, apiItem) {
   const resolved = displaySlug(slug);
   const idx = FALLBACK_HOMES.findIndex((h) => h.slug === resolved);
-  if (apiItem) return mapHome({ ...apiItem, slug: resolved }, idx >= 0 ? idx : 0);
+  /* Only merge API data when it matches this slug — avoids showing the previous project while navigating. */
+  const apiSlug = apiItem?.slug ? displaySlug(apiItem.slug) : "";
+  if (apiItem && apiSlug && apiSlug === resolved) {
+    return mapHome({ ...apiItem, slug: resolved }, idx >= 0 ? idx : 0);
+  }
   return mapHome({ slug: idx >= 0 ? resolved : "" }, idx >= 0 ? idx : 0);
 }
 

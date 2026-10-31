@@ -79,13 +79,23 @@ export default function ServiceDetail() {
       : null;
     const rows = fromList || fromRelated;
     if (rows?.length) {
-      return rows.map((item) => ({
+      const ordered = [...rows].sort((a, b) => (a.slug === slug ? -1 : b.slug === slug ? 1 : 0));
+      return ordered.slice(0, 4).map((item) => ({
         label: item.title,
         href: `/services/${item.slug || item.id}`,
       }));
     }
-    return SERVICE_SIDEBAR;
-  }, [allServicesApi.data, serviceApi.data]);
+    return SERVICE_SIDEBAR.slice(0, 4);
+  }, [allServicesApi.data, serviceApi.data, slug]);
+
+  if (serviceApi.loading && (!serviceApi.data || serviceApi.data.slug !== slug)) {
+    return (
+      <div>
+        <Breadcrumb title="Service" />
+        <p style={{ padding: "2rem", textAlign: "center" }}>Loading service…</p>
+      </div>
+    );
+  }
 
   return (
     <div>

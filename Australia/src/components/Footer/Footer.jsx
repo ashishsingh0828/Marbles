@@ -31,9 +31,9 @@ const SOCIALS = [
 ];
 
 const LEGAL_LINKS = [
-  { id: "privacy", label: "Privacy Policy", to: "#" },
-  { id: "terms", label: "Terms & Conditions", to: "#" },
-  { id: "licence", label: "WA Licensed Builder", to: "/contact" },
+  { id: "privacy", label: "", to: "#" },
+  { id: "terms", label: "", to: "#" },
+  { id: "licence", label: "", to: "/contact" },
 ];
 
 function useInView(threshold = 0.1) {

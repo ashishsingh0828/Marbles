@@ -162,7 +162,7 @@ export default function VideoIntro({
   }, []);
 
   const closeVideo = useCallback(() => {
-    setOpen(false);
+      setOpen(false);
     if (playRef.current) playRef.current.focus();
   }, []);
 
@@ -182,20 +182,20 @@ export default function VideoIntro({
           <div className="vi__play-wrap vi__pop" style={{ "--d": "0.2s" }}>
             <span className="vi__pulse" aria-hidden="true" />
             <span className="vi__pulse vi__pulse--2" aria-hidden="true" />
-            <button
-              ref={playRef}
-              type="button"
+        <button
+          ref={playRef}
+          type="button"
               className="vi__play"
-              onClick={() => setOpen(true)}
+          onClick={() => setOpen(true)}
               aria-label="Play KSD Homes introduction video"
-              aria-haspopup="dialog"
-            >
+          aria-haspopup="dialog"
+        >
               <span className="vi__sq vi__sq--1" />
               <span className="vi__sq vi__sq--2" />
               <span className="vi__sq vi__sq--core">
                 <svg width="14" height="16" viewBox="0 0 14 16" aria-hidden="true">
                   <path d="M1.5 1.2v13.6a.6.6 0 0 0 .9.5l11-6.8a.6.6 0 0 0 0-1L2.4.7a.6.6 0 0 0-.9.5Z" fill="currentColor" />
-                </svg>
+          </svg>
               </span>
             </button>
           </div>

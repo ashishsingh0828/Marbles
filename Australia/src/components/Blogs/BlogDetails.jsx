@@ -244,8 +244,8 @@ function BlogDetails() {
 
   const relatedPosts = useMemo(() => {
     const fromApi = Array.isArray(data?.related) ? data.related : [];
-    if (fromApi.length) return fromApi.slice(0, 3);
-    return blogList.filter((item) => item.slug && item.slug !== slug).slice(0, 3);
+    if (fromApi.length) return fromApi.slice(0, 4);
+    return blogList.filter((item) => item.slug && item.slug !== slug).slice(0, 4);
   }, [data?.related, blogList, slug]);
 
   const handleFormChange = (event) => {

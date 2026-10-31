@@ -103,7 +103,9 @@ export default function ServiceDetail() {
     : (one.data?.related?.length
       ? [one.data, ...one.data.related].filter((x, i, arr) => x?.slug && arr.findIndex((y) => y.slug === x.slug) === i)
       : FALLBACK_SERVICE_LINKS);
-  const links = serviceRows.map((x) => ({ label: x.title, href: `/services/${x.slug}` }));
+  /* Up to 4 sidebar links; keep current service first so NavLink active state is clear. */
+  const ordered = [...serviceRows].sort((a, b) => (a.slug === slug ? -1 : b.slug === slug ? 1 : 0));
+  const links = ordered.slice(0, 4).map((x) => ({ label: x.title, href: `/services/${x.slug}` }));
 
   return (
     <>
