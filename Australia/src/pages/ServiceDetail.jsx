@@ -11,7 +11,7 @@ export default function ServiceDetail() {
   const allServicesApi = useApi("/services");
 
   const service = useMemo(() => {
-    const raw = serviceApi.data;
+    const raw = serviceApi.data?.slug === slug ? serviceApi.data : null;
     const fallback = FALLBACK_SERVICES_MAP[slug] || DEFAULT_FALLBACK;
 
     if (!raw) {
