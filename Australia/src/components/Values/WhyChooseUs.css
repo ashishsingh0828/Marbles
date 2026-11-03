@@ -10,8 +10,9 @@
   --bronze:  #157A3C;
   --gold: #c9a063;
   --gold-light: #e6cd9b;
-  --navy: #0e2a47;
-  --green: #157a3c;
+  --navy: #157A3C;
+  --green: #157A3C;
+  --orange: #E67E22;
   --line: rgba(154, 106, 63, 0.26);
 
   --ease: cubic-bezier(0.19, 0.8, 0.22, 1);
@@ -367,7 +368,7 @@
   height: 40px;
   border-radius: 0 !important;
   color: #ffffff;
-  background: var(--navy);
+  background: var(--green, #157A3C);
   transition: transform 0.7s var(--ease), background 0.5s, color 0.5s;
 }
 .wc.is-visible .wc__cta:hover {
@@ -380,7 +381,7 @@
 }
 .wc__cta:hover .wc__cta-icon {
   color: #ffffff;
-  background: var(--navy);
+  background: var(--orange, #E67E22);
   transform: rotate(45deg);
 }
 .wc__cta:active {

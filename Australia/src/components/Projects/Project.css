@@ -1,11 +1,11 @@
 /* Project list – quiet, premium. Every rule is scoped under .homes-section. */
 
 .homes-section {
-  --ov-navy: var(--navy, #0E2A47);
+  --ov-navy: #111111;
   --ov-green: var(--green, #157A3C);
   --ov-orange: var(--orange, #E67E22);
   --hs-head: var(--font-heading, Georgia, "Times New Roman", serif);
-  --hs-line: rgba(14, 42, 71, 0.14);
+  --hs-line: rgba(21, 122, 60, 0.18);
   --hs-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 
   width: 100%;
@@ -84,12 +84,19 @@
 }
 
 .homes-section .homes-filters button:hover {
-  border-color: var(--ov-navy);
+  border-color: var(--ov-orange);
+  color: var(--ov-green);
 }
 
 .homes-section .homes-filters button.is-on {
-  background: var(--ov-navy);
-  border-color: var(--ov-navy);
+  background: var(--ov-green);
+  border-color: var(--ov-green);
+  color: #fff;
+}
+
+.homes-section .homes-filters button.is-on:hover {
+  background: var(--ov-orange);
+  border-color: var(--ov-orange);
   color: #fff;
 }
 
@@ -131,6 +138,7 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  object-position: center;
   transition: transform 1.4s var(--hs-ease);
 }
 
@@ -198,7 +206,7 @@
   min-height: 50px;
   padding: 14px 30px;
   border-radius: 2px;
-  background: var(--ov-navy);
+  background: var(--ov-green);
   color: #fff;
   font-size: 0.92rem;
   font-weight: 600;
@@ -209,7 +217,7 @@
 }
 
 .homes-section .homes-more a:hover {
-  background: #123659;
+  background: var(--ov-orange);
 }
 
 @media (max-width: 799px) {

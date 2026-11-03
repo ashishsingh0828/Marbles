@@ -7,12 +7,12 @@
   --navy: #111111;
   --navy-dark: #111111;
   --navy-light: #2a2a2a;
-  --green: #16793B;
+  --green: #157A3C;
   --green-dark: #0f5c2c;
-  --green-light: #16793B;
-  --orange: #16793B;
-  --orange-light: #16793B;
-  --theme: #16793B;
+  --green-light: #1a8f47;
+  --orange: #E67E22;
+  --orange-light: #f0a35a;
+  --theme: #157A3C;
   --theme2: #f7f5f0;
   --theme3: #111111;
   --title: #111111;
@@ -167,21 +167,22 @@ button:not(:disabled) {
 
 .ksd-btn--outline {
   background: transparent;
-  color: var(--navy, #0E2A47) !important;
-  border: 1.5px solid var(--navy, #0E2A47);
+  color: var(--green, #157A3C) !important;
+  border: 1.5px solid var(--green, #157A3C);
 }
 
 .ksd-btn--outline::before {
-  background-color: var(--navy, #0E2A47);
+  background-color: var(--orange, #E67E22);
 }
 
 .ksd-btn--outline:hover {
   color: #ffffff !important;
+  border-color: var(--orange, #E67E22);
 }
 
 .ksd-btn--white {
   background: #ffffff;
-  color: var(--navy, #0E2A47) !important;
+  color: var(--green, #157A3C) !important;
   border: 1px solid rgba(255, 255, 255, 0.4);
 }
 

@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { BRAND } from "../../config";
+import { IMG } from "../../data/images";
 import "./Faq.css";
 
-const MAIN_IMAGE = "/Image/products/tiles-textures/stone-tile-02.jpg";
-const DECO_IMAGE_A = "/Image/projects/sharma-residence/floor-plan-03.jpg";
-const DECO_IMAGE_B = "/Image/products/tiles-textures/stone-tile-09.jpg";
+const MAIN_IMAGE = IMG.faq;
+const DECO_IMAGE_A = IMG.intAus1;
+const DECO_IMAGE_B = IMG.intSydney3;
 
 const ITEMS = [
   {
@@ -173,7 +174,7 @@ function Faq() {
           <Reveal variant="left" className="fq-media-wrap">
             <div className="fq-media">
               <div className="fq-media-image">
-                <img src={MAIN_IMAGE} alt="Custom kitchen with marble island and timber joinery" loading="lazy" />
+                <img src={MAIN_IMAGE} alt="Indoor-outdoor suite with deck and garden living" loading="lazy" />
               </div>
               <RatingCard />
             </div>

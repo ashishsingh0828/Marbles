@@ -10,7 +10,7 @@ const ksd = (title, hero, extra = {}) => ({
   faqHeading: "Questions",
   faqs: [
     { q: "Where is KSD Homes based?", a: "171 Star Street, Carlisle, Perth WA 6101. Call AJ on +61 414 029 695 or Karl on +61 468 429 212, or email admin@ksdhomes.com.au." },
-    { q: "Is KSD a new company?", a: "Yes. KSD Homes Pty Ltd is starting in 2026. Our builder interior design team brings 28+ years of combined professional experience." },
+    { q: "Is KSD a good company?", a: "Yes. KSD Homes Pty Ltd is starting in 2026. Our builder interior design team brings 28+ years of combined professional experience." },
   ],
   ...extra,
 });

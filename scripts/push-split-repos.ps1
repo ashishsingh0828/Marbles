@@ -17,7 +17,7 @@ function Publish-SiteRepo {
     New-Item $tmp -ItemType Directory | Out-Null
   }
 
-  robocopy $Frontend $tmp /E /XD node_modules dist .git /XF images.zip /NFL /NDL /NJH /NJS /nc /ns /np | Out-Null
+  robocopy $Frontend $tmp /E /XD node_modules dist .git /XF images.zip *.pdf /NFL /NDL /NJH /NJS /nc /ns /np | Out-Null
   if ($LASTEXITCODE -ge 8) { throw ("robocopy frontend failed for " + $Name) }
   robocopy $Admin (Join-Path $tmp "admin") /E /XD node_modules dist .git /NFL /NDL /NJH /NJS /nc /ns /np | Out-Null
   if ($LASTEXITCODE -ge 8) { throw ("robocopy admin failed for " + $Name) }

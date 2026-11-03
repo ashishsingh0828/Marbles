@@ -14,7 +14,7 @@ const INTERIOR_SERVICES = [
     num: "01",
     title: "Architectural Design & Planning",
     desc: "Site-responsive home design shaped around your block's orientation, slope, and council R-Codes, resolved before construction begins.",
-    img: "/Image/projects/sharma-residence/floor-plan-01.jpg",
+    img: "/Image/projects/interior/australia-01.jpg",
     link: "/services/architecture-design",
     icon: (
       <Icon>
@@ -30,7 +30,7 @@ const INTERIOR_SERVICES = [
     num: "02",
     title: "Builder Interior Design",
     desc: "Custom joinery, lighting, and cohesive layouts designed together with the build, so interior and structure work as one.",
-    img: "/Image/products/tiles-textures/stone-tile-04.jpg",
+    img: "/Image/projects/interior/sydney-01.jpg",
     link: "/services/builder-interior-design",
     icon: (
       <Icon>
@@ -45,7 +45,7 @@ const INTERIOR_SERVICES = [
     num: "03",
     title: "Turnkey Residential Delivery",
     desc: "One clear sequence from planning approvals and engineering to interiors and handover, managed by a single team.",
-    img: "/Image/products/tiles-textures/stone-tile-01.jpg",
+    img: "/Image/projects/interior/usa-01.jpg",
     link: "/services/complete-home-solutions",
     icon: (
       <Icon>
@@ -58,7 +58,7 @@ const INTERIOR_SERVICES = [
     num: "04",
     title: "Licensed Boutique Building",
     desc: "Quality bespoke construction backed by over 28 years of combined industry experience across Western Australia.",
-    img: "/Image/banners/hero/hero-banner-08.jpg",
+    img: "/Image/projects/interior/singapore-01.jpg",
     link: "/services/licensed-boutique-building",
     icon: (
       <Icon>
@@ -73,7 +73,7 @@ const INTERIOR_SERVICES = [
     num: "05",
     title: "Indoor-Outdoor Living",
     desc: "Alfresco areas, pool surrounds, and courtyards designed for Western Australia's coastal climate.",
-    img: "/Image/banners/hero/hero-banner-07.jpg",
+    img: "/Image/Faq.jpeg",
     link: "/services/indoor-outdoor-living",
     icon: (
       <Icon>
@@ -87,7 +87,7 @@ const INTERIOR_SERVICES = [
     num: "06",
     title: "Materials & Finishes",
     desc: "Natural stone, quality timbers, and carefully chosen finishes, selected for durability, thermal performance, and how they handle light.",
-    img: "/Image/banners/hero/hero-banner-05.jpg",
+    img: "/Image/projects/interior/sydney-03.jpg",
     link: "/services/materials-finishes",
     icon: (
       <Icon>

@@ -26,15 +26,15 @@
 
 .ks-btn--ghost {
   background: transparent;
-  color: #111;
-  border: 1.5px solid #111;
+  color: var(--green, #157A3C);
+  border: 1.5px solid var(--green, #157A3C);
 }
 
 .ks-btn--ghost:hover,
 .ks-btn:hover {
-  background: var(--green-dark, #0f5c2c);
+  background: var(--orange, #E67E22);
   color: #fff;
-  border-color: var(--green-dark, #0f5c2c);
+  border-color: var(--orange, #E67E22);
 }
 
 .ks-hero {
