@@ -119,8 +119,9 @@ services:
       # Was "true" -> every restart wiped admin edits. Seed now runs once and SEED_FORCE is ignored in production.
       - key: SEED_FORCE
         value: "false"
+      # Same Atlas user/password as India. jfbjbp9 rejected this password (bad auth), so ksdDB lives on the working cluster.
       - key: MONGO_URI
-        value: mongodb+srv://ashishsingh0828_db_user:aj88XpPJzbIddp3m@cluster0.jfbjbp9.mongodb.net/ksdDB?retryWrites=true&w=majority&appName=Cluster0
+        value: mongodb+srv://ashishsingh0828_db_user:aj88XpPJzbIddp3m@cluster0.i8fmp7m.mongodb.net/ksdDB?retryWrites=true&w=majority&appName=Cluster0
       - key: JWT_SECRET
         value: f7e3c9a184b260d8e4f1a59c7b3d2e619483017a4b8c9e2f50d1a7b3c6e9f2a4
       - key: SITES
