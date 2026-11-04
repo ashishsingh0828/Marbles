@@ -17,7 +17,7 @@ function Publish-SiteRepo {
     New-Item $tmp -ItemType Directory | Out-Null
   }
 
-  robocopy $Frontend $tmp /E /XD node_modules dist .git /XF images.zip *.pdf /NFL /NDL /NJH /NJS /nc /ns /np | Out-Null
+  robocopy $Frontend $tmp /E /XD node_modules dist .git /XF images.zip Image.zip *.pdf /NFL /NDL /NJH /NJS /nc /ns /np | Out-Null
   if ($LASTEXITCODE -ge 8) { throw ("robocopy frontend failed for " + $Name) }
   robocopy $Admin (Join-Path $tmp "admin") /E /XD node_modules dist .git /NFL /NDL /NJH /NJS /nc /ns /np | Out-Null
   if ($LASTEXITCODE -ge 8) { throw ("robocopy admin failed for " + $Name) }
@@ -47,7 +47,7 @@ function Publish-SiteRepo {
     }
     $msg = "Publish " + $Name + " site, admin and backend"
     git -c user.email="cursoragent@cursor.com" -c user.name="Cursor" commit -m $msg | Out-Null
-    git push -u origin HEAD:main --force
+    git push -u origin HEAD:main
     Write-Host ("Pushed " + $Name + " -> " + $Remote)
   } finally {
     Pop-Location
