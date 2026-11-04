@@ -184,7 +184,7 @@ const australiaServices = {
 };
 
 const indiaBlogs = {
-  key: "blogs", label: "Blog post", plural: "Blog posts", icon: "doc", color: "#8A6E4B",
+  key: "blogs", label: "Blog post", plural: "Blog posts", icon: "doc", color: "#1F5FA8",
   titleField: "title", imageField: "image", categoryField: "category",
   defaults: { published: true },
   sections: [

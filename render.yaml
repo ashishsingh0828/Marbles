@@ -1,14 +1,25 @@
+# ---------------------------------------------------------------------------
+# Monorepo blueprint (ashishsingh0828/Marbles) - one API + one admin per website.
+#
+#   India  (IE Marbles) : india-backend-api  <- india-admin-panel   -> marbles-india-site
+#   KSD    (Australia)  : ksd-backend-api    <- ksd-admin-panel     -> ksd-australia-site
+#
+# Admin -> website sync: the admin panel writes to its OWN backend API (MongoDB Atlas), and the public
+# website reads from that SAME backend. So VITE_API_URL of site + admin must be the same URL, and the
+# backend must use a persistent MONGO_URI (never MONGO_LOCAL=true, never SEED_FORCE in production).
+# VITE_API_URL values are full https:// URLs because Render's "host" property omits ".onrender.com".
+# ---------------------------------------------------------------------------
 services:
   # ---------------------------------------------------------------------------
-  # 1. Backend REST API (Node.js + Express + MongoDB Atlas)
+  # INDIA backend (own API + indiaDB)
   # ---------------------------------------------------------------------------
   - type: web
-    name: marbles-backend-api
+    name: india-backend-api
     runtime: node
     plan: free
     region: oregon
     autoDeployTrigger: commit
-    rootDir: server
+    rootDir: India-server
     buildCommand: npm install
     startCommand: node index.js
     healthCheckPath: /api/health
@@ -17,31 +28,34 @@ services:
         value: production
       - key: PORT
         value: 10000
+      - key: MONGO_LOCAL
+        value: "false"
+      # Seed runs once per site/type; SEED_FORCE is ignored in production so admin edits are never wiped.
+      - key: SEED_FORCE
+        value: "false"
       - key: MONGO_URI
-        value: mongodb+srv://ashishsingh0828_db_user:moGWkSR3SLs1gRY8@cluster0.lveqgsk.mongodb.net/marbleDB?retryWrites=true&w=majority&appName=Cluster0
+        value: mongodb+srv://ashishsingh0828_db_user:moGWkSR3SLs1gRY8@cluster0.lveqgsk.mongodb.net/indiaDB?retryWrites=true&w=majority&appName=Cluster0
       - key: JWT_SECRET
         value: f7e3c9a184b260d8e4f1a59c7b3d2e619483017a4b8c9e2f50d1a7b3c6e9f2a4
-      - key: ADMIN_EMAIL
-        value: admin
-      - key: ADMIN_PASSWORD
-        value: ksd@123
-      - key: ADMIN_EMAIL_2
-        value: ie
-      - key: ADMIN_PASSWORD_2
-        value: iemarbles@123
       - key: SITES
-        value: india,australia
+        value: india
+      - key: ADMIN_EMAIL
+        value: ie
+      - key: ADMIN_PASSWORD
+        value: iemarbles@123
       - key: CORS_ORIGINS
         value: "*"
       - key: EMAIL_USER
-        value: ashishsingh0828@gmail.com
+        value: iemarbletraders@gmail.com
       - key: EMAIL_PASS
-        value: abcdefghijklmnop
+        value: lqjjlvgywogbtbxc
+      - key: MAIL_FROM
+        value: IE Marbles <iemarbletraders@gmail.com>
       - key: NOTIFICATION_EMAIL
-        value: ashishsingh0828@gmail.com
+        value: iemarbletraders@gmail.com
 
   # ---------------------------------------------------------------------------
-  # 2. India Website - IE Marbles (Static Site)
+  # INDIA public website - IE Marbles (static)
   # ---------------------------------------------------------------------------
   - type: web
     name: marbles-india-site
@@ -59,74 +73,7 @@ services:
         value: https://india-backend-api.onrender.com
 
   # ---------------------------------------------------------------------------
-  # 3. Australia Website - KSD Homes (Static Site)
-  # ---------------------------------------------------------------------------
-  - type: web
-    name: ksd-australia-site
-    runtime: static
-    autoDeployTrigger: commit
-    rootDir: Australia
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      # Full HTTPS URL — must match ksd-backend-api (not India). Host-only values break API calls.
-      - key: VITE_API_URL
-        value: https://ksd-backend-api.onrender.com
-
-  # ---------------------------------------------------------------------------
-  # 4. Multi-Site Admin Panel (Static Site)
-  # ---------------------------------------------------------------------------
-  - type: web
-    name: marbles-admin-panel
-    runtime: static
-    autoDeployTrigger: commit
-    rootDir: admin
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: VITE_USE_MOCK
-        value: "false"
-      - key: VITE_API_URL
-        value: https://india-backend-api.onrender.com
-      - key: VITE_INDIA_URL
-        value: https://marbles-india-site.onrender.com
-      - key: VITE_AUSTRALIA_URL
-        value: https://ksd-australia-site.onrender.com
-
-  # ---------------------------------------------------------------------------
-  # 5. KSD Homes admin (Australia only)
-  # ---------------------------------------------------------------------------
-  - type: web
-    name: ksd-admin-panel
-    runtime: static
-    autoDeployTrigger: commit
-    rootDir: Australia-admin
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: VITE_USE_MOCK
-        value: "false"
-      - key: VITE_SITE
-        value: australia
-      - key: VITE_API_URL
-        value: https://ksd-backend-api.onrender.com
-      - key: VITE_AUSTRALIA_URL
-        value: https://ksd-australia-site.onrender.com
-
-  # ---------------------------------------------------------------------------
-  # 6. IE Marbles admin (India only)
+  # INDIA admin panel (locked to the india site + india backend)
   # ---------------------------------------------------------------------------
   - type: web
     name: india-admin-panel
@@ -148,3 +95,87 @@ services:
         value: https://india-backend-api.onrender.com
       - key: VITE_INDIA_URL
         value: https://marbles-india-site.onrender.com
+
+  # ---------------------------------------------------------------------------
+  # KSD / AUSTRALIA backend (own API + ksdDB)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: ksd-backend-api
+    runtime: node
+    plan: free
+    region: oregon
+    autoDeployTrigger: commit
+    rootDir: Australia-server
+    buildCommand: npm install
+    startCommand: node index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGO_LOCAL
+        value: "false"
+      # Was "true" -> every restart wiped admin edits. Seed now runs once and SEED_FORCE is ignored in production.
+      - key: SEED_FORCE
+        value: "false"
+      - key: MONGO_URI
+        value: mongodb+srv://ashishsingh0828_db_user:moGWkSR3SLs1gRY8@cluster0.lveqgsk.mongodb.net/ksdDB?retryWrites=true&w=majority&appName=Cluster0
+      - key: JWT_SECRET
+        value: f7e3c9a184b260d8e4f1a59c7b3d2e619483017a4b8c9e2f50d1a7b3c6e9f2a4
+      - key: SITES
+        value: australia
+      - key: ADMIN_EMAIL
+        value: admin
+      - key: ADMIN_PASSWORD
+        value: ksd@123
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: EMAIL_USER
+        value: ashishsingh0828@gmail.com
+      - key: EMAIL_PASS
+        value: abcdefghijklmnop
+      - key: NOTIFICATION_EMAIL
+        value: ashishsingh0828@gmail.com
+
+  # ---------------------------------------------------------------------------
+  # KSD / AUSTRALIA public website (static)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: ksd-australia-site
+    runtime: static
+    autoDeployTrigger: commit
+    rootDir: Australia
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: https://ksd-backend-api.onrender.com
+
+  # ---------------------------------------------------------------------------
+  # KSD / AUSTRALIA admin panel (locked to the australia site + ksd backend)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: ksd-admin-panel
+    runtime: static
+    autoDeployTrigger: commit
+    rootDir: Australia-admin
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_USE_MOCK
+        value: "false"
+      - key: VITE_SITE
+        value: australia
+      - key: VITE_API_URL
+        value: https://ksd-backend-api.onrender.com
+      - key: VITE_AUSTRALIA_URL
+        value: https://ksd-australia-site.onrender.com
