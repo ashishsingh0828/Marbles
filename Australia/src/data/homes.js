@@ -521,10 +521,46 @@ function displaySlug(slug = "") {
   return SLUG_ALIASES[slug] || slug;
 }
 
+/* Projects created in the admin panel have no matching hard-coded home. They must NOT borrow another
+   project's photos / copy, so they get this neutral base (only a placeholder cover image). */
+const NEUTRAL_HOME = {
+  ...FALLBACK_HOMES[0],
+  slug: "",
+  title: "",
+  suburb: "",
+  featured: true,
+  category: "",
+  status: "",
+  collection: "Residence",
+  scope: "",
+  location: "",
+  conceptHeadline: "",
+  planLabels: [],
+  storeys: "",
+  specLine: "",
+  image2: "",
+  image3: "",
+  image4: "",
+  beforeImage: "",
+  afterImage: "",
+  scenes: [],
+  heading: "",
+  paragraphs: [],
+  challengeTitle: "",
+  challengeText: "",
+  checks: [],
+  resultTitle: "",
+  resultText: "",
+  banners: [],
+};
+
 export function mapHome(p = {}, idx = 0) {
   const rawSlug = displaySlug(p.slug || "");
   const idxFromSlug = FALLBACK_HOMES.findIndex((h) => h.slug === rawSlug);
-  const fallback = FALLBACK_HOMES[idxFromSlug >= 0 ? idxFromSlug : (idx % FALLBACK_HOMES.length)];
+  /* API item with a known slug -> that home's defaults; unknown slug -> neutral; no slug at all -> by index */
+  const fallback = idxFromSlug >= 0
+    ? FALLBACK_HOMES[idxFromSlug]
+    : (rawSlug ? NEUTRAL_HOME : FALLBACK_HOMES[idx % FALLBACK_HOMES.length]);
   const slugKey = rawSlug || fallback.slug;
   /* front/back-only mode: by slug above, OR by the "Show only front and back photos"
      switch in admin (so it still works if the project title/slug is changed) */
@@ -540,9 +576,12 @@ export function mapHome(p = {}, idx = 0) {
     .map((key) => siteImage(p[key]))
     .filter(Boolean);
 
-  const front = pickImage(siteImage(p.beforeImage), fallback.beforeImage);
+  /* Admin photos always win; hard-coded photos are only used when the admin left the field empty. */
+  const front = elevOnly
+    ? pickImage(siteImage(p.beforeImage), imageA, hero, fallback.beforeImage)
+    : pickImage(siteImage(p.beforeImage), fallback.beforeImage);
   const back = elevOnly
-    ? pickImage(siteImage(p.afterImage), fallback.afterImage)
+    ? pickImage(siteImage(p.afterImage), imageB, fallback.afterImage)
     : pickImage(siteImage(p.afterImage), imageA, fallback.afterImage);
 
   const scenePairs = p.scenes ? pairs(p.scenes) : [];
@@ -579,7 +618,8 @@ export function mapHome(p = {}, idx = 0) {
     title,
     suburb: STREET_TITLES[slugKey] || cleanText(p.suburb || fallback.suburb) || title,
     shortCode: p.shortCode || fallback.shortCode || "",
-    featured: p.featured !== undefined ? !!p.featured : (fallback.featured !== false),
+    /* the admin switch is stored as the string "true" / "false" */
+    featured: p.featured !== undefined && p.featured !== "" ? (p.featured === true || p.featured === "true") : (fallback.featured !== false),
     collection: cleanText(p.collection || fallback.collection || status),
     year: p.year || p.date || fallback.year || "2026",
     scope: cleanText(p.scope || fallback.scope || ""),
@@ -602,8 +642,8 @@ export function mapHome(p = {}, idx = 0) {
         .filter(Boolean)
         .join(" · ")
     ),
-    image: elevOnly ? pickImage(front, fallback.image) : pickImage(imageA, hero, fallback.image),
-    heroImage: elevOnly ? pickImage(front, fallback.heroImage) : pickImage(hero, imageA, fallback.heroImage),
+    image: pickImage(imageA, hero, elevOnly ? front : "", fallback.image),
+    heroImage: pickImage(hero, imageA, elevOnly ? front : "", fallback.heroImage),
     image2: elevOnly ? "" : pickImage(planA, imageB, fallback.image2),
     image3: elevOnly ? "" : pickImage(planB, fallback.image3),
     image4: elevOnly ? "" : pickImage(planC, fallback.image4),
@@ -637,23 +677,12 @@ export function mapHome(p = {}, idx = 0) {
 }
 
 export function mergeHomes(apiList) {
-  const fromApi = Array.isArray(apiList) && apiList.length
-    ? apiList.map((item, idx) => mapHome(item, idx))
-    : [];
-  const seen = new Set();
-  const homes = [];
-  FALLBACK_HOMES.forEach((home, i) => {
-    const apiHit = fromApi.find((item) => item.slug === home.slug);
-    homes.push(apiHit || mapHome({ slug: home.slug }, i));
-    seen.add(home.slug);
-  });
-  fromApi.forEach((item) => {
-    if (item.slug && !seen.has(item.slug)) {
-      homes.push(item);
-      seen.add(item.slug);
-    }
-  });
-  return homes;
+  /* When the API has published projects, the admin panel owns the list.
+     Fallbacks are only used offline / before the first seed. */
+  if (Array.isArray(apiList) && apiList.length) {
+    return apiList.map((item, idx) => mapHome(item, idx));
+  }
+  return FALLBACK_HOMES.map((home, i) => mapHome({ slug: home.slug }, i));
 }
 
 export function homeBySlug(slug, apiItem) {
@@ -664,7 +693,8 @@ export function homeBySlug(slug, apiItem) {
   if (apiItem && apiSlug && apiSlug === resolved) {
     return mapHome({ ...apiItem, slug: resolved }, idx >= 0 ? idx : 0);
   }
-  return mapHome({ slug: idx >= 0 ? resolved : "" }, idx >= 0 ? idx : 0);
+  /* unknown slug while loading / offline: neutral shell (never another project's content) */
+  return mapHome({ slug: resolved }, idx >= 0 ? idx : 0);
 }
 
 export function specsOf(home) {

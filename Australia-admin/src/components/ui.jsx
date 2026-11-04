@@ -34,11 +34,14 @@ export const Icon = ({ n, size = 18 }) => (
 
 /* ---------- Brand ---------- */
 export const BrandMark = ({ size = 36 }) => (
-  <svg className="brand-mark" viewBox="0 0 100 100" width={size} height={size} aria-hidden="true">
-    <rect width="100" height="100" rx="18" fill="#16793B" />
-    <path d="M18 46 L50 20 L82 46 V80 H60 V60 H40 V80 H18 Z" fill="#F4EBDD" />
-    <rect x="45" y="64" width="10" height="16" fill="#16793B" />
-  </svg>
+  <img
+    className="brand-mark"
+    src="/brand-logo.png"
+    width={size}
+    height={size}
+    alt=""
+    style={{ width: size, height: size, objectFit: "contain", borderRadius: 10, background: "#fff" }}
+  />
 );
 export const Brand = ({ className = "" }) => (
   <div className={`brand ${className}`}><BrandMark /> <span>KSD Homes<small>Admin Portal</small></span></div>

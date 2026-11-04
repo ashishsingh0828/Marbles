@@ -15,9 +15,15 @@ server/uploads/*
 !server/uploads/.gitkeep
 **/uploads/*
 !**/uploads/.gitkeep
+server/.data/
 .cursor/
 .push-*/
 Australia/public/images.zip
 *.log
 .DS_Store
 Thumbs.db
+
+*.pdf
+Australia/public/Image.zip
+.publish-*/
+India-server/scripts/test-login.json

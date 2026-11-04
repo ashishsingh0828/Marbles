@@ -13,14 +13,19 @@ const normalizeApi = (u) => {
 };
 export const API = normalizeApi(import.meta.env.VITE_API_URL ?? "");
 
-/* "/uploads/x.jpg" -> full image address; absolute URLs are left alone */
-export const asset = (u) => (!u ? "" : /^(https?:|data:|blob:)/.test(u) ? u : API + u);
+/* "/uploads/x.jpg" -> API host; local /Image|/images stay on the static site; absolute URLs left alone */
+export const asset = (u) => {
+  if (!u) return "";
+  const s = String(u);
+  if (/^(https?:|data:|blob:)/i.test(s)) return s;
+  if (/^\/(Image|Images|images|img)\//i.test(s)) return s;
+  return API + s;
+};
 
-/* Prefer Australia/public/images over stock Unsplash seed URLs. Keep admin uploads. */
+/* Prefer local public assets over stock Unsplash. Keep admin /uploads on the API host. */
 export const siteImage = (u, fallback = "") => {
   if (!u || /unsplash\.com|picsum\.photos/i.test(u)) return fallback || "";
-  if (String(u).startsWith("/images/")) return u;
-  return asset(u);
+  return asset(u) || fallback || "";
 };
 
 /* ---------- text helpers (the admin stores multi-line text as plain strings) ---------- */
@@ -74,15 +79,35 @@ export const fmtDate = (d) => {
 };
 
 /* ---------- requests ---------- */
+const sleep = (ms, signal) => new Promise((resolve, reject) => {
+  const t = setTimeout(resolve, ms);
+  signal?.addEventListener("abort", () => { clearTimeout(t); reject(new DOMException("Aborted", "AbortError")); }, { once: true });
+});
+
+/* Render free web services sleep; the first request can fail (502/503/network) while the API wakes up.
+   GETs retry a few times so the site shows live admin content instead of getting stuck on fallbacks. */
+const RETRY_DELAYS = [1500, 3000, 5000, 8000, 12000];
+
 async function request(path, options = {}) {
-  const res = await fetch(`${API}${path}`, {
-    ...options,
-    headers: options.body ? { "Content-Type": "application/json" } : undefined,
-    body: options.body && JSON.stringify(options.body),
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw Object.assign(new Error(data.message || "Request failed"), { status: res.status });
-  return data;
+  const isGet = !options.method || options.method === "GET";
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const res = await fetch(`${API}${path}`, {
+        ...options,
+        /* always read the latest admin content, never a cached copy */
+        cache: isGet ? "no-store" : options.cache,
+        headers: options.body ? { "Content-Type": "application/json" } : undefined,
+        body: options.body && JSON.stringify(options.body),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw Object.assign(new Error(data.message || "Request failed"), { status: res.status });
+      return data;
+    } catch (error) {
+      const retryable = isGet && error.name !== "AbortError" && (!error.status || error.status >= 502);
+      if (!retryable || attempt >= RETRY_DELAYS.length) throw error;
+      await sleep(RETRY_DELAYS[attempt], options.signal);
+    }
+  }
 }
 
 /* GET /api/<site>/<path> */

@@ -5,7 +5,7 @@ import Breadcrumb from '../components/Breadcrumb/Breadcrumb'
 function Contact() {
   return (
     <div>
-        <Breadcrumb title="Enquire" image="/images/ksd-stone-07.jpg" />
+        <Breadcrumb title="Enquire" image="/Image/banner1.jpeg" />
       <ContactForm/>
     </div>
   )

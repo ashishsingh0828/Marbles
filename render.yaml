@@ -56,10 +56,7 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: marbles-backend-api
-          property: host
+        value: https://india-backend-api.onrender.com
 
   # ---------------------------------------------------------------------------
   # 3. Australia Website - KSD Homes (Static Site)
@@ -76,11 +73,9 @@ services:
         source: /*
         destination: /index.html
     envVars:
+      # Full HTTPS URL — must match ksd-backend-api (not India). Host-only values break API calls.
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: marbles-backend-api
-          property: host
+        value: https://ksd-backend-api.onrender.com
 
   # ---------------------------------------------------------------------------
   # 4. Multi-Site Admin Panel (Static Site)
@@ -100,20 +95,11 @@ services:
       - key: VITE_USE_MOCK
         value: "false"
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: marbles-backend-api
-          property: host
+        value: https://india-backend-api.onrender.com
       - key: VITE_INDIA_URL
-        fromService:
-          type: web
-          name: marbles-india-site
-          property: host
+        value: https://marbles-india-site.onrender.com
       - key: VITE_AUSTRALIA_URL
-        fromService:
-          type: web
-          name: ksd-australia-site
-          property: host
+        value: https://ksd-australia-site.onrender.com
 
   # ---------------------------------------------------------------------------
   # 5. KSD Homes admin (Australia only)
@@ -135,15 +121,9 @@ services:
       - key: VITE_SITE
         value: australia
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: marbles-backend-api
-          property: host
+        value: https://ksd-backend-api.onrender.com
       - key: VITE_AUSTRALIA_URL
-        fromService:
-          type: web
-          name: ksd-australia-site
-          property: host
+        value: https://ksd-australia-site.onrender.com
 
   # ---------------------------------------------------------------------------
   # 6. IE Marbles admin (India only)
@@ -165,12 +145,6 @@ services:
       - key: VITE_SITE
         value: india
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: marbles-backend-api
-          property: host
+        value: https://india-backend-api.onrender.com
       - key: VITE_INDIA_URL
-        fromService:
-          type: web
-          name: marbles-india-site
-          property: host
+        value: https://marbles-india-site.onrender.com

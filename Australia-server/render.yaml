@@ -18,7 +18,7 @@ services:
       - key: MONGO_LOCAL
         value: "false"
       - key: SEED_FORCE
-        value: "true"
+        value: "false"
       - key: MONGO_URI
         value: mongodb+srv://ashishsingh0828_db_user:moGWkSR3SLs1gRY8@cluster0.lveqgsk.mongodb.net/ksdDB?retryWrites=true&w=majority&appName=Cluster0
       - key: JWT_SECRET

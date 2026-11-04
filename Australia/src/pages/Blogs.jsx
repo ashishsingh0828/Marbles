@@ -5,7 +5,7 @@ import Blog from '../components/Blogs/Blog'
 function Blogs() {
   return (
     <div>
-        <Breadcrumb/>
+        <Breadcrumb title="Journal" image="/Image/banner2.jpeg" />
         <Blog/>
     </div>
   )

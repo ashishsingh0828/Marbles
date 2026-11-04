@@ -25,7 +25,12 @@
 // Empty = same origin (Vite proxies /api and /uploads to port 5050). Set VITE_API_URL in production.
 const normalizeUrl = (u) => {
   if (!u) return "";
-  return u.startsWith("http://") || u.startsWith("https://") ? u : `https://${u}`;
+  let url = String(u).trim().replace(/\/$/, "");
+  if (!/^https?:\/\//i.test(url)) {
+    if (!url.includes(".")) url = `${url}.onrender.com`;
+    url = `https://${url}`;
+  }
+  return url;
 };
 
 export const BASE = normalizeUrl(import.meta.env.VITE_API_URL ?? "");

@@ -5,7 +5,7 @@ import Service from "../components/Services/Service";
 export default function Services() {
   return (
     <div>
-      <Breadcrumb title="Services" image="/images/ksd-stone-09.jpg" />
+      <Breadcrumb title="Services" image="/Image/banner2.jpeg" />
       <KsdInteriorServices />
       <Service />
     </div>

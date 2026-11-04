@@ -2,8 +2,9 @@ import { Fragment, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Breadcrumb.css";
 
-// Uses the widescreen architectural hero banner
-const DEFAULT_BG = "/Image/banners/hero/hero-banner-01.jpg";
+const DEFAULT_BG = "/Image/banner1.jpeg";
+export const BREADCRUMB_BANNER_A = "/Image/banner1.jpeg";
+export const BREADCRUMB_BANNER_B = "/Image/banner2.jpeg";
 
 const formatSegment = (segment) => {
   let decoded = segment;

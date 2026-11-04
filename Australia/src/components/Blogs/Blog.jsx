@@ -127,7 +127,7 @@ function Blog() {
         id: b._id || idx + 1,
         slug: b.slug,
         category: b.category || "Architecture",
-        date: fmtDate(b.publishedAt || b.createdAt || new Date()),
+        date: fmtDate(b.publishedAt || b.date || b.createdAt || new Date()),
         comments: 2,
         title: b.title,
         image: siteImage(b.image, FALLBACK_POSTS[idx % FALLBACK_POSTS.length].image),

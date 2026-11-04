@@ -1,4 +1,4 @@
-/* One config object per content type drives its list page AND its form.
+﻿/* One config object per content type drives its list page AND its form.
    Australia uses a luxury-homes layout (suburb, status, specs, floor plans).
    India keeps the stone / interiors project fields. */
 import { getSite } from "./api";
@@ -7,7 +7,7 @@ const opts = (a) => a.map((v) => ({ value: v, label: v }));
 const publishing = { title: "Publishing", fields: [{ name: "published", label: "Published (visible on the website)", type: "switch" }] };
 
 const indiaProjects = {
-  key: "projects", label: "Project", plural: "Projects", icon: "folder", color: "#B38A45",
+  key: "projects", label: "Project", plural: "Projects", icon: "folder", color: "#E67E22",
   titleField: "title", imageField: "imageA", categoryField: "category",
   defaults: { heading: "Here to Know About This Project", factsTitle: "Interesting Facts In Approach", published: true },
   sections: [
@@ -36,7 +36,7 @@ const indiaProjects = {
 };
 
 const australiaProjects = {
-  key: "projects", label: "Project", plural: "Projects", icon: "folder", color: "#B38A45",
+  key: "projects", label: "Project", plural: "Projects", icon: "folder", color: "#E67E22",
   titleField: "title", imageField: "imageA", categoryField: "category",
   defaults: {
     heading: "A boutique home composed as one complete living environment",
@@ -126,7 +126,7 @@ const australiaProjects = {
 };
 
 const indiaServices = {
-  key: "services", label: "Service", plural: "Services", icon: "layers", color: "#6F6252",
+  key: "services", label: "Service", plural: "Services", icon: "layers", color: "#157A3C",
   titleField: "title", imageField: "image", categoryField: null,
   defaults: { strategyHeading: "Our Approach", processHeading: "Service Process", faqHeading: "Frequently Asked Questions", published: true },
   sections: [
@@ -154,7 +154,7 @@ const indiaServices = {
 };
 
 const australiaServices = {
-  key: "services", label: "Service", plural: "Services", icon: "layers", color: "#6F6252",
+  key: "services", label: "Service", plural: "Services", icon: "layers", color: "#157A3C",
   titleField: "title", imageField: "image", categoryField: "category",
   defaults: { strategyHeading: "Our Approach", processHeading: "Design & Build Process", faqHeading: "Frequently Asked Questions", published: true },
   sections: [

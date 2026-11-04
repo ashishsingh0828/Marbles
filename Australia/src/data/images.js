@@ -3,8 +3,10 @@ const I = (name) => `/Image/projects/interior/${name}`;
 export const IMG = {
   logo: "/Image/branding/brand-logo.png",
   faq: "/Image/Faq.jpeg",
-  hero: "/Image/banners/general/banner-wide-05.jpg",
-  heroTwo: "/Image/banners/general/banner-wide-02.jpg",
+  breadcrumbA: "/Image/banner1.jpeg",
+  breadcrumbB: "/Image/banner2.jpeg",
+  hero: "/Image/banner1.jpeg",
+  heroTwo: "/Image/banner2.jpeg",
   heroThree: "/Image/banners/general/banner-wide-04.jpg",
   heroFour: "/Image/banners/hero/hero-banner-06.jpg",
   dining: "/Image/products/slabs/stone-slab-03.jpg",
