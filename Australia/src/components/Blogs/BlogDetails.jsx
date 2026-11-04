@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useApi, siteImage, fmtDate, paras, splitTags } from "../../api";
+import { useApi, siteImage, fmtDate, paras, lines, splitTags } from "../../api";
 import "./BlogDetails.css";
 
 const FALLBACK_BLOG = {
@@ -204,7 +204,7 @@ function BlogDetails() {
     image3: siteImage(data.galleryB, siteImage(data.gallery?.[1], FALLBACK_BLOG.image3)),
     paragraphs: parsedParagraphs,
     quote: data.excerpt || data.quote || FALLBACK_BLOG.quote,
-    conclusion: data.conclusion || data.secondHeading || FALLBACK_BLOG.conclusion,
+    conclusion: data.conclusion || lines(data.approachItems).join(" · ") || data.secondHeading || FALLBACK_BLOG.conclusion,
   } : { ...FALLBACK_BLOG, tags: splitTags(FALLBACK_BLOG.tags) };
 
   const blogList = Array.isArray(allBlogs.data) ? allBlogs.data : [];
