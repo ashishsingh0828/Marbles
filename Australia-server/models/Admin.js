@@ -22,7 +22,7 @@ Admin.ensure = async () => {
   /* No credentials in the environment: fall back to each site's documented login (never lock the admin out). */
   if (!pairs.length) {
     const sites = (process.env.SITES || "india,australia").split(",").map((s) => s.trim());
-    if (sites.includes("australia")) pairs.push(["admin", "ksd@123"]);
+    if (sites.includes("australia")) pairs.push(["admin@ksdhomes.com.au", "India007$"]);
     if (sites.includes("india")) pairs.push(["ie", "iemarbles@123"]);
   }
   for (const [rawEmail, password] of pairs) {
@@ -37,6 +37,12 @@ Admin.ensure = async () => {
       await existing.save();
       console.log(`Admin account ready  →  ${email}`);
     }
+  }
+  /* Drop legacy username-only KSD login after Crazy Domains email is configured */
+  const primary = String(process.env.ADMIN_EMAIL || "").trim().toLowerCase();
+  if (primary.includes("@") && primary !== "admin") {
+    const removed = await Admin.deleteOne({ email: "admin" });
+    if (removed.deletedCount) console.log("Removed legacy admin login → admin");
   }
 };
 

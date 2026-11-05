@@ -1,5 +1,5 @@
 services:
-  # Australia / KSD backend (own API + ksdDB)
+  # KSD backend (own API + ksdDB) — free plan sleeps; wakes on next HTTPS request
   - type: web
     name: ksd-backend-api
     runtime: node
@@ -19,7 +19,6 @@ services:
         value: "false"
       - key: SEED_FORCE
         value: "false"
-      # Same Atlas user/password as India. jfbjbp9 rejected this password (bad auth), so ksdDB lives on the working cluster.
       - key: MONGO_URI
         value: mongodb+srv://ashishsingh0828_db_user:aj88XpPJzbIddp3m@cluster0.i8fmp7m.mongodb.net/ksdDB?retryWrites=true&w=majority&appName=Cluster0
       - key: JWT_SECRET
@@ -27,9 +26,9 @@ services:
       - key: SITES
         value: australia
       - key: ADMIN_EMAIL
-        value: admin
+        value: admin@ksdhomes.com.au
       - key: ADMIN_PASSWORD
-        value: ksd@123
+        value: India007$
       - key: CORS_ORIGINS
         value: "*"
       - key: EMAIL_USER
@@ -37,43 +36,25 @@ services:
       - key: EMAIL_PASS
         value: abcdefghijklmnop
       - key: NOTIFICATION_EMAIL
-        value: ashishsingh0828@gmail.com
+        value: admin@ksdhomes.com.au
+      - key: ADMIN_URL
+        value: https://ksd-australia-site.onrender.com/admin
 
-  # Australia public website
+  # KSD website + admin on same host: / and /admin
   - type: web
     name: ksd-australia-site
     runtime: static
     autoDeployTrigger: commit
     rootDir: .
-    buildCommand: npm install && npm run build
+    buildCommand: npm install && npm run build && npm --prefix admin install && VITE_BASE=/admin/ VITE_USE_MOCK=false VITE_SITE=australia VITE_API_URL=https://ksd-backend-api.onrender.com VITE_AUSTRALIA_URL=https://ksd-australia-site.onrender.com npm --prefix admin run build && rm -rf dist/admin && mkdir -p dist/admin && cp -R admin/dist/. dist/admin/
     staticPublishPath: dist
     routes:
+      - type: rewrite
+        source: /admin/*
+        destination: /admin/index.html
       - type: rewrite
         source: /*
         destination: /index.html
     envVars:
-      # Full HTTPS URL — Render "host" alone can omit .onrender.com and break login
       - key: VITE_API_URL
         value: https://ksd-backend-api.onrender.com
-
-  # Australia admin panel (locked to australia site + KSD backend)
-  - type: web
-    name: ksd-admin-panel
-    runtime: static
-    autoDeployTrigger: commit
-    rootDir: admin
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: VITE_USE_MOCK
-        value: "false"
-      - key: VITE_SITE
-        value: australia
-      - key: VITE_API_URL
-        value: https://ksd-backend-api.onrender.com
-      - key: VITE_AUSTRALIA_URL
-        value: https://ksd-australia-site.onrender.com

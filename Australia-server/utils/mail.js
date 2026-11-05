@@ -6,18 +6,21 @@ const nodemailer = require("nodemailer");
 const PLACEHOLDER = "abcdefghijklmnop";
 
 function transport() {
-  if (process.env.SMTP_HOST) {
-    const port = Number(process.env.SMTP_PORT || 587);
+  const user = process.env.SMTP_USER || process.env.EMAIL_USER;
+  const pass = (process.env.SMTP_PASS || process.env.EMAIL_PASS || "").replace(/\s/g, "");
+  if (process.env.SMTP_HOST && user && pass && pass !== PLACEHOLDER) {
+    const port = Number(process.env.SMTP_PORT || 465);
     return nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port,
       secure: port === 465,
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+      auth: { user, pass },
     });
   }
-  const { EMAIL_USER, EMAIL_PASS } = process.env;
-  if (EMAIL_USER && EMAIL_PASS && EMAIL_PASS !== PLACEHOLDER)
-    return nodemailer.createTransport({ service: "gmail", auth: { user: EMAIL_USER, pass: EMAIL_PASS.replace(/\s/g, "") } });
+  /* Gmail only when the mailbox is a Gmail address + App Password */
+  if (user && pass && pass !== PLACEHOLDER && /@gmail\.com$/i.test(user)) {
+    return nodemailer.createTransport({ service: "gmail", auth: { user, pass } });
+  }
   return null;
 }
 
@@ -40,7 +43,9 @@ async function sendResetMail(to, link) {
 async function sendContactNotice(site, m) {
   const to = process.env.NOTIFICATION_EMAIL || process.env.EMAIL_USER;
   const t = transport();
-  if (!t || !to) return;
+  if (!to) throw new Error("NOTIFICATION_EMAIL is not set");
+  if (!t) throw new Error("Mail transport not configured (set SMTP_HOST + SMTP_USER + SMTP_PASS)");
+
   const rows = [["Website", site], ["Name", m.name], ["Email", m.email], ["Phone", m.phone], ["Company", m.company], ["Address", m.address], ["Subject", m.subject]]
     .filter(([, v]) => v);
   await t.sendMail({
